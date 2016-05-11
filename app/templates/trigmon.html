@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='inspinia/css/plugins/footable/footable.core.css') }}" rel="stylesheet">
+{% endblock %}
+{% block page_content %}
+<div class="wrapper wrapper-content">
+	<div class="ibox float-e-margins">
+		<div class="ibox-content" >
+        <h5>Not developed yet!</h5>
+    </div>
+    </div>
+</div>
+
+	
+
+	
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
+<script>
+function timeConverter(UNIX_timestamp){
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+  return time;
+}
+function updatehtml(header){
+	$.getJSON('/api/hd/'+ header, function(data){
+			$('#hd #nbuf').html(data.hd.nbuf);
+			$('#hd #now').html(timeConverter(data.hd.now));
+			$('#hd #time').html(timeConverter(data.hd.time));
+			$('#hd #us').html(data.hd.us);
+			$('#hd #ns').html(data.hd.ns);
+			$('#hd #evnum').html(data.hd.evnum);
+			$('#hd #priority').html(data.hd.priority);
+			$('#hd #trigtype').html(data.hd.trigtype);
+			$('#hd #trignum').html(data.hd.trignum);
+			$('#hd #trigtime').html(data.hd.trigtime);
+			$('#hd #l3cnt').html(data.hd.l3cnt);
+			$('#hd #pps').html(data.hd.pps);
+			$('#hd #deadtime').html(data.hd.deadtime);
+			$('#hd #turfword').html(data.hd.turfword);
+			$('#hd #calib').html(data.hd.calib);
+		});
+}
+
+$(document).ready(function () {
+	$('.footable').footable();
+
+	var header=[];
+	var i=0;
+	$.getJSON('/api/header', function(data){
+		header=data.header;
+	});
+	console.log(header);
+
+	$('#next').click( function(){
+		if (i<header.length) {
+			i=i+1;
+			updatehtml(header[i]);
+		};
+	});
+	$('#prev').click( function(){
+		if (i>0) {
+			i=i-1;
+			updatehtml(header[i]);
+		};
+	});
+});
+
+            
+                    
+</script>
+{% endblock %}

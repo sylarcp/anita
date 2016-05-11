@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% import "bootstrap/wtf.html" as wtf %}
+
+{% block title %}hd nbuf{% endblock %}
+
+{% block page_content %}
+<div class="page-header">
+	<button id='next' type="button" onclick="alert('Hello world!')">Next event</button>
+	<table style="width:30%">
+	  <tr>
+	    <td>nbuf</td>
+	    <td id='nbuf'>{{hds[1].nbuf}}</td> 
+	  </tr>
+	  <tr>
+	    <td>time</td>
+	    <td id='time'>{{hds[1].time}}</td> 
+	  </tr>
+	  <tr>
+	    <td>us</td>
+	    <td id='us'>{{hds[1].us}}</td> 
+	  </tr>
+	  <tr>
+	    <td>ns</td>
+	    <td id='ns'>{{hds[1].ns}}</td> 
+	  </tr>
+	  <tr>
+	    <td>evnum</td>
+	    <td id='evnum'>{{hds[1].evnum}}</td> 
+	  </tr>
+	  <tr>
+	    <td>priority</td>
+	    <td id='priority'>{{hds[1].priority}}</td> 
+	  </tr>
+	  <tr>
+	    <td>deadtime</td>
+	    <td id='deadtime'>{{hds[1].deadtime}}</td> 
+	  </tr>
+	</table>
+    
+</div>
+{% endblock %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<script type="text/javascript">
+var i=1
+$('#next').click(){
+	i=i+1
+	$('#nbuf').html({{hds[1].nbuf}});
+}
+</script>
