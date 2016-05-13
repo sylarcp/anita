@@ -6,90 +6,273 @@
 {% block page_content %}
 <div class="wrapper wrapper-content">
         	
-        <div class="row">
-        	<button id='next' class="btn btn-primary"  type="button">Next event</button>
-        	<button id='prev' class="btn btn-primary"  type="button">Prev event</button>
-            <div class="col-lg-3">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>hd</h5>
-                        <div class="ibox-tools">
-	                        <a class="collapse-link">
-	                            <i class="fa fa-chevron-up"></i>
-	                        </a>
-                    	</div>
-                    </div>
-                    <div class="ibox-content" >
-                        <table data-sort="false" class="footable" data-page-size="20" id='hd' style="width:100%">
+    <div class="row">
+    	<button id='next' class="btn btn-primary"  type="button">Next event</button>
+    	<button id='prev' class="btn btn-primary"  type="button">Prev event</button>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>hd</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                	</div>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" data-page-size="20" id='hd' style="width:100%">
 
-					  		<tbody>
-					  			<tr>
-								    <td data-hide="xs">nbuf</td>
-								    <td id='nbuf'></td> 
-								</tr>
-								<tr>
-									<td>now</td>
-									<td id='now'></td> 
-								</tr>
-								<tr>
-									<td>time</td>
-									<td id='time'></td> 
-								</tr>
-								<tr>
-									<td>us</td>
-									<td id='us'></td> 
-								</tr>
-								<tr>
-									<td>ns</td>
-									<td id='ns'></td> 
-								</tr>
-								<tr>
-									<td>evnum</td>
-									<td id='evnum'></td> 
-								</tr>
-								<tr>
-									<td>priority</td>
-									<td id='priority'></td> 
-								</tr>
-								<tr>
-									<td>trigtype</td>
-									<td id='trigtype'></td> 
-								</tr>
-								<tr>
-									<td>trignum</td>
-									<td id='trignum'></td> 
-								</tr>
-								<tr>
-									<td>trigtime</td>
-									<td id='trigtime'></td> 
-								</tr>
-								<tr>
-									<td>l3cnt</td>
-									<td id='l3cnt'></td> 
-								</tr>
-								<tr>
-									<td>pps</td>
-									<td id='pps'></td> 
-								</tr>
-								<tr>
-									<td>deadtime</td>
-									<td id='deadtime'></td> 
-								</tr>
-								<tr>
-									<td>turfword</td>
-									<td id='turfword'></td> 
-								</tr>
-								<tr>
-									<td>calib</td>
-									<td id='calib'></td> 
-								</tr>
-					  		</tbody>
-						  
-						</table>
-                    </div>
+				  		<tbody>
+				  			<tr>
+							    <td data-hide="xs">nbuf</td>
+							    <td id='nbuf'></td> 
+							</tr>
+							<tr>
+								<td>now</td>
+								<td id='now'></td> 
+							</tr>
+							<tr>
+								<td>time</td>
+								<td id='time'></td> 
+							</tr>
+							<tr>
+								<td>us</td>
+								<td id='us'></td> 
+							</tr>
+							<tr>
+								<td>ns</td>
+								<td id='ns'></td> 
+							</tr>
+							<tr>
+								<td>evnum</td>
+								<td id='evnum'></td> 
+							</tr>
+							<tr>
+								<td>priority</td>
+								<td id='priority'></td> 
+							</tr>
+							<tr>
+								<td>trigtype</td>
+								<td id='trigtype'></td> 
+							</tr>
+							<tr>
+								<td>trignum</td>
+								<td id='trignum'></td> 
+							</tr>
+							<tr>
+								<td>trigtime</td>
+								<td id='trigtime'></td> 
+							</tr>
+							<tr>
+								<td>l3cnt</td>
+								<td id='l3cnt'></td> 
+							</tr>
+							<tr>
+								<td>pps</td>
+								<td id='pps'></td> 
+							</tr>
+							<tr>
+								<td>deadtime</td>
+								<td id='deadtime'></td> 
+							</tr>
+							<tr>
+								<td>turfword</td>
+								<td id='turfword'></td> 
+							</tr>
+							<tr>
+								<td>calib</td>
+								<td id='calib'></td> 
+							</tr>
+				  		</tbody>
+					  
+					</table>
                 </div>
             </div>
         </div>
+        <div class="col-lg-12">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>waveform</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                	</div>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" id='wv' style="width:100%">
+
+				  		<tbody>
+				  			<th>
+								<td>turf 1</td>
+								<td>turf 2</td>
+								<td>turf 3</td>
+								<td>turf 4</td>
+								<td>turf 5</td>
+								<td>turf 6</td>
+								<td>turf 7</td>
+								<td>turf 8</td>
+							</th>		
+				  			<tr>
+								<td>surf 1</td>
+								<td id='wv_0_0'></td>
+								<td id='wv_0_1'></td>
+								<td id='wv_0_2'></td>
+								<td id='wv_0_3'></td>
+								<td id='wv_0_4'></td>
+								<td id='wv_0_5'></td>
+								<td id='wv_0_6'></td>
+								<td id='wv_0_7'></td>
+								<td id='wv_0_8'></td>
+							</tr>
+							<tr>
+								<td>surf 2</td>
+								<td id='wv_1_0'></td>
+								<td id='wv_1_1'></td>
+								<td id='wv_1_2'></td>
+								<td id='wv_1_3'></td>
+								<td id='wv_1_4'></td>
+								<td id='wv_1_5'></td>
+								<td id='wv_1_6'></td>
+								<td id='wv_1_7'></td>
+								<td id='wv_1_8'></td>
+
+							</tr>
+							<tr>
+								<td>surf 3</td>
+								<td id='wv_2_0'></td>
+								<td id='wv_2_1'></td>
+								<td id='wv_2_2'></td>
+								<td id='wv_2_3'></td>
+								<td id='wv_2_4'></td>
+								<td id='wv_2_5'></td>
+								<td id='wv_2_6'></td>
+								<td id='wv_2_7'></td>
+								<td id='wv_2_8'></td>
+
+							</tr>
+							<tr>
+								<td>surf 4</td>
+								<td id='wv_3_0'></td>
+								<td id='wv_3_1'></td>
+								<td id='wv_3_2'></td>
+								<td id='wv_3_3'></td>
+								<td id='wv_3_4'></td>
+								<td id='wv_3_5'></td>
+								<td id='wv_3_6'></td>
+								<td id='wv_3_7'></td>
+								<td id='wv_3_8'></td>
+
+							</tr>
+							<tr>
+								<td>surf 5</td>
+								<td id='wv_4_0'></td>
+								<td id='wv_4_1'></td>
+								<td id='wv_4_2'></td>
+								<td id='wv_4_3'></td>
+								<td id='wv_4_4'></td>
+								<td id='wv_4_5'></td>
+								<td id='wv_4_6'></td>
+								<td id='wv_4_7'></td>
+								<td id='wv_4_8'></td>
+
+							</tr>
+							<tr>
+								<td>surf 6</td>
+								<td id='wv_5_0'></td>
+								<td id='wv_5_1'></td>
+								<td id='wv_5_2'></td>
+								<td id='wv_5_3'></td>
+								<td id='wv_5_4'></td>
+								<td id='wv_5_5'></td>
+								<td id='wv_5_6'></td>
+								<td id='wv_5_7'></td>
+								<td id='wv_5_8'></td>
+
+							</tr>
+							<tr>
+								<td>surf 7</td>
+								<td id='wv_6_0'></td>
+								<td id='wv_6_1'></td>
+								<td id='wv_6_2'></td>
+								<td id='wv_6_3'></td>
+								<td id='wv_6_4'></td>
+								<td id='wv_6_5'></td>
+								<td id='wv_6_6'></td>
+								<td id='wv_6_7'></td>
+								<td id='wv_6_8'></td>
+
+							</tr>
+							<tr>
+								<td>surf 8</td>
+								<td id='wv_7_0'></td>
+								<td id='wv_7_1'></td>
+								<td id='wv_7_2'></td>
+								<td id='wv_7_3'></td>
+								<td id='wv_7_4'></td>
+								<td id='wv_7_5'></td>
+								<td id='wv_7_6'></td>
+								<td id='wv_7_7'></td>
+								<td id='wv_7_8'></td>
+
+							</tr>
+							<tr>
+								<td>surf 9</td>
+								<td id='wv_8_0'></td>
+								<td id='wv_8_1'></td>
+								<td id='wv_8_2'></td>
+								<td id='wv_8_3'></td>
+								<td id='wv_8_4'></td>
+								<td id='wv_8_5'></td>
+								<td id='wv_8_6'></td>
+								<td id='wv_8_7'></td>
+								<td id='wv_8_8'></td>
+
+							</tr>
+							<tr>
+								<td>surf 10</td>
+								<td id='wv_9_0'></td>
+								<td id='wv_9_1'></td>
+								<td id='wv_9_2'></td>
+								<td id='wv_9_3'></td>
+								<td id='wv_9_4'></td>
+								<td id='wv_9_5'></td>
+								<td id='wv_9_6'></td>
+								<td id='wv_9_7'></td>
+								<td id='wv_9_8'></td>
+
+							</tr>
+							<tr>
+								<td>surf 11</td>
+								<td id='wv_10_0'></td>
+								<td id='wv_10_1'></td>
+								<td id='wv_10_2'></td>
+								<td id='wv_10_3'></td>
+								<td id='wv_10_4'></td>
+								<td id='wv_10_5'></td>
+								<td id='wv_10_6'></td>
+								<td id='wv_10_7'></td>
+								<td id='wv_10_8'></td>		
+							</tr>
+							<tr>
+								<td>surf 12</td>
+								<td id='wv_11_0'></td>
+								<td id='wv_11_1'></td>
+								<td id='wv_11_2'></td>
+								<td id='wv_11_3'></td>
+								<td id='wv_11_4'></td>
+								<td id='wv_11_5'></td>
+								<td id='wv_11_6'></td>
+								<td id='wv_11_7'></td>
+								<td id='wv_11_8'></td>		
+							</tr>
+				  		</tbody>
+					  
+					</table>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 	
@@ -99,6 +282,8 @@
 {% block scripts %}
 {{ super() }}
 <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
+<script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+
 <script>
 function timeConverter(UNIX_timestamp){
   var a = new Date(UNIX_timestamp * 1000);
@@ -114,22 +299,63 @@ function timeConverter(UNIX_timestamp){
 }
 function updatehtml(hd){
 	$.getJSON('/api/hd/'+ hd, function(data){
-			$('#hd #nbuf').html(data.hd.nbuf);
-			$('#hd #now').html(timeConverter(data.hd.now));
-			$('#hd #time').html(timeConverter(data.hd.time));
-			$('#hd #us').html(data.hd.us);
-			$('#hd #ns').html(data.hd.ns);
-			$('#hd #evnum').html(data.hd.evnum);
-			$('#hd #priority').html(data.hd.priority);
-			$('#hd #trigtype').html(data.hd.trigtype);
-			$('#hd #trignum').html(data.hd.trignum);
-			$('#hd #trigtime').html(data.hd.trigtime);
-			$('#hd #l3cnt').html(data.hd.l3cnt);
-			$('#hd #pps').html(data.hd.pps);
-			$('#hd #deadtime').html(data.hd.deadtime);
-			$('#hd #turfword').html(data.hd.turfword);
-			$('#hd #calib').html(data.hd.calib);
+
+		$.getJSON('/api/wv/'+ data.hd.evnum, function(data){
+			var wv_name;
+			for (var turf = 0; turf < 9; turf++) { 
+				for (var surf = 0; surf < 12; surf++) { 
+			    	wv_name='#wv_'+ turf +'_'+ surf ;
+			    	var id = surf + 9*turf;
+			    	var waveform=data[id.toString()];
+			    	if (waveform != undefined) {
+			    		console.log(waveform.cal);
+			    		$(wv_name).attr('values', waveform['cal']).sparkline('html', {
+						    type: 'line',
+						    // colorMap: rfpower_range_map,
+						    // chartRangeMin:-100,
+						    // chartRangeMax:100,
+						    width: '110',
+						    height: '40 ',
+						    lineWidth: 0.5
+						});
+			    	};
+			    }
+		   		
+			}
+
 		});
+		$('#hd #nbuf').html(data.hd.nbuf);
+		$('#hd #now').html(timeConverter(data.hd.now));
+		$('#hd #time').html(timeConverter(data.hd.time));
+		$('#hd #us').html(data.hd.us);
+		$('#hd #ns').html(data.hd.ns);
+		$('#hd #evnum').html(data.hd.evnum);
+		$('#hd #priority').html(data.hd.priority);
+		$('#hd #trigtype').html(data.hd.trigtype);
+		$('#hd #trignum').html(data.hd.trignum);
+		$('#hd #trigtime').html(data.hd.trigtime);
+		$('#hd #l3cnt').html(data.hd.l3cnt);
+		$('#hd #pps').html(data.hd.pps);
+		$('#hd #deadtime').html(data.hd.deadtime);
+		$('#hd #turfword').html(data.hd.turfword);
+		$('#hd #calib').html(data.hd.calib);
+	});
+
+	// $.getJSON('/api/wv/'+ hd, function(data){
+	// 	var wv_name;
+	// 	for (i = 0; i < 40; i++) { 
+	//     	wv_name='#wv_'+ i ;
+	//     	console.log(data['1'].cal);
+	//    		// update_wv_data($(wv_name), data.1);
+	//   //  		$(wv_name).attr('values', data.1.cal).sparkline('html', {
+	// 		//     type: 'bar',
+	// 		//     // colorMap: rfpower_range_map,
+	// 		//     chartRangeMin:0,
+	// 		//     chartRangeMax:500
+	// 		// });
+	// 	}
+
+	// });
 }
 
 $(document).ready(function () {
