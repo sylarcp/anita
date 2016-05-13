@@ -13,7 +13,7 @@ migrate = Migrate(app, db)
 def make_shell_context():
     # return dict(app=app, db=db, User=User, Role=Role)
     return dict(app=app, db=db,Hd=Hd,Wv=Wv,Slow=Slow)
-manager.add_command("runserver", Server(host='128.4.208.121'))
+manager.add_command("runserver", Server(host='128.175.112.125'))
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 
