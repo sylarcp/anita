@@ -23,10 +23,13 @@ if permission denied, use following sudo to override.
 check 127.0.0.1:5000 in your web browser
 
 For git push origin to work:
-get the ~/.ssh/id_dsa (private key) and put it into ~/.ssh/id_dsa
-ssh-add -D
-ssh-add ~/.ssh/id_dsa
-ssh-add -l
-vi .git/config
-change origin's https:// to ssh://
+#get the ~/.ssh/id_dsa (private key) and put it into ~/.ssh/id_dsa
+//remove exsiting ssh private key
+#ssh-add -D 
+// add ssh private key
+#ssh-add ~/.ssh/id_dsa 
+//display ssh private key in use
+#ssh-add -l  
+#vi .git/config
+#change origin's https:// to ssh://
 
