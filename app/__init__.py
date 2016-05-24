@@ -3,6 +3,7 @@ from flask.ext.bootstrap import Bootstrap
 from flask.ext.moment import Moment
 from config import config
 from flask.ext.sqlalchemy import SQLAlchemy
+from flask.ext.login import LoginManager
 
 app = Flask(__name__)
 # app.config.from_object(config[config_name])
@@ -11,6 +12,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'postgresql://gui:AniTa08@128.175.112.12
 db = SQLAlchemy(app)
 bootstrap = Bootstrap(app)
 moment = Moment(app)
+login_manager = LoginManager(app)
 
 from .main import main as main_blueprint
 app.register_blueprint(main_blueprint)

@@ -26,8 +26,35 @@
                 <li><a href="{{ url_for('main.index') }}">Anita Viewer</a></li>
                 <li><a href="{{ url_for('main.trigmon') }}">Trigger Monitor</a></li>
                 <li><a href="{{ url_for('main.slowmo') }}">Slow Monitor</a></li>
+                {% if current_user.is_authenticated %}
+                <li><a href="{{ url_for('main.index') }}">Sign Out</a></li> 
+                {% else %}
+                <li><a href="{{ url_for('main.index') }}">Sign In</a></li> 
+                {% endif %}
+                <li>
+                    <select class="form-control m-b" name="conferences" style="width:150px">
+                        <option value="anita_0116d" selected>128.175.112.125</option>
+                        <option value="antia_0117a">128.175.112.58</option>
+                        <option value="antia_0117b">128.175.112.80</option>
+                       
+                    </select>
+                </li>
+                <li>
+                    --
+                </li>
+                    
+                <li>
+                    <select class="form-control m-b" name="conferences" style="width:150px">
+                        <option value="anita_0116d" selected>anita_0116d</option>
+                        <option value="antia_0117a">anita_0117a</option>
+                        <option value="antia_0117b">anita_0117b</option>
+                        <option value="antia_0117c">anita_0117c</option>
+                        <option value="antia_0117d">anita_0117d</option>
+                    </select>
+                </li>
             </ul>
         </div>
+       
     </div>
 </div>
 {% endblock %}
