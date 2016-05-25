@@ -1,11 +1,14 @@
 from sqlalchemy.orm import relationship
-from app import db
+from app.database import Base
+# from app import db
 from sqlalchemy import Table, Integer, Column, PrimaryKeyConstraint
-db.Model.metadata.reflect(db.engine)
+# Base.metadata.reflect(db.engine)
+# Base.metadata.bind=engine
 
-class Hd(db.Model):
-    # __table__ = db.Model.metadata.tables['hd']
-    __table__ = Table('hd', db.Model.metadata)
+class Hd(Base):
+    # __table__ = Base.metadata.tables['hd']
+    # __table__ = Table('hd', Base.metadata)
+    __tablename__ = 'hd'
     __table_args__ = {'autoload':True}
     def to_json(self):
         json_comment = {'nbuf': self.nbuf,
@@ -38,9 +41,10 @@ class Hd(db.Model):
                         }
         return json_comment
         
-class Wv(db.Model):
-    __table__ = Table('wv', db.Model.metadata, PrimaryKeyConstraint("evnum", "id"),extend_existing=True)
-    __table_args__ = {'autoload':True}
+class Wv(Base):
+    # __table__ = Table('wv', Base.metadata, PrimaryKeyConstraint("evnum", "id"),extend_existing=True)
+    __tablename__ = 'wv'
+    __table_args__ = ( PrimaryKeyConstraint("evnum","id"), {'autoload':True})
     def to_json(self):
         json_comment = {
                         'nbuf': self.nbuf, 
@@ -59,11 +63,11 @@ class Wv(db.Model):
                         }
         return json_comment
 
-class Slow(db.Model):
-    # __table__ = db.Model.metadata.tables['slow']
-    __table__ = Table('slow', db.Model.metadata, Column('time', Integer, primary_key=True), extend_existing=True)
-    
-    __table_args__ = {'autoload':True}
+class Slow(Base):
+    # __table__ = Table('slow', Base.metadata, Column('time', Integer, primary_key=True), extend_existing=True)
+    __tablename__ = 'slow'
+    __table_args__ = (Column('time', Integer, primary_key=True), {'autoload':True})
+    # time = Column(Integer, primary_key=True)
     def to_json(self):
         json_comment = {
                         #'nbuf': self.nbuf,  #nbuf is all 0s. useless

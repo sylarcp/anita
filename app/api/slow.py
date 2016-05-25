@@ -18,5 +18,5 @@ def get_slow_count():
 #get a tuple of slow table
 @api.route('/slow/<time>')
 def get_slow(time):
-    slow = Slow.query.get_or_404(time)
+    slow = Slow.query.get(time)
     return jsonify({'slow': slow.to_json()})

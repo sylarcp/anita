@@ -20,6 +20,6 @@ def get_hd_count():
 #get a tuple of Hd table
 @api.route('/hd/<nbuf>')
 def get_hd(nbuf):
-    hd = Hd.query.get_or_404(nbuf)
+    hd = Hd.query.get(nbuf)
     return jsonify({'hd': hd.to_json()})
 
