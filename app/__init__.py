@@ -5,11 +5,16 @@ from config import config
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from app.database import init_db
+# from flask.ext.login import AnonymousUserMixin
 
+
+app = Flask(__name__)
+app.secret_key = "super secret key"
 
 def create_app():
+	#I remove sqlAlchemy object db. Instead we have init_db() give us tables class for use.
 	init_db()
-	app = Flask(__name__)
+	# app = Flask(__name__)
 
 	bootstrap = Bootstrap(app)
 	moment = Moment(app)

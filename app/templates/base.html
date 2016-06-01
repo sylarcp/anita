@@ -26,16 +26,16 @@
                 <li><a href="{{ url_for('main.index') }}">Anita Viewer</a></li>
                 <li><a href="{{ url_for('main.trigmon') }}">Trigger Monitor</a></li>
                 <li><a href="{{ url_for('main.slowmo') }}">Slow Monitor</a></li>
-                {% if current_user.is_authenticated %}
+               <!--  {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('main.index') }}">Sign Out</a></li> 
                 {% else %}
-                <li><a href="{{ url_for('main.index') }}">Sign In</a></li> 
+                <li><a href="{{ url_for('main.index') }}">Sign In</a></li>  -->
                 {% endif %}
                 <li>
-                    <select class="form-control m-b" name="conferences" style="width:150px">
-                        <option value="anita_0116d" selected>128.175.112.125</option>
-                        <option value="antia_0117a">128.175.112.58</option>
-                        <option value="antia_0117b">128.175.112.80</option>
+                    <select id="ip" class="form-control m-b select_class" style="width:150px">
+                        <option value="128_175_112_125" selected>128.175.112.125</option>
+                        <option value="128_175_112_58">128.175.112.58</option>
+                        <option value="128_175_112_80">128.175.112.80</option>
                        
                     </select>
                 </li>
@@ -43,10 +43,10 @@
                     --
                 </li>
                 <li>
-                    <select class="form-control m-b" name="conferences" style="width:150px">
+                    <select id="db" class="form-control m-b select_class" style="width:150px">
                         <option value="anita_0116d" selected>anita_0116d</option>
-                        <option value="antia_0117a">anita_0117a</option>
-                        <option value="antia_0117b">anita_0117b</option>
+                        <option value="anita_0105d">anita_0105d</option>
+                        <option value="anita_0106d">anita_0106d</option>
                         <option value="antia_0117c">anita_0117c</option>
                         <option value="antia_0117d">anita_0117d</option>
                     </select>
@@ -79,4 +79,25 @@
     <script src="{{ url_for('static', filename='inspinia/js/inspinia.js') }}"></script>
     <script src="{{ url_for('static', filename='inspinia/js/plugins/pace/pace.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/jquery.metismenu/2.5.0/metisMenu.min.js"></script>
+    <script>
+        var ip='128_175_112_125'
+        var db='anita_0116d'
+        // On changing the ip in the <select>, we want
+        $('#ip').change(function() {
+            ip= $(this).val();
+            console.log($(this).val());
+            // refresh the page
+            // window.location.reload();
+        });
+        $('#db').change(function() {
+            ip=$('#ip option:selected').val();
+            db= $(this).val();
+            console.log(db);
+
+            
+            $.get("/api/session/"+ ip +"/"+db);
+            // refresh the page
+            // window.location.reload();
+        });
+        </script>
 {% endblock %}
