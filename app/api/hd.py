@@ -6,21 +6,21 @@ from app.models import Hd
 
 # Primary key list: get the hd nbuf list
 
-@api.route('/hd/nbufs')
-def get_hd_nbufs():
+@api.route('/<ip_db>/hd/nbufs')
+def get_hd_nbufs(ip_db):
     # print session['ip']
     # print session['db']
     # print session['ip_db']
-    hds =getattr(Hd,session['ip_db']).limit(1000).all()
+    hds =getattr(Hd,ip_db).limit(1000).all()
     return jsonify({'hd': [item.nbuf for item in hds]})
     # return jsonify({'hd': [item.nbuf&mask for item in hds]})
 
 # get the length of hd nbuf list
 
 
-@api.route('/hd/count')
-def get_hd_count():
-    count =getattr(Hd,session['ip_db']).count()
+@api.route('/<ip_db>/hd/count')
+def get_hd_count(ip_db):
+    count =getattr(Hd,ip_db).count()
     # could not return long type, so use str()
     return str(count)
     # return jsonify({'hd': [item.nbuf&mask for item in hds]})
@@ -28,11 +28,9 @@ def get_hd_count():
 # get a tuple of Hd table
 
 
-@api.route('/hd/<nbuf>')
-def get_hd(nbuf):
-    print '!!!!!!!!!!!!!!!!!!!!!!!!!'
-    print session['ip']
-    print session['db']
-    hd =getattr(Hd,session['ip_db']).get(nbuf)
+@api.route('/<ip_db>/hd/<nbuf>')
+def get_hd(ip_db, nbuf):
+
+    hd =getattr(Hd,ip_db).get(nbuf)
     return jsonify({'hd': hd.to_json()})
 

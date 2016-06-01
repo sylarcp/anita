@@ -452,7 +452,7 @@ function update_rfpower_data($selector, new_data){
 }
 
 function updatehtml(slow_times){
-	$.getJSON('/api/slow/'+ slow_times, function(data){
+	$.getJSON('/api/'+ ip_db + '/slow/' + slow_times, function(data){
 			$('#slow #time').html(timeConverter(data.slow.time));
 			$('#slow #evnum').html(data.slow.evnum);
 			$('#slow #latitude').html(data.slow.latitude);
@@ -484,8 +484,14 @@ $(document).ready(function () {
 
 	var slow_times=[];
 	var i=0;
-	$.getJSON('/api/slow/times', function(data){
+	$.getJSON('/api/' + ip_db + '/slow/times', function(data){
 		slow_times=data.slow_times;
+	});
+
+	$('#connect').click(function(event) {
+		$.getJSON('/api/' + ip_db + '/slow/times', function(data){
+			slow_times=data.slow_times;
+		});
 	});
 
 	$('#next').click( function(){

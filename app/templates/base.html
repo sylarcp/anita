@@ -13,6 +13,12 @@
 <link href="{{ url_for('static', filename='inspinia/css/animate.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/style.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.metismenu/2.5.0/metisMenu.min.css">
+
+ <style>
+        button, select{
+            margin: 7px 0px;
+        }
+    </style>
 {% endblock %}
 
 {% block navbar %}
@@ -29,8 +35,8 @@
                <!--  {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('main.index') }}">Sign Out</a></li> 
                 {% else %}
-                <li><a href="{{ url_for('main.index') }}">Sign In</a></li>  -->
-                {% endif %}
+                <li><a href="{{ url_for('main.index') }}">Sign In</a></li>  
+                {% endif %}-->
                 <li>
                     <select id="ip" class="form-control m-b select_class" style="width:150px">
                         <option value="128_175_112_125" selected>128.175.112.125</option>
@@ -50,6 +56,12 @@
                         <option value="antia_0117c">anita_0117c</option>
                         <option value="antia_0117d">anita_0117d</option>
                     </select>
+                </li>
+                <li>
+                    --
+                </li>
+                <li>
+                    <button type="button" id="connect" class="btn btn-primary dim" >Connect</button>
                 </li>
             </ul>
         </div>
@@ -80,22 +92,23 @@
     <script src="{{ url_for('static', filename='inspinia/js/plugins/pace/pace.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/jquery.metismenu/2.5.0/metisMenu.min.js"></script>
     <script>
-        var ip='128_175_112_125'
-        var db='anita_0116d'
+        var ip=$('#ip option:selected').val();
+        var db=$('#db option:selected').val();
+        var ip_db= "query_"+ ip + "_" + db;
+        
         // On changing the ip in the <select>, we want
         $('#ip').change(function() {
             ip= $(this).val();
             console.log($(this).val());
-            // refresh the page
+            ip_db= "query_"+ ip + "_" + db;
+
             // window.location.reload();
         });
         $('#db').change(function() {
-            ip=$('#ip option:selected').val();
             db= $(this).val();
             console.log(db);
-
-            
-            $.get("/api/session/"+ ip +"/"+db);
+            ip_db= "query_"+ ip + "_" + db;
+            // $.get("/api/session/"+ ip +"/"+db);
             // refresh the page
             // window.location.reload();
         });

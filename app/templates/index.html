@@ -298,9 +298,9 @@ function timeConverter(UNIX_timestamp){
   return time;
 }
 function updatehtml(hd){
-	$.getJSON('/api/hd/'+ hd, function(data){
+	$.getJSON('/api/' + ip_db + '/hd/'+ hd, function(data){
 
-		$.getJSON('/api/wv/'+ data.hd.evnum, function(data){
+		$.getJSON('/api/' + ip_db + '/wv/'+ data.hd.evnum, function(data){
 			var wv_name;
 			for (var turf = 0; turf < 9; turf++) { 
 				for (var surf = 0; surf < 12; surf++) { 
@@ -363,10 +363,15 @@ $(document).ready(function () {
 
 	var hd=[];
 	var i=0;
-	$.getJSON('/api/hd/nbufs', function(data){
+	$.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
 		hd=data.hd;
 	});
 	console.log(hd);
+	$('#connect').click(function(event) {
+		$.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
+			hd=data.hd;
+		});
+	});
 
 	$('#next').click( function(){
 		if (i<hd.length) {

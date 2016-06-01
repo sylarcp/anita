@@ -3,20 +3,20 @@ from . import api
 from app.models import Slow
 
 #Primary key list:  get the slow time list
-@api.route('/slow/times')
-def get_slow_times():
-    slows = getattr(Slow,session['ip_db']).limit(1000).all()
+@api.route('/<ip_db>/slow/times')
+def get_slow_times(ip_db):
+    slows = getattr(Slow,ip_db).limit(1000).all()
     return jsonify({'slow_times': [item.time for item in slows]})
 
 #get the length of slow time list
-@api.route('/slow/count')
-def get_slow_count():
-    count = getattr(Slow,session['ip_db']).count()
+@api.route('/<ip_db>/slow/count')
+def get_slow_count(ip_db):
+    count = getattr(Slow,ip_db).count()
     # could not return long type, so use str()
     return str(count)
 
 #get a tuple of slow table
-@api.route('/slow/<time>')
-def get_slow(time):
-    slow = getattr(Slow,session['ip_db']).get(time)
+@api.route('/<ip_db>/slow/<time>')
+def get_slow(ip_db, time):
+    slow = getattr(Slow,ip_db).get(time)
     return jsonify({'slow': slow.to_json()})
