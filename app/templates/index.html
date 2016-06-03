@@ -369,10 +369,8 @@ $(document).ready(function () {
 	console.log(hd);
 	$('#connect').click(function(event) {
 		$.ajax({
-            url: '/api/connect/2323/34342'
+            url: '/api/connect/'+ ip + '/' + db
         }).done(function() {
-            console.log('success');
-            
             $.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
 				hd=data.hd;
 			});

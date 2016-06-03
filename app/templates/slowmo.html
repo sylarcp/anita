@@ -534,10 +534,22 @@ $(document).ready(function () {
 	});
 
 	$('#connect').click(function(event) {
-		$.getJSON('/api/' + ip_db + '/slow/times', function(data){
-			slow_times=data.slow_times;
-		});
+		$.ajax({
+            url: '/api/connect/'+ ip + '/' + db
+        }).done(function() {
+            $.getJSON('/api/' + ip_db + '/slow/times', function(data){
+				slow_times=data.slow_times;
+			});
+        });
+		
 	});
+	// $('#connect').click(function(event) {
+
+	// 	$.getJSON('/api/' + ip_db + '/slow/times', function(data){
+	// 		slow_times=data.slow_times;
+	// 	});
+	// });
+	
 
 	$('#next').click( function(){
 		if (i<slow_times.length) {
