@@ -12,9 +12,7 @@ db_session2 = scoped_session(sessionmaker(autocommit=False,autoflush=False,bind=
 db_session3 = scoped_session(sessionmaker(autocommit=False,autoflush=False,bind=engine3))
 db_session4 = scoped_session(sessionmaker(autocommit=False,autoflush=False,bind=engine4))
 Base = declarative_base()
-# Base.querys=[]
-# Base.querys.append(db_session.query_property())
-# Base.querys.append(db_session2.query_property())
+
 Base.query_128_175_112_125_anita_0116d = db_session0.query_property()
 Base.query_128_175_112_80_anita_0105d = db_session1.query_property()
 Base.query_128_175_112_80_anita_0106d = db_session2.query_property()
