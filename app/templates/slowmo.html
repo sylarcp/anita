@@ -214,7 +214,7 @@
         <div class="col-lg-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>slow</h5>
+                    <h5>Extra Info</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -222,36 +222,57 @@
                 	</div>
                 </div>
                 <div class="ibox-content" >
-                    <table data-sort="false" class="footable" data-page-size="20" id='slow' style="width:100%">
+                    <table data-sort="false" class="footable" data-page-size="20" id='extra_info' style="width:100%">
 
-				  		<tbody>		
+				  		<tbody>
+				  		<th>
+								<td>Data</td>
+							</th>		
 				  			
 							<tr>
-								<td>time</td>
-								<td id='length'></td> 
+								<td width="100px">Ev rate [Hz] 1 min</td>
+								<td id='ev_rate_0_0'></td>
 							</tr>
 							<tr>
-								<td>evnum</td>
-								<td id='matt'></td> 
+								<td>Ev rate [Hz] 10 min</td>
+								<td id='ev_rate_1_0'></td>
+							</tr>	
+							<tr>
+								<td width="100px">PV (V)</td>
+								<td id='ppvv'></td>
 							</tr>
 							<tr>
-								<td>latitude</td>
-								<td id='victor'></td> 
+								<td width="100px">24 V</td>
+								<td id='p24v'></td>
 							</tr>
 							<tr>
-								<td>longitude</td>
-								<td id='peng'></td> 
+								<td width="100px">PV I</td>
+								<td id='bati'></td>
 							</tr>
 							<tr>
-								<td>altitude</td>
-								<td id='physics'></td> 
+								<td width="100px">24 I</td>
+								<td id='p24i'></td>
+							</tr>	
+							<tr>
+								<td width="100px">sbs [C]</td>
+								<td id='temp_0'></td>
 							</tr>
-
+							<tr>
+								<td width="100px">surf [C]</td>
+								<td id='temp_1'></td>
+							</tr>
+							<tr>
+								<td width="100px">turf [C]</td>
+								<td id='temp_2'></td>
+							</tr>
+							<tr>
+								<td width="100px">rad [C]</td>
+								<td id='temp_3'></td>
+							</tr>						
 				  		</tbody>
 					  
 					</table>
                 </div>
-                
             </div>
         </div>
 
@@ -454,6 +475,32 @@ var avgscaler_range_map = $.range_map({
         '6:7.5:': 'red',
         '4:5:': 'red'
 })
+var rate_range_map = $.range_map({
+        '30:60': 'green',
+        '20:30:': 'yelow',
+        '60:70:': 'yellow'
+})
+var ppvv_range_map = $.range_map({
+        '47:61': 'green'      
+})
+
+var p24v_range_map = $.range_map({
+        '23.6:30.6': 'green'      
+})
+
+var bati_range_map = $.range_map({
+        '7:11': 'green'      
+})
+
+var p24i_range_map = $.range_map({
+        '13.4:19': 'green'      
+})
+
+var temperature_range_map = $.range_map({
+        '-50:0': 'blue',
+        '0:50:': 'green',
+        '50:70:': 'yellow'
+})
 
 function update_avgscaler_data($selector, new_data){
 	var array_string=$selector.attr('values');
@@ -473,6 +520,153 @@ function update_avgscaler_data($selector, new_data){
 	    colorMap: avgscaler_range_map,
 	    chartRangeMin:0,
 	    chartRangeMax:8
+	});
+}
+
+function update_rate1_data($selector, new_data){
+	var array_string=$selector.attr('values');
+	if (array_string){
+		if ((array_string.match(/,/g) || []).length > 6){
+			array_string=array_string.substr(array_string.indexOf(",") + 1);
+		}
+		array_string=array_string+','+new_data;
+	} else{
+		array_string=new_data;
+	}
+
+	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+	$selector.attr('values', array_string).sparkline('html', {
+	    type: 'bar',
+	    // zeroAxis: false,
+	    colorMap: rate_range_map,
+	    chartRangeMin:0,
+	    chartRangeMax:100
+	});
+}
+
+function update_rate10_data($selector, new_data){
+	var array_string=$selector.attr('values');
+	if (array_string){
+		if ((array_string.match(/,/g) || []).length > 6){
+			array_string=array_string.substr(array_string.indexOf(",") + 1);
+		}
+		array_string=array_string+','+new_data;
+	} else{
+		array_string=new_data;
+	}
+
+	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+	$selector.attr('values', array_string).sparkline('html', {
+	    type: 'bar',
+	    // zeroAxis: false,
+	    colorMap: rate_range_map,
+	    chartRangeMin:0,
+	    chartRangeMax:100
+	});
+}
+
+function update_ppvv_data($selector, new_data){
+	var array_string=$selector.attr('values');
+	if (array_string){
+		if ((array_string.match(/,/g) || []).length > 6){
+			array_string=array_string.substr(array_string.indexOf(",") + 1);
+		}
+		array_string=array_string+','+new_data;
+	} else{
+		array_string=new_data;
+	}
+
+	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+	$selector.attr('values', array_string).sparkline('html', {
+	    type: 'bar',
+	    // zeroAxis: false,
+	    colorMap: ppvv_range_map,
+	    chartRangeMin:0,
+	    chartRangeMax:75
+	});
+}
+
+function update_p24v_data($selector, new_data){
+	var array_string=$selector.attr('values');
+	if (array_string){
+		if ((array_string.match(/,/g) || []).length > 6){
+			array_string=array_string.substr(array_string.indexOf(",") + 1);
+		}
+		array_string=array_string+','+new_data;
+	} else{
+		array_string=new_data;
+	}
+
+	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+	$selector.attr('values', array_string).sparkline('html', {
+	    type: 'bar',
+	    // zeroAxis: false,
+	    colorMap: p24v_range_map,
+	    chartRangeMin:0,
+	    chartRangeMax:75
+	});
+}
+
+function update_bati_data($selector, new_data){
+	var array_string=$selector.attr('values');
+	if (array_string){
+		if ((array_string.match(/,/g) || []).length > 6){
+			array_string=array_string.substr(array_string.indexOf(",") + 1);
+		}
+		array_string=array_string+','+new_data;
+	} else{
+		array_string=new_data;
+	}
+
+	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+	$selector.attr('values', array_string).sparkline('html', {
+	    type: 'bar',
+	    // zeroAxis: false,
+	    colorMap: bati_range_map,
+	    chartRangeMin:0,
+	    chartRangeMax:30
+	});
+}
+
+function update_p24i_data($selector, new_data){
+	var array_string=$selector.attr('values');
+	if (array_string){
+		if ((array_string.match(/,/g) || []).length > 6){
+			array_string=array_string.substr(array_string.indexOf(",") + 1);
+		}
+		array_string=array_string+','+new_data;
+	} else{
+		array_string=new_data;
+	}
+
+	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+	$selector.attr('values', array_string).sparkline('html', {
+	    type: 'bar',
+	    // zeroAxis: false,
+	    colorMap: p24i_range_map,
+	    chartRangeMin:0,
+	    chartRangeMax:30
+	});
+}
+
+function update_temp_data($selector, new_data){
+	var array_string=$selector.attr('values');
+	if (array_string){
+		if ((array_string.match(/,/g) || []).length > 6){
+			array_string=array_string.substr(array_string.indexOf(",") + 1);
+		}
+		array_string=array_string+','+new_data;
+	} else{
+		array_string=new_data;
+	}
+
+	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+	$selector.attr('values', array_string).sparkline('html', {
+	    type: 'bar',
+	    // zeroAxis: false,
+	    colorMap: temperature_range_map,
+	    chartRangeMin:-80,
+	    chartRangeMax:80
 	});
 }
 
@@ -503,6 +697,7 @@ function updatehtml(slow_times){
 			$('#slow #latitude').html(data.slow.latitude);
 			$('#slow #longitude').html(data.slow.longitude);
 			$('#slow #altitude').html(data.slow.altitude);
+
 			
 			var rfpower_name;
 			for (i = 0; i < 8; i++) { 
@@ -520,7 +715,37 @@ function updatehtml(slow_times){
 				}
 			}
 
-				
+			var rate1_name;
+				rate1_name = '#ev_rate_0_0';
+				update_rate1_data($(rate1_name), parseInt(data.slow.rate1));
+
+			var rate10_name;
+				rate10_name = '#ev_rate_1_0';
+				update_rate10_data($(rate10_name), parseInt(data.slow.rate10));
+			
+
+			var ppvv_name;
+				ppvv_name = '#ppvv';
+				update_ppvv_data($(ppvv_name), parseInt(data.slow.ppvv));
+
+			var p24v_name;
+				p24v_name = '#p24v';
+				update_p24v_data($(p24v_name), parseInt(data.slow.p24v));
+			
+			var bati_name;
+				bati_name = '#bati';
+				update_bati_data($(bati_name), parseInt(data.slow.bati));
+
+			var p24i_name;
+				p24i_name = '#p24i';
+				update_p24i_data($(p24i_name), parseInt(data.slow.p24i));
+			
+
+			var temp_name;
+			for (i = 0; i < 4; i++) {
+				temp_name = '#temp_' + i;
+				update_temp_data($(temp_name), parseInt(data.slow.temp[i]));
+			}	
 		});
 }
 
