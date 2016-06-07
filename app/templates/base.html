@@ -24,28 +24,30 @@
 {% block navbar %}
 <div class="navbar navbar-inverse" role="navigation">
     <div class="container">
-        <div class="navbar-header">
+        <!-- <div class="navbar-header"> -->
+            
             <a class="navbar-brand" href="{{ url_for('main.index') }}">ANITA IV</a>
-        </div>
-        <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
+       <!--  </div>
+        <div class="navbar"> -->
+            <ul class="nav navbar-nav ">
                 <li><a href="{{ url_for('main.index') }}">Anita Viewer</a></li>
                 <li><a href="{{ url_for('main.trigmon') }}">Trigger Monitor</a></li>
                 <li><a href="{{ url_for('main.slowmo') }}">Slow Monitor</a></li>
+            </ul>
                <!--  {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('main.index') }}">Sign Out</a></li> 
                 {% else %}
                 <li><a href="{{ url_for('main.index') }}">Sign In</a></li>  
                 {% endif %}-->
+            <ul class="nav navbar-nav">
+
                 <li>
                     <select id="ip" class="form-control m-b select_class" style="width:150px">
                         <option value="128_175_112_125" selected>128.175.112.125</option>
                         <option value="128_175_112_58">128.175.112.58</option>
                         <option value="128_175_112_80">128.175.112.80</option>
-                       
                     </select>
                 </li>
-               
                 <li>
                     <select id="db" class="form-control m-b select_class" style="width:150px">
                         <option value="anita_0116d" selected>anita_0116d</option>
@@ -55,12 +57,18 @@
                         <option value="anita_0108d">anita_0108d</option>
                     </select>
                 </li>
-               
                 <li>
-                    <button type="button" id="connect" class="btn btn-primary dim" >Connect</button>
+                     <button type="button" id="connect" class="btn btn-primary dim">Connect</button>
                 </li>
             </ul>
-        </div>
+            <ul class="nav navbar-nav pull-right">
+                <li>
+                   
+                    <button type="button" id='next' class="btn btn-primary dim">Next</button>
+                    <button type="button" id='prev' class="btn btn-primary dim">Prev</button>
+                </li>
+            </ul>
+        <!-- </div> -->
        
     </div>
 </div>
