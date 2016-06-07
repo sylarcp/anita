@@ -368,9 +368,14 @@ $(document).ready(function () {
 	});
 	console.log(hd);
 	$('#connect').click(function(event) {
-		$.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
-			hd=data.hd;
-		});
+		$.ajax({
+            url: '/api/connect/'+ ip + '/' + db
+        }).done(function() {
+            $.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
+				hd=data.hd;
+			});
+        });
+		
 	});
 
 	$('#next').click( function(){
