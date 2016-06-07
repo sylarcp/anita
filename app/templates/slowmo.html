@@ -5,11 +5,15 @@
 {% endblock %}
 {% block page_content %}
 <div class="wrapper wrapper-content">
-        	
+
+
     <div class="row">
-    	
+    	<div class="col-lg-12">
+    		<button id='next' class="btn btn-primary dim" style="float: right; margin-right:100px;" type="button">Next event</button>
+    		<button id='prev' class="btn btn-primary dim" style="float: right" type="button">Prev event</button>
+    	</div>
         
-        <div class="col-lg-7">
+        <div class="col-lg-8">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>rfpower</h5>
@@ -211,73 +215,7 @@
             </div>
         </div>
 
-        <div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Extra Info</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                	</div>
-                </div>
-                <div class="ibox-content" >
-                    <table data-sort="false" class="footable" data-page-size="20" id='extra_info' style="width:100%">
-
-				  		<tbody>
-				  		<th>
-								<td>Data</td>
-							</th>		
-				  			
-							<tr>
-								<td width="100px">Ev rate [Hz] 1 min</td>
-								<td id='ev_rate_0_0'></td>
-							</tr>
-							<tr>
-								<td>Ev rate [Hz] 10 min</td>
-								<td id='ev_rate_1_0'></td>
-							</tr>	
-							<tr>
-								<td width="100px">PV (V)</td>
-								<td id='ppvv'></td>
-							</tr>
-							<tr>
-								<td width="100px">24 V</td>
-								<td id='p24v'></td>
-							</tr>
-							<tr>
-								<td width="100px">PV I</td>
-								<td id='bati'></td>
-							</tr>
-							<tr>
-								<td width="100px">24 I</td>
-								<td id='p24i'></td>
-							</tr>	
-							<tr>
-								<td width="100px">sbs [C]</td>
-								<td id='temp_0'></td>
-							</tr>
-							<tr>
-								<td width="100px">surf [C]</td>
-								<td id='temp_1'></td>
-							</tr>
-							<tr>
-								<td width="100px">turf [C]</td>
-								<td id='temp_2'></td>
-							</tr>
-							<tr>
-								<td width="100px">rad [C]</td>
-								<td id='temp_3'></td>
-							</tr>						
-				  		</tbody>
-					  
-					</table>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="col-lg-7">
+        <div class="col-lg-8">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>avgscaler</h5>
@@ -437,14 +375,72 @@
             </div>
         </div>
 
+        
 
-    </div>
-    <button id='next' class="btn btn-primary dim"  type="button">Next event</button>
-    <button id='prev' class="btn btn-primary dim"  type="button">Prev event</button>
-</div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Extra Info</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                	</div>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" data-page-size="20" id='extra_info' style="width:100%">
 
-	
-
+				  		<tbody>
+				  		<th>
+								<td>Data</td>
+							</th>		
+				  			
+							<tr>
+								<td width="100px">Ev rate [Hz] 1 min</td>
+								<td id='ev_rate_0_0'></td>
+							</tr>
+							<tr>
+								<td>Ev rate [Hz] 10 min</td>
+								<td id='ev_rate_1_0'></td>
+							</tr>	
+							<tr>
+								<td width="100px">PV (V)</td>
+								<td id='ppvv'></td>
+							</tr>
+							<tr>
+								<td width="100px">24 V</td>
+								<td id='p24v'></td>
+							</tr>
+							<tr>
+								<td width="100px">PV I</td>
+								<td id='bati'></td>
+							</tr>
+							<tr>
+								<td width="100px">24 I</td>
+								<td id='p24i'></td>
+							</tr>	
+							<tr>
+								<td width="100px">sbs [C]</td>
+								<td id='temp_0'></td>
+							</tr>
+							<tr>
+								<td width="100px">surf [C]</td>
+								<td id='temp_1'></td>
+							</tr>
+							<tr>
+								<td width="100px">turf [C]</td>
+								<td id='temp_2'></td>
+							</tr>
+							<tr>
+								<td width="100px">rad [C]</td>
+								<td id='temp_3'></td>
+							</tr>						
+				  		</tbody>
+					  
+					</table>
+                </div>
+            </div>
+        </div>
 	
 {% endblock %}
 {% block scripts %}
