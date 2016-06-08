@@ -752,12 +752,15 @@ $(document).ready(function () {
 	});
 
 	$('#connect').click(function(event) {
+		// $(this).html('connecting..');
 		$.ajax({
             url: '/api/connect/'+ ip + '/' + db
         }).done(function() {
             $.getJSON('/api/' + ip_db + '/slow/times', function(data){
 				slow_times=data.slow_times;
 			});
+			// $(this).html('Connected');
+
         });
 		
 	});
