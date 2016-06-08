@@ -6,8 +6,6 @@ from sqlalchemy import Table, Integer, Column, PrimaryKeyConstraint
 # Base.metadata.bind=engine
 
 class Hd(Base):
-    # __table__ = Base.metadata.tables['hd']
-    # __table__ = Table('hd', Base.metadata)
     __tablename__ = 'hd'
     __table_args__ = {'autoload':True}
     def to_json(self):
