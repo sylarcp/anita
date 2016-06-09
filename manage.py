@@ -3,7 +3,8 @@ import os
 # from app import create_app, db
 # from app import app, db
 from app import create_app
-from app.models import Hd, Wv, Slow
+from app.models import Hd, Wv, Slow, SShk, Hk_surf, Turf, Mon, Adu5_pat, Adu5_vtg, Adu5_sat,\
+G12_pos, G12_sat, Cmd, Wakeup, File
 from flask.ext.script import Manager, Shell, Server
 from flask.ext.migrate import Migrate, MigrateCommand
 
@@ -12,7 +13,9 @@ manager = Manager(app)
 # migrate = Migrate(app, db)
 
 def make_shell_context():
-    return dict(app=app,Hd=Hd,Wv=Wv,Slow=Slow)
+    return dict(app=app,Hd=Hd,Wv=Wv,Slow=Slow,SShk=SShk,Hk_surf=Hk_surf,Turf=Turf,Mon=Mon,\
+    	Adu5_pat=Adu5_pat,Adu5_vtg=Adu5_vtg, Adu5_sat=Adu5_sat,G12_pos=G12_pos,G12_sat=G12_sat,\
+    	Cmd=Cmd,Wakeup=Wakeup,File=File)
 # manager.add_command("runserver", Server(host='128.175.112.125'))
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
