@@ -92,3 +92,261 @@ class Slow(Base):
                         'avgrfpow': self.avgrfpow
                         }
         return json_comment
+
+class Sshk(Base):
+	__tabelname__ = 'sshk'
+	__table_args__ = {'autoload':True}
+	def to_json(self):
+		json_comment = {
+						'nbuf': self.nbuf,
+						'crc': self.crc,
+						'time': self.time,
+						'us': self.us,
+						'now': self.now,
+						'code': self.code,
+						'cal': self.cal,
+						'avz': self.avz,
+						'bdl': self.bdl,
+						'calb1': self.calb1,
+						'ssx': self.ssx,
+						'ssy': self.ssy,
+						'ssi': self.ssi,
+						'ssflag': self.ssflag,
+						'ssel': self.ssel,
+						'ssaz': self.ssaz,
+						'sst': self.sst
+			}
+		return json_comment
+
+class Hk_surf(Base):
+	__tabelname__ = 'hk_surf'
+	__table_args__ = {'autoload':True}
+	def to_json(self):
+		json_comment = {
+						'nbuf': self.nbuf,
+						'crc': self.crc,
+						'now': self.now,
+						'time': slef.time,
+						'us': self.us,
+						'global': self.global,
+						'error': self.error,
+						'scalergoals': self.scalergoals,
+						#'nadirgoals': self.nadirgoals,
+						'upper': self.upper,
+						'scaler': self.scaler,
+						'thresh': self.thresh,
+						'thershset': self.threshset,
+						'rfpow': self.rfpow,
+						'l1scaler': self.l1scaler,
+						'surfask': self.surfmask
+			}
+		return json_comment
+
+class Turf(Base):
+	__tabelname__ = 'turf'
+	__table_args__ = {'autoload':True}
+	def to_json(self):
+		json_comment = {
+						'nbuf': self.nbuf,
+						'crc': self.crc,
+						'now': self.now,
+						'time': self.time,
+						'deadtime': self.deadtime,
+						'l1trigmask': self.l1trigmask,
+						'l1trigmaskh': self.l1trigmaskh
+						'phitrigmask': self.phitrigmask,
+						'phitrigmaskh': self.phitrigmaskh,
+						'l1': self.l1,
+						'l1h': self.l1h,
+						'l3': self.l3,
+						'l3h': self.l3h
+			}
+		return json_comment
+
+class Mon(Base):
+	__tabelname__ = 'mon'
+	__table_args__ = {'autoload':True}
+	def to_json(self):
+		json_comment = {
+						'nbuf': self.nbuf,
+						'crc': self.crc,
+						'now': self.now,
+						'time': self.time,
+						'disk': self.disk,
+						'blade': self.blade,
+						'usbint': self.usbint,
+						'usbext': self.usbext,
+						'linkev': self.linkev,
+						'linkcmdlos': self.linkcmdlos,
+						'linkcmdsip': self.linkcmdsip,
+						'linkgps': self.linkgps,
+						'linkhk': self.linkhk,
+						'linkmon': self.linkmon,
+						'linkhd': self.linkhd,
+						'linksurf': self.linksurf,
+						'linkturf': self.linkturf,
+						'linkped': self.linkped
+			}
+		return json_comment
+
+class Adu5_pat(Base):
+	__tabelname__ = 'adu5_pat'
+	__table_args__ = {'autoload':True}
+	def to_json(self):
+		json_comment = {
+						'gpstype': self.gpstype,
+						'nbuf': self.nbuf,
+						'crc': self.crc,
+						'now': self.now,
+						'code': self.code,
+						'time': self.time,
+						'us': self.us,
+						'tod': self.tod,
+						'heading': self.heading,
+						'pitch': self.pitch,
+						'roll': self.roll,
+						'mrms': self.mrms,
+						'brms': self.brms,
+						'flag': self.flag,
+						'latitude': self.latitude,
+						'longitude': self.longitude,
+						'altitude': self.altitude
+			}
+		return json_comment
+class Adu5_vtg(Base):
+	__tabelname__ = 'adu5_vtg'
+	__table_args__ = {'autoload':True}
+	def to_json(self):
+		json_comment = {
+						'gpstype': self.gpstype,
+						'nbuf': self.nbuf,
+						'crc': self.crc,
+						'now': self.now,
+						'code': self.code,
+						'time': self.time,
+						'us': self.us,
+						'course': self.course,
+						'mcourse': self.mcourse,
+						'vkt': self.vkt,
+						'vkph': self.vkph
+			}
+		return json_comment
+
+class Adu5_sat(Base):
+	__tabelname__ = 'adu5_sat'
+	__table_args__ = {'autoload':True}
+	def to_json(self):
+		json_comment = {
+						'gpstype': self.gpstype,
+						'nbuf': self.nbuf,
+						'crc': self.crc,
+						'now': self.now,
+						'code': self.code,
+						'time': self.time,
+						'numsats': self.numsats,
+						'prn': self.prn,
+						'elevation': self.elevation,
+						'snr': self.snr,
+						'flag': self.flag,
+						'azimuth': self.azimuth
+			}
+		return json_comment
+
+class G12_pos(Base):
+	__tabelname__ = 'g12_pos'
+	__table_args__ = {'autoload':True}
+	def to_json(self):
+		json_comment = {
+						'nbuf': self.nbuf,
+						'crc': self.crc,
+						'now': self.now,
+						'time': self.time,
+						'us': self.us,
+						'tod': self.tod,
+						'numsats': self.numsats,
+						'latitude': self.latitude,
+						'longitude': self.longitude,
+						'altitude': self.altitude,
+						'course': self.cource,
+						'upv': self.upv,
+						'vkt': self.vkt,
+						'pdop': self.pdop,
+						'hdop': self.hdop,
+						'vdop': self.vdop,
+						'tdop': self.tdop,
+						'unit': self.unit
+			}
+		return json_comment
+
+class G12_sat(Base):
+    # __table__ = Table('wv', Base.metadata, PrimaryKeyConstraint("evnum", "id"),extend_existing=True)
+    __tablename__ = 'g12_sat'
+    __table_args__ = {'autoload':True}
+    def to_json(self):
+        json_comment = {
+                        'nbuf': self.nbuf, 
+                        'crc': self.crc,
+                        'now': self.now,
+                        'time': self.time,
+                        'numsats': self.numsats,
+                        'prn': self.prn,
+                        'elevation': self.elevation,
+                        'snr': self.snr,
+                        'flag': self.flag,
+                        'azimuth': self.azimuth
+                        
+                        }
+        return json_comment
+
+class Cmd(Base):
+    # __table__ = Table('wv', Base.metadata, PrimaryKeyConstraint("evnum", "id"),extend_existing=True)
+    __tablename__ = 'cmd'
+    __table_args__ = {'autoload':True}
+    def to_json(self):
+        json_comment = {
+                        'nbuf': self.nbuf, 
+                        'crc': self.crc,
+                        'now': self.now,
+                        'time': self.time,
+                        'flag': self.flag,
+                        'bytes': self.bytes,
+                        'cmd': self.cmd
+                        
+                        }
+        return json_comment
+
+
+class Wakeup(Base):
+    # __table__ = Table('wv', Base.metadata, PrimaryKeyConstraint("evnum", "id"),extend_existing=True)
+    __tablename__ = 'wakeup'
+    __table_args__ = {'autoload':True}
+    def to_json(self):
+        json_comment = {
+                        'nbuf': self.nbuf, 
+                        'crc': self.crc,
+                        'now': self.now,
+                        'type': self.type
+                        
+                        }
+        return json_comment
+
+
+
+class File(Base):
+    # __table__ = Table('wv', Base.metadata, PrimaryKeyConstraint("evnum", "id"),extend_existing=True)
+    __tablename__ = 'file'
+    __table_args__ = {'autoload':True}
+    def to_json(self):
+        json_comment = {
+                        'nbuf': self.nbuf, 
+                        'crc': self.crc,
+                        'now': self.now,
+                        'time': self.time,
+                        'filename': self.filename,
+                        'length': self.length,
+                        'content': self.content,
+                        'hbwrap': self.hbwrap,
+                        'hbstart': self.hbstart
+                        
+                        }
+        return json_comment
