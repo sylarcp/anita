@@ -8,10 +8,11 @@ from app.models import Hd
 
 @api.route('/<ip_db>/hd/nbufs')
 def get_hd_nbufs(ip_db):
+    print 'connected'
     # print session['ip']
     # print session['db']
     # print session['ip_db']
-    hds =getattr(Hd,ip_db).limit(1000).all()
+    hds =getattr(Hd,ip_db).limit(200).all()
     return jsonify({'hd': [item.nbuf for item in hds]})
     # return jsonify({'hd': [item.nbuf&mask for item in hds]})
 
