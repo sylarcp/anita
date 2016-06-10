@@ -6,8 +6,10 @@ from sqlalchemy import Table, Integer, Column, PrimaryKeyConstraint
 # Base.metadata.bind=engine
 
 class Hd(Base):
-    __tablename__ = 'hd'
-    __table_args__ = {'autoload':True}
+    __tablename__ = 'rf'
+    __table_args__ = (Column('nbuf', Integer, primary_key=True), {'autoload':True})
+    # __tablename__ = 'hd'
+    # __table_args__ = {'autoload':True}
     def to_json(self):
         json_comment = {'nbuf': self.nbuf,
                         'crc': self.crc,
