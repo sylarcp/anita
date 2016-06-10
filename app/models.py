@@ -41,6 +41,76 @@ class Hd(Base):
                         }
         return json_comment
         
+class Hk(Base):
+    __tablename__ = 'hk'
+    __table_args__ = {'autoload':True}
+    def to_json(self):
+        json_comment = {'nbuf': self.nbuf,
+                        'crc': self.crc,
+                        'now': self.now,
+                        'time': self.time,
+                        'us': self.us,
+                        'code': self.code,
+                        'cal': self.cal,
+                        'avz': self.avz,
+                        'bd1': self.bd1,
+                        'bd2': self.bd2,
+                        'bd3': self.bd3,
+                        'calb1': self.calb1,
+                        'calb2': self.calb2,
+                        'calb3': self.calb3,
+                        'accx': self.accx,
+                        'accy': self.accy,
+                        'accz': self.accz,
+                        'acct': self.acct,
+                        'ssx': self.ssx,
+                        'ssy': self.ssy,
+                        'ssi': self.ssi,
+                        'ssflag': self.ssflag,
+                        'ssel': self.ssel,
+                        'ssaz': self.ssaz,
+                        'sst': self.sst,
+                        'pressh': self.pressh,
+                        'pressl': self.pressl,
+                        'p1_5v': self.p1_5v,
+                        'p3_3v': self.p3_3v,
+                        'p5v': self.p5v,
+                        'p5sbv': self.p5sbv,
+                        'p12v': self.p12v,
+                        'p24v': self.p24v,
+                        'ppvv': self.ppvv,
+                        'n5v': self.n5v,
+                        'n12v': self.n12v,
+                        'iprf1v': self.iprf1v,
+                        'iprf2v': self.iprf2v,
+                        'p1_5i': self.p1_5i,
+                        'p3_3i': self.p3_3i,
+                        'p5i': self.p5i,
+                        'p5sbi': self.p5sbi,
+                        'p12i': self.p12i,
+                        'p24i': self.p24i,
+                        'ppvi': self.ppvi,
+                        'n5i': self.n5i,
+                        'n12i': self.n12i,
+                        'iprf1i': self.iprf1i,
+                        'iprf2i': self.iprf2i,
+                        'bati': self.bati,
+                        'p5vip': self.p5vip,
+                        'it': self.it,
+                        'et': self.et,
+                        'sbst1': self.sbst1,
+                        'sbst2': self.sbst2,
+                        'core1': self.core1,
+                        'core2': self.core2,
+                        'sbst5': self.sbst5,
+                        'sbst6': self.sbst6,
+                        'magx': self.magx,
+                        'magy': self.magy,
+                        'magz': self.magz
+
+                        }
+        return json_comment
+
 class Wv(Base):
     # __table__ = Table('wv', Base.metadata, PrimaryKeyConstraint("evnum", "id"),extend_existing=True)
     __tablename__ = 'wv'
