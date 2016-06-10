@@ -1,8 +1,7 @@
 from flask import jsonify, request, g, abort, url_for, current_app, session
+from flask.ext.login import LoginManager, current_user
 from . import api
 from app.models import Hk
-
-# Primary key list: get the hk nbuf list
 
 # Primary key list: get the hk nbuf list
 
