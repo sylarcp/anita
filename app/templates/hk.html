@@ -1,0 +1,176 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='inspinia/css/plugins/footable/footable.core.css') }}" rel="stylesheet">
+{% endblock %}
+{% block page_content %}
+<div class="wrapper wrapper-content">
+        	
+    <div class="row">
+    	<!-- <button id='next' class="btn btn-primary"  type="button">Next event</button>
+    	<button id='prev' class="btn btn-primary"  type="button">Prev event</button> -->
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>hd</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                	</div>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" data-page-size="20" id='hd' style="width:100%">
+
+				  		<tbody>
+				  			<tr>
+							    <td data-hide="xs">nbuf</td>
+							    <td id='nbuf'></td> 
+							</tr>
+							<tr>
+								<td>now</td>
+								<td id='now'></td> 
+							</tr>
+							<tr>
+								<td>time</td>
+								<td id='time'></td> 
+							</tr>
+							<tr>
+								<td>us</td>
+								<td id='us'></td> 
+							</tr>
+							<tr>
+								<td>ns</td>
+								<td id='ns'></td> 
+							</tr>
+							<tr>
+								<td>evnum</td>
+								<td id='evnum'></td> 
+							</tr>
+							<tr>
+								<td>priority</td>
+								<td id='priority'></td> 
+							</tr>
+							<tr>
+								<td>trigtype</td>
+								<td id='trigtype'></td> 
+							</tr>
+							<tr>
+								<td>trignum</td>
+								<td id='trignum'></td> 
+							</tr>
+							<tr>
+								<td>trigtime</td>
+								<td id='trigtime'></td> 
+							</tr>
+							<tr>
+								<td>l3cnt</td>
+								<td id='l3cnt'></td> 
+							</tr>
+							<tr>
+								<td>pps</td>
+								<td id='pps'></td> 
+							</tr>
+							<tr>
+								<td>deadtime</td>
+								<td id='deadtime'></td> 
+							</tr>
+							<tr>
+								<td>turfword</td>
+								<td id='turfword'></td> 
+							</tr>
+							<tr>
+								<td>calib</td>
+								<td id='calib'></td> 
+							</tr>
+				  		</tbody>
+					  
+					</table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+	
+
+	
+{% endblock %}
+{% block scripts %}
+{{ super() }}
+<script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
+<script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+
+<script>
+function timeConverter(UNIX_timestamp){
+  var a = new Date(UNIX_timestamp * 1000);
+  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var year = a.getFullYear();
+  var month = months[a.getMonth()];
+  var date = a.getDate();
+  var hour = a.getHours();
+  var min = a.getMinutes();
+  var sec = a.getSeconds();
+  var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+  return time;
+}
+function updatehtml(hd){
+	$.getJSON('/api/' + ip_db + '/hd/'+ hd, function(data){
+		$('#hd #nbuf').html(data.hd.nbuf);
+		$('#hd #now').html(timeConverter(data.hd.now));
+		$('#hd #time').html(timeConverter(data.hd.time));
+		$('#hd #us').html(data.hd.us);
+		$('#hd #ns').html(data.hd.ns);
+		$('#hd #evnum').html(data.hd.evnum);
+		$('#hd #priority').html(data.hd.priority);
+		$('#hd #trigtype').html(data.hd.trigtype);
+		$('#hd #trignum').html(data.hd.trignum);
+		$('#hd #trigtime').html(data.hd.trigtime);
+		$('#hd #l3cnt').html(data.hd.l3cnt);
+		$('#hd #pps').html(data.hd.pps);
+		$('#hd #deadtime').html(data.hd.deadtime);
+		$('#hd #turfword').html(data.hd.turfword);
+		$('#hd #calib').html(data.hd.calib);
+	});
+
+	
+}
+
+$(document).ready(function () {
+	$('.footable').footable();
+
+	var hd=[];
+	var i=0;
+	$.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
+		hd=data.hd;
+	});
+	console.log(hd);
+	$('#connect').click(function(event) {
+		$.ajax({
+            url: '/api/connect/'+ ip + '/' + db
+        }).done(function() {
+            $.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
+				hd=data.hd;
+			});
+        });
+		
+	});
+
+	$('#next').click( function(){
+		if (i<hd.length) {
+			i=i+1;
+			updatehtml(hd[i]);
+		};
+	});
+	$('#prev').click( function(){
+		if (i>0) {
+			i=i-1;
+			updatehtml(hd[i]);
+		};
+	});
+});
+
+            
+                    
+</script>
+{% endblock %}
