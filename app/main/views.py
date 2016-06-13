@@ -14,3 +14,6 @@ def trigmon():
 @main.route('/slowmo', methods=['GET'])
 def slowmo():
     return render_template('slowmo.html')
+@main.route('/hk', methods=['GET'])
+def hk():
+    return render_template('hk.html')
