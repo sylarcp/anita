@@ -5,96 +5,545 @@
 {% endblock %}
 {% block page_content %}
 <div class="wrapper wrapper-content">
-        	
+            
     <div class="row">
-    	<!-- <button id='next' class="btn btn-primary"  type="button">Next event</button>
-    	<button id='prev' class="btn btn-primary"  type="button">Prev event</button> -->
-        <div class="col-lg-3">
+        <!-- <button id='next' class="btn btn-primary"  type="button">Next event</button>
+        <button id='prev' class="btn btn-primary"  type="button">Prev event</button> -->
+        <div class="col-lg-12">
+	            <div class="ibox float-e-margins">
+	                <div class="ibox-title">
+	                    <h5>Query Entries</h5>
+	                    <div class="ibox-tools">
+	                        <a class="collapse-link">
+	                            <i class="fa fa-chevron-up"></i>
+	                        </a>
+	                	</div>
+	                </div>
+	                <div class="ibox-content" >
+	                    <table data-sort="false" class="footable" data-page-size="20" id='query_entries' style="width:100%">
+
+					  		<tbody>
+					  			<th>
+									<td>p0</td>
+									<td>p1</td>
+									<td>p2</td>
+									<td>p3</td>
+									<td>p4</td>
+									<td>p5</td>
+									<td>p6</td>
+									<td>p7</td>
+									<td>p8</td>
+									<td>p9</td>									
+								</th>
+
+									<tr>
+									<td>P's</td>
+									<td id='p_0_0'></td>
+									<td id='p_0_1'></td>
+									<td id='p_0_2'></td>
+									<td id='p_0_3'></td>
+									<td id='p_0_4'></td>
+									<td id='p_0_5'></td>
+									<td id='p_0_6'></td>
+									<td id='p_0_7'></td>
+									<td id='p_0_8'></td>
+									<td id='p_0_9'></td>
+								</tr>
+
+								<th>
+									<td>cmdL</td>
+									<td>cmd5</td>
+									<td>hd</td>
+									<td>gps</td>
+									<td>hk</td>
+									<td>mon</td>
+									<td>surf</td>
+									<td>turf</td>
+									<td>ped</td>									
+								</th>
+
+								<tr>
+									<td>Other</td>
+									<td id='o_0_0'></td>
+									<td id='o_0_1'></td>
+									<td id='o_0_2'></td>
+									<td id='o_0_3'></td>
+									<td id='o_0_4'></td>
+									<td id='o_0_5'></td>
+									<td id='o_0_6'></td>
+									<td id='o_0_7'></td>
+									<td id='o_0_8'></td>
+								</tr>
+							</tbody>                      
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-12">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>hd</h5>
+                    <h5>Temperature [deg C]</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
-                	</div>
+                    </div>
                 </div>
                 <div class="ibox-content" >
-                    <table data-sort="false" class="footable" data-page-size="20" id='hd' style="width:100%">
+                    <table data-sort="false" class="footable" data-page-size="56" id='current' style="width:100%">
 
-				  		<tbody>
-				  			<tr>
-							    <td data-hide="xs">nbuf</td>
-							    <td id='nbuf'></td> 
-							</tr>
-							<tr>
-								<td>now</td>
-								<td id='now'></td> 
-							</tr>
-							<tr>
-								<td>time</td>
-								<td id='time'></td> 
-							</tr>
-							<tr>
-								<td>us</td>
-								<td id='us'></td> 
-							</tr>
-							<tr>
-								<td>ns</td>
-								<td id='ns'></td> 
-							</tr>
-							<tr>
-								<td>evnum</td>
-								<td id='evnum'></td> 
-							</tr>
-							<tr>
-								<td>priority</td>
-								<td id='priority'></td> 
-							</tr>
-							<tr>
-								<td>trigtype</td>
-								<td id='trigtype'></td> 
-							</tr>
-							<tr>
-								<td>trignum</td>
-								<td id='trignum'></td> 
-							</tr>
-							<tr>
-								<td>trigtime</td>
-								<td id='trigtime'></td> 
-							</tr>
-							<tr>
-								<td>l3cnt</td>
-								<td id='l3cnt'></td> 
-							</tr>
-							<tr>
-								<td>pps</td>
-								<td id='pps'></td> 
-							</tr>
-							<tr>
-								<td>deadtime</td>
-								<td id='deadtime'></td> 
-							</tr>
-							<tr>
-								<td>turfword</td>
-								<td id='turfword'></td> 
-							</tr>
-							<tr>
-								<td>calib</td>
-								<td id='calib'></td> 
-							</tr>
-				  		</tbody>
-					  
-					</table>
+                          <tbody>
+                              
+
+								<tr>
+									<td></td>
+									<td id='it_1'></td>
+									<td id='it_2'></td>
+									<td id='it_3'></td>
+									<td id='it_4'></td>
+									<td id='it_5'></td>
+									<td id='it_6'></td>
+									<td id='it_7'></td>
+									<td id='it_8'></td>
+									<td id='it_9'></td>
+									<td id='it_10'></td>
+								</tr>
+
+								<th>
+									<td>It 1</td>
+									<td>It 2</td>
+									<td>It 3</td>
+									<td>It 4</td>
+									<td>It 5</td>
+									<td>It 6</td>
+									<td>It 7</td>
+									<td>It 8</td>
+									<td>It 9</td>
+									<td>It 10</td>									
+								</th>
+
+								<tr>
+									<td></td>
+									<td id='it_11'></td>
+									<td id='it_12'></td>
+									<td id='it_13'></td>
+									<td id='it_14'></td>
+									<td id='it_15'></td>
+									<td id='it_16'></td>
+									<td id='it_17'></td>
+									<td id='it_18'></td>
+									<td id='it_19'></td>
+									<td id='it_20'></td>
+								</tr>
+
+								<th>
+									<td>It 11</td>
+									<td>It 12</td>
+									<td>It 13</td>
+									<td>It 14</td>
+									<td>It 15</td>
+									<td>It 16</td>
+									<td>It 17</td>
+									<td>It 18</td>
+									<td>It 19</td>
+									<td>It 20</td>									
+								</th>
+
+								<tr>
+									<td></td>
+									<td id='it_21'></td>
+									<td id='it_22'></td>
+									<td id='it_23'></td>
+									<td id='it_24'></td>
+									<td id='it_25'></td>
+									<td id='et_1'></td>
+									<td id='et_2'></td>
+									<td id='et_3'></td>
+									<td id='et_4'></td>
+									<td id='et_5'></td>
+								</tr>
+
+								<th>
+									<td>It 21</td>
+									<td>It 22</td>
+									<td>It 23</td>
+									<td>It 24</td>
+									<td>It 25</td>
+									<td>Et 1</td>
+									<td>Et 2</td>
+									<td>Et 3</td>
+									<td>Et 4</td>
+									<td>Et 5</td>									
+								</th>
+
+								<tr>
+									<td></td>
+									<td id='et_6'></td>
+									<td id='et_7'></td>
+									<td id='et_8'></td>
+									<td id='et_9'></td>
+									<td id='et_10'></td>
+									<td id='et_11'></td>
+									<td id='et_12'></td>
+									<td id='et_13'></td>
+									<td id='et_14'></td>
+									<td id='et_15'></td>
+								</tr>
+
+								<th>
+									<td>Et 6</td>
+									<td>Et 7</td>
+									<td>Et 8</td>
+									<td>Et 9</td>
+									<td>Et 10</td>
+									<td>Et 11</td>
+									<td>Et 12</td>
+									<td>Et 13</td>
+									<td>Et 14</td>
+									<td>Et 15</td>									
+								</th>
+
+								<tr>
+									<td></td>
+									<td id='et_16'></td>
+									<td id='et_17'></td>
+									<td id='et_18'></td>
+									<td id='et_19'></td>
+									<td id='et_20'></td>
+									<td id='et_21'></td>
+									<td id='et_22'></td>
+									<td id='et_23'></td>
+									<td id='et_24'></td>
+									<td id='et_25'></td>
+								</tr>
+
+								<th>
+									<td>Et 16</td>
+									<td>Et 17</td>
+									<td>Et 18</td>
+									<td>Et 19</td>
+									<td>Et 20</td>
+									<td>Et 21</td>
+									<td>Et 22</td>
+									<td>Et 23</td>
+									<td>Et 24</td>
+									<td>Et 25</td>									
+								</th>
+
+								<tr>
+									<td></td>
+									<td id='sbst1'></td>
+									<td id='sbst2'></td>
+									<td id='sbst5'></td>
+									<td id='sbst6'></td>
+									<td id='core1'></td>
+									<td id='core2'></td>
+								</tr>
+
+								<th>
+									<td>CPU 1</td>
+									<td>CPU 2</td>
+									<td>CPU 5</td>
+									<td>CPU 6</td>
+									<td>Core 1</td>
+									<td>Core 2</td>								
+								</th>
+                          </tbody>
+                      
+                    </table>
                 </div>
             </div>
         </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Voltages [Volts]</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" data-page-size="20" id='volt' style="width:100%">
+
+                          <tbody>
+                              <tr>
+                                <td data-hide="xs">+1.5V</td>
+                                <td id='p1_5v'></td> 
+                            </tr>
+                            <tr>
+                                <td>+3.3V</td>
+                                <td id='p3_3v'></td> 
+                            </tr>
+                            <tr>
+                                <td>+5V</td>
+                                <td id='p5v'></td> 
+                            </tr>
+                            <tr>
+                                <td>+5V Short Board</td>
+                                <td id='p5sbv'></td> 
+                            </tr>
+                            <tr>
+                                <td>+12V</td>
+                                <td id='p12v'></td> 
+                            </tr>
+                            <tr>
+                                <td>+24V</td>
+                                <td id='p24v'></td> 
+                            </tr>
+                            <tr>
+                                <td>+PV</td>
+                                <td id='ppvv'></td> 
+                            </tr>
+                            <tr>
+                                <td>-5V</td>
+                                <td id='n5v'></td> 
+                            </tr>
+                            <tr>
+                                <td>-12V</td>
+                                <td id='n12v'></td> 
+                            </tr>
+                            <tr>
+                                <td>RFCM1</td>
+                                <td id='iprf1v'></td> 
+                            </tr>
+                            <tr>
+                                <td>RFCM2</td>
+                                <td id='iprf2v'></td> 
+                            </tr>
+                          </tbody>
+                      
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Current [Amps]</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" data-page-size="20" id='current' style="width:100%">
+
+                          <tbody>
+                              <tr>
+                                <td data-hide="xs">+1.5V</td>
+                                <td id='p1_5i'></td> 
+                            </tr>
+                            <tr>
+                                <td>+3.3V</td>
+                                <td id='p3_3i'></td> 
+                            </tr>
+                            <tr>
+                                <td>+5V</td>
+                                <td id='p5i'></td> 
+                            </tr>
+                            <tr>
+                                <td>+5V Short Board</td>
+                                <td id='p5sbi'></td> 
+                            </tr>
+                            <tr>
+                                <td>+12V</td>
+                                <td id='p12i'></td> 
+                            </tr>
+                            <tr>
+                                <td>+24V</td>
+                                <td id='p24i'></td> 
+                            </tr>
+                            <tr>
+                                <td>+PV</td>
+                                <td id='ppvi'></td> 
+                            </tr>
+                            <tr>
+                                <td>-5V</td>
+                                <td id='n5i'></td> 
+                            </tr>
+                            <tr>
+                                <td>-12V</td>
+                                <td id='n12i'></td> 
+                            </tr>
+                            <tr>
+                                <td>RFCM1</td>
+                                <td id='iprf1i'></td> 
+                            </tr>
+                            <tr>
+                                <td>RFCM2</td>
+                                <td id='iprf2i'></td> 
+                            </tr>
+                            <tr>
+                                <td>Battery</td>
+                                <td id='bati'></td> 
+                            </tr>
+                          </tbody>
+                      
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-3">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Disk Space [MB]</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" data-page-size="20" id='disk' style="width:100%">
+
+                          <tbody>
+                              <tr>
+                                <td >/temp</td>
+                                <td id='D1'></td> 
+                            </tr>
+                            <tr>
+                                <td>var</td>
+                                <td id='D2'></td> 
+                            </tr>
+                            <tr>
+                                <td>home</td>
+                                <td id='D3'></td> 
+                            </tr>
+                            <tr>
+                                <td>/</td>
+                                <td id='D4'></td> 
+                            </tr>
+                            <tr>
+                                <td>He1</td>
+                                <td id='D5'></td> 
+                            </tr>
+                            <tr>
+                                <td>He2</td>
+                                <td id='D6'></td> 
+                            </tr>
+                            <tr>
+                                <td>int</td>
+                                <td id='D7'></td> 
+                            </tr>
+                            <tr>
+                                <td>NTU</td>
+                                <td id='D8'></td> 
+                            </tr>
+                            
+                          </tbody>
+                      
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-7">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>Auxilary Info</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" data-page-size="20" id='aux' style="width:100%">
+
+                          <tbody>
+                          	<tr>
+                                <td>Time</td>
+                                <td id='time'></td> 
+                            </tr>
+                              <tr>
+                                <td>Pressure [torr]</td>
+                                <td id='ADD VAlUES'></td> 
+                            </tr>
+                            <tr>
+                                <td>Pressure [PSI]</td>
+                                <td id='ADD VAlUES'></td> 
+                            </tr>
+                            <tr>
+                                <td>SunSensor 1 - X cordinates</td>
+                                <td id='ssx_0'></td>
+                                <td id='ssx_1'></td>
+                                <td id='ssx_2'></td>
+                                <td id='ssx_3'></td>
+                            </tr>
+                            <tr>
+                                <td>SunSensor 2 - Y cordinates</td>
+                                <td id='ssy_0'></td>
+                                <td id='ssy_1'></td> 
+                                <td id='ssy_2'></td> 
+                                <td id='ssy_3'></td>  
+                            </tr>
+                            <tr>
+                                <td>SunSensor 3 - Intensity</td>
+                                <td id='ssi_0'></td>
+                                <td id='ssi_1'></td> 
+                                <td id='ssi_2'></td> 
+                                <td id='ssi_3'></td>  
+                            </tr>
+                            <tr>
+                                <td>SunSensor 4 - Reading qual</td>
+                                <td id='ssflag_0'></td>
+                                <td id='ssflag_1'></td>
+                                <td id='ssflag_2'></td>
+                                <td id='ssflag_3'></td> 
+                            </tr>
+                            <tr>
+                                <td>SunSensor 5  - Elevation</td>
+                                <td id='ssel_0'></td>
+                                <td id='ssel_1'></td>
+                                <td id='ssel_2'></td>
+                                <td id='ssel_3'></td> 
+                            </tr>
+                            <tr>
+                                <td>SunSensor 6 - Azimuth</td>
+                                <td id='ssaz_0'></td>
+                                <td id='ssaz_1'></td> 
+                                <td id='ssaz_2'></td> 
+                                <td id='ssaz_3'></td>  
+                            </tr>
+                            <tr>
+                                <td>SunSensor 7 - Temperature</td>
+                                <td id='sst_0'></td>
+                                <td id='sst_1'></td>
+                                <td id='sst_2'></td>
+                                <td id='sst_3'></td> 
+                            </tr>
+                            <tr>
+                                <td>Accel 1</td>
+                                <td id='ADD VAlUES'></td> 
+                            </tr>
+                            <tr>
+                                <td>Accel 2</td>
+                                <td id='ADD VAlUES'></td> 
+                            </tr>
+                            <tr>
+                                <td>Mag [x,y,z]</td>
+                                <td id='magx'></td> 
+                                <td id='magy'></td>
+                                <td id='magz'></td>
+                            </tr>
+                          </tbody>
+                      
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
-	
+    
 
-	
+    
 {% endblock %}
 {% block scripts %}
 {{ super() }}
@@ -114,60 +563,323 @@ function timeConverter(UNIX_timestamp){
   var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
   return time;
 }
-function updatehtml(hd){
-	$.getJSON('/api/' + ip_db + '/hd/'+ hd, function(data){
-		$('#hd #nbuf').html(data.hd.nbuf);
-		$('#hd #now').html(timeConverter(data.hd.now));
-		$('#hd #time').html(timeConverter(data.hd.time));
-		$('#hd #us').html(data.hd.us);
-		$('#hd #ns').html(data.hd.ns);
-		$('#hd #evnum').html(data.hd.evnum);
-		$('#hd #priority').html(data.hd.priority);
-		$('#hd #trigtype').html(data.hd.trigtype);
-		$('#hd #trignum').html(data.hd.trignum);
-		$('#hd #trigtime').html(data.hd.trigtime);
-		$('#hd #l3cnt').html(data.hd.l3cnt);
-		$('#hd #pps').html(data.hd.pps);
-		$('#hd #deadtime').html(data.hd.deadtime);
-		$('#hd #turfword').html(data.hd.turfword);
-		$('#hd #calib').html(data.hd.calib);
-	});
 
-	
+var temperature_range_map = $.range_map({
+        '-50:0': 'blue',
+        '0:50:': 'green',
+        '50:70:': 'yellow'
+})
+
+function update_sbst1_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    if (array_string){
+        if ((array_string.match(/,/g) || []).length > 6){
+            array_string=array_string.substr(array_string.indexOf(",") + 1);
+        }
+        array_string=array_string+','+new_data;
+    } else{
+        array_string=new_data;
+    }
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        // zeroAxis: false,
+        colorMap: temperature_range_map,
+        chartRangeMin:-100000,
+        chartRangeMax:100000
+    });
+}
+
+function update_sbst2_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    if (array_string){
+        if ((array_string.match(/,/g) || []).length > 6){
+            array_string=array_string.substr(array_string.indexOf(",") + 1);
+        }
+        array_string=array_string+','+new_data;
+    } else{
+        array_string=new_data;
+    }
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        // zeroAxis: false,
+        colorMap: temperature_range_map,
+        chartRangeMin:-100000,
+        chartRangeMax:100000
+    });
+}
+
+function update_sbst5_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    if (array_string){
+        if ((array_string.match(/,/g) || []).length > 6){
+            array_string=array_string.substr(array_string.indexOf(",") + 1);
+        }
+        array_string=array_string+','+new_data;
+    } else{
+        array_string=new_data;
+    }
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        // zeroAxis: false,
+        colorMap: temperature_range_map,
+        chartRangeMin:-100000,
+        chartRangeMax:100000
+    });
+}
+
+function update_sbst6_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    if (array_string){
+        if ((array_string.match(/,/g) || []).length > 6){
+            array_string=array_string.substr(array_string.indexOf(",") + 1);
+        }
+        array_string=array_string+','+new_data;
+    } else{
+        array_string=new_data;
+    }
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        // zeroAxis: false,
+        colorMap: temperature_range_map,
+        chartRangeMin:-100000,
+        chartRangeMax:100000
+    });
+}
+
+function update_core1_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    if (array_string){
+        if ((array_string.match(/,/g) || []).length > 6){
+            array_string=array_string.substr(array_string.indexOf(",") + 1);
+        }
+        array_string=array_string+','+new_data;
+    } else{
+        array_string=new_data;
+    }
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        // zeroAxis: false,
+        colorMap: temperature_range_map,
+        chartRangeMin:-100000,
+        chartRangeMax:100000
+    });
+}
+
+function update_core2_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    if (array_string){
+        if ((array_string.match(/,/g) || []).length > 6){
+            array_string=array_string.substr(array_string.indexOf(",") + 1);
+        }
+        array_string=array_string+','+new_data;
+    } else{
+        array_string=new_data;
+    }
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        // zeroAxis: false,
+        colorMap: temperature_range_map,
+        chartRangeMin:-100000,
+        chartRangeMax:100000
+    });
+}
+
+function update_it_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    if (array_string){
+        if ((array_string.match(/,/g) || []).length > 6){
+            array_string=array_string.substr(array_string.indexOf(",") + 1);
+        }
+        array_string=array_string+','+new_data;
+    } else{
+        array_string=new_data;
+    }
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        // zeroAxis: false,
+        colorMap: temperature_range_map,
+        chartRangeMin:-100000,
+        chartRangeMax:100000
+    });
+}
+
+function update_et_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    if (array_string){
+        if ((array_string.match(/,/g) || []).length > 6){
+            array_string=array_string.substr(array_string.indexOf(",") + 1);
+        }
+        array_string=array_string+','+new_data;
+    } else{
+        array_string=new_data;
+    }
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        // zeroAxis: false,
+        colorMap: temperature_range_map,
+        chartRangeMin:-100000,
+        chartRangeMax:100000
+    });
+}
+
+function updatehtml(hk){
+    $.getJSON('/api/' + ip_db + '/hk/'+ hk, function(data){
+        $('#volt #p1_5v').html(data.hk.p1_5v);
+        $('#volt #p3_3v').html(data.hk.p3_3v);
+        $('#volt #p5v').html(data.hk.p5v);
+        $('#volt #p5sbv').html(data.hk.p5sbv);
+        $('#volt #p12v').html(data.hk.p12v);
+        $('#volt #p24v').html(data.hk.p24v);
+        $('#volt #ppvv').html(data.hk.ppvv);
+        $('#volt #n5v').html(data.hk.n5v);
+        $('#volt #n12v').html(data.hk.n12v);
+        $('#volt #iprf1v').html(data.hk.iprf1v);
+        $('#volt #iprf2v').html(data.hk.iprf2v);
+        $('#current #p1_5i').html(data.hk.p1_5i);
+        $('#current #p3_3i').html(data.hk.p3_3i);
+        $('#current #p5i').html(data.hk.p5i);
+        $('#current #p5sbi').html(data.hk.p5sbi);
+        $('#current #p12i').html(data.hk.p12i);
+        $('#current #p24i').html(data.hk.p24i);
+        $('#current #ppvi').html(data.hk.ppvi);
+        $('#current #n5i').html(data.hk.n5i);
+        $('#current #n12i').html(data.hk.n12i);
+        $('#current #iprf1i').html(data.hk.iprf1i);
+        $('#current #iprf2i').html(data.hk.iprf2i);
+        $('#current #bati').html(data.hk.bati);
+        $('#aux #time').html(timeConverter(data.hk.time));
+
+        $('#aux #ssx_0').html(data.hk.ssx[0]);
+        $('#aux #ssx_1').html(data.hk.ssx[1]);
+        $('#aux #ssx_2').html(data.hk.ssx[2]);
+        $('#aux #ssx_3').html(data.hk.ssx[3]);
+
+        $('#aux #ssy_0').html(data.hk.ssy[0]);
+        $('#aux #ssy_1').html(data.hk.ssy[1]);
+        $('#aux #ssy_2').html(data.hk.ssy[2]);
+        $('#aux #ssy_3').html(data.hk.ssy[3]);
+
+        $('#aux #ssi_0').html(data.hk.ssi[0]);
+        $('#aux #ssi_1').html(data.hk.ssi[1]);
+        $('#aux #ssi_2').html(data.hk.ssi[2]);
+        $('#aux #ssi_3').html(data.hk.ssi[3]);
+
+        $('#aux #ssflag_0').html(data.hk.ssflag[0]);
+        $('#aux #ssflag_1').html(data.hk.ssflag[1]);
+        $('#aux #ssflag_2').html(data.hk.ssflag[2]);
+        $('#aux #ssflag_3').html(data.hk.ssflag[3]);
+
+        $('#aux #ssel_0').html(data.hk.ssel[0]);
+        $('#aux #ssel_1').html(data.hk.ssel[1]);
+        $('#aux #ssel_2').html(data.hk.ssel[2]);
+        $('#aux #ssel_3').html(data.hk.ssel[3]);
+
+        $('#aux #ssaz_0').html(data.hk.ssaz[0]);
+        $('#aux #ssaz_1').html(data.hk.ssaz[1]);
+        $('#aux #ssaz_2').html(data.hk.ssaz[2]);
+        $('#aux #ssaz_3').html(data.hk.ssaz[3]);
+
+        $('#aux #sst_0').html(data.hk.sst[0]);
+        $('#aux #sst_1').html(data.hk.sst[1]);
+        $('#aux #sst_2').html(data.hk.sst[2]);
+        $('#aux #sst_3').html(data.hk.sst[3]);
+
+        $('#aux #magx').html(data.hk.magx);
+        $('#aux #magy').html(data.hk.magy);
+        $('#aux #magz').html(data.hk.magz);
+
+
+        
+
+        var sbst1_name;
+            sbst1_name = '#sbst1';
+            update_sbst1_data($(sbst1_name), parseInt(data.hk.sbst1));
+
+        var sbst2_name;
+            sbst2_name = '#sbst2';
+            update_sbst2_data($(sbst2_name), parseInt(data.hk.sbst2));
+            
+
+        var sbst5_name;
+            sbst5_name = '#sbst5';
+            update_sbst5_data($(sbst5_name), parseInt(data.hk.sbst5));
+
+        var sbst6_name;
+            sbst6_name = '#sbst6';
+            update_sbst6_data($(sbst6_name), parseInt(data.hk.sbst6));
+
+        var core1_name;
+            core1_name = '#core1';
+            update_core1_data($(core1_name), parseInt(data.hk.core1));
+
+        var core2_name;
+            core2_name = '#core2';
+            update_core2_data($(core2_name), parseInt(data.hk.core2));
+
+        var it_name;
+            for (i = 0; i < 25; i++) {
+                it_name = '#it_' + i;
+                update_it_data($(it_name), parseInt(data.hk.it [i]));
+            }
+
+        var et_name;
+            for (i = 0; i < 25; i++) {
+                et_name = '#et_' + i;
+                update_et_data($(et_name), parseInt(data.hk.et [i]));
+            }
+    });
+
+    
 }
 
 $(document).ready(function () {
-	$('.footable').footable();
+    $('.footable').footable();
 
-	var hd=[];
-	var i=0;
-	$.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
-		hd=data.hd;
-	});
-	console.log(hd);
-	$('#connect').click(function(event) {
-		$.ajax({
+    var hk=[];
+    var i=0;
+    $.getJSON('/api/' + ip_db + '/hk/nows', function(data){
+        hk=data.hk ;
+    });
+    console.log(hk);
+    $('#connect').click(function(event) {
+        $.ajax({
             url: '/api/connect/'+ ip + '/' + db
         }).done(function() {
-            $.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
-				hd=data.hd;
-			});
+            $.getJSON('/api/' + ip_db + '/hk/nows', function(data){
+                hk=data.hk ;
+            });
         });
-		
-	});
+        
+    });
 
-	$('#next').click( function(){
-		if (i<hd.length) {
-			i=i+1;
-			updatehtml(hd[i]);
-		};
-	});
-	$('#prev').click( function(){
-		if (i>0) {
-			i=i-1;
-			updatehtml(hd[i]);
-		};
-	});
+    $('#next').click( function(){
+        if (i<hk.length) {
+            i=i+1;
+            updatehtml(hk[i]);
+        };
+    });
+    $('#prev').click( function(){
+        if (i>0) {
+            i=i-1;
+            updatehtml(hk[i]);
+        };
+    });
 });
 
             
