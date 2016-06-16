@@ -9,80 +9,81 @@
     <div class="row">
         <!-- <button id='next' class="btn btn-primary"  type="button">Next event</button>
         <button id='prev' class="btn btn-primary"  type="button">Prev event</button> -->
-        <div class="col-lg-12">
-	            <div class="ibox float-e-margins">
-	                <div class="ibox-title">
-	                    <h5>Query Entries</h5>
-	                    <div class="ibox-tools">
-	                        <a class="collapse-link">
-	                            <i class="fa fa-chevron-up"></i>
-	                        </a>
-	                	</div>
-	                </div>
-	                <div class="ibox-content" >
-	                    <table data-sort="false" class="footable" data-page-size="20" id='query_entries' style="width:100%">
+        <div class="col-lg-6">
+                <div class="ibox float-e-margins">
+                    <div class="ibox-title">
+                        <h5>Queue Entries</h5>
+                        <div class="ibox-tools">
+                            <a class="collapse-link">
+                                <i class="fa fa-chevron-up"></i>
+                            </a>
+                        </div>
+                    </div>
+                    <div class="ibox-content" >
+                        <table data-sort="false" class="footable" data-page-size="20" id='query_entries' style="width:100%">
 
-					  		<tbody>
-					  			<th>
-									<td>p0</td>
-									<td>p1</td>
-									<td>p2</td>
-									<td>p3</td>
-									<td>p4</td>
-									<td>p5</td>
-									<td>p6</td>
-									<td>p7</td>
-									<td>p8</td>
-									<td>p9</td>									
-								</th>
+                            <tbody>
+                                <th>
+                                    <td>p0</td>
+                                    <td>p1</td>
+                                    <td>p2</td>
+                                    <td>p3</td>
+                                    <td>p4</td>
+                                    <td>p5</td>
+                                    <td>p6</td>
+                                    <td>p7</td>
+                                    <td>p8</td>
+                                    <td>p9</td>                                 
+                                </th>
 
-									<tr>
-									<td>P's</td>
-									<td id='p_0_0'></td>
-									<td id='p_0_1'></td>
-									<td id='p_0_2'></td>
-									<td id='p_0_3'></td>
-									<td id='p_0_4'></td>
-									<td id='p_0_5'></td>
-									<td id='p_0_6'></td>
-									<td id='p_0_7'></td>
-									<td id='p_0_8'></td>
-									<td id='p_0_9'></td>
-								</tr>
+                                    <tr>
+                                    <td>P's</td>
+                                    <td id='p_0_0'></td>
+                                    <td id='p_0_1'></td>
+                                    <td id='p_0_2'></td>
+                                    <td id='p_0_3'></td>
+                                    <td id='p_0_4'></td>
+                                    <td id='p_0_5'></td>
+                                    <td id='p_0_6'></td>
+                                    <td id='p_0_7'></td>
+                                    <td id='p_0_8'></td>
+                                    <td id='p_0_9'></td>
+                                </tr>
 
-								<th>
-									<td>cmdL</td>
-									<td>cmd5</td>
-									<td>hd</td>
-									<td>gps</td>
-									<td>hk</td>
-									<td>mon</td>
-									<td>surf</td>
-									<td>turf</td>
-									<td>ped</td>									
-								</th>
+                                <th>
+                                    <td>cmdL</td>
+                                    <td>cmd5</td>
+                                    <td>hd</td>
+                                    <td>gps</td>
+                                    <td>hk</td>
+                                    <td>mon</td>
+                                    <td>surf</td>
+                                    <td>turf</td>
+                                    <td>ped</td>                                    
+                                </th>
 
-								<tr>
-									<td>Other</td>
-									<td id='o_0_0'></td>
-									<td id='o_0_1'></td>
-									<td id='o_0_2'></td>
-									<td id='o_0_3'></td>
-									<td id='o_0_4'></td>
-									<td id='o_0_5'></td>
-									<td id='o_0_6'></td>
-									<td id='o_0_7'></td>
-									<td id='o_0_8'></td>
-								</tr>
-							</tbody>                      
+                                <tr>
+                                    <td>Other</td>
+                                    <td id='linkcmdlos'></td>
+                                    <td id='linkcmdsip'></td>
+                                    <td id='linkhd'></td>
+                                    <td id='linkgps'></td>
+                                    <td id='linkhk'></td>
+                                    <td id='linkmon'></td>
+                                    <td id='linksurf'></td>
+                                    <td id='linkturf'></td>
+                                    <td id='linkped'></td>
+                                </tr>
+                            </tbody>                      
                     </table>
                 </div>
             </div>
         </div>
-        <div class="col-lg-12">
+
+        <div class="col-lg-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Temperature [deg C]</h5>
+                    <h5>Disk Space [MB]</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -90,170 +91,54 @@
                     </div>
                 </div>
                 <div class="ibox-content" >
-                    <table data-sort="false" class="footable" data-page-size="56" id='current' style="width:100%">
+                    <table data-sort="false" class="footable" data-page-size="20" id='disk' style="width:100%">
 
                           <tbody>
+
+                              <br/>
                               
+                              <th>
+                                <td>/temp</td>
+                                <td>var</td>
+                                <td>home</td>                                 
+                                <td>/DS</td>                                 
+                                <td>He1</td>                                 
+                                <td>He2</td>                                 
+                                <td>int</td>
+                                <td>NTU</td>  
+                            </th>
 
-								<tr>
-									<td></td>
-									<td id='it_1'></td>
-									<td id='it_2'></td>
-									<td id='it_3'></td>
-									<td id='it_4'></td>
-									<td id='it_5'></td>
-									<td id='it_6'></td>
-									<td id='it_7'></td>
-									<td id='it_8'></td>
-									<td id='it_9'></td>
-									<td id='it_10'></td>
-								</tr>
+                            <tr>
+                                <td></td>
+                                <td id='disk_0'></td>
+                                <td id='disk_1'></td> 
+                                <td id='disk_2'></td>
+                                <td id='disk_3'></td>
+                                <td id='disk_4'></td>
+                                <td id='disk_5'></td>
+                                <td id='disk_6'></td>
+                                <td id='disk_7'></td>
+                            </tr>
 
-								<th>
-									<td>It 1</td>
-									<td>It 2</td>
-									<td>It 3</td>
-									<td>It 4</td>
-									<td>It 5</td>
-									<td>It 6</td>
-									<td>It 7</td>
-									<td>It 8</td>
-									<td>It 9</td>
-									<td>It 10</td>									
-								</th>
+                            <th>
+                                <td> &#13;&#10; </td>
+                            </th>
+                            
+                            <tr>
+                                <td> &#13;&#10; </td>
+                            </tr>
 
-								<tr>
-									<td></td>
-									<td id='it_11'></td>
-									<td id='it_12'></td>
-									<td id='it_13'></td>
-									<td id='it_14'></td>
-									<td id='it_15'></td>
-									<td id='it_16'></td>
-									<td id='it_17'></td>
-									<td id='it_18'></td>
-									<td id='it_19'></td>
-									<td id='it_20'></td>
-								</tr>
-
-								<th>
-									<td>It 11</td>
-									<td>It 12</td>
-									<td>It 13</td>
-									<td>It 14</td>
-									<td>It 15</td>
-									<td>It 16</td>
-									<td>It 17</td>
-									<td>It 18</td>
-									<td>It 19</td>
-									<td>It 20</td>									
-								</th>
-
-								<tr>
-									<td></td>
-									<td id='it_21'></td>
-									<td id='it_22'></td>
-									<td id='it_23'></td>
-									<td id='it_24'></td>
-									<td id='it_25'></td>
-									<td id='et_1'></td>
-									<td id='et_2'></td>
-									<td id='et_3'></td>
-									<td id='et_4'></td>
-									<td id='et_5'></td>
-								</tr>
-
-								<th>
-									<td>It 21</td>
-									<td>It 22</td>
-									<td>It 23</td>
-									<td>It 24</td>
-									<td>It 25</td>
-									<td>Et 1</td>
-									<td>Et 2</td>
-									<td>Et 3</td>
-									<td>Et 4</td>
-									<td>Et 5</td>									
-								</th>
-
-								<tr>
-									<td></td>
-									<td id='et_6'></td>
-									<td id='et_7'></td>
-									<td id='et_8'></td>
-									<td id='et_9'></td>
-									<td id='et_10'></td>
-									<td id='et_11'></td>
-									<td id='et_12'></td>
-									<td id='et_13'></td>
-									<td id='et_14'></td>
-									<td id='et_15'></td>
-								</tr>
-
-								<th>
-									<td>Et 6</td>
-									<td>Et 7</td>
-									<td>Et 8</td>
-									<td>Et 9</td>
-									<td>Et 10</td>
-									<td>Et 11</td>
-									<td>Et 12</td>
-									<td>Et 13</td>
-									<td>Et 14</td>
-									<td>Et 15</td>									
-								</th>
-
-								<tr>
-									<td></td>
-									<td id='et_16'></td>
-									<td id='et_17'></td>
-									<td id='et_18'></td>
-									<td id='et_19'></td>
-									<td id='et_20'></td>
-									<td id='et_21'></td>
-									<td id='et_22'></td>
-									<td id='et_23'></td>
-									<td id='et_24'></td>
-									<td id='et_25'></td>
-								</tr>
-
-								<th>
-									<td>Et 16</td>
-									<td>Et 17</td>
-									<td>Et 18</td>
-									<td>Et 19</td>
-									<td>Et 20</td>
-									<td>Et 21</td>
-									<td>Et 22</td>
-									<td>Et 23</td>
-									<td>Et 24</td>
-									<td>Et 25</td>									
-								</th>
-
-								<tr>
-									<td></td>
-									<td id='sbst1'></td>
-									<td id='sbst2'></td>
-									<td id='sbst5'></td>
-									<td id='sbst6'></td>
-									<td id='core1'></td>
-									<td id='core2'></td>
-								</tr>
-
-								<th>
-									<td>CPU 1</td>
-									<td>CPU 2</td>
-									<td>CPU 5</td>
-									<td>CPU 6</td>
-									<td>Core 1</td>
-									<td>Core 2</td>								
-								</th>
+                            <th>
+                                <td> </td>
+                            </th>
+                            
                           </tbody>
                       
                     </table>
                 </div>
             </div>
         </div>
+
         <div class="col-lg-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
@@ -387,10 +272,10 @@
             </div>
         </div>
 
-        <div class="col-lg-3">
+        <div class="col-lg-5">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Disk Space [MB]</h5>
+                    <h5>Temperature [deg C]</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -398,42 +283,164 @@
                     </div>
                 </div>
                 <div class="ibox-content" >
-                    <table data-sort="false" class="footable" data-page-size="20" id='disk' style="width:100%">
+                    <table data-sort="false" class="footable" data-page-size="56" id='current' style="width:100%">
 
                           <tbody>
-                              <tr>
-                                <td >/temp</td>
-                                <td id='D1'></td> 
-                            </tr>
-                            <tr>
-                                <td>var</td>
-                                <td id='D2'></td> 
-                            </tr>
-                            <tr>
-                                <td>home</td>
-                                <td id='D3'></td> 
-                            </tr>
-                            <tr>
-                                <td>/</td>
-                                <td id='D4'></td> 
-                            </tr>
-                            <tr>
-                                <td>He1</td>
-                                <td id='D5'></td> 
-                            </tr>
-                            <tr>
-                                <td>He2</td>
-                                <td id='D6'></td> 
-                            </tr>
-                            <tr>
-                                <td>int</td>
-                                <td id='D7'></td> 
-                            </tr>
-                            <tr>
-                                <td>NTU</td>
-                                <td id='D8'></td> 
-                            </tr>
-                            
+                              
+
+                                <tr>
+                                    <td></td>
+                                    <td id='it_0'></td>
+                                    <td id='it_1'></td>
+                                    <td id='it_2'></td>
+                                    <td id='it_3'></td>
+                                    <td id='it_4'></td>
+                                    <td id='it_5'></td>
+                                    <td id='it_6'></td>
+                                    <td id='it_7'></td>
+                                    <td id='it_8'></td>
+                                    <td id='it_9'></td>
+                                </tr>
+
+                                <th>
+                                    <td>It 1</td>
+                                    <td>It 2</td>
+                                    <td>It 3</td>
+                                    <td>It 4</td>
+                                    <td>It 5</td>
+                                    <td>It 6</td>
+                                    <td>It 7</td>
+                                    <td>It 8</td>
+                                    <td>It 9</td>
+                                    <td>It 10</td>                                  
+                                </th>
+
+                                <tr>
+                                    <td></td>
+                                    <td id='it_10'></td>
+                                    <td id='it_11'></td>
+                                    <td id='it_12'></td>
+                                    <td id='it_13'></td>
+                                    <td id='it_14'></td>
+                                    <td id='it_15'></td>
+                                    <td id='it_16'></td>
+                                    <td id='it_17'></td>
+                                    <td id='it_18'></td>
+                                    <td id='it_19'></td>
+                                </tr>
+
+                                <th>
+                                    <td>It 11</td>
+                                    <td>It 12</td>
+                                    <td>It 13</td>
+                                    <td>It 14</td>
+                                    <td>It 15</td>
+                                    <td>It 16</td>
+                                    <td>It 17</td>
+                                    <td>It 18</td>
+                                    <td>It 19</td>
+                                    <td>It 20</td>                                  
+                                </th>
+
+                                <tr>
+                                    <td></td>
+                                    <td id='it_20'></td>
+                                    <td id='it_21'></td>
+                                    <td id='it_22'></td>
+                                    <td id='it_23'></td>
+                                    <td id='it_24'></td>
+                                    <td id='et_0'></td>
+                                    <td id='et_1'></td>
+                                    <td id='et_2'></td>
+                                    <td id='et_3'></td>
+                                    <td id='et_4'></td>
+                                </tr>
+
+                                <th>
+                                    <td>It 21</td>
+                                    <td>It 22</td>
+                                    <td>It 23</td>
+                                    <td>It 24</td>
+                                    <td>It 25</td>
+                                    <td>Et 1</td>
+                                    <td>Et 2</td>
+                                    <td>Et 3</td>
+                                    <td>Et 4</td>
+                                    <td>Et 5</td>                                   
+                                </th>
+
+                                <tr>
+                                    <td></td>
+                                    <td id='et_5'></td>
+                                    <td id='et_6'></td>
+                                    <td id='et_7'></td>
+                                    <td id='et_8'></td>
+                                    <td id='et_9'></td>
+                                    <td id='et_10'></td>
+                                    <td id='et_11'></td>
+                                    <td id='et_12'></td>
+                                    <td id='et_13'></td>
+                                    <td id='et_14'></td>
+                                </tr>
+
+                                <th>
+                                    <td>Et 6</td>
+                                    <td>Et 7</td>
+                                    <td>Et 8</td>
+                                    <td>Et 9</td>
+                                    <td>Et 10</td>
+                                    <td>Et 11</td>
+                                    <td>Et 12</td>
+                                    <td>Et 13</td>
+                                    <td>Et 14</td>
+                                    <td>Et 15</td>                                  
+                                </th>
+
+                                <tr>
+                                    <td></td>
+                                    <td id='et_15'></td>
+                                    <td id='et_16'></td>
+                                    <td id='et_17'></td>
+                                    <td id='et_18'></td>
+                                    <td id='et_19'></td>
+                                    <td id='et_20'></td>
+                                    <td id='et_21'></td>
+                                    <td id='et_22'></td>
+                                    <td id='et_23'></td>
+                                    <td id='et_24'></td>
+                                </tr>
+
+                                <th>
+                                    <td>Et 16</td>
+                                    <td>Et 17</td>
+                                    <td>Et 18</td>
+                                    <td>Et 19</td>
+                                    <td>Et 20</td>
+                                    <td>Et 21</td>
+                                    <td>Et 22</td>
+                                    <td>Et 23</td>
+                                    <td>Et 24</td>
+                                    <td>Et 25</td>                                  
+                                </th>
+
+                                <tr>
+                                    <td></td>
+                                    <td id='sbst1'></td>
+                                    <td id='sbst2'></td>
+                                    <td id='sbst5'></td>
+                                    <td id='sbst6'></td>
+                                    <td id='core1'></td>
+                                    <td id='core2'></td>
+                                </tr>
+
+                                <th>
+                                    <td>CPU 1</td>
+                                    <td>CPU 2</td>
+                                    <td>CPU 5</td>
+                                    <td>CPU 6</td>
+                                    <td>Core 1</td>
+                                    <td>Core 2</td>                             
+                                </th>
                           </tbody>
                       
                     </table>
@@ -441,7 +448,7 @@
             </div>
         </div>
 
-        <div class="col-lg-7">
+        <div class="col-lg-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Auxilary Info</h5>
@@ -455,17 +462,17 @@
                     <table data-sort="false" class="footable" data-page-size="20" id='aux' style="width:100%">
 
                           <tbody>
-                          	<tr>
+                            <tr>
                                 <td>Time</td>
                                 <td id='time'></td> 
                             </tr>
                               <tr>
                                 <td>Pressure [torr]</td>
-                                <td id='ADD VAlUES'></td> 
+                                <td id='pressl'></td> 
                             </tr>
                             <tr>
                                 <td>Pressure [PSI]</td>
-                                <td id='ADD VAlUES'></td> 
+                                <td id='pressh'></td> 
                             </tr>
                             <tr>
                                 <td>SunSensor 1 - X cordinates</td>
@@ -517,12 +524,16 @@
                                 <td id='sst_3'></td> 
                             </tr>
                             <tr>
-                                <td>Accel 1</td>
-                                <td id='ADD VAlUES'></td> 
+                                <td>Accel 1 [x,y,z]</td>
+                                <td id='accx_0'></td> 
+                                <td id='accy_0'></td>
+                                <td id='accz_0'></td>
                             </tr>
                             <tr>
-                                <td>Accel 2</td>
-                                <td id='ADD VAlUES'></td> 
+                                <td>Accel 2 [x,y,z]</td>
+                                <td id='accx_1'></td> 
+                                <td id='accy_1'></td>
+                                <td id='accz_1'></td>
                             </tr>
                             <tr>
                                 <td>Mag [x,y,z]</td>
@@ -564,182 +575,342 @@ function timeConverter(UNIX_timestamp){
   return time;
 }
 
-var temperature_range_map = $.range_map({
-        '-50:0': 'blue',
-        '0:50:': 'green',
-        '50:70:': 'yellow'
+var it_et_range_map = $.range_map({
+        '0:20': 'blue',
+        '20:45:': 'green',
+        '45:55:': 'yellow'
+})
+
+var sbst_range_map = $.range_map({
+        '0:20': 'blue',
+        '20:45:': 'green',
+        '45:55:': 'yellow'
+})
+
+var core_range_map = $.range_map({
+        '0:30': 'blue',
+        '30:60:': 'green',
+        '60:80:': 'yellow'
 })
 
 function update_sbst1_data($selector, new_data){
     var array_string=$selector.attr('values');
-    if (array_string){
-        if ((array_string.match(/,/g) || []).length > 6){
-            array_string=array_string.substr(array_string.indexOf(",") + 1);
-        }
-        array_string=array_string+','+new_data;
-    } else{
-        array_string=new_data;
-    }
+     array_string=new_data;
 
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
-        colorMap: temperature_range_map,
-        chartRangeMin:-100000,
-        chartRangeMax:100000
+        colorMap: sbst_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
     });
 }
 
 function update_sbst2_data($selector, new_data){
     var array_string=$selector.attr('values');
-    if (array_string){
-        if ((array_string.match(/,/g) || []).length > 6){
-            array_string=array_string.substr(array_string.indexOf(",") + 1);
-        }
-        array_string=array_string+','+new_data;
-    } else{
-        array_string=new_data;
-    }
+     array_string=new_data;
 
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
-        colorMap: temperature_range_map,
-        chartRangeMin:-100000,
-        chartRangeMax:100000
+        colorMap: sbst_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
     });
 }
 
 function update_sbst5_data($selector, new_data){
     var array_string=$selector.attr('values');
-    if (array_string){
-        if ((array_string.match(/,/g) || []).length > 6){
-            array_string=array_string.substr(array_string.indexOf(",") + 1);
-        }
-        array_string=array_string+','+new_data;
-    } else{
-        array_string=new_data;
-    }
+    array_string=new_data;
 
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
-        colorMap: temperature_range_map,
-        chartRangeMin:-100000,
-        chartRangeMax:100000
+        colorMap: sbst_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
     });
 }
 
 function update_sbst6_data($selector, new_data){
     var array_string=$selector.attr('values');
-    if (array_string){
-        if ((array_string.match(/,/g) || []).length > 6){
-            array_string=array_string.substr(array_string.indexOf(",") + 1);
-        }
-        array_string=array_string+','+new_data;
-    } else{
-        array_string=new_data;
-    }
-
+    array_string=new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
-        colorMap: temperature_range_map,
-        chartRangeMin:-100000,
-        chartRangeMax:100000
+        colorMap: sbst_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
     });
 }
 
 function update_core1_data($selector, new_data){
     var array_string=$selector.attr('values');
-    if (array_string){
-        if ((array_string.match(/,/g) || []).length > 6){
-            array_string=array_string.substr(array_string.indexOf(",") + 1);
-        }
-        array_string=array_string+','+new_data;
-    } else{
-        array_string=new_data;
-    }
+    array_string=new_data;
 
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
-        colorMap: temperature_range_map,
-        chartRangeMin:-100000,
-        chartRangeMax:100000
+        colorMap: core_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
     });
 }
 
 function update_core2_data($selector, new_data){
     var array_string=$selector.attr('values');
-    if (array_string){
-        if ((array_string.match(/,/g) || []).length > 6){
-            array_string=array_string.substr(array_string.indexOf(",") + 1);
-        }
-        array_string=array_string+','+new_data;
-    } else{
-        array_string=new_data;
-    }
+    array_string=new_data;
 
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
-        colorMap: temperature_range_map,
-        chartRangeMin:-100000,
-        chartRangeMax:100000
+        colorMap: core_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
     });
 }
 
 function update_it_data($selector, new_data){
     var array_string=$selector.attr('values');
-    if (array_string){
-        if ((array_string.match(/,/g) || []).length > 6){
-            array_string=array_string.substr(array_string.indexOf(",") + 1);
-        }
-        array_string=array_string+','+new_data;
-    } else{
-        array_string=new_data;
-    }
+    array_string=new_data;
 
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
-        colorMap: temperature_range_map,
-        chartRangeMin:-100000,
-        chartRangeMax:100000
+        colorMap: it_et_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
     });
 }
 
 function update_et_data($selector, new_data){
     var array_string=$selector.attr('values');
-    if (array_string){
-        if ((array_string.match(/,/g) || []).length > 6){
-            array_string=array_string.substr(array_string.indexOf(",") + 1);
-        }
-        array_string=array_string+','+new_data;
-    } else{
-        array_string=new_data;
-    }
+    array_string=new_data;
 
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
-        colorMap: temperature_range_map,
-        chartRangeMin:-100000,
-        chartRangeMax:100000
+        colorMap: it_et_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
+    });
+}
+
+function update_linkcmdlos_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: it_et_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
+    });
+}
+
+function update_linkcmdsip_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: it_et_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
+    });
+}
+
+function update_linkhd_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: it_et_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
+    });
+}
+
+function update_linkgps_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: it_et_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
+    });
+}
+
+function update_linkhk_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: it_et_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
+    });
+}
+
+function update_linkmon_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: it_et_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
+    });
+}
+
+function update_linksurf_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: it_et_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
+    });
+}
+
+function update_linkturf_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: it_et_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
+    });
+}
+
+function update_linkped_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: it_et_range_map,
+        chartRangeMin:-10,
+        chartRangeMax:100
+    });
+}
+
+function update_disk_data($selector, new_data){
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: it_et_range_map,
+        chartRangeMin:0,
+        chartRangeMax:35000
     });
 }
 
 function updatehtml(hk){
     $.getJSON('/api/' + ip_db + '/hk/'+ hk, function(data){
+        
+        $.getJSON('/api/' + ip_db + '/mon/' + data.hk.now, function(data){
+            var linkcmdlos_name;
+                linkcmdlos_name = '#linkcmdlos';
+                update_linkcmdlos_data($(linkcmdlos_name), parseInt(data.mon.linkcmdlos));
+
+            var linkcmdsip_name;
+                linkcmdsip_name = '#linkcmdsip';
+                update_linkcmdsip_data($(linkcmdsip_name), parseInt(data.mon.linkcmdsip));
+
+            var linkhd_name;
+                linkhd_name = '#linkhd';
+                update_linkhd_data($(linkhd_name), parseInt(data.mon.linkhd));
+
+            var linkgps_name;
+                linkgps_name = '#linkgps';
+                update_linkgps_data($(linkgps_name), parseInt(data.mon.linkgps));
+
+            var linkhk_name;
+                linkhk_name = '#linkhk';
+                update_linkhk_data($(linkhk_name), parseInt(data.mon.linkhk));
+
+            var linkmon_name;
+                linkmon_name = '#linkmon';
+                update_linkmon_data($(linkmon_name), parseInt(data.mon.linkmon));
+
+            var linksurf_name;
+                linksurf_name = '#linksurf';
+                update_linksurf_data($(linksurf_name), parseInt(data.mon.linksurf));
+
+            var linkturf_name;
+                linkturf_name = '#linkturf';
+                update_linkturf_data($(linkturf_name), parseInt(data.mon.linkturf));
+
+            var linkped_name;
+                linkped_name = '#linkped';
+                update_linkped_data($(linkped_name), parseInt(data.mon.linkped));
+
+            var disk_name;
+                for (i = 0; i < 8; i++) {
+                    disk_name = '#disk_' + i;
+                    update_disk_data($(disk_name), parseInt(data.mon.disk  [i]));
+            }
+
+
+        });
+
         $('#volt #p1_5v').html(data.hk.p1_5v);
         $('#volt #p3_3v').html(data.hk.p3_3v);
         $('#volt #p5v').html(data.hk.p5v);
@@ -764,6 +935,9 @@ function updatehtml(hk){
         $('#current #iprf2i').html(data.hk.iprf2i);
         $('#current #bati').html(data.hk.bati);
         $('#aux #time').html(timeConverter(data.hk.time));
+
+        $('#aux #pressl').html(data.hk.pressl);
+        $('#aux #pressh').html(data.hk.pressh);
 
         $('#aux #ssx_0').html(data.hk.ssx[0]);
         $('#aux #ssx_1').html(data.hk.ssx[1]);
@@ -800,6 +974,15 @@ function updatehtml(hk){
         $('#aux #sst_2').html(data.hk.sst[2]);
         $('#aux #sst_3').html(data.hk.sst[3]);
 
+        $('#aux #accx_0').html(data.hk.accx[0]);
+        $('#aux #accy_0').html(data.hk.accy[0]);
+        $('#aux #accz_0').html(data.hk.accz[0]);
+
+        $('#aux #accx_1').html(data.hk.accx[1]);
+        $('#aux #accy_1').html(data.hk.accy[1]);
+        $('#aux #accz_1').html(data.hk.accz[1]);
+
+
         $('#aux #magx').html(data.hk.magx);
         $('#aux #magy').html(data.hk.magy);
         $('#aux #magz').html(data.hk.magz);
@@ -835,17 +1018,15 @@ function updatehtml(hk){
         var it_name;
             for (i = 0; i < 25; i++) {
                 it_name = '#it_' + i;
-                update_it_data($(it_name), parseInt(data.hk.it [i]));
+                update_it_data($(it_name), parseInt(data.hk.it  [i]));
             }
 
         var et_name;
             for (i = 0; i < 25; i++) {
                 et_name = '#et_' + i;
-                update_et_data($(et_name), parseInt(data.hk.et [i]));
+                update_et_data($(et_name), parseInt(data.hk.et  [i]));
             }
-    });
-
-    
+    });   
 }
 
 $(document).ready(function () {
@@ -854,7 +1035,7 @@ $(document).ready(function () {
     var hk=[];
     var i=0;
     $.getJSON('/api/' + ip_db + '/hk/nows', function(data){
-        hk=data.hk ;
+        hk=data.hk  ;
     });
     console.log(hk);
     $('#connect').click(function(event) {
@@ -862,7 +1043,7 @@ $(document).ready(function () {
             url: '/api/connect/'+ ip + '/' + db
         }).done(function() {
             $.getJSON('/api/' + ip_db + '/hk/nows', function(data){
-                hk=data.hk ;
+                hk=data.hk  ;
             });
         });
         
