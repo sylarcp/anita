@@ -23,6 +23,20 @@
                         <table data-sort="false" class="footable" data-page-size="20" id='query_entries' style="width:100%">
 
                             <tbody>
+                                    <tr>
+                                    <td>P's</td>
+                                    <td id='linkev_0'></td>
+                                    <td id='linkev_1'></td>
+                                    <td id='linkev_2'></td>
+                                    <td id='linkev_3'></td>
+                                    <td id='linkev_4'></td>
+                                    <td id='linkev_5'></td>
+                                    <td id='linkev_6'></td>
+                                    <td id='linkev_7'></td>
+                                    <td id='linkev_8'></td>
+                                    <td id='linkev_9'></td>
+                                </tr>
+
                                 <th>
                                     <td>p0</td>
                                     <td>p1</td>
@@ -34,32 +48,6 @@
                                     <td>p7</td>
                                     <td>p8</td>
                                     <td>p9</td>                                 
-                                </th>
-
-                                    <tr>
-                                    <td>P's</td>
-                                    <td id='p_0_0'></td>
-                                    <td id='p_0_1'></td>
-                                    <td id='p_0_2'></td>
-                                    <td id='p_0_3'></td>
-                                    <td id='p_0_4'></td>
-                                    <td id='p_0_5'></td>
-                                    <td id='p_0_6'></td>
-                                    <td id='p_0_7'></td>
-                                    <td id='p_0_8'></td>
-                                    <td id='p_0_9'></td>
-                                </tr>
-
-                                <th>
-                                    <td>cmdL</td>
-                                    <td>cmd5</td>
-                                    <td>hd</td>
-                                    <td>gps</td>
-                                    <td>hk</td>
-                                    <td>mon</td>
-                                    <td>surf</td>
-                                    <td>turf</td>
-                                    <td>ped</td>                                    
                                 </th>
 
                                 <tr>
@@ -74,6 +62,19 @@
                                     <td id='linkturf'></td>
                                     <td id='linkped'></td>
                                 </tr>
+
+                                <th>
+                                    <td>cmdL</td>
+                                    <td>cmd5</td>
+                                    <td>hd</td>
+                                    <td>gps</td>
+                                    <td>hk</td>
+                                    <td>mon</td>
+                                    <td>surf</td>
+                                    <td>turf</td>
+                                    <td>ped</td>                                    
+                                </th>
+
                             </tbody>                      
                     </table>
                 </div>
@@ -97,16 +98,6 @@
 
                               <br/>
                               
-                              <th>
-                                <td>/temp</td>
-                                <td>var</td>
-                                <td>home</td>                                 
-                                <td>/DS</td>                                 
-                                <td>He1</td>                                 
-                                <td>He2</td>                                 
-                                <td>int</td>
-                                <td>NTU</td>  
-                            </th>
 
                             <tr>
                                 <td></td>
@@ -121,17 +112,18 @@
                             </tr>
 
                             <th>
-                                <td> &#13;&#10; </td>
+                                <td>/temp</td>
+                                <td>var</td>
+                                <td>home</td>                                 
+                                <td>/DS</td>                                 
+                                <td>He1</td>                                 
+                                <td>He2</td>                                 
+                                <td>int</td>
+                                <td>NTU</td>  
                             </th>
-                            
-                            <tr>
-                                <td> &#13;&#10; </td>
-                            </tr>
 
-                            <th>
-                                <td> </td>
-                            </th>
-                            
+                            <br/>
+                           
                           </tbody>
                       
                     </table>
@@ -272,7 +264,7 @@
             </div>
         </div>
 
-        <div class="col-lg-5">
+        <div class="col-lg-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>Temperature [deg C]</h5>
@@ -593,6 +585,57 @@ var core_range_map = $.range_map({
         '60:80:': 'yellow'
 })
 
+var stemp_range_map = $.range_map({
+        '0:4000': 'blue',
+        '30:60:': 'green',
+        '60:80:': 'yellow'
+})
+
+var disk0_range_map = $.range_map({
+        '400:5000': 'green',
+        '100:400:': 'yellow'
+})
+
+var disk1_range_map = $.range_map({
+        '150:2000': 'green',
+        '40:150:': 'yellow',
+})
+
+var disk2_range_map = $.range_map({
+        '300:3500': 'green',
+        '80:300:': 'yellow',
+})
+
+var disk3_range_map = $.range_map({
+        '300:4000': 'green',
+        '50:300:': 'yellow',
+})
+
+var disk4_range_map = $.range_map({
+        '1000000:7000000': 'green',
+        '6000:1000000:': 'yellow',
+})
+
+var disk5_range_map = $.range_map({
+        '1000000:7000000': 'green',
+        '6000:1000000:': 'yellow',
+})
+
+var disk6_range_map = $.range_map({
+        '300:4000': 'green',
+        '80:300:': 'yellow',
+})
+
+var disk7_range_map = $.range_map({
+        '25000:350000': 'green',
+        '2500:25000:': 'yellow',
+})
+
+var link_range_map = $.range_map({
+        '0:15': 'green',
+        '15:50:': 'yellow',
+})
+
 function update_sbst1_data($selector, new_data){
     var array_string=$selector.attr('values');
      array_string=new_data;
@@ -712,7 +755,8 @@ function update_et_data($selector, new_data){
     });
 }
 
-function update_linkcmdlos_data($selector, new_data){
+function update_disk0_data($selector, new_data){
+    //slash temp
     var array_string=$selector.attr('values');
     array_string=new_data;
 
@@ -721,144 +765,137 @@ function update_linkcmdlos_data($selector, new_data){
         type: 'bar',
         barWidth: 30,
         // zeroAxis: false,
-        colorMap: it_et_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
-    });
-}
-
-function update_linkcmdsip_data($selector, new_data){
-    var array_string=$selector.attr('values');
-    array_string=new_data;
-
-    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
-        // zeroAxis: false,
-        colorMap: it_et_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
-    });
-}
-
-function update_linkhd_data($selector, new_data){
-    var array_string=$selector.attr('values');
-    array_string=new_data;
-
-    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
-        // zeroAxis: false,
-        colorMap: it_et_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
-    });
-}
-
-function update_linkgps_data($selector, new_data){
-    var array_string=$selector.attr('values');
-    array_string=new_data;
-
-    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
-        // zeroAxis: false,
-        colorMap: it_et_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
-    });
-}
-
-function update_linkhk_data($selector, new_data){
-    var array_string=$selector.attr('values');
-    array_string=new_data;
-
-    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
-        // zeroAxis: false,
-        colorMap: it_et_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
-    });
-}
-
-function update_linkmon_data($selector, new_data){
-    var array_string=$selector.attr('values');
-    array_string=new_data;
-
-    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
-        // zeroAxis: false,
-        colorMap: it_et_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
-    });
-}
-
-function update_linksurf_data($selector, new_data){
-    var array_string=$selector.attr('values');
-    array_string=new_data;
-
-    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
-        // zeroAxis: false,
-        colorMap: it_et_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
-    });
-}
-
-function update_linkturf_data($selector, new_data){
-    var array_string=$selector.attr('values');
-    array_string=new_data;
-
-    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
-        // zeroAxis: false,
-        colorMap: it_et_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
-    });
-}
-
-function update_linkped_data($selector, new_data){
-    var array_string=$selector.attr('values');
-    array_string=new_data;
-
-    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
-        // zeroAxis: false,
-        colorMap: it_et_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
-    });
-}
-
-function update_disk_data($selector, new_data){
-    var array_string=$selector.attr('values');
-    array_string=new_data;
-
-    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
-        // zeroAxis: false,
-        colorMap: it_et_range_map,
+        colorMap: disk0_range_map,
         chartRangeMin:0,
-        chartRangeMax:35000
+        chartRangeMax:4000
+    });
+}
+
+function update_disk1_data($selector, new_data){
+    //var
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: disk1_range_map,
+        chartRangeMin:0,
+        chartRangeMax:1000
+    });
+}
+
+function update_disk2_data($selector, new_data){
+    //home
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: disk2_range_map,
+        chartRangeMin:0,
+        chartRangeMax:2500
+    });
+}
+
+function update_disk3_data($selector, new_data){
+    //slash
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: disk3_range_map,
+        chartRangeMin:0,
+        chartRangeMax:3000
+    });
+}
+
+function update_disk45_data($selector, new_data){
+    //He1 
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: disk45_range_map,
+        chartRangeMin:0,
+        chartRangeMax:6000000
+    });
+}
+
+function update_disk5_data($selector, new_data){
+    // He2
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: disk5_range_map,
+        chartRangeMin:0,
+        chartRangeMax:6000000
+    });
+}
+
+function update_disk6_data($selector, new_data){
+    //int
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: disk6_range_map,
+        chartRangeMin:0,
+        chartRangeMax:3000
+    });
+}
+
+function update_disk7_data($selector, new_data){
+    //NTU
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: disk7_range_map,
+        chartRangeMin:0,
+        chartRangeMax:250000
+    });
+}
+
+function update_link_data($selector, new_data){
+//for all link stuff in queue entries
+    var array_string=$selector.attr('values');
+    array_string=new_data;
+
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: link_range_map,
+        chartRangeMin:0,
+        chartRangeMax:100
     });
 }
 
@@ -868,46 +905,70 @@ function updatehtml(hk){
         $.getJSON('/api/' + ip_db + '/mon/' + data.hk.now, function(data){
             var linkcmdlos_name;
                 linkcmdlos_name = '#linkcmdlos';
-                update_linkcmdlos_data($(linkcmdlos_name), parseInt(data.mon.linkcmdlos));
+                update_link_data($(linkcmdlos_name), parseInt(data.mon.linkcmdlos));
 
             var linkcmdsip_name;
                 linkcmdsip_name = '#linkcmdsip';
-                update_linkcmdsip_data($(linkcmdsip_name), parseInt(data.mon.linkcmdsip));
+                update_link_data($(linkcmdsip_name), parseInt(data.mon.linkcmdsip));
 
             var linkhd_name;
                 linkhd_name = '#linkhd';
-                update_linkhd_data($(linkhd_name), parseInt(data.mon.linkhd));
+                update_link_data($(linkhd_name), parseInt(data.mon.linkhd));
 
             var linkgps_name;
                 linkgps_name = '#linkgps';
-                update_linkgps_data($(linkgps_name), parseInt(data.mon.linkgps));
+                update_link_data($(linkgps_name), parseInt(data.mon.linkgps));
 
             var linkhk_name;
                 linkhk_name = '#linkhk';
-                update_linkhk_data($(linkhk_name), parseInt(data.mon.linkhk));
+                update_link_data($(linkhk_name), parseInt(data.mon.linkhk));
 
             var linkmon_name;
                 linkmon_name = '#linkmon';
-                update_linkmon_data($(linkmon_name), parseInt(data.mon.linkmon));
+                update_link_data($(linkmon_name), parseInt(data.mon.linkmon));
 
             var linksurf_name;
                 linksurf_name = '#linksurf';
-                update_linksurf_data($(linksurf_name), parseInt(data.mon.linksurf));
+                update_link_data($(linksurf_name), parseInt(data.mon.linksurf));
 
             var linkturf_name;
                 linkturf_name = '#linkturf';
-                update_linkturf_data($(linkturf_name), parseInt(data.mon.linkturf));
+                update_link_data($(linkturf_name), parseInt(data.mon.linkturf));
 
             var linkped_name;
                 linkped_name = '#linkped';
-                update_linkped_data($(linkped_name), parseInt(data.mon.linkped));
+                update_link_data($(linkped_name), parseInt(data.mon.linkped));
 
-            var disk_name;
-                for (i = 0; i < 8; i++) {
-                    disk_name = '#disk_' + i;
-                    update_disk_data($(disk_name), parseInt(data.mon.disk  [i]));
+            var linkev_name;
+            for (i = 0; i < 10; i++) {
+                linkev_name = '#linkev_' + i;
+                update_link_data($(linkev_name), parseInt(data.mon.linkev  [i]));
             }
 
+            var disk_name;
+                disk_name = '#disk_0';
+                update_disk0_data($(disk_name), parseInt(data.mon.disk  [0]));
+            var disk_name;
+                disk_name = '#disk_1';
+                update_disk0_data($(disk_name), parseInt(data.mon.disk  [1]));
+            var disk_name;
+                disk_name = '#disk_2';
+                update_disk0_data($(disk_name), parseInt(data.mon.disk  [2]));
+             var disk_name;
+                disk_name = '#disk_3';
+                update_disk0_data($(disk_name), parseInt(data.mon.disk  [3]));
+            var disk_name;
+                disk_name = '#disk_4';
+                update_disk0_data($(disk_name), parseInt(data.mon.disk  [4]));
+            var disk_name;
+                disk_name = '#disk_5';
+                update_disk0_data($(disk_name), parseInt(data.mon.disk  [5]));
+            var disk_name;
+                disk_name = '#disk_6';
+                update_disk0_data($(disk_name), parseInt(data.mon.disk  [6]));        
+            var disk_name;
+                disk_name = '#disk_7';
+                update_disk0_data($(disk_name), parseInt(data.mon.disk  [7]));
 
         });
 
