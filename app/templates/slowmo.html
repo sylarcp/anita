@@ -773,7 +773,7 @@ $(document).ready(function () {
 	
 
 	$('#next').click( function(){
-		if (i<slow_times.length) {
+		if (i<slow_times.length-1) {
 			i=i+1;
 			updatehtml(slow_times[i]);
 		};
@@ -783,6 +783,17 @@ $(document).ready(function () {
 			i=i-1;
 			updatehtml(slow_times[i]);
 		};
+	});
+	$('#last').click( function(){
+		i=slow_times.length-1;
+		updatehtml(slow_times[i]);
+	});
+	$('#goto').click( function(){
+		var keywords=parseInt($('#keywords').val());
+		console.log(keywords);
+		i=slow_times.indexOf(keywords);
+		console.log(i);
+		updatehtml(slow_times[i]);
 	});
 });
 
