@@ -784,6 +784,10 @@ $(document).ready(function () {
 			updatehtml(slow_times[i]);
 		};
 	});
+	$('#first').click( function(){
+		i=0;
+		updatehtml(slow_times[i]);
+	});
 	$('#last').click( function(){
 		i=slow_times.length-1;
 		updatehtml(slow_times[i]);
@@ -791,9 +795,15 @@ $(document).ready(function () {
 	$('#goto').click( function(){
 		var keywords=parseInt($('#keywords').val());
 		console.log(keywords);
-		i=slow_times.indexOf(keywords);
-		console.log(i);
-		updatehtml(slow_times[i]);
+		var index=slow_times.indexOf(keywords);
+		if (index!=-1 && keywords){
+			i=index;
+			console.log(i);
+			updatehtml(slow_times[i]);
+		}else{
+			 swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
+		}
+		
 	});
 });
 

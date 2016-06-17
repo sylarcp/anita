@@ -1122,6 +1122,10 @@ $(document).ready(function () {
             updatehtml(hk[i]);
         };
     });
+    $('#first').click( function(){
+        i=0;
+        updatehtml(hk[i]);
+    });
     $('#last').click( function(){
         i=hk.length-1;
         updatehtml(hk[i]);
@@ -1129,9 +1133,15 @@ $(document).ready(function () {
     $('#goto').click( function(){
         var keywords=parseInt($('#keywords').val());
         console.log(keywords);
-        i=hk.indexOf(keywords);
-        console.log(i);
-        updatehtml(hk[i]);
+        var index=hk.indexOf(keywords);
+        if (index!=-1 && keywords){
+            i=index;
+            console.log(i);
+            updatehtml(hk[i]);
+        }else{
+             swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
+        }
+        
     });
 });
 
