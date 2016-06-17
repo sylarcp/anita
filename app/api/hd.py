@@ -13,7 +13,7 @@ def get_hd_nbufs(ip_db):
     # print session['db']
     # print session['ip_db']
     hds =getattr(Hd,ip_db).limit(200).all()
-    return jsonify({'hd': [item.nbuf for item in hds]})
+    return jsonify({'hd_nbufs': [item.nbuf for item in hds], 'hd_evnums': [item.evnum for item in hds]})
     # return jsonify({'hd': [item.nbuf&mask for item in hds]})
 
 # get the length of hd nbuf list

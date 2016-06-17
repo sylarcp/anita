@@ -361,34 +361,47 @@ function updatehtml(hd){
 $(document).ready(function () {
 	$('.footable').footable();
 
-	var hd=[];
+	var hd_nbufs=[];
 	var i=0;
 	$.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
-		hd=data.hd;
+		hd_nbufs=data.hd_nbufs;
+		hd_evnums=data.hd_evnums;
 	});
-	console.log(hd);
+	console.log(hd_nbufs);
 	$('#connect').click(function(event) {
 		$.ajax({
             url: '/api/connect/'+ ip + '/' + db
         }).done(function() {
             $.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
-				hd=data.hd;
+				hd_nbufs=data.hd_nbufs;
+				hd_evnums=data.hd_evnums;
 			});
         });
-		
 	});
 
 	$('#next').click( function(){
-		if (i<hd.length) {
+		if (i<hd_nbufs.length-1) {	
 			i=i+1;
-			updatehtml(hd[i]);
+			updatehtml(hd_nbufs[i]);
 		};
 	});
 	$('#prev').click( function(){
 		if (i>0) {
 			i=i-1;
-			updatehtml(hd[i]);
+			updatehtml(hd_nbufs[i]);
 		};
+	});
+	$('#last').click( function(){
+		i=hd_nbufs.length-1;
+		updatehtml(hd_nbufs[i]);
+	});
+
+	$('#goto').click( function(){
+		var keywords=parseInt($('#keywords').val());
+		console.log(keywords);
+		i=hd_evnums.indexOf(keywords);
+		console.log(i);
+		updatehtml(hd_nbufs[i]);
 	});
 });
 
