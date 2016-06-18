@@ -362,6 +362,7 @@ $(document).ready(function () {
 	$('.footable').footable();
 
 	var hd_nbufs=[];
+	var hd_evnums=[];
 	var i=0;
 	$.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
 		hd_nbufs=data.hd_nbufs;

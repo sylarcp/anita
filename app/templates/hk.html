@@ -899,79 +899,8 @@ function update_link_data($selector, new_data){
     });
 }
 
-function updatehtml(hk){
+function updatehtml_hk(hk){
     $.getJSON('/api/' + ip_db + '/hk/'+ hk, function(data){
-        
-        $.getJSON('/api/' + ip_db + '/mon/' + data.hk.now, function(data){
-            var linkcmdlos_name;
-                linkcmdlos_name = '#linkcmdlos';
-                update_link_data($(linkcmdlos_name), parseInt(data.mon.linkcmdlos));
-
-            var linkcmdsip_name;
-                linkcmdsip_name = '#linkcmdsip';
-                update_link_data($(linkcmdsip_name), parseInt(data.mon.linkcmdsip));
-
-            var linkhd_name;
-                linkhd_name = '#linkhd';
-                update_link_data($(linkhd_name), parseInt(data.mon.linkhd));
-
-            var linkgps_name;
-                linkgps_name = '#linkgps';
-                update_link_data($(linkgps_name), parseInt(data.mon.linkgps));
-
-            var linkhk_name;
-                linkhk_name = '#linkhk';
-                update_link_data($(linkhk_name), parseInt(data.mon.linkhk));
-
-            var linkmon_name;
-                linkmon_name = '#linkmon';
-                update_link_data($(linkmon_name), parseInt(data.mon.linkmon));
-
-            var linksurf_name;
-                linksurf_name = '#linksurf';
-                update_link_data($(linksurf_name), parseInt(data.mon.linksurf));
-
-            var linkturf_name;
-                linkturf_name = '#linkturf';
-                update_link_data($(linkturf_name), parseInt(data.mon.linkturf));
-
-            var linkped_name;
-                linkped_name = '#linkped';
-                update_link_data($(linkped_name), parseInt(data.mon.linkped));
-
-            var linkev_name;
-            for (i = 0; i < 10; i++) {
-                linkev_name = '#linkev_' + i;
-                update_link_data($(linkev_name), parseInt(data.mon.linkev  [i]));
-            }
-
-            var disk_name;
-                disk_name = '#disk_0';
-                update_disk0_data($(disk_name), parseInt(data.mon.disk  [0]));
-            var disk_name;
-                disk_name = '#disk_1';
-                update_disk0_data($(disk_name), parseInt(data.mon.disk  [1]));
-            var disk_name;
-                disk_name = '#disk_2';
-                update_disk0_data($(disk_name), parseInt(data.mon.disk  [2]));
-             var disk_name;
-                disk_name = '#disk_3';
-                update_disk0_data($(disk_name), parseInt(data.mon.disk  [3]));
-            var disk_name;
-                disk_name = '#disk_4';
-                update_disk0_data($(disk_name), parseInt(data.mon.disk  [4]));
-            var disk_name;
-                disk_name = '#disk_5';
-                update_disk0_data($(disk_name), parseInt(data.mon.disk  [5]));
-            var disk_name;
-                disk_name = '#disk_6';
-                update_disk0_data($(disk_name), parseInt(data.mon.disk  [6]));        
-            var disk_name;
-                disk_name = '#disk_7';
-                update_disk0_data($(disk_name), parseInt(data.mon.disk  [7]));
-
-        });
-
         $('#volt #p1_5v').html(data.hk.p1_5v);
         $('#volt #p3_3v').html(data.hk.p3_3v);
         $('#volt #p5v').html(data.hk.p5v);
@@ -1087,57 +1016,157 @@ function updatehtml(hk){
                 et_name = '#et_' + i;
                 update_et_data($(et_name), parseInt(data.hk.et  [i]));
             }
-    });   
+    });
+
+
+       
+}
+
+function updatehtml_mon(mon){
+    if (!mon) return;
+    $.getJSON('/api/' + ip_db + '/mon/' + mon, function(data){
+        var linkcmdlos_name;
+            linkcmdlos_name = '#linkcmdlos';
+            update_link_data($(linkcmdlos_name), parseInt(data.mon.linkcmdlos));
+
+        var linkcmdsip_name;
+            linkcmdsip_name = '#linkcmdsip';
+            update_link_data($(linkcmdsip_name), parseInt(data.mon.linkcmdsip));
+
+        var linkhd_name;
+            linkhd_name = '#linkhd';
+            update_link_data($(linkhd_name), parseInt(data.mon.linkhd));
+
+        var linkgps_name;
+            linkgps_name = '#linkgps';
+            update_link_data($(linkgps_name), parseInt(data.mon.linkgps));
+
+        var linkhk_name;
+            linkhk_name = '#linkhk';
+            update_link_data($(linkhk_name), parseInt(data.mon.linkhk));
+
+        var linkmon_name;
+            linkmon_name = '#linkmon';
+            update_link_data($(linkmon_name), parseInt(data.mon.linkmon));
+
+        var linksurf_name;
+            linksurf_name = '#linksurf';
+            update_link_data($(linksurf_name), parseInt(data.mon.linksurf));
+
+        var linkturf_name;
+            linkturf_name = '#linkturf';
+            update_link_data($(linkturf_name), parseInt(data.mon.linkturf));
+
+        var linkped_name;
+            linkped_name = '#linkped';
+            update_link_data($(linkped_name), parseInt(data.mon.linkped));
+
+        var linkev_name;
+        for (i = 0; i < 10; i++) {
+            linkev_name = '#linkev_' + i;
+            update_link_data($(linkev_name), parseInt(data.mon.linkev  [i]));
+        }
+
+        var disk_name;
+            disk_name = '#disk_0';
+            update_disk0_data($(disk_name), parseInt(data.mon.disk  [0]));
+        var disk_name;
+            disk_name = '#disk_1';
+            update_disk0_data($(disk_name), parseInt(data.mon.disk  [1]));
+        var disk_name;
+            disk_name = '#disk_2';
+            update_disk0_data($(disk_name), parseInt(data.mon.disk  [2]));
+         var disk_name;
+            disk_name = '#disk_3';
+            update_disk0_data($(disk_name), parseInt(data.mon.disk  [3]));
+        var disk_name;
+            disk_name = '#disk_4';
+            update_disk0_data($(disk_name), parseInt(data.mon.disk  [4]));
+        var disk_name;
+            disk_name = '#disk_5';
+            update_disk0_data($(disk_name), parseInt(data.mon.disk  [5]));
+        var disk_name;
+            disk_name = '#disk_6';
+            update_disk0_data($(disk_name), parseInt(data.mon.disk  [6]));        
+        var disk_name;
+            disk_name = '#disk_7';
+            update_disk0_data($(disk_name), parseInt(data.mon.disk  [7]));
+
+    });
 }
 
 $(document).ready(function () {
     $('.footable').footable();
 
-    var hk=[];
+    var hk_nbufs=[];
+    var hk_nows=[];
+    var mon_nbufs=[];
+    var mon_nows=[];
     var i=0;
-    $.getJSON('/api/' + ip_db + '/hk/nows', function(data){
-        hk=data.hk  ;
+    var j=0;
+    $.getJSON('/api/' + ip_db + '/hk/nbufs', function(data){
+        hk_nbufs=data.hk_nbufs;
+        hk_nows=data.hk_nows;
     });
-    console.log(hk);
+    $.getJSON('/api/' + ip_db + '/mon/nbufs', function(data){
+        mon_nbufs=data.mon_nbufs;
+        mon_nows=data.mon_nows;
+    });
+    console.log(hk_nbufs);
     $('#connect').click(function(event) {
         $.ajax({
             url: '/api/connect/'+ ip + '/' + db
         }).done(function() {
-            $.getJSON('/api/' + ip_db + '/hk/nows', function(data){
-                hk=data.hk  ;
+            $.getJSON('/api/' + ip_db + '/hk/nbufs', function(data){
+                hk_nbufs=data.hk_nbufs;
+                hk_nows=data.hk_nows;
+            });
+            $.getJSON('/api/' + ip_db + '/mon/nbufs', function(data){
+                mon_nbufs=data.mon_nbufs;
+                mon_nows=data.mon_nows;
             });
         });
         
     });
 
     $('#next').click( function(){
-        if (i<hk.length-1) {
+        if (i<hk_nbufs.length-1) {
             i=i+1;
-            updatehtml(hk[i]);
+            updatehtml_hk(hk_nbufs[i]);
+            j=mon_nows.indexOf(hk_nows[i]);
+            if (j!=-1) updatehtml_mon(mon_nbufs[j]);
         };
     });
     $('#prev').click( function(){
         if (i>0) {
             i=i-1;
-            updatehtml(hk[i]);
+            updatehtml_hk(hk_nbufs[i]);
+            j=mon_nows.indexOf(hk_nows[i]);
+            if (j!=-1) updatehtml_mon(mon_nbufs[j]);
         };
     });
     $('#first').click( function(){
-        i=0;
-        updatehtml(hk[i]);
+        i=0
+        updatehtml_hk(hk_nbufs[i]);
+        j=mon_nows.indexOf(hk_nows[i]);
+        if (j!=-1) updatehtml_mon(mon_nbufs[j]);
     });
     $('#last').click( function(){
-        i=hk.length-1;
-        updatehtml(hk[i]);
+        i=hk_nbufs.length-1
+        updatehtml_hk(hk_nbufs[i]);
+        j=mon_nows.indexOf(hk_nows[i]);
+        if (j!=-1) updatehtml_mon(mon_nbufs[j]);
     });
     $('#goto').click( function(){
         var keywords=parseInt($('#keywords').val());
         console.log(keywords);
-        var index=hk.indexOf(keywords);
+        var index=hk_nows.indexOf(keywords);
         if (index!=-1 && keywords){
             i=index;
             console.log(i);
-            updatehtml(hk[i]);
+            updatehtml_hk(hk_nbufs[i]);
+            j=mon_nows.indexOf(hk_nows[i]);
+            if (j!=-1) updatehtml_mon(mon_nbufs[j]);
         }else{
              swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
         }

@@ -4,23 +4,23 @@ from . import api
 from app.models import Mon
 
 
-@api.route('/<ip_db>/mon/nows')
-def get_mon_nows(ip_db):
+@api.route('/<ip_db>/mon/nbufs')
+def get_mon_nbufs(ip_db):
     # print session['ip']
     # print session['db']
     # print session['ip_db']
     mons =getattr(Mon,ip_db).limit(1000).all()
-    return jsonify({'mon': [item.now for item in mons]})
+    return jsonify({'mon_nbufs': [item.nbuf for item in mons], 'mon_nows': [item.now for item in mons]})
     # return jsonify({'hk': [item.now&mask for item in hks]})
 
-@api.route('/<ip_db>/mon/<now>')
-def get_mon(ip_db, now):
+@api.route('/<ip_db>/mon/<nbuf>')
+def get_mon(ip_db, nbuf):
 
-	## This will print a value into the command prompt with the first now value that works
+	## This will print a value into the command prompt with the first nbuf value that works
 	# print "---------------- getattr >"
-	# print getattr(Mon,ip_db).first().now
+	# print getattr(Mon,ip_db).first().nbuf
 	# print "---------------- getattr <"
 
-	mon =getattr(Mon,ip_db).filter_by(now=now).first()
+	mon =getattr(Mon,ip_db).filter_by(nbuf=nbuf).first()
 	return jsonify({'mon': mon.to_json()})
 
