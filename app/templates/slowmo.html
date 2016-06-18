@@ -350,6 +350,10 @@
 									<td id='time'></td> 
 								</tr>
 								<tr>
+									<td>now</td>
+									<td id='now'></td> 
+								</tr>
+								<tr>
 									<td>evnum</td>
 									<td id='evnum'></td> 
 								</tr>
@@ -683,9 +687,10 @@ function update_rfpower_data($selector, new_data){
 	});
 }
 
-function updatehtml(slow_times){
-	$.getJSON('/api/'+ ip_db + '/slow/' + slow_times, function(data){
+function updatehtml(slow_nows){
+	$.getJSON('/api/'+ ip_db + '/slow/' + slow_nows, function(data){
 			$('#slow #time').html(timeConverter(data.slow.time));
+			$('#slow #now').html(timeConverter(data.slow.now));
 			$('#slow #evnum').html(data.slow.evnum);
 			$('#slow #latitude').html(data.slow.latitude);
 			$('#slow #longitude').html(data.slow.longitude);
@@ -745,10 +750,10 @@ function updatehtml(slow_times){
 $(document).ready(function () {
 	$('.footable').footable();
 
-	var slow_times=[];
+	var slow_nows=[];
 	var i=0;
-	$.getJSON('/api/' + ip_db + '/slow/times', function(data){
-		slow_times=data.slow_times;
+	$.getJSON('/api/' + ip_db + '/slow/nows', function(data){
+		slow_nows=data.slow_nows;
 	});
 
 	$('#connect').click(function(event) {
@@ -756,8 +761,8 @@ $(document).ready(function () {
 		$.ajax({
             url: '/api/connect/'+ ip + '/' + db
         }).done(function() {
-            $.getJSON('/api/' + ip_db + '/slow/times', function(data){
-				slow_times=data.slow_times;
+            $.getJSON('/api/' + ip_db + '/slow/nows', function(data){
+				slow_nows=data.slow_nows;
 			});
 			// $(this).html('Connected');
 
@@ -766,40 +771,40 @@ $(document).ready(function () {
 	});
 	// $('#connect').click(function(event) {
 
-	// 	$.getJSON('/api/' + ip_db + '/slow/times', function(data){
-	// 		slow_times=data.slow_times;
+	// 	$.getJSON('/api/' + ip_db + '/slow/nows', function(data){
+	// 		slow_nows=data.slow_nows;
 	// 	});
 	// });
 	
 
 	$('#next').click( function(){
-		if (i<slow_times.length-1) {
+		if (i<slow_nows.length-1) {
 			i=i+1;
-			updatehtml(slow_times[i]);
+			updatehtml(slow_nows[i]);
 		};
 	});
 	$('#prev').click( function(){
 		if (i>0) {
 			i=i-1;
-			updatehtml(slow_times[i]);
+			updatehtml(slow_nows[i]);
 		};
 	});
 	$('#first').click( function(){
 		i=0;
-		updatehtml(slow_times[i]);
+		updatehtml(slow_nows[i]);
 	});
 	$('#last').click( function(){
-		i=slow_times.length-1;
-		updatehtml(slow_times[i]);
+		i=slow_nows.length-1;
+		updatehtml(slow_nows[i]);
 	});
 	$('#goto').click( function(){
 		var keywords=parseInt($('#keywords').val());
 		console.log(keywords);
-		var index=slow_times.indexOf(keywords);
+		var index=slow_nows.indexOf(keywords);
 		if (index!=-1 && keywords){
 			i=index;
 			console.log(i);
-			updatehtml(slow_times[i]);
+			updatehtml(slow_nows[i]);
 		}else{
 			 swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
 		}
