@@ -96,8 +96,15 @@
 
                           <tbody>
 
-                              <br/>
-                              
+                              <th>
+                                <td>Time</td>
+                                <td id='time'></td>
+                                <td>Now</td>
+                                <td id='now'></td>
+                                
+                              </th>
+
+                                                 
 
                             <tr>
                                 <td></td>
@@ -122,7 +129,7 @@
                                 <td>NTU</td>  
                             </th>
 
-                            <br/>
+                            
                            
                           </tbody>
                       
@@ -903,6 +910,9 @@ function updatehtml(hk){
     $.getJSON('/api/' + ip_db + '/hk/'+ hk, function(data){
         
         $.getJSON('/api/' + ip_db + '/mon/' + data.hk.now, function(data){
+            $('#disk #time').html(data.mon.time);
+            $('#disk #now').html(data.mon.now);
+
             var linkcmdlos_name;
                 linkcmdlos_name = '#linkcmdlos';
                 update_link_data($(linkcmdlos_name), parseInt(data.mon.linkcmdlos));
