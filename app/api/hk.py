@@ -5,13 +5,13 @@ from app.models import Hk
 
 # Primary key list: get the hk now list
 
-@api.route('/<ip_db>/hk/nows')
-def get_hk_nows(ip_db):
+@api.route('/<ip_db>/hk/nbufs')
+def get_hk_nbufs(ip_db):
     # print session['ip']
     # print session['db']
     # print session['ip_db']
     hks =getattr(Hk,ip_db).limit(1000).all()
-    return jsonify({'hk': [item.now for item in hks]})
+    return jsonify({'hk_nbufs': [item.nbuf for item in hks], 'hk_nows': [item.now for item in hks]})
     # return jsonify({'hk': [item.now&mask for item in hks]})
 
 # get the length of hk now list
@@ -27,8 +27,8 @@ def get_hk_count(ip_db):
 # get a tuple of Hk table
 
 
-@api.route('/<ip_db>/hk/<now>')
-def get_hk(ip_db, now):
+@api.route('/<ip_db>/hk/<nbuf>')
+def get_hk(ip_db, nbuf):
 
-    hk =getattr(Hk,ip_db).filter_by(now=now).first()
+    hk =getattr(Hk,ip_db).filter_by(nbuf=nbuf).first()
     return jsonify({'hk': hk.to_json()})
