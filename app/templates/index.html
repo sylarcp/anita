@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-12">
+        <div class="col-xs-12 col-lg-9">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>waveform</h5>
@@ -100,7 +100,7 @@
                 	</div>
                 </div>
                 <div class="ibox-content" >
-                    <table data-sort="false" class="footable" id='wv' style="width:100%">
+                    <table data-sort="false" class="footable" id='wv' style="width:100%" data-page-size="13">
 
 				  		<tbody>
 				  			<th>
@@ -302,10 +302,10 @@ function updatehtml(hd){
 
 		$.getJSON('/api/' + ip_db + '/wv/'+ data.hd.evnum, function(data){
 			var wv_name;
-			for (var turf = 0; turf < 9; turf++) { 
-				for (var surf = 0; surf < 12; surf++) { 
-			    	wv_name='#wv_'+ turf +'_'+ surf ;
-			    	var id = surf + 9*turf;
+			for (var surf = 0; surf < 12; surf++) { 
+				for (var turf = 0; turf < 9; turf++) { 
+			    	wv_name='#wv_'+ surf +'_'+ turf ;
+			    	var id = turf + 9*surf;
 			    	var waveform=data[id.toString()];
 			    	if (waveform != undefined) {
 			    		console.log(waveform.cal);
@@ -314,7 +314,7 @@ function updatehtml(hd){
 						    // colorMap: rfpower_range_map,
 						    // chartRangeMin:-100,
 						    // chartRangeMax:100,
-						    width: '110',
+						    width: '80',
 						    height: '40 ',
 						    lineWidth: 0.5
 						});
@@ -362,6 +362,7 @@ $(document).ready(function () {
 	$('.footable').footable();
 
 	var hd_nbufs=[];
+	var hd_evnums=[];
 	var i=0;
 	$.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
 		hd_nbufs=data.hd_nbufs;
@@ -391,6 +392,10 @@ $(document).ready(function () {
 			updatehtml(hd_nbufs[i]);
 		};
 	});
+	$('#first').click( function(){
+		i=0;
+		updatehtml(hd_nbufs[i]);
+	});
 	$('#last').click( function(){
 		i=hd_nbufs.length-1;
 		updatehtml(hd_nbufs[i]);
@@ -399,9 +404,15 @@ $(document).ready(function () {
 	$('#goto').click( function(){
 		var keywords=parseInt($('#keywords').val());
 		console.log(keywords);
-		i=hd_evnums.indexOf(keywords);
-		console.log(i);
-		updatehtml(hd_nbufs[i]);
+		var index=hd_evnums.indexOf(keywords);
+		if (index!=-1 && keywords){
+			i=index;
+			console.log(i);
+			updatehtml(hd_nbufs[i]);
+		}else{
+			 swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
+		}
+		
 	});
 });
 

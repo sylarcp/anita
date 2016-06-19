@@ -13,6 +13,8 @@
 <link href="{{ url_for('static', filename='inspinia/css/animate.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/style.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.metismenu/2.5.0/metisMenu.min.css">
+<link href="{{ url_for('static', filename='inspinia/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
+
 
  <style>
         button, select, input{
@@ -74,6 +76,7 @@
                     </div>
                     <button type="button" id='next' class="btn btn-primary dim">Next</button>
                     <button type="button" id='prev' class="btn btn-primary dim">Prev</button>
+                    <button type="button" id='first' class="btn btn-primary dim">First</button>
                     <button type="button" id='last' class="btn btn-primary dim">Last</button>
                 </li>
             </ul>
@@ -104,6 +107,7 @@
     <script src="{{ url_for('static', filename='inspinia/js/inspinia.js') }}"></script>
     <script src="{{ url_for('static', filename='inspinia/js/plugins/pace/pace.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/jquery.metismenu/2.5.0/metisMenu.min.js"></script>
+    <script src="{{ url_for('static', filename='inspinia/js/plugins/sweetalert/sweetalert.min.js') }}"></script>
     <script>
         var ip=$('#ip option:selected').val();
         var db=$('#db option:selected').val();
