@@ -94,15 +94,19 @@
                 <div class="ibox-content" >
                     <table data-sort="false" class="footable" data-page-size="20" id='disk' style="width:100%">
 
-                          <tbody>
-
-                            <th>
-                              <td>Time</td>
-                              <td id='time'></td>
-                              <td>Now</td>
-                              <td id='now'></td>                                
-                            </th>
-                              
+                          <tbody>   
+                            <tr>
+                                <td>Time:</td>
+                                <td id='time'></td>
+                                <td> Now:</td>
+                                <td id='now'></td>                              
+                            </tr>
+                            <tr>
+                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
+                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
 
                             <tr>
                                 <td></td>
@@ -1030,8 +1034,8 @@ function updatehtml_hk(hk){
 function updatehtml_mon(mon){
     if (!mon) return;
     $.getJSON('/api/' + ip_db + '/mon/' + mon, function(data){
-        $('#disk #time').html(data.mon.time);
-        $('#disk #now').html(data.mon.now);
+        $('#disk #time').html(timeConverter(data.mon.time));
+        $('#disk #now').html(timeConverter(data.mon.now));
 
         var linkcmdlos_name;
             linkcmdlos_name = '#linkcmdlos';
