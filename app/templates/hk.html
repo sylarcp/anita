@@ -96,7 +96,12 @@
 
                           <tbody>
 
-                              <br/>
+                            <th>
+                              <td>Time</td>
+                              <td id='time'></td>
+                              <td>Now</td>
+                              <td id='now'></td>                                
+                            </th>
                               
 
                             <tr>
@@ -541,6 +546,78 @@
         </div>
 
 
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>GPS Panel</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" data-page-size="20" id='gps' style="width:100%">
+
+                          <tbody>
+                            <th>
+                              <td>Time</td>
+                              <td id='time'></td>
+                              <td>Now</td>
+                              <td id='now'></td>                                
+                            </th>
+                            
+                            <tr>
+                                <td>Location</td>
+                                <td id='latitude'></td>
+                                <td id='longitude'></td>                                
+                                <td id='altitude'></td>
+                            </tr>
+                            <th>
+                                <td>Latitude</td>
+                                <td>Longitude</td>                                
+                                <td>Altitude</td>                                  
+                            </th>
+
+                            <tr>
+                                <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                            </tr>
+                             
+
+                            <tr>
+                                <td>Orientation</td>
+                                <td id='pitch'></td> 
+                                <td id='roll'></td>
+                                <td id='heading'></td>
+                            </tr>
+                            <th>                                
+                                <td>Pitch</td>
+                                <td>Roll</td>   
+                                <td>Heading</td>                             
+                            </th>
+
+                            <tr>
+                                <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                             </tr>
+
+                            <tr>
+                                <td>Velocity</td>
+                                <td id='vkt'></td> 
+                                <td id='vkph'></td>
+                            </tr>
+
+                            <th>                                
+                                <td>knots</td>
+                                <td>kph</td>                            
+                            </th>
+                          </tbody>
+                      
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
@@ -953,6 +1030,9 @@ function updatehtml_hk(hk){
 function updatehtml_mon(mon){
     if (!mon) return;
     $.getJSON('/api/' + ip_db + '/mon/' + mon, function(data){
+        $('#disk #time').html(data.mon.time);
+        $('#disk #now').html(data.mon.now);
+
         var linkcmdlos_name;
             linkcmdlos_name = '#linkcmdlos';
             update_link_data($(linkcmdlos_name), parseInt(data.mon.linkcmdlos));
@@ -1011,14 +1091,36 @@ function updatehtml_mon(mon){
             update_disk0_data($(disk_name), parseInt(data.mon.disk  [7]));
     });
 }
+
+function updatehtml_adu5(adu5){
+    if (!adu5) return;
+    $.getJSON('/api/' + ip_db + '/adu5/' + adu5, function(data){
+        $('#gps #time').html(data.pat.time);
+        $('#gps #now').html(data.pat.now);
+        $('#gps #heading').html(data.pat.heading);
+        $('#gps #latitude').html(data.pat.latitude);
+        $('#gps #longitude').html(data.pat.longitude);
+        $('#gps #pitch').html(data.pat.pitch);
+        $('#gps #roll').html(data.pat.roll);
+        $('#gps #altitude').html(data.pat.altitude);
+
+
+    });
+}
+
+
+
 $(document).ready(function () {
     $('.footable').footable();
     var hk_nbufs=[];
     var hk_nows=[];
     var mon_nbufs=[];
     var mon_nows=[];
+    var adu5_nbufs=[];
+    var adu5_nows=[];
     var i=0;
     var j=0;
+    var k=0;
     $.getJSON('/api/' + ip_db + '/hk/nbufs', function(data){
         hk_nbufs=data.hk_nbufs;
         hk_nows=data.hk_nows;
@@ -1027,6 +1129,12 @@ $(document).ready(function () {
         mon_nbufs=data.mon_nbufs;
         mon_nows=data.mon_nows;
     });
+    $.getJSON('/api/' + ip_db + '/adu5/nbufs', function(data){
+        adu5_nbufs=data.adu5_nbufs;
+        adu5_nows=data.adu5_nows;
+    });
+    
+
     console.log(hk_nbufs);
     $('#connect').click(function(event) {
         $.ajax({
@@ -1040,6 +1148,11 @@ $(document).ready(function () {
                 mon_nbufs=data.mon_nbufs;
                 mon_nows=data.mon_nows;
             });
+            $.getJSON('/api/' + ip_db + '/adu5/nbufs', function(data){
+                adu5_nbufs=data.adu5_nbufs;
+                adu5_nows=data.adu5_nows;
+            });
+            
         });
         
     });
@@ -1049,6 +1162,8 @@ $(document).ready(function () {
             updatehtml_hk(hk_nbufs[i]);
             j=mon_nows.indexOf(hk_nows[i]);
             if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+            k=adu5_nows.indexOf(hk_nows[i]);
+            if (k!=-1) updatehtml_adu5(adu5_nbufs[k]);
         };
     });
     $('#prev').click( function(){
@@ -1057,6 +1172,8 @@ $(document).ready(function () {
             updatehtml_hk(hk_nbufs[i]);
             j=mon_nows.indexOf(hk_nows[i]);
             if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+            k=adu5_nows.indexOf(hk_nows[i]);
+            if (k!=-1) updatehtml_adu5(adu5_nbufs[k]);
         };
     });
     $('#first').click( function(){
@@ -1064,12 +1181,16 @@ $(document).ready(function () {
         updatehtml_hk(hk_nbufs[i]);
         j=mon_nows.indexOf(hk_nows[i]);
         if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+        k=adu5_nows.indexOf(hk_nows[i]);
+        if (k!=-1) updatehtml_adu5(adu5_nbufs[k]);
     });
     $('#last').click( function(){
         i=hk_nbufs.length-1
         updatehtml_hk(hk_nbufs[i]);
         j=mon_nows.indexOf(hk_nows[i]);
         if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+        k=adu5_nows.indexOf(hk_nows[i]);
+        if (k!=-1) updatehtml_adu5(adu5_nbufs[k]);
     });
     $('#goto').click( function(){
         var keywords=parseInt($('#keywords').val());
@@ -1081,6 +1202,8 @@ $(document).ready(function () {
             updatehtml_hk(hk_nbufs[i]);
             j=mon_nows.indexOf(hk_nows[i]);
             if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+            k=adu5_nows.indexOf(hk_nows[i]);
+            if (k!=-1) updatehtml_adu5_pat(adu5_nbufs[k]);
         }else{
              swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
         }

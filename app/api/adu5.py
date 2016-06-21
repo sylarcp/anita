@@ -4,14 +4,27 @@ from . import api
 from app.models import Adu5_pat, Adu5_vtg, Adu5_sat
 
 
+@api.route('/<ip_db>/adu5/nbufs')
+def get_adu5_nbufs(ip_db):
+    # print session['ip']
+    # print session['db']
+    # print session['ip_db']
+    adu5s =getattr(Adu5_pat,ip_db).limit(1000).all()
+    #adu5_sats =getattr(Adu5_sat,ip_db).limit(1000).all()
+    #adu5_vtgs =getattr(Adu5_vtg,ip_db).limit(1000).all()
+    return jsonify({'adu5_nbufs': [item.nbuf for item in adu5s], 'adu5_nows': [item.now for item in adu5s]})
+    #return jsonify({'mon_nbufs': [item.nbuf for item in mons], 'mon_nows': [item.now for item in mons]})
+    # return jsonify({'hk': [item.now&mask for item in hks]})
 
-@api.route('/<ip_db>/adu5/<now>')
-def get_adu5(ip_db, now):
-    print ""
-    print getattr(Adu5_pat,ip_db).first().now
-    adu5_pat =getattr(Adu5_pat,ip_db).filter_by(now=now).first()
-    adu5_sat =getattr(Adu5_sat,ip_db).filter_by(now=now).first()
-    adu5_vtg =getattr(Adu5_vtg,ip_db).filter_by(now=now).first()
+
+
+@api.route('/<ip_db>/adu5/<nbuf>')
+def get_adu5(ip_db, nbuf):
+    #print ""
+    #print getattr(Adu5_vtg,ip_db).first().nbuf
+    adu5_pat =getattr(Adu5_pat,ip_db).filter_by(nbuf=nbuf).first()
+    adu5_sat =getattr(Adu5_sat,ip_db).filter_by(nbuf=nbuf).first()
+    adu5_vtg =getattr(Adu5_vtg,ip_db).filter_by(nbuf=nbuf).first()
     json_comment={}
     if adu5_pat == None:
         json_comment['pat']=''
