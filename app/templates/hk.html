@@ -10,20 +10,32 @@
         <!-- <button id='next' class="btn btn-primary"  type="button">Next event</button>
         <button id='prev' class="btn btn-primary"  type="button">Prev event</button> -->
         <div class="col-lg-6">
-                <div class="ibox float-e-margins">
-                    <div class="ibox-title">
-                        <h5>Queue Entries</h5>
-                        <div class="ibox-tools">
-                            <a class="collapse-link">
-                                <i class="fa fa-chevron-up"></i>
-                            </a>
-                        </div>
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h4>Monitor</h4>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
                     </div>
+                </div>
+                <div class='ibox-content'>
+                    <table data-sort='false' class='footable' data-page-size='20' id='montimes' style='width:100%'>
+                        <tbody>
+                            <th >
+                                <td>Time:</td>
+                                <td id='time'></td>
+                                <td> Now:</td>
+                                <td id='now'></td>                              
+                            </th>
+                        </tbody>
+                    </table>
+                </div>
                     <div class="ibox-content" >
                         <table data-sort="false" class="footable" data-page-size="20" id='query_entries' style="width:100%">
-
+                            <h5>Queue Entries</h5>
                             <tbody>
-                                    <tr>
+                                <tr>
                                     <td>P's</td>
                                     <td id='linkev_0'></td>
                                     <td id='linkev_1'></td>
@@ -78,36 +90,10 @@
                             </tbody>                      
                     </table>
                 </div>
-            </div>
-        </div>
-
-        <div class="col-lg-6">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Disk Space [MB]</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </div>
-                </div>
                 <div class="ibox-content" >
                     <table data-sort="false" class="footable" data-page-size="20" id='disk' style="width:100%">
-
+                          <h5>Disk Space [MB]</h5>
                           <tbody>   
-                            <tr>
-                                <td>Time:</td>
-                                <td id='time'></td>
-                                <td> Now:</td>
-                                <td id='now'></td>                              
-                            </tr>
-                            <tr>
-                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
-                            </tr>
-                            <tr>
-                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
-                            </tr>
-
                             <tr>
                                 <td></td>
                                 <td id='disk_0'></td>
@@ -124,7 +110,7 @@
                                 <td>/temp</td>
                                 <td>var</td>
                                 <td>home</td>                                 
-                                <td>/DS</td>                                 
+                                <td>/DS</td>                                  
                                 <td>He1</td>                                 
                                 <td>He2</td>                                 
                                 <td>int</td>
@@ -133,7 +119,7 @@
                           </tbody>
                       
                     </table>
-                </div>
+                </div>                
             </div>
         </div>
 
@@ -626,8 +612,6 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 </div>
 
@@ -1042,8 +1026,8 @@ function updatehtml_hk(hk){
 function updatehtml_mon(mon){
     if (!mon) return;
     $.getJSON('/api/' + ip_db + '/mon/' + mon, function(data){
-        $('#disk #time').html(timeConverter(data.mon.time));
-        $('#disk #now').html(timeConverter(data.mon.now));
+        $('#montimes #time').html(timeConverter(data.mon.time));
+        $('#montimes #now').html(timeConverter(data.mon.now));
 
         var linkcmdlos_name;
             linkcmdlos_name = '#linkcmdlos';
