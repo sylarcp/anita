@@ -107,6 +107,7 @@
                             <tr>
                                <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
                             </tr>
+
                             <tr>
                                 <td></td>
                                 <td id='disk_0'></td>
@@ -461,9 +462,14 @@
                           <tbody>
                             <tr>
                                 <td>Time</td>
-                                <td id='time'></td> 
+                                <td id='time'></td>
+                                <td>Now</td>
+                                <td id='now'></td> 
                             </tr>
-                              <tr>
+                            <tr>
+                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
                                 <td>Pressure [torr]</td>
                                 <td id='pressl'></td> 
                             </tr>
@@ -546,6 +552,82 @@
         </div>
 
 
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>GPS Panel</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" data-page-size="20" id='gps' style="width:100%">
+
+                          <tbody>
+                            <tr>
+                              <td>Time</td>
+                              <td id='time'></td>
+                              <td>Now</td>
+                              <td id='now'></td>                                
+                            </tr>
+
+                            <tr>
+                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            
+                            <tr>
+                                <td>Location</td>
+                                <td id='latitude'></td>
+                                <td id='longitude'></td>                                
+                                <td id='altitude'></td>
+                            </tr>
+                            <th>
+                                <td>Latitude</td>
+                                <td>Longitude</td>                                
+                                <td>Altitude</td>                                  
+                            </th>
+
+                            <tr>
+                                <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                            </tr>
+                             
+
+                            <tr>
+                                <td>Orientation</td>
+                                <td id='pitch'></td> 
+                                <td id='roll'></td>
+                                <td id='heading'></td>
+                            </tr>
+                            <th>                                
+                                <td>Pitch</td>
+                                <td>Roll</td>   
+                                <td>Heading</td>                             
+                            </th>
+
+                            <tr>
+                                <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                             </tr>
+
+                            <tr>
+                                <td>Velocity</td>
+                                <td id='vkt'></td> 
+                                <td id='vkph'></td>
+                            </tr>
+
+                            <th>                                
+                                <td>knots</td>
+                                <td>kph</td>                            
+                            </th>
+                          </tbody>
+                      
+                    </table>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 </div>
 
@@ -571,80 +653,65 @@ function timeConverter(UNIX_timestamp){
   var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
   return time;
 }
-
 var it_et_range_map = $.range_map({
         '0:20': 'blue',
         '20:45:': 'green',
         '45:55:': 'yellow'
 })
-
 var sbst_range_map = $.range_map({
         '0:20': 'blue',
         '20:45:': 'green',
         '45:55:': 'yellow'
 })
-
 var core_range_map = $.range_map({
         '0:30': 'blue',
         '30:60:': 'green',
         '60:80:': 'yellow'
 })
-
 var stemp_range_map = $.range_map({
         '0:4000': 'blue',
         '30:60:': 'green',
         '60:80:': 'yellow'
 })
-
 var disk0_range_map = $.range_map({
         '400:5000': 'green',
         '100:400:': 'yellow'
 })
-
 var disk1_range_map = $.range_map({
         '150:2000': 'green',
         '40:150:': 'yellow',
 })
-
 var disk2_range_map = $.range_map({
         '300:3500': 'green',
         '80:300:': 'yellow',
 })
-
 var disk3_range_map = $.range_map({
         '300:4000': 'green',
         '50:300:': 'yellow',
 })
-
 var disk4_range_map = $.range_map({
         '1000000:7000000': 'green',
         '6000:1000000:': 'yellow',
 })
-
 var disk5_range_map = $.range_map({
         '1000000:7000000': 'green',
         '6000:1000000:': 'yellow',
 })
-
 var disk6_range_map = $.range_map({
         '300:4000': 'green',
         '80:300:': 'yellow',
 })
-
 var disk7_range_map = $.range_map({
         '25000:350000': 'green',
         '2500:25000:': 'yellow',
 })
-
 var link_range_map = $.range_map({
         '0:15': 'green',
         '15:50:': 'yellow',
 })
-
 function update_sbst1_data($selector, new_data){
     var array_string=$selector.attr('values');
      array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -655,11 +722,9 @@ function update_sbst1_data($selector, new_data){
         chartRangeMax:100
     });
 }
-
 function update_sbst2_data($selector, new_data){
     var array_string=$selector.attr('values');
      array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -670,11 +735,9 @@ function update_sbst2_data($selector, new_data){
         chartRangeMax:100
     });
 }
-
 function update_sbst5_data($selector, new_data){
     var array_string=$selector.attr('values');
     array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -685,7 +748,6 @@ function update_sbst5_data($selector, new_data){
         chartRangeMax:100
     });
 }
-
 function update_sbst6_data($selector, new_data){
     var array_string=$selector.attr('values');
     array_string=new_data;
@@ -699,11 +761,9 @@ function update_sbst6_data($selector, new_data){
         chartRangeMax:100
     });
 }
-
 function update_core1_data($selector, new_data){
     var array_string=$selector.attr('values');
     array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -714,11 +774,9 @@ function update_core1_data($selector, new_data){
         chartRangeMax:100
     });
 }
-
 function update_core2_data($selector, new_data){
     var array_string=$selector.attr('values');
     array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -729,11 +787,9 @@ function update_core2_data($selector, new_data){
         chartRangeMax:100
     });
 }
-
 function update_it_data($selector, new_data){
     var array_string=$selector.attr('values');
     array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -744,11 +800,9 @@ function update_it_data($selector, new_data){
         chartRangeMax:100
     });
 }
-
 function update_et_data($selector, new_data){
     var array_string=$selector.attr('values');
     array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -759,12 +813,10 @@ function update_et_data($selector, new_data){
         chartRangeMax:100
     });
 }
-
 function update_disk0_data($selector, new_data){
     //slash temp
     var array_string=$selector.attr('values');
     array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -775,12 +827,10 @@ function update_disk0_data($selector, new_data){
         chartRangeMax:4000
     });
 }
-
 function update_disk1_data($selector, new_data){
     //var
     var array_string=$selector.attr('values');
     array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -791,12 +841,10 @@ function update_disk1_data($selector, new_data){
         chartRangeMax:1000
     });
 }
-
 function update_disk2_data($selector, new_data){
     //home
     var array_string=$selector.attr('values');
     array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -807,12 +855,10 @@ function update_disk2_data($selector, new_data){
         chartRangeMax:2500
     });
 }
-
 function update_disk3_data($selector, new_data){
     //slash
     var array_string=$selector.attr('values');
     array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -823,12 +869,10 @@ function update_disk3_data($selector, new_data){
         chartRangeMax:3000
     });
 }
-
 function update_disk45_data($selector, new_data){
     //He1 
     var array_string=$selector.attr('values');
     array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -839,12 +883,10 @@ function update_disk45_data($selector, new_data){
         chartRangeMax:6000000
     });
 }
-
 function update_disk5_data($selector, new_data){
     // He2
     var array_string=$selector.attr('values');
     array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -855,12 +897,10 @@ function update_disk5_data($selector, new_data){
         chartRangeMax:6000000
     });
 }
-
 function update_disk6_data($selector, new_data){
     //int
     var array_string=$selector.attr('values');
     array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -871,12 +911,10 @@ function update_disk6_data($selector, new_data){
         chartRangeMax:3000
     });
 }
-
 function update_disk7_data($selector, new_data){
     //NTU
     var array_string=$selector.attr('values');
     array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -887,12 +925,10 @@ function update_disk7_data($selector, new_data){
         chartRangeMax:250000
     });
 }
-
 function update_link_data($selector, new_data){
 //for all link stuff in queue entries
     var array_string=$selector.attr('values');
     array_string=new_data;
-
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
     $selector.attr('values', array_string).sparkline('html', {
         type: 'bar',
@@ -903,7 +939,6 @@ function update_link_data($selector, new_data){
         chartRangeMax:100
     });
 }
-
 function updatehtml_hk(hk){
     $.getJSON('/api/' + ip_db + '/hk/'+ hk, function(data){
         $('#volt #p1_5v').html(data.hk.p1_5v);
@@ -930,105 +965,80 @@ function updatehtml_hk(hk){
         $('#current #iprf2i').html(data.hk.iprf2i);
         $('#current #bati').html(data.hk.bati);
         $('#aux #time').html(timeConverter(data.hk.time));
-
+        $('#aux #now').html(timeConverter(data.hk.now));        
         $('#aux #pressl').html(data.hk.pressl);
         $('#aux #pressh').html(data.hk.pressh);
-
         $('#aux #ssx_0').html(data.hk.ssx[0]);
         $('#aux #ssx_1').html(data.hk.ssx[1]);
         $('#aux #ssx_2').html(data.hk.ssx[2]);
         $('#aux #ssx_3').html(data.hk.ssx[3]);
-
         $('#aux #ssy_0').html(data.hk.ssy[0]);
         $('#aux #ssy_1').html(data.hk.ssy[1]);
         $('#aux #ssy_2').html(data.hk.ssy[2]);
         $('#aux #ssy_3').html(data.hk.ssy[3]);
-
         $('#aux #ssi_0').html(data.hk.ssi[0]);
         $('#aux #ssi_1').html(data.hk.ssi[1]);
         $('#aux #ssi_2').html(data.hk.ssi[2]);
         $('#aux #ssi_3').html(data.hk.ssi[3]);
-
         $('#aux #ssflag_0').html(data.hk.ssflag[0]);
         $('#aux #ssflag_1').html(data.hk.ssflag[1]);
         $('#aux #ssflag_2').html(data.hk.ssflag[2]);
         $('#aux #ssflag_3').html(data.hk.ssflag[3]);
-
         $('#aux #ssel_0').html(data.hk.ssel[0]);
         $('#aux #ssel_1').html(data.hk.ssel[1]);
         $('#aux #ssel_2').html(data.hk.ssel[2]);
         $('#aux #ssel_3').html(data.hk.ssel[3]);
-
         $('#aux #ssaz_0').html(data.hk.ssaz[0]);
         $('#aux #ssaz_1').html(data.hk.ssaz[1]);
         $('#aux #ssaz_2').html(data.hk.ssaz[2]);
         $('#aux #ssaz_3').html(data.hk.ssaz[3]);
-
         $('#aux #sst_0').html(data.hk.sst[0]);
         $('#aux #sst_1').html(data.hk.sst[1]);
         $('#aux #sst_2').html(data.hk.sst[2]);
         $('#aux #sst_3').html(data.hk.sst[3]);
-
         $('#aux #accx_0').html(data.hk.accx[0]);
         $('#aux #accy_0').html(data.hk.accy[0]);
         $('#aux #accz_0').html(data.hk.accz[0]);
-
         $('#aux #accx_1').html(data.hk.accx[1]);
         $('#aux #accy_1').html(data.hk.accy[1]);
         $('#aux #accz_1').html(data.hk.accz[1]);
-
-
         $('#aux #magx').html(data.hk.magx);
         $('#aux #magy').html(data.hk.magy);
-        $('#aux #magz').html(data.hk.magz);
-       
-
-
-
-        
-
+        $('#aux #magz').html(data.hk.magz);        
         var sbst1_name;
+
+
             sbst1_name = '#sbst1';
             update_sbst1_data($(sbst1_name), parseInt(data.hk.sbst1));
-
         var sbst2_name;
             sbst2_name = '#sbst2';
             update_sbst2_data($(sbst2_name), parseInt(data.hk.sbst2));
             
-
         var sbst5_name;
             sbst5_name = '#sbst5';
             update_sbst5_data($(sbst5_name), parseInt(data.hk.sbst5));
-
         var sbst6_name;
             sbst6_name = '#sbst6';
             update_sbst6_data($(sbst6_name), parseInt(data.hk.sbst6));
-
         var core1_name;
             core1_name = '#core1';
             update_core1_data($(core1_name), parseInt(data.hk.core1));
-
         var core2_name;
             core2_name = '#core2';
             update_core2_data($(core2_name), parseInt(data.hk.core2));
-
         var it_name;
             for (i = 0; i < 25; i++) {
                 it_name = '#it_' + i;
                 update_it_data($(it_name), parseInt(data.hk.it  [i]));
             }
-
         var et_name;
             for (i = 0; i < 25; i++) {
                 et_name = '#et_' + i;
                 update_et_data($(et_name), parseInt(data.hk.et  [i]));
             }
     });
-
-
        
 }
-
 function updatehtml_mon(mon){
     if (!mon) return;
     $.getJSON('/api/' + ip_db + '/mon/' + mon, function(data){
@@ -1038,45 +1048,35 @@ function updatehtml_mon(mon){
         var linkcmdlos_name;
             linkcmdlos_name = '#linkcmdlos';
             update_link_data($(linkcmdlos_name), parseInt(data.mon.linkcmdlos));
-
         var linkcmdsip_name;
             linkcmdsip_name = '#linkcmdsip';
             update_link_data($(linkcmdsip_name), parseInt(data.mon.linkcmdsip));
-
         var linkhd_name;
             linkhd_name = '#linkhd';
             update_link_data($(linkhd_name), parseInt(data.mon.linkhd));
-
         var linkgps_name;
             linkgps_name = '#linkgps';
             update_link_data($(linkgps_name), parseInt(data.mon.linkgps));
-
         var linkhk_name;
             linkhk_name = '#linkhk';
             update_link_data($(linkhk_name), parseInt(data.mon.linkhk));
-
         var linkmon_name;
             linkmon_name = '#linkmon';
             update_link_data($(linkmon_name), parseInt(data.mon.linkmon));
-
         var linksurf_name;
             linksurf_name = '#linksurf';
             update_link_data($(linksurf_name), parseInt(data.mon.linksurf));
-
         var linkturf_name;
             linkturf_name = '#linkturf';
             update_link_data($(linkturf_name), parseInt(data.mon.linkturf));
-
         var linkped_name;
             linkped_name = '#linkped';
             update_link_data($(linkped_name), parseInt(data.mon.linkped));
-
         var linkev_name;
         for (i = 0; i < 10; i++) {
             linkev_name = '#linkev_' + i;
             update_link_data($(linkev_name), parseInt(data.mon.linkev  [i]));
         }
-
         var disk_name;
             disk_name = '#disk_0';
             update_disk0_data($(disk_name), parseInt(data.mon.disk  [0]));
@@ -1101,19 +1101,36 @@ function updatehtml_mon(mon){
         var disk_name;
             disk_name = '#disk_7';
             update_disk0_data($(disk_name), parseInt(data.mon.disk  [7]));
+    });
+}
+
+function updatehtml_adu5(adu5){
+    if (!adu5) return;
+    $.getJSON('/api/' + ip_db + '/adu5/' + adu5, function(data){
+        $('#gps #time').html(timeConverter(data.pat.time));
+        $('#gps #now').html(timeConverter(data.pat.now));
+        $('#gps #heading').html(data.pat.heading);
+        $('#gps #latitude').html(data.pat.latitude);
+        $('#gps #longitude').html(data.pat.longitude);
+        $('#gps #pitch').html(data.pat.pitch);
+        $('#gps #roll').html(data.pat.roll);
+        $('#gps #altitude').html(data.pat.altitude);
+
 
     });
 }
 
 $(document).ready(function () {
     $('.footable').footable();
-
     var hk_nbufs=[];
     var hk_nows=[];
     var mon_nbufs=[];
     var mon_nows=[];
+    var adu5_nbufs=[];
+    var adu5_nows=[];
     var i=0;
     var j=0;
+    var k=0;
     $.getJSON('/api/' + ip_db + '/hk/nbufs', function(data){
         hk_nbufs=data.hk_nbufs;
         hk_nows=data.hk_nows;
@@ -1122,6 +1139,12 @@ $(document).ready(function () {
         mon_nbufs=data.mon_nbufs;
         mon_nows=data.mon_nows;
     });
+    $.getJSON('/api/' + ip_db + '/adu5/nbufs', function(data){
+        adu5_nbufs=data.adu5_nbufs;
+        adu5_nows=data.adu5_nows;
+    });
+    
+
     console.log(hk_nbufs);
     $('#connect').click(function(event) {
         $.ajax({
@@ -1135,16 +1158,22 @@ $(document).ready(function () {
                 mon_nbufs=data.mon_nbufs;
                 mon_nows=data.mon_nows;
             });
+            $.getJSON('/api/' + ip_db + '/adu5/nbufs', function(data){
+                adu5_nbufs=data.adu5_nbufs;
+                adu5_nows=data.adu5_nows;
+            });
+            
         });
         
     });
-
     $('#next').click( function(){
         if (i<hk_nbufs.length-1) {
             i=i+1;
             updatehtml_hk(hk_nbufs[i]);
             j=mon_nows.indexOf(hk_nows[i]);
             if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+            k=adu5_nows.indexOf(hk_nows[i]);
+            if (k!=-1) updatehtml_adu5(adu5_nbufs[k]);
         };
     });
     $('#prev').click( function(){
@@ -1153,6 +1182,8 @@ $(document).ready(function () {
             updatehtml_hk(hk_nbufs[i]);
             j=mon_nows.indexOf(hk_nows[i]);
             if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+            k=adu5_nows.indexOf(hk_nows[i]);
+            if (k!=-1) updatehtml_adu5(adu5_nbufs[k]);
         };
     });
     $('#first').click( function(){
@@ -1160,12 +1191,16 @@ $(document).ready(function () {
         updatehtml_hk(hk_nbufs[i]);
         j=mon_nows.indexOf(hk_nows[i]);
         if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+        k=adu5_nows.indexOf(hk_nows[i]);
+        if (k!=-1) updatehtml_adu5(adu5_nbufs[k]);
     });
     $('#last').click( function(){
         i=hk_nbufs.length-1
         updatehtml_hk(hk_nbufs[i]);
         j=mon_nows.indexOf(hk_nows[i]);
         if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+        k=adu5_nows.indexOf(hk_nows[i]);
+        if (k!=-1) updatehtml_adu5(adu5_nbufs[k]);
     });
     $('#goto').click( function(){
         var keywords=parseInt($('#keywords').val());
@@ -1177,13 +1212,14 @@ $(document).ready(function () {
             updatehtml_hk(hk_nbufs[i]);
             j=mon_nows.indexOf(hk_nows[i]);
             if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+            k=adu5_nows.indexOf(hk_nows[i]);
+            if (k!=-1) updatehtml_adu5_pat(adu5_nbufs[k]);
         }else{
              swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
         }
         
     });
 });
-
             
                     
 </script>
