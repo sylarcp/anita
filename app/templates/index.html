@@ -363,20 +363,48 @@ $(document).ready(function () {
 
 	var hd_nbufs=[];
 	var hd_evnums=[];
+	var hd_times=[];
 	var i=0;
+	var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
 	$.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
 		hd_nbufs=data.hd_nbufs;
 		hd_evnums=data.hd_evnums;
 	});
 	console.log(hd_nbufs);
-	$('#connect').click(function(event) {
+
+	function autoload(start_time){
+		$.getJSON('/api/' + ip_db + '/hd/nbufs/' + start_time, function(data){
+				new_length=data.hd_nbufs.length
+				hd_nbufs=hd_nbufs.concat(data.hd_nbufs);
+				hd_evnums=hd_evnums.concat(data.hd_evnums);
+				hd_times=hd_times.concat(data.hd_times);
+				start_time=Math.max(...hd_times);
+				connect.ladda('stop');
+				console.log(start_time);
+				console.log(hd_nbufs.length);
+			}).done(function(){
+				setTimeout(function(){
+					if (new_length){
+						sleep_interval = 2000;
+					}else{
+						sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+					}
+				   	autoload(start_time);
+				}, sleep_interval);
+				
+			});
+	}
+	var connect = $( '.ladda-button' ).ladda();
+	$('#connect').click(function() {
+		 hd_nbufs=[];
+		 hd_evnums=[];
+		 hd_times=[];
+		 i=0;
+		connect.ladda( 'start' );
 		$.ajax({
             url: '/api/connect/'+ ip + '/' + db
         }).done(function() {
-            $.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
-				hd_nbufs=data.hd_nbufs;
-				hd_evnums=data.hd_evnums;
-			});
+            autoload(0);
         });
 	});
 
@@ -385,21 +413,51 @@ $(document).ready(function () {
 			i=i+1;
 			updatehtml(hd_nbufs[i]);
 		};
+		sleep_interval = 2000;
 	});
 	$('#prev').click( function(){
 		if (i>0) {
 			i=i-1;
 			updatehtml(hd_nbufs[i]);
 		};
+		sleep_interval = 2000;
 	});
 	$('#first').click( function(){
 		i=0;
 		updatehtml(hd_nbufs[i]);
+		sleep_interval = 2000;
 	});
 	$('#last').click( function(){
 		i=hd_nbufs.length-1;
 		updatehtml(hd_nbufs[i]);
+		sleep_interval = 2000;
 	});
+
+	// $('.js-switch').on('ifChanged', function (event) {
+	//     if ($(this).prop('checked')) {
+	//          console.log(switchery.isChecked)
+	//     } else {
+	//          console.log(switchery.isChecked)
+	//     };
+	// });
+	
+	var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, { color: '#1AB394' });
+    var myInterval;
+    elem.onchange = function() {
+    	console.log("working!!!!!!");
+		if (elem.checked){
+			myInterval=setInterval(function(){
+				if (i<hd_nbufs.length-1) {	
+					i=i+1;
+					updatehtml(hd_nbufs[i]);
+				};
+			}, 1000);
+		}else{
+			clearInterval(myInterval);
+		};
+	};
+
 
 	$('#goto').click( function(){
 		var keywords=parseInt($('#keywords').val());
