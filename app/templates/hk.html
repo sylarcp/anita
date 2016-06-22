@@ -94,13 +94,15 @@
                 <div class="ibox-content" >
                     <table data-sort="false" class="footable" data-page-size="20" id='disk' style="width:100%">
 
-                          <tbody>   
+                          <tbody> 
+                            <div>  
                             <tr>
                                 <td>Time:</td>
                                 <td id='time'></td>
                                 <td> Now:</td>
                                 <td id='now'></td>                              
                             </tr>
+                            </div>
                             <tr>
                                <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
                             </tr>
@@ -108,8 +110,7 @@
                                <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
                             </tr>
 
-                            <tr>
-                                <td></td>
+                            <tr>                                
                                 <td id='disk_0'></td>
                                 <td id='disk_1'></td> 
                                 <td id='disk_2'></td>
@@ -120,7 +121,7 @@
                                 <td id='disk_7'></td>
                             </tr>
 
-                            <th>
+                            <tr>
                                 <td>/temp</td>
                                 <td>var</td>
                                 <td>home</td>                                 
@@ -129,71 +130,6 @@
                                 <td>He2</td>                                 
                                 <td>int</td>
                                 <td>NTU</td>  
-                            </th>
-                          </tbody>
-                      
-                    </table>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>Voltages [Volts]</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="ibox-content" >
-                    <table data-sort="false" class="footable" data-page-size="20" id='volt' style="width:100%">
-
-                          <tbody>
-                              <tr>
-                                <td data-hide="xs">+1.5V</td>
-                                <td id='p1_5v'></td> 
-                            </tr>
-                            <tr>
-                                <td>+3.3V</td>
-                                <td id='p3_3v'></td> 
-                            </tr>
-                            <tr>
-                                <td>+5V</td>
-                                <td id='p5v'></td> 
-                            </tr>
-                            <tr>
-                                <td>+5V Short Board</td>
-                                <td id='p5sbv'></td> 
-                            </tr>
-                            <tr>
-                                <td>+12V</td>
-                                <td id='p12v'></td> 
-                            </tr>
-                            <tr>
-                                <td>+24V</td>
-                                <td id='p24v'></td> 
-                            </tr>
-                            <tr>
-                                <td>+PV</td>
-                                <td id='ppvv'></td> 
-                            </tr>
-                            <tr>
-                                <td>-5V</td>
-                                <td id='n5v'></td> 
-                            </tr>
-                            <tr>
-                                <td>-12V</td>
-                                <td id='n12v'></td> 
-                            </tr>
-                            <tr>
-                                <td>RFCM1</td>
-                                <td id='iprf1v'></td> 
-                            </tr>
-                            <tr>
-                                <td>RFCM2</td>
-                                <td id='iprf2v'></td> 
                             </tr>
                           </tbody>
                       
@@ -201,10 +137,11 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-3">
+
+        <div class="col-lg-6">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
-                    <h5>Current [Amps]</h5>
+                    <h5>Power</h5>
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -212,55 +149,75 @@
                     </div>
                 </div>
                 <div class="ibox-content" >
-                    <table data-sort="false" class="footable" data-page-size="20" id='current' style="width:100%">
+                    <table data-sort="false" class="footable" data-page-size="20" id='power' style="width:100%">
 
                           <tbody>
-                              <tr>
+                            <tr>
+                                <td></td>
+                                <td>Voltage [volts]</td>
+                                <td>Current [Amps]</td> 
+                            </tr>
+                            <tr>
+                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
                                 <td data-hide="xs">+1.5V</td>
+                                <td id='p1_5v'></td>
                                 <td id='p1_5i'></td> 
                             </tr>
                             <tr>
                                 <td>+3.3V</td>
+                                <td id='p3_3v'></td>
                                 <td id='p3_3i'></td> 
                             </tr>
                             <tr>
                                 <td>+5V</td>
+                                <td id='p5v'></td>
                                 <td id='p5i'></td> 
                             </tr>
                             <tr>
                                 <td>+5V Short Board</td>
+                                <td id='p5sbv'></td>
                                 <td id='p5sbi'></td> 
                             </tr>
                             <tr>
                                 <td>+12V</td>
+                                <td id='p12v'></td>
                                 <td id='p12i'></td> 
                             </tr>
                             <tr>
                                 <td>+24V</td>
-                                <td id='p24i'></td> 
+                                <td id='p24v'></td>
+                                <td id='p24i'></td>
                             </tr>
                             <tr>
                                 <td>+PV</td>
-                                <td id='ppvi'></td> 
+                                <td id='ppvv'></td> 
+                                <td id='ppvi'></td>
                             </tr>
                             <tr>
                                 <td>-5V</td>
+                                <td id='n5v'></td> 
                                 <td id='n5i'></td> 
                             </tr>
                             <tr>
                                 <td>-12V</td>
+                                <td id='n12v'></td> 
                                 <td id='n12i'></td> 
                             </tr>
                             <tr>
                                 <td>RFCM1</td>
-                                <td id='iprf1i'></td> 
+                                <td id='iprf1v'></td>
+                                <td id='iprf1i'></td>  
                             </tr>
                             <tr>
                                 <td>RFCM2</td>
-                                <td id='iprf2i'></td> 
+                                <td id='iprf2v'></td> 
+                                <td id='iprf2i'></td>
                             </tr>
                             <tr>
                                 <td>Battery</td>
+                                <td>None</td>
                                 <td id='bati'></td> 
                             </tr>
                           </tbody>
@@ -269,6 +226,7 @@
                 </div>
             </div>
         </div>
+        
 
         <div class="col-lg-6">
             <div class="ibox float-e-margins">
@@ -471,60 +429,73 @@
                             </tr>
                             <tr>
                                 <td>Pressure [torr]</td>
-                                <td id='pressl'></td> 
-                            </tr>
-                            <tr>
+                                <td id='pressl'></td>
                                 <td>Pressure [PSI]</td>
                                 <td id='pressh'></td> 
                             </tr>
                             <tr>
-                                <td>SunSensor 1 - X cordinates</td>
-                                <td id='ssx_0'></td>
-                                <td id='ssx_1'></td>
-                                <td id='ssx_2'></td>
-                                <td id='ssx_3'></td>
+                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
                             </tr>
                             <tr>
-                                <td>SunSensor 2 - Y cordinates</td>
-                                <td id='ssy_0'></td>
-                                <td id='ssy_1'></td> 
-                                <td id='ssy_2'></td> 
-                                <td id='ssy_3'></td>  
+                                <td></td>
+                                <td>Elevation</td>
+                                <td>Azimuth</td>
+                                <td>Flag</td> 
                             </tr>
                             <tr>
-                                <td>SunSensor 3 - Intensity</td>
-                                <td id='ssi_0'></td>
-                                <td id='ssi_1'></td> 
-                                <td id='ssi_2'></td> 
-                                <td id='ssi_3'></td>  
-                            </tr>
-                            <tr>
-                                <td>SunSensor 4 - Reading qual</td>
+                                <td>SunSensor 1</td>
+                                <td id='ssel_0'></td>
+                                <td id='ssaz_0'></td>
                                 <td id='ssflag_0'></td>
-                                <td id='ssflag_1'></td>
-                                <td id='ssflag_2'></td>
+                            </tr>
+                            <tr>
+                                <td>SunSensor 2</td>
+                                <td id='ssel_1'></td>
+                                <td id='ssaz_1'></td>
+                                <td id='ssflag_1'></td>  
+                            </tr>
+                            <tr>
+                                <td>SunSensor 3</td>
+                                <td id='ssel_2'></td>
+                                <td id='ssaz_2'></td>
+                                <td id='ssflag_2'></td>  
+                            </tr>
+                            <tr>
+                                <td>SunSensor 4</td>
+                                <td id='ssel_3'></td>
+                                <td id='ssaz_3'></td>
                                 <td id='ssflag_3'></td> 
                             </tr>
                             <tr>
-                                <td>SunSensor 5  - Elevation</td>
-                                <td id='ssel_0'></td>
-                                <td id='ssel_1'></td>
-                                <td id='ssel_2'></td>
-                                <td id='ssel_3'></td> 
+                                <td>SunSensor 5</td>
+                                <td id='ss_0'></td>
+                                <td id='ss_1'></td>
+                                <td id='ss_2'></td>
+                                <td id='ss_3'></td> 
                             </tr>
                             <tr>
-                                <td>SunSensor 6 - Azimuth</td>
-                                <td id='ssaz_0'></td>
-                                <td id='ssaz_1'></td> 
-                                <td id='ssaz_2'></td> 
-                                <td id='ssaz_3'></td>  
+                                <td>SunSensor 6</td>
+                                <td id='ss_0'></td>
+                                <td id='ss_1'></td> 
+                                <td id='ss_2'></td> 
+                                <td id='ss_3'></td>  
                             </tr>
                             <tr>
-                                <td>SunSensor 7 - Temperature</td>
-                                <td id='sst_0'></td>
-                                <td id='sst_1'></td>
-                                <td id='sst_2'></td>
-                                <td id='sst_3'></td> 
+                                <td>SunSensor 7</td>
+                                <td id='ss_0'></td>
+                                <td id='ss_1'></td>
+                                <td id='ss_2'></td>
+                                <td id='ss_3'></td> 
+                            </tr>
+                            <tr>
+                                <td>SunSensor 8</td>
+                                <td id='ss_0'></td>
+                                <td id='ss_1'></td>
+                                <td id='ss_2'></td>
+                                <td id='ss_3'></td> 
+                            </tr>
+                            <tr>
+                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
                             </tr>
                             <tr>
                                 <td>Accel 1 [x,y,z]</td>
@@ -941,29 +912,29 @@ function update_link_data($selector, new_data){
 }
 function updatehtml_hk(hk){
     $.getJSON('/api/' + ip_db + '/hk/'+ hk, function(data){
-        $('#volt #p1_5v').html(data.hk.p1_5v);
-        $('#volt #p3_3v').html(data.hk.p3_3v);
-        $('#volt #p5v').html(data.hk.p5v);
-        $('#volt #p5sbv').html(data.hk.p5sbv);
-        $('#volt #p12v').html(data.hk.p12v);
-        $('#volt #p24v').html(data.hk.p24v);
-        $('#volt #ppvv').html(data.hk.ppvv);
-        $('#volt #n5v').html(data.hk.n5v);
-        $('#volt #n12v').html(data.hk.n12v);
-        $('#volt #iprf1v').html(data.hk.iprf1v);
-        $('#volt #iprf2v').html(data.hk.iprf2v);
-        $('#current #p1_5i').html(data.hk.p1_5i);
-        $('#current #p3_3i').html(data.hk.p3_3i);
-        $('#current #p5i').html(data.hk.p5i);
-        $('#current #p5sbi').html(data.hk.p5sbi);
-        $('#current #p12i').html(data.hk.p12i);
-        $('#current #p24i').html(data.hk.p24i);
-        $('#current #ppvi').html(data.hk.ppvi);
-        $('#current #n5i').html(data.hk.n5i);
-        $('#current #n12i').html(data.hk.n12i);
-        $('#current #iprf1i').html(data.hk.iprf1i);
-        $('#current #iprf2i').html(data.hk.iprf2i);
-        $('#current #bati').html(data.hk.bati);
+        $('#power #p1_5v').html(data.hk.p1_5v);
+        $('#power #p3_3v').html(data.hk.p3_3v);
+        $('#power #p5v').html(data.hk.p5v);
+        $('#power #p5sbv').html(data.hk.p5sbv);
+        $('#power #p12v').html(data.hk.p12v);
+        $('#power #p24v').html(data.hk.p24v);
+        $('#power #ppvv').html(data.hk.ppvv);
+        $('#power #n5v').html(data.hk.n5v);
+        $('#power #n12v').html(data.hk.n12v);
+        $('#power #iprf1v').html(data.hk.iprf1v);
+        $('#power #iprf2v').html(data.hk.iprf2v);
+        $('#power #p1_5i').html(data.hk.p1_5i);
+        $('#power #p3_3i').html(data.hk.p3_3i);
+        $('#power #p5i').html(data.hk.p5i);
+        $('#power #p5sbi').html(data.hk.p5sbi);
+        $('#power #p12i').html(data.hk.p12i);
+        $('#power #p24i').html(data.hk.p24i);
+        $('#power #ppvi').html(data.hk.ppvi);
+        $('#power #n5i').html(data.hk.n5i);
+        $('#power #n12i').html(data.hk.n12i);
+        $('#power #iprf1i').html(data.hk.iprf1i);
+        $('#power #iprf2i').html(data.hk.iprf2i);
+        $('#power #bati').html(data.hk.bati);
         $('#aux #time').html(timeConverter(data.hk.time));
         $('#aux #now').html(timeConverter(data.hk.now));        
         $('#aux #pressl').html(data.hk.pressl);
