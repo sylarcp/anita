@@ -462,9 +462,14 @@
                           <tbody>
                             <tr>
                                 <td>Time</td>
-                                <td id='time'></td> 
+                                <td id='time'></td>
+                                <td>Now</td>
+                                <td id='now'></td> 
                             </tr>
-                              <tr>
+                            <tr>
+                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
                                 <td>Pressure [torr]</td>
                                 <td id='pressl'></td> 
                             </tr>
@@ -561,12 +566,16 @@
                     <table data-sort="false" class="footable" data-page-size="20" id='gps' style="width:100%">
 
                           <tbody>
-                            <th>
+                            <tr>
                               <td>Time</td>
                               <td id='time'></td>
                               <td>Now</td>
                               <td id='now'></td>                                
-                            </th>
+                            </tr>
+
+                            <tr>
+                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
                             
                             <tr>
                                 <td>Location</td>
@@ -956,6 +965,7 @@ function updatehtml_hk(hk){
         $('#current #iprf2i').html(data.hk.iprf2i);
         $('#current #bati').html(data.hk.bati);
         $('#aux #time').html(timeConverter(data.hk.time));
+        $('#aux #now').html(timeConverter(data.hk.now));        
         $('#aux #pressl').html(data.hk.pressl);
         $('#aux #pressh').html(data.hk.pressh);
         $('#aux #ssx_0').html(data.hk.ssx[0]);
@@ -1097,8 +1107,8 @@ function updatehtml_mon(mon){
 function updatehtml_adu5(adu5){
     if (!adu5) return;
     $.getJSON('/api/' + ip_db + '/adu5/' + adu5, function(data){
-        $('#gps #time').html(data.pat.time);
-        $('#gps #now').html(data.pat.now);
+        $('#gps #time').html(timeConverter(data.pat.time));
+        $('#gps #now').html(timeConverter(data.pat.now));
         $('#gps #heading').html(data.pat.heading);
         $('#gps #latitude').html(data.pat.latitude);
         $('#gps #longitude').html(data.pat.longitude);
