@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block head %}
+{{ super() }}
+<link href="{{ url_for('static', filename='inspinia/css/plugins/footable/footable.core.css') }}" rel="stylesheet">
+{% endblock %}
+{% block page_content %}
+
+
+<style>
+pre{
+	font-size: 120%;
+    white-space: pre-wrap;       /* Since CSS 2.1 */
+    white-space: -moz-pre-wrap;  /* Mozilla, since 1999 */
+    white-space: -pre-wrap;      /* Opera 4-6 */
+    white-space: -o-pre-wrap;    /* Opera 7 */
+    word-wrap: break-word;       /* Internet Explorer 5.5+ */
+}
+</style>
+
+<pre style="font-family:verdana;">
+Thank you for using our website! If you have found a bug, problem or want to pass on a compliment to the creators please contact: Peng Cao at sylarcp@udel.edu
+
+Alternitively, you can create an issue on github by clicking on the following link: <a href="https://github.com/sylarcp/anita/issues" target="_blank">https://github.com/sylarcp/anita/issues</a> 
+Any details you can provide about the problem or bug will help contribute to our team creating a speedy fix.
+
+To create an issue on github simply follow these five steps:
+1. Make sure you are signed into github, if you have not created an account you should do so now.
+2. Click on the link mentioned above which will bring you to the issues page for the website.
+3. There should be a green button that says "New issue", click on it.
+4. Create a write up of the problem with any relevent information you can think of.
+5. Once you are finished, hit the green "Submit new issue" button and your work is done.
+
+
+We appreciate your help in making this the best website we can. 
+Thank you for your time and have a great day!
+</pre>
+
+
+
+
+{% endblock %}
