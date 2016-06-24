@@ -1030,9 +1030,9 @@ function updatehtml_mon(mon){
     });
 }
 
-function updatehtml_adu5(adu5){
-    if (!adu5) return;
-    $.getJSON('/api/' + ip_db + '/adu5/' + adu5, function(data){
+function updatehtml_adu5_pat(adu5_pat){
+    if (!adu5_pat) return;
+    $.getJSON('/api/' + ip_db + '/adu5_pat/' + adu5_pat, function(data){
         $('#gps #time').html(timeConverter(data.pat.time));
         $('#gps #now').html(timeConverter(data.pat.now));
         $('#gps #heading').html(data.pat.heading);
@@ -1041,10 +1041,18 @@ function updatehtml_adu5(adu5){
         $('#gps #pitch').html(data.pat.pitch);
         $('#gps #roll').html(data.pat.roll);
         $('#gps #altitude').html(data.pat.altitude);
-
-
     });
 }
+
+function updatehtml_adu5_vtg(adu5_vtg){
+    if (!adu5_vtg) return;
+    $.getJSON('/api/' + ip_db + '/adu5_vtg/' + adu5_vtg, function(data){
+        $('#gps #vkph').html(data.vtg.vkph);
+        $('#gps #vkt').html(data.vtg.vkt);
+    });
+}
+
+
 
 $(document).ready(function () {
     $('.footable').footable();
@@ -1052,11 +1060,18 @@ $(document).ready(function () {
     var hk_nows=[];
     var mon_nbufs=[];
     var mon_nows=[];
-    var adu5_nbufs=[];
-    var adu5_nows=[];
+    var adu5_pat_nbufs=[];
+    var adu5_pat_nows=[];
+    var adu5_vtg_nbufs=[];
+    var adu5_vtg_nows=[];
+    var adu5_sat_nbufs=[];
+    var adu5_sat_nows=[];
     var i=0;
     var j=0;
     var k=0;
+    var l=0;
+    var m=0;
+
     $.getJSON('/api/' + ip_db + '/hk/nbufs', function(data){
         hk_nbufs=data.hk_nbufs;
         hk_nows=data.hk_nows;
@@ -1065,11 +1080,19 @@ $(document).ready(function () {
         mon_nbufs=data.mon_nbufs;
         mon_nows=data.mon_nows;
     });
-    $.getJSON('/api/' + ip_db + '/adu5/nbufs', function(data){
-        adu5_nbufs=data.adu5_nbufs;
-        adu5_nows=data.adu5_nows;
+    $.getJSON('/api/' + ip_db + '/adu5_pat/nbufs', function(data){
+        adu5_pat_nbufs=data.adu5_nbufs;
+        adu5_pat_nows=data.adu5_nows;
     });
-    
+    $.getJSON('/api/' + ip_db + '/adu5_vtg/nbufs', function(data){
+        adu5_vtg_nbufs=data.adu5_nbufs;
+        adu5_vtg_nows=data.adu5_nows;
+    });
+    $.getJSON('/api/' + ip_db + '/adu5_sat/nbufs', function(data){
+        adu5_sat_nbufs=data.adu5_nbufs;
+        adu5_sat_nows=data.adu5_nows;
+    });    
+   
 
     console.log(hk_nbufs);
     $('#connect').click(function(event) {
@@ -1084,10 +1107,18 @@ $(document).ready(function () {
                 mon_nbufs=data.mon_nbufs;
                 mon_nows=data.mon_nows;
             });
-            $.getJSON('/api/' + ip_db + '/adu5/nbufs', function(data){
-                adu5_nbufs=data.adu5_nbufs;
-                adu5_nows=data.adu5_nows;
+            $.getJSON('/api/' + ip_db + '/adu5_pat/nbufs', function(data){
+                adu5_pat_nbufs=data.adu5_pat_nbufs;
+                adu5_pat_nows=data.adu5_pat_nows;
             });
+            $.getJSON('/api/' + ip_db + '/adu5_vtg/nbufs', function(data){
+                adu5_vtg_nbufs=data.adu5_vtg_nbufs;
+                adu5_vtg_nows=data.adu5_vtg_nows;
+            });
+            $.getJSON('/api/' + ip_db + '/adu5_sat/nbufs', function(data){
+                adu5_sat_nbufs=data.adu5_sat_nbufs;
+                adu5_sat_nows=data.adu5_sat_nows;
+            });   
             
         });
         
@@ -1098,8 +1129,12 @@ $(document).ready(function () {
             updatehtml_hk(hk_nbufs[i]);
             j=mon_nows.indexOf(hk_nows[i]);
             if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-            k=adu5_nows.indexOf(hk_nows[i]);
-            if (k!=-1) updatehtml_adu5(adu5_nbufs[k]);
+            k=adu5_pat_nows.indexOf(hk_nows[i]);
+            if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+            l=adu5_vtg_nows.indexOf(hk_nows[i]);
+            if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+            m=adu5_sat_nows.indexOf(hk_nows[i]);
+            if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
         };
     });
     $('#prev').click( function(){
@@ -1108,8 +1143,12 @@ $(document).ready(function () {
             updatehtml_hk(hk_nbufs[i]);
             j=mon_nows.indexOf(hk_nows[i]);
             if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-            k=adu5_nows.indexOf(hk_nows[i]);
-            if (k!=-1) updatehtml_adu5(adu5_nbufs[k]);
+            k=adu5_pat_nows.indexOf(hk_nows[i]);
+            if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+            l=adu5_vtg_nows.indexOf(hk_nows[i]);
+            if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+            m=adu5_sat_nows.indexOf(hk_nows[i]);
+            if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
         };
     });
     $('#first').click( function(){
@@ -1117,16 +1156,24 @@ $(document).ready(function () {
         updatehtml_hk(hk_nbufs[i]);
         j=mon_nows.indexOf(hk_nows[i]);
         if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-        k=adu5_nows.indexOf(hk_nows[i]);
-        if (k!=-1) updatehtml_adu5(adu5_nbufs[k]);
+        k=adu5_pat_nows.indexOf(hk_nows[i]);
+        if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+        l=adu5_vtg_nows.indexOf(hk_nows[i]);
+        if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+        m=adu5_sat_nows.indexOf(hk_nows[i]);
+        if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
     });
     $('#last').click( function(){
         i=hk_nbufs.length-1
         updatehtml_hk(hk_nbufs[i]);
         j=mon_nows.indexOf(hk_nows[i]);
         if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-        k=adu5_nows.indexOf(hk_nows[i]);
-        if (k!=-1) updatehtml_adu5(adu5_nbufs[k]);
+        k=adu5_pat_nows.indexOf(hk_nows[i]);
+        if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+        l=adu5_vtg_nows.indexOf(hk_nows[i]);
+        if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+        m=adu5_sat_nows.indexOf(hk_nows[i]);
+        if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
     });
     $('#goto').click( function(){
         var keywords=parseInt($('#keywords').val());
@@ -1138,8 +1185,12 @@ $(document).ready(function () {
             updatehtml_hk(hk_nbufs[i]);
             j=mon_nows.indexOf(hk_nows[i]);
             if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-            k=adu5_nows.indexOf(hk_nows[i]);
-            if (k!=-1) updatehtml_adu5_pat(adu5_nbufs[k]);
+            k=adu5_pat_nows.indexOf(hk_nows[i]);
+            if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+            l=adu5_vtg_nows.indexOf(hk_nows[i]);
+            if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+            m=adu5_sat_nows.indexOf(hk_nows[i]);
+            if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
         }else{
              swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
         }
