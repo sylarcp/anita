@@ -17,3 +17,6 @@ def slowmo():
 @main.route('/hk', methods=['GET'])
 def hk():
     return render_template('hk.html')
+@main.route('/contactus', methods=['GET'])
+def contactus():
+    return render_template('contactus.html')
