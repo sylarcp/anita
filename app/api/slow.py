@@ -3,10 +3,10 @@ from . import api
 from app.models import Slow
 
 #Primary key list:  get the slow time list
-@api.route('/<ip_db>/slow/nows')
-def get_slow_nows(ip_db):
-    slows = getattr(Slow,ip_db).limit(1000).all()
-    return jsonify({'slow_nows': [item.now for item in slows]})
+@api.route('/<ip_db>/slow/nbufs/<start_time>')
+def get_slow_nbufs(ip_db, start_time):
+    slows =getattr(Slow,ip_db).with_entities(Slow.nbuf, Slow.now, Slow.time).filter(Slow.time>start_time).order_by(Slow.now).limit(200).all()
+    return jsonify({'slow_nbufs': [item.nbuf for item in slows], 'slow_nows': [item.now for item in slows], 'slow_times': [item.time for item in slows]})
 
 #get the length of slow time list
 @api.route('/<ip_db>/slow/count')
@@ -16,7 +16,7 @@ def get_slow_count(ip_db):
     return str(count)
 
 #get a tuple of slow table
-@api.route('/<ip_db>/slow/<now>')
-def get_slow(ip_db, now):
-    slow = getattr(Slow,ip_db).filter_by(now=now).first()
+@api.route('/<ip_db>/slow/<nbuf>')
+def get_slow(ip_db, nbuf):
+    slow = getattr(Slow,ip_db).filter_by(nbuf=nbuf).first()
     return jsonify({'slow': slow.to_json()})

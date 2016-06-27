@@ -624,8 +624,8 @@ function update_rfpower_data($selector, new_data){
 	});
 }
 
-function updatehtml(slow_nows){
-	$.getJSON('/api/'+ ip_db + '/slow/' + slow_nows, function(data){
+function updatehtml(slow_nbufs){
+	$.getJSON('/api/'+ ip_db + '/slow/' + slow_nbufs, function(data){
 			$('#slow #time').html(timeConverter(data.slow.time));
 			$('#slow #now').html(timeConverter(data.slow.now));
 			$('#slow #evnum').html(data.slow.evnum);
@@ -686,64 +686,95 @@ function updatehtml(slow_nows){
 
 $(document).ready(function () {
 	$('.footable').footable();
-
+	var slow_nbufs=[];
 	var slow_nows=[];
+	var slow_times=[];
 	var i=0;
-	$.getJSON('/api/' + ip_db + '/slow/nows', function(data){
+	$.getJSON('/api/' + ip_db + '/slow/nbufs', function(data){
+		slow_nbufs=data.slow_nbufs;
 		slow_nows=data.slow_nows;
 	});
-
-	var connect = $( '.ladda-button' ).ladda();
-	$('#connect').click(function(event) {
-		connect.ladda( 'start' );
-		$.ajax({
+    function autoload(start_time){
+        $.getJSON('/api/' + ip_db + '/slow/nbufs/' + start_time, function(data){
+                new_length=data.slow_nbufs.length
+                slow_nbufs=slow_nbufs.concat(data.slow_nbufs);
+                slow_nows=slow_nows.concat(data.slow_nows);
+                slow_times=slow_times.concat(data.slow_times);
+                start_time=Math.max(...slow_times);
+                connect.ladda('stop');
+                console.log(start_time);
+                console.log(slow_nbufs.length);
+            }).done(function(){
+                setTimeout(function(){
+                    if (new_length){
+                        sleep_interval = 2000;
+                    }else{
+                        sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+                    }
+                    autoload(start_time);
+                }, sleep_interval);
+                
+            });
+    }
+    var connect = $( '.ladda-button' ).ladda();
+    $('#connect').click(function() {
+        slow_nbufs=[];
+        slow_nows=[];
+        slow_times=[];
+        i=0;
+        connect.ladda( 'start' );
+        $.ajax({
             url: '/api/connect/'+ ip + '/' + db
         }).done(function() {
-            $.getJSON('/api/' + ip_db + '/slow/nows', function(data){
-				slow_nows=data.slow_nows;
-				connect.ladda('stop');
-			});
-			// $(this).html('Connected');
-
+            autoload(0);
         });
-		
-	});
-	// $('#connect').click(function(event) {
-
-	// 	$.getJSON('/api/' + ip_db + '/slow/nows', function(data){
-	// 		slow_nows=data.slow_nows;
-	// 	});
-	// });
+    });
 	
 
 	$('#next').click( function(){
-		if (i<slow_nows.length-1) {
+		if (i<slow_nbufs.length-1) {
 			i=i+1;
-			updatehtml(slow_nows[i]);
+			updatehtml(slow_nbufs[i]);
 		};
 	});
 	$('#prev').click( function(){
 		if (i>0) {
 			i=i-1;
-			updatehtml(slow_nows[i]);
+			updatehtml(slow_nbufs[i]);
 		};
 	});
 	$('#first').click( function(){
 		i=0;
-		updatehtml(slow_nows[i]);
+		updatehtml(slow_nbufs[i]);
 	});
 	$('#last').click( function(){
-		i=slow_nows.length-1;
-		updatehtml(slow_nows[i]);
+		i=slow_nbufs.length-1;
+		updatehtml(slow_nbufs[i]);
 	});
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, { color: '#1AB394' });
+    var myInterval;
+    elem.onchange = function() {
+        console.log("working!!!!!!");
+        if (elem.checked){
+            myInterval=setInterval(function(){
+                if (i<slow_nbufs.length-1) {  
+                    i=i+1;
+                    updatehtml(slow_nbufs[i]);
+                };
+            }, 1000);
+        }else{
+            clearInterval(myInterval);
+        };
+    };
 	$('#goto').click( function(){
 		var keywords=parseInt($('#keywords').val());
 		console.log(keywords);
-		var index=slow_nows.indexOf(keywords);
+		var index=slow_nbufs.indexOf(keywords);
 		if (index!=-1 && keywords){
 			i=index;
 			console.log(i);
-			updatehtml(slow_nows[i]);
+			updatehtml(slow_nbufs[i]);
 		}else{
 			 swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
 		}
