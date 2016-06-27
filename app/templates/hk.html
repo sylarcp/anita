@@ -1052,20 +1052,29 @@ function updatehtml_adu5_vtg(adu5_vtg){
     });
 }
 
-
+function updatehtml_adu5_sat(adu5_sat){
+    if (!adu5_sat) return;
+    $.getJSON('/api/' + ip_db + '/adu5_sat/' + adu5_sat, function(data){
+    });
+}
 
 $(document).ready(function () {
     $('.footable').footable();
     var hk_nbufs=[];
     var hk_nows=[];
+    var hk_times=[];
     var mon_nbufs=[];
     var mon_nows=[];
+    var mon_times=[];
     var adu5_pat_nbufs=[];
     var adu5_pat_nows=[];
+    var adu5_pat_times=[];
     var adu5_vtg_nbufs=[];
     var adu5_vtg_nows=[];
+    var adu5_vtg_times=[];
     var adu5_sat_nbufs=[];
     var adu5_sat_nows=[];
+    var adu5_sat_times=[];
     var i=0;
     var j=0;
     var k=0;
@@ -1081,48 +1090,151 @@ $(document).ready(function () {
         mon_nows=data.mon_nows;
     });
     $.getJSON('/api/' + ip_db + '/adu5_pat/nbufs', function(data){
-        adu5_pat_nbufs=data.adu5_nbufs;
-        adu5_pat_nows=data.adu5_nows;
+        adu5_pat_nbufs=data.adu5_pat_nbufs;
+        adu5_pat_nows=data.adu5_pat_nows;
     });
     $.getJSON('/api/' + ip_db + '/adu5_vtg/nbufs', function(data){
-        adu5_vtg_nbufs=data.adu5_nbufs;
-        adu5_vtg_nows=data.adu5_nows;
+        adu5_vtg_nbufs=data.adu5_vtg_nbufs;
+        adu5_vtg_nows=data.adu5_vtg_nows;
     });
     $.getJSON('/api/' + ip_db + '/adu5_sat/nbufs', function(data){
         adu5_sat_nbufs=data.adu5_nbufs;
         adu5_sat_nows=data.adu5_nows;
     });    
    
+    function autoload(start_time){
+        $.getJSON('/api/' + ip_db + '/hk/nbufs/' + start_time, function(data){
+                new_length=data.hk_nbufs.length
+                hk_nbufs=hk_nbufs.concat(data.hk_nbufs);
+                hk_nows=hk_nows.concat(data.hk_nows);
+                hk_times=hk_times.concat(data.hk_times);
+                start_time=Math.max(...hk_times);
+                connect.ladda('stop');
+                console.log(start_time);
+                console.log(hk_nbufs.length);
+            }).done(function(){
+                setTimeout(function(){
+                    if (new_length){
+                        sleep_interval = 2000;
+                    }else{
+                        sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+                    }
+                    autoload(start_time);
+                }, sleep_interval);
+                
+            });
+        $.getJSON('/api/' + ip_db + '/mon/nbufs/' + start_time, function(data){
+                new_length=data.mon_nbufs.length
+                mon_nbufs=mon_nbufs.concat(data.mon_nbufs);
+                mon_nows=mon_nows.concat(data.mon_nows);
+                mon_times=mon_times.concat(data.mon_times);
+                start_time=Math.max(...mon_times);
+                connect.ladda('stop');
+                console.log(start_time);
+                console.log(mon_nbufs.length);
+            }).done(function(){
+                setTimeout(function(){
+                    if (new_length){
+                        sleep_interval = 2000;
+                    }else{
+                        sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+                    }
+                    autoload(start_time);
+                }, sleep_interval);
+                
+            });
+        $.getJSON('/api/' + ip_db + '/adu5_pat/nbufs/' + start_time, function(data){
+                new_length=data.adu5_pat_nbufs.length
+                adu5_pat_nbufs=adu5_pat_nbufs.concat(data.adu5_pat_nbufs);
+                adu5_pat_nows=adu5_pat_nows.concat(data.adu5_pat_nows);
+                adu5_pat_times=adu5_pat_times.concat(data.adu5_pat_times);
+                start_time=Math.max(...adu5_pat_times);
+                connect.ladda('stop');
+                console.log(start_time);
+                console.log(adu5_pat_nbufs.length);
+            }).done(function(){
+                setTimeout(function(){
+                    if (new_length){
+                        sleep_interval = 2000;
+                    }else{
+                        sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+                    }
+                    autoload(start_time);
+                }, sleep_interval);
+                
+            });
+        $.getJSON('/api/' + ip_db + '/adu5_vtg/nbufs/' + start_time, function(data){
+                new_length=data.adu5_vtg_nbufs.length
+                adu5_vtg_nbufs=adu5_vtg_nbufs.concat(data.adu5_vtg_nbufs);
+                adu5_vtg_nows=adu5_vtg_nows.concat(data.adu5_vtg_nows);
+                adu5_vtg_times=adu5_vtg_times.concat(data.adu5_vtg_times);
+                start_time=Math.max(...adu5_vtg_times);
+                connect.ladda('stop');
+                console.log(start_time);
+                console.log(adu5_vtg_nbufs.length);
+            }).done(function(){
+                setTimeout(function(){
+                    if (new_length){
+                        sleep_interval = 2000;
+                    }else{
+                        sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+                    }
+                    autoload(start_time);
+                }, sleep_interval);
+                
+            });
+        $.getJSON('/api/' + ip_db + '/adu5_sat/nbufs/' + start_time, function(data){
+                new_length=data.adu5_sat_nbufs.length
+                adu5_sat_nbufs=adu5_sat_nbufs.concat(data.adu5_sat_nbufs);
+                adu5_sat_nows=adu5_sat_nows.concat(data.adu5_sat_nows);
+                adu5_sat_times=adu5_sat_times.concat(data.adu5_sat_times);
+                start_time=Math.max(...adu5_sat_times);
+                connect.ladda('stop');
+                console.log(start_time);
+                console.log(adu5_sat_nbufs.length);
+            }).done(function(){
+                setTimeout(function(){
+                    if (new_length){
+                        sleep_interval = 2000;
+                    }else{
+                        sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+                    }
+                    autoload(start_time);
+                }, sleep_interval);
+                
+            });
+    }
 
-    console.log(hk_nbufs);
-    $('#connect').click(function(event) {
+    var connect = $( '.ladda-button' ).ladda();
+    $('#connect').click(function() {
+        hk_nbufs=[];
+        hk_nows=[];
+        hk_times=[];
+        mon_nbufs=[];
+        mon_nows=[];
+        mon_times=[];
+        adu5_pat_nbufs=[];
+        adu5_pat_nows=[];
+        adu5_pat_times=[];
+        adu5_vtg_nbufs=[];
+        adu5_vtg_nows=[];
+        adu5_vtg_times=[];
+        adu5_sat_nbufs=[];
+        adu5_sat_nows=[];
+        adu5_sat_times=[];
+        i=0;
+        j=0;
+        k=0;
+        l=0;
+        m=0;
+        connect.ladda( 'start' );
         $.ajax({
             url: '/api/connect/'+ ip + '/' + db
         }).done(function() {
-            $.getJSON('/api/' + ip_db + '/hk/nbufs', function(data){
-                hk_nbufs=data.hk_nbufs;
-                hk_nows=data.hk_nows;
-            });
-            $.getJSON('/api/' + ip_db + '/mon/nbufs', function(data){
-                mon_nbufs=data.mon_nbufs;
-                mon_nows=data.mon_nows;
-            });
-            $.getJSON('/api/' + ip_db + '/adu5_pat/nbufs', function(data){
-                adu5_pat_nbufs=data.adu5_pat_nbufs;
-                adu5_pat_nows=data.adu5_pat_nows;
-            });
-            $.getJSON('/api/' + ip_db + '/adu5_vtg/nbufs', function(data){
-                adu5_vtg_nbufs=data.adu5_vtg_nbufs;
-                adu5_vtg_nows=data.adu5_vtg_nows;
-            });
-            $.getJSON('/api/' + ip_db + '/adu5_sat/nbufs', function(data){
-                adu5_sat_nbufs=data.adu5_sat_nbufs;
-                adu5_sat_nows=data.adu5_sat_nows;
-            });   
-            
+            autoload(0);
         });
-        
     });
+
     $('#next').click( function(){
         if (i<hk_nbufs.length-1) {
             i=i+1;
@@ -1175,6 +1287,30 @@ $(document).ready(function () {
         m=adu5_sat_nows.indexOf(hk_nows[i]);
         if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
     });
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, { color: '#1AB394' });
+    var myInterval;
+    elem.onchange = function() {
+        console.log("working!!!!!!");
+        if (elem.checked){
+            myInterval=setInterval(function(){
+                if (i<hk_nbufs.length-1) {  
+                    i=i+1;
+                    updatehtml_hk(hk_nbufs[i]);
+                    j=mon_nows.indexOf(hk_nows[i]);
+                    if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+                    k=adu5_pat_nows.indexOf(hk_nows[i]);
+                    if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+                    l=adu5_vtg_nows.indexOf(hk_nows[i]);
+                    if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+                    m=adu5_sat_nows.indexOf(hk_nows[i]);
+                    if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+                };
+            }, 1000);
+        }else{
+            clearInterval(myInterval);
+        };
+    };
     $('#goto').click( function(){
         var keywords=parseInt($('#keywords').val());
         console.log(keywords);
