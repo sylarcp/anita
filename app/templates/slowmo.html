@@ -501,18 +501,11 @@ var temperature_range_map = $.range_map({
 
 function update_avgscaler_data($selector, new_data){
 	var array_string=$selector.attr('values');
-	if (array_string){
-		if ((array_string.match(/,/g) || []).length > 6){
-			array_string=array_string.substr(array_string.indexOf(",") + 1);
-		}
-		array_string=array_string+','+new_data;
-	} else{
 		array_string=new_data;
-	}
-
 	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
 	$selector.attr('values', array_string).sparkline('html', {
 	    type: 'bar',
+	    barWidth: 30,
 	    // zeroAxis: false,
 	    colorMap: avgscaler_range_map,
 	    chartRangeMin:0,
@@ -522,18 +515,11 @@ function update_avgscaler_data($selector, new_data){
 
 function update_rate1_data($selector, new_data){
 	var array_string=$selector.attr('values');
-	if (array_string){
-		if ((array_string.match(/,/g) || []).length > 6){
-			array_string=array_string.substr(array_string.indexOf(",") + 1);
-		}
-		array_string=array_string+','+new_data;
-	} else{
 		array_string=new_data;
-	}
-
 	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
 	$selector.attr('values', array_string).sparkline('html', {
 	    type: 'bar',
+	    barWidth: 30,
 	    // zeroAxis: false,
 	    colorMap: rate_range_map,
 	    chartRangeMin:0,
@@ -543,18 +529,11 @@ function update_rate1_data($selector, new_data){
 
 function update_rate10_data($selector, new_data){
 	var array_string=$selector.attr('values');
-	if (array_string){
-		if ((array_string.match(/,/g) || []).length > 6){
-			array_string=array_string.substr(array_string.indexOf(",") + 1);
-		}
-		array_string=array_string+','+new_data;
-	} else{
 		array_string=new_data;
-	}
-
 	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
 	$selector.attr('values', array_string).sparkline('html', {
 	    type: 'bar',
+	    barWidth: 30,
 	    // zeroAxis: false,
 	    colorMap: rate_range_map,
 	    chartRangeMin:0,
@@ -564,18 +543,11 @@ function update_rate10_data($selector, new_data){
 
 function update_ppvv_data($selector, new_data){
 	var array_string=$selector.attr('values');
-	if (array_string){
-		if ((array_string.match(/,/g) || []).length > 6){
-			array_string=array_string.substr(array_string.indexOf(",") + 1);
-		}
-		array_string=array_string+','+new_data;
-	} else{
 		array_string=new_data;
-	}
-
 	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
 	$selector.attr('values', array_string).sparkline('html', {
 	    type: 'bar',
+	    barWidth: 30,
 	    // zeroAxis: false,
 	    colorMap: ppvv_range_map,
 	    chartRangeMin:0,
@@ -585,18 +557,11 @@ function update_ppvv_data($selector, new_data){
 
 function update_p24v_data($selector, new_data){
 	var array_string=$selector.attr('values');
-	if (array_string){
-		if ((array_string.match(/,/g) || []).length > 6){
-			array_string=array_string.substr(array_string.indexOf(",") + 1);
-		}
-		array_string=array_string+','+new_data;
-	} else{
 		array_string=new_data;
-	}
-
 	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
 	$selector.attr('values', array_string).sparkline('html', {
 	    type: 'bar',
+	    barWidth: 30,
 	    // zeroAxis: false,
 	    colorMap: p24v_range_map,
 	    chartRangeMin:0,
@@ -606,18 +571,11 @@ function update_p24v_data($selector, new_data){
 
 function update_bati_data($selector, new_data){
 	var array_string=$selector.attr('values');
-	if (array_string){
-		if ((array_string.match(/,/g) || []).length > 6){
-			array_string=array_string.substr(array_string.indexOf(",") + 1);
-		}
-		array_string=array_string+','+new_data;
-	} else{
 		array_string=new_data;
-	}
-
 	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
 	$selector.attr('values', array_string).sparkline('html', {
 	    type: 'bar',
+	    barWidth: 30,
 	    // zeroAxis: false,
 	    colorMap: bati_range_map,
 	    chartRangeMin:0,
@@ -627,18 +585,11 @@ function update_bati_data($selector, new_data){
 
 function update_p24i_data($selector, new_data){
 	var array_string=$selector.attr('values');
-	if (array_string){
-		if ((array_string.match(/,/g) || []).length > 6){
-			array_string=array_string.substr(array_string.indexOf(",") + 1);
-		}
-		array_string=array_string+','+new_data;
-	} else{
 		array_string=new_data;
-	}
-
 	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
 	$selector.attr('values', array_string).sparkline('html', {
 	    type: 'bar',
+	    barWidth: 30,
 	    // zeroAxis: false,
 	    colorMap: p24i_range_map,
 	    chartRangeMin:0,
@@ -648,18 +599,11 @@ function update_p24i_data($selector, new_data){
 
 function update_temp_data($selector, new_data){
 	var array_string=$selector.attr('values');
-	if (array_string){
-		if ((array_string.match(/,/g) || []).length > 6){
-			array_string=array_string.substr(array_string.indexOf(",") + 1);
-		}
-		array_string=array_string+','+new_data;
-	} else{
 		array_string=new_data;
-	}
-
 	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
 	$selector.attr('values', array_string).sparkline('html', {
 	    type: 'bar',
+	    barWidth: 30,
 	    // zeroAxis: false,
 	    colorMap: temperature_range_map,
 	    chartRangeMin:-80,
@@ -669,18 +613,11 @@ function update_temp_data($selector, new_data){
 
 function update_rfpower_data($selector, new_data){
 	var array_string=$selector.attr('values');
-	if (array_string){
-		if ((array_string.match(/,/g) || []).length > 6){
-			array_string=array_string.substr(array_string.indexOf(",") + 1);
-		}
-		array_string=array_string+','+new_data;
-	} else{
 		array_string=new_data;
-	}
-
-	// $selector.attr('values', ['a','b','cd','e']).sparkline('html', {
+	// $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
 	$selector.attr('values', array_string).sparkline('html', {
 	    type: 'bar',
+	    barWidth: 30,
 	    colorMap: rfpower_range_map,
 	    chartRangeMin:0,
 	    chartRangeMax:25000

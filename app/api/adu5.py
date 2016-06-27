@@ -3,22 +3,20 @@ from flask.ext.login import LoginManager, current_user
 from . import api
 from app.models import Adu5_pat, Adu5_vtg, Adu5_sat
 
-@api.route('/<ip_db>/adu5_pat/nbufs')
-def get_adu5_pat_nbufs(ip_db):
-    adu5_pats =getattr(Adu5_pat,ip_db).limit(1000).all()
-    return jsonify({'adu5_pat_nbufs': [item.nbuf for item in adu5_pats], 'adu5_pat_nows': [item.now for item in adu5_pats]})
+@api.route('/<ip_db>/adu5_pat/nbufs/<start_time>')
+def get_adu5_pat_nbufs(ip_db, start_time):
+    adu5_pats =getattr(Adu5_pat,ip_db).with_entities(Adu5_pat.nbuf, Adu5_pat.now, Adu5_pat.time).filter(Adu5_pat.time>start_time).order_by(Adu5_pat.now).limit(200).all()
+    return jsonify({'adu5_pat_nbufs': [item.nbuf for item in adu5_pats], 'adu5_pat_nows': [item.now for item in adu5_pats], 'adu5_pat_times': [item.time for item in adu5_pats]})
 
-@api.route('/<ip_db>/adu5_vtg/nbufs')
-def get_adu5_vtg_nbufs(ip_db):
-    adu5_vtgs =getattr(Adu5_vtg,ip_db).limit(1000).all()
-    return jsonify({'adu5_vtg_nbufs': [item.nbuf for item in adu5_vtgs], 'adu5_vtg_nows': [item.now for item in adu5_vtgs]})
+@api.route('/<ip_db>/adu5_vtg/nbufs/<start_time>')
+def get_adu5_vtg_nbufs(ip_db, start_time):
+    adu5_vtgs =getattr(Adu5_vtg,ip_db).with_entities(Adu5_vtg.nbuf, Adu5_vtg.now, Adu5_vtg.time).filter(Adu5_vtg.time>start_time).order_by(Adu5_vtg.now).limit(200).all()
+    return jsonify({'adu5_vtg_nbufs': [item.nbuf for item in adu5_vtgs], 'adu5_vtg_nows': [item.now for item in adu5_vtgs], 'adu5_vtg_times': [item.time for item in adu5_vtgs]})
 
-@api.route('/<ip_db>/adu5_sat/nbufs')
-def get_adu5_sat_nbufs(ip_db):
-    adu5_sats =getattr(Adu5_sat,ip_db).limit(1000).all()
-    return jsonify({'adu5_sat_nbufs': [item.nbuf for item in adu5_sats], 'adu5_sat_nows': [item.now for item in adu5_sats]})
-
-
+@api.route('/<ip_db>/adu5_sat/nbufs/<start_time>')
+def get_adu5_sat_nbufs(ip_db, start_time):
+    adu5_sats =getattr(Adu5_sat,ip_db).with_entities(Adu5_sat.nbuf, Adu5_sat.now, Adu5_sat.time).filter(Adu5_sat.time>start_time).order_by(Adu5_sat.now).limit(200).all()
+    return jsonify({'adu5_sat_nbufs': [item.nbuf for item in adu5_sats], 'adu5_sat_nows': [item.now for item in adu5_sats], 'adu5_sat_times': [item.time for item in adu5_sats]})
 
 @api.route('/<ip_db>/adu5_pat/<nbuf>')
 def get_adu5_pat(ip_db, nbuf):
