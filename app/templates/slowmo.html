@@ -624,8 +624,8 @@ function update_rfpower_data($selector, new_data){
 	});
 }
 
-function updatehtml(slow_nbufs){
-	$.getJSON('/api/'+ ip_db + '/slow/' + slow_nbufs, function(data){
+function updatehtml(slow_times){
+	$.getJSON('/api/'+ ip_db + '/slow/' + slow_times, function(data){
 			$('#slow #time').html(timeConverter(data.slow.time));
 			$('#slow #now').html(timeConverter(data.slow.now));
 			$('#slow #evnum').html(data.slow.evnum);
@@ -690,20 +690,21 @@ $(document).ready(function () {
 	var slow_nows=[];
 	var slow_times=[];
 	var i=0;
-	$.getJSON('/api/' + ip_db + '/slow/nbufs', function(data){
+	$.getJSON('/api/' + ip_db + '/slow/times', function(data){
 		slow_nbufs=data.slow_nbufs;
 		slow_nows=data.slow_nows;
+		slow_times=data.slow_times;
 	});
     function autoload(start_time){
-        $.getJSON('/api/' + ip_db + '/slow/nbufs/' + start_time, function(data){
-                new_length=data.slow_nbufs.length
+        $.getJSON('/api/' + ip_db + '/slow/times/' + start_time, function(data){
+                new_length=data.slow_times.length
                 slow_nbufs=slow_nbufs.concat(data.slow_nbufs);
                 slow_nows=slow_nows.concat(data.slow_nows);
                 slow_times=slow_times.concat(data.slow_times);
                 start_time=Math.max(...slow_times);
                 connect.ladda('stop');
                 console.log(start_time);
-                console.log(slow_nbufs.length);
+                console.log(slow_times.length);
             }).done(function(){
                 setTimeout(function(){
                     if (new_length){
@@ -732,24 +733,24 @@ $(document).ready(function () {
 	
 
 	$('#next').click( function(){
-		if (i<slow_nbufs.length-1) {
+		if (i<slow_times.length-1) {
 			i=i+1;
-			updatehtml(slow_nbufs[i]);
+			updatehtml(slow_times[i]);
 		};
 	});
 	$('#prev').click( function(){
 		if (i>0) {
 			i=i-1;
-			updatehtml(slow_nbufs[i]);
+			updatehtml(slow_times[i]);
 		};
 	});
 	$('#first').click( function(){
 		i=0;
-		updatehtml(slow_nbufs[i]);
+		updatehtml(slow_times[i]);
 	});
 	$('#last').click( function(){
-		i=slow_nbufs.length-1;
-		updatehtml(slow_nbufs[i]);
+		i=slow_times.length-1;
+		updatehtml(slow_times[i]);
 	});
     var elem = document.querySelector('.js-switch');
     var switchery = new Switchery(elem, { color: '#1AB394' });
@@ -758,9 +759,9 @@ $(document).ready(function () {
         console.log("working!!!!!!");
         if (elem.checked){
             myInterval=setInterval(function(){
-                if (i<slow_nbufs.length-1) {  
+                if (i<slow_times.length-1) {  
                     i=i+1;
-                    updatehtml(slow_nbufs[i]);
+                    updatehtml(slow_times[i]);
                 };
             }, 1000);
         }else{
@@ -770,11 +771,11 @@ $(document).ready(function () {
 	$('#goto').click( function(){
 		var keywords=parseInt($('#keywords').val());
 		console.log(keywords);
-		var index=slow_nbufs.indexOf(keywords);
+		var index=slow_times.indexOf(keywords);
 		if (index!=-1 && keywords){
 			i=index;
 			console.log(i);
-			updatehtml(slow_nbufs[i]);
+			updatehtml(slow_times[i]);
 		}else{
 			 swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
 		}
