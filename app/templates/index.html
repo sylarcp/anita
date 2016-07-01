@@ -89,7 +89,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-lg-9">
+        <div class="col-xs-12 col-lg-9 ">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>waveform</h5>
@@ -100,7 +100,7 @@
                 	</div>
                 </div>
                 <div class="ibox-content" >
-                    <table data-sort="false" class="footable" id='wv' style="width:100%" data-page-size="13">
+                    <table data-sort="false" class="footable" id='wv' style="width:100% height:100%" data-page-size="13">
 
 				  		<tbody>
 				  			<th>
@@ -276,6 +276,7 @@
     </div>
 </div>
 
+
 	
 
 	
@@ -333,8 +334,8 @@ function updatehtml(hd){
 
 		});
 		$('#hd #nbuf').html(data.hd.nbuf);
-		$('#hd #now').html(timeConverter(data.hd.now));
-		$('#hd #time').html(timeConverter(data.hd.time));
+		$('#hd #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
+		$('#hd #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
 		$('#hd #us').html(data.hd.us);
 		$('#hd #ns').html(data.hd.ns);
 		$('#hd #evnum').html(data.hd.evnum);

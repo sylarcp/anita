@@ -890,8 +890,8 @@ function updatehtml_hk(hk){
         $('#power #iprf1i').html(data.hk.iprf1i);
         $('#power #iprf2i').html(data.hk.iprf2i);
         $('#power #bati').html(data.hk.bati);
-        $('#aux #time').html(timeConverter(data.hk.time));
-        $('#aux #now').html(timeConverter(data.hk.now));        
+        $('#aux #now').html(data.hk.now + " (" + timeConverter(data.hk.now) + ")");
+        $('#aux #time').html(data.hk.time + " (" + timeConverter(data.hk.time) + ")");        
         $('#aux #pressl').html(data.hk.pressl);
         $('#aux #pressh').html(data.hk.pressh);
         $('#aux #ssx_0').html(data.hk.ssx[0]);
@@ -968,8 +968,8 @@ function updatehtml_hk(hk){
 function updatehtml_mon(mon){
     if (!mon) return;
     $.getJSON('/api/' + ip_db + '/mon/' + mon, function(data){
-        $('#montimes #time').html(timeConverter(data.mon.time));
-        $('#montimes #now').html(timeConverter(data.mon.now));
+        $('#montimes #now').html(data.mon.now + " (" + timeConverter(data.mon.now) + ")");
+        $('#montimes #time').html(data.mon.time + " (" + timeConverter(data.mon.time) + ")");
 
         var linkcmdlos_name;
             linkcmdlos_name = '#linkcmdlos';
@@ -1033,8 +1033,8 @@ function updatehtml_mon(mon){
 function updatehtml_adu5_pat(adu5_pat){
     if (!adu5_pat) return;
     $.getJSON('/api/' + ip_db + '/adu5_pat/' + adu5_pat, function(data){
-        $('#gps #time').html(timeConverter(data.pat.time));
-        $('#gps #now').html(timeConverter(data.pat.now));
+        $('#gps #now').html(data.pat.now + " (" + timeConverter(data.pat.now) + ")");
+        $('#gps #time').html(data.pat.time + " (" + timeConverter(data.pat.time) + ")");
         $('#gps #heading').html(data.pat.heading);
         $('#gps #latitude').html(data.pat.latitude);
         $('#gps #longitude').html(data.pat.longitude);
@@ -1080,6 +1080,7 @@ $(document).ready(function () {
     var k=0;
     var l=0;
     var m=0;
+    var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
     $.getJSON('/api/' + ip_db + '/hk/nbufs', function(data){
         hk_nbufs=data.hk_nbufs;
@@ -1110,8 +1111,6 @@ $(document).ready(function () {
                 hk_times=hk_times.concat(data.hk_times);
                 start_time=Math.max(...hk_times);
                 connect.ladda('stop');
-                console.log(start_time);
-                console.log(hk_nbufs.length);
             }).done(function(){
                 setTimeout(function(){
                     if (new_length){
@@ -1130,8 +1129,6 @@ $(document).ready(function () {
                 mon_times=mon_times.concat(data.mon_times);
                 start_time=Math.max(...mon_times);
                 connect.ladda('stop');
-                console.log(start_time);
-                console.log(mon_nbufs.length);
             }).done(function(){
                 setTimeout(function(){
                     if (new_length){
@@ -1139,7 +1136,6 @@ $(document).ready(function () {
                     }else{
                         sleep_interval = Math.min(sleep_interval * 1.2, 60000);
                     }
-                    autoload(start_time);
                 }, sleep_interval);
                 
             });
@@ -1150,8 +1146,6 @@ $(document).ready(function () {
                 adu5_pat_times=adu5_pat_times.concat(data.adu5_pat_times);
                 start_time=Math.max(...adu5_pat_times);
                 connect.ladda('stop');
-                console.log(start_time);
-                console.log(adu5_pat_nbufs.length);
             }).done(function(){
                 setTimeout(function(){
                     if (new_length){
@@ -1159,7 +1153,6 @@ $(document).ready(function () {
                     }else{
                         sleep_interval = Math.min(sleep_interval * 1.2, 60000);
                     }
-                    autoload(start_time);
                 }, sleep_interval);
                 
             });
@@ -1170,8 +1163,6 @@ $(document).ready(function () {
                 adu5_vtg_times=adu5_vtg_times.concat(data.adu5_vtg_times);
                 start_time=Math.max(...adu5_vtg_times);
                 connect.ladda('stop');
-                console.log(start_time);
-                console.log(adu5_vtg_nbufs.length);
             }).done(function(){
                 setTimeout(function(){
                     if (new_length){
@@ -1179,7 +1170,6 @@ $(document).ready(function () {
                     }else{
                         sleep_interval = Math.min(sleep_interval * 1.2, 60000);
                     }
-                    autoload(start_time);
                 }, sleep_interval);
                 
             });
@@ -1190,8 +1180,6 @@ $(document).ready(function () {
                 adu5_sat_times=adu5_sat_times.concat(data.adu5_sat_times);
                 start_time=Math.max(...adu5_sat_times);
                 connect.ladda('stop');
-                console.log(start_time);
-                console.log(adu5_sat_nbufs.length);
             }).done(function(){
                 setTimeout(function(){
                     if (new_length){
@@ -1199,7 +1187,6 @@ $(document).ready(function () {
                     }else{
                         sleep_interval = Math.min(sleep_interval * 1.2, 60000);
                     }
-                    autoload(start_time);
                 }, sleep_interval);
                 
             });
@@ -1291,7 +1278,6 @@ $(document).ready(function () {
     var switchery = new Switchery(elem, { color: '#1AB394' });
     var myInterval;
     elem.onchange = function() {
-        console.log("working!!!!!!");
         if (elem.checked){
             myInterval=setInterval(function(){
                 if (i<hk_nbufs.length-1) {  
@@ -1314,18 +1300,18 @@ $(document).ready(function () {
     $('#goto').click( function(){
         var keywords=parseInt($('#keywords').val());
         console.log(keywords);
-        var index=hk_nows.indexOf(keywords);
+        var index=hk_times.indexOf(keywords);
         if (index!=-1 && keywords){
             i=index;
             console.log(i);
             updatehtml_hk(hk_nbufs[i]);
-            j=mon_nows.indexOf(hk_nows[i]);
+            j=mon_nows.indexOf(hk_times[i]);
             if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-            k=adu5_pat_nows.indexOf(hk_nows[i]);
+            k=adu5_pat_nows.indexOf(hk_times[i]);
             if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-            l=adu5_vtg_nows.indexOf(hk_nows[i]);
+            l=adu5_vtg_nows.indexOf(hk_times[i]);
             if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-            m=adu5_sat_nows.indexOf(hk_nows[i]);
+            m=adu5_sat_nows.indexOf(hk_times[i]);
             if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
         }else{
              swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});

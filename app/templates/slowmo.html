@@ -626,8 +626,8 @@ function update_rfpower_data($selector, new_data){
 
 function updatehtml(slow_times){
 	$.getJSON('/api/'+ ip_db + '/slow/' + slow_times, function(data){
-			$('#slow #time').html(timeConverter(data.slow.time));
-			$('#slow #now').html(timeConverter(data.slow.now));
+			$('#slow #now').html(data.slow.now + " (" + timeConverter(data.slow.now) + ")");
+			$('#slow #time').html(data.slow.time + " (" + timeConverter(data.slow.time) + ")");
 			$('#slow #evnum').html(data.slow.evnum);
 			$('#slow #latitude').html(data.slow.latitude);
 			$('#slow #longitude').html(data.slow.longitude);
@@ -690,6 +690,7 @@ $(document).ready(function () {
 	var slow_nows=[];
 	var slow_times=[];
 	var i=0;
+	var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
 	$.getJSON('/api/' + ip_db + '/slow/times', function(data){
 		slow_nbufs=data.slow_nbufs;
 		slow_nows=data.slow_nows;
