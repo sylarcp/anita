@@ -7,13 +7,8 @@ from app.models import Hk
 
 @api.route('/<ip_db>/hk/nbufs/<start_time>')
 def get_hk_nbufs(ip_db, start_time):
-    # print session['ip']
-    # print session['db']
-    # print session['ip_db']
     hks =getattr(Hk,ip_db).with_entities(Hk.nbuf, Hk.now, Hk.time).filter(Hk.time>start_time).order_by(Hk.now).limit(200).all()
     return jsonify({'hk_nbufs': [item.nbuf for item in hks], 'hk_nows': [item.now for item in hks], 'hk_times': [item.time for item in hks]})
-
-    # return jsonify({'hk': [item.now&mask for item in hks]})
 
 # get the length of hk now list
 

@@ -16,14 +16,15 @@
 <link href="{{ url_for('static', filename='inspinia/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/plugins/switchery/switchery.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/plugins/ladda/ladda-themeless.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='inspinia/css/plugins/jQueryUI/jquery-ui.css') }}" rel="stylesheet">
 
 
  <style>
         button, select {
-            margin: 7px 4px;
+            margin: 7px 2px;
         }
         input, #checkbox{
-            margin: 7px 4px;
+            margin: 7px 2px;
         }
        /* ul{
           list-style: none;
@@ -37,7 +38,7 @@
 
 {% block navbar %}
 <div class="navbar navbar-inverse" role="navigation">
-    <div class="container">
+    <div class="container-fluid">
         <!-- <div class="navbar-header"> -->
             
             <a class="navbar-brand" href="{{ url_for('main.index') }}">ANITA IV</a>
@@ -100,7 +101,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container">
+<div>
     {% for message in get_flashed_messages() %}
     <div class="alert alert-warning">
         <button type="button" class="close" data-dismiss="alert">&times;</button>
@@ -114,10 +115,11 @@
 
 {% block scripts %}
     <script src="{{ url_for('static', filename='inspinia/js/jquery-2.1.1.js') }}"></script>
-    <script src="{{ url_for('static', filename='inspinia/js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
     <script src="{{ url_for('static', filename='inspinia/js/bootstrap.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+    
     <script src="{{ url_for('static', filename='inspinia/js/inspinia.js') }}"></script>
+    <script src="{{ url_for('static', filename='inspinia/js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ url_for('static', filename='inspinia/js/plugins/pace/pace.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/jquery.metismenu/2.5.0/metisMenu.min.js"></script>
     <script src="{{ url_for('static', filename='inspinia/js/plugins/sweetalert/sweetalert.min.js') }}"></script>
@@ -125,6 +127,7 @@
     <script src="{{ url_for('static', filename='inspinia/js/plugins/ladda/spin.min.js') }}"></script>
     <script src="{{ url_for('static', filename='inspinia/js/plugins/ladda/ladda.min.js') }}"></script>
     <script src="{{ url_for('static', filename='inspinia/js/plugins/ladda/ladda.jquery.min.js') }}"></script>
+
     <script>
         var ip=$('#ip option:selected').val();
         var db=$('#db option:selected').val();
@@ -145,6 +148,14 @@
             // $.get("/api/session/"+ ip +"/"+db);
             // refresh the page
             // window.location.reload();
+        });
+        $(document).ready(function () {
+            // $(".ibox").resizable({
+            //     helper: "ui-resizable-helper",
+            //     handles: "e, s",
+            //     animate: true,
+            //     grid: 40
+            // });
         });
         </script>
 {% endblock %}
