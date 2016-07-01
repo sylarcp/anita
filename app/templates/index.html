@@ -413,8 +413,13 @@ $(document).ready(function () {
 		connect.ladda( 'start' );
 		$.ajax({
             url: '/api/connect/'+ ip + '/' + db
-        }).done(function() {
-            autoload(0);
+        }).done(function(response) {
+        	if (response == 'success'){
+        		autoload(0);
+        	}else{
+        		connect.ladda( 'stop' );
+        		swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
+        	}
         });
 	});
 
