@@ -315,7 +315,7 @@ function updatehtml(hd){
 			    	var id = chan + 9*surf;
 			    	var waveform=data[id.toString()];
 			    	if (waveform != undefined) {
-			    		console.log(waveform.cal);
+			    		// console.log(waveform.cal);
 			    		$(wv_name).attr('values', waveform['cal']).sparkline('html', {
 						    type: 'line',
 						    // colorMap: rfpower_range_map,
@@ -349,22 +349,6 @@ function updatehtml(hd){
 		$('#hd #turfword').html(data.hd.turfword);
 		$('#hd #calib').html(data.hd.calib);
 	});
-
-	// $.getJSON('/api/wv/'+ hd, function(data){
-	// 	var wv_name;
-	// 	for (i = 0; i < 40; i++) { 
-	//     	wv_name='#wv_'+ i ;
-	//     	console.log(data['1'].cal);
-	//    		// update_wv_data($(wv_name), data.1);
-	//   //  		$(wv_name).attr('values', data.1.cal).sparkline('html', {
-	// 		//     type: 'bar',
-	// 		//     // colorMap: rfpower_range_map,
-	// 		//     chartRangeMin:0,
-	// 		//     chartRangeMax:500
-	// 		// });
-	// 	}
-
-	// });
 }
 
 $(document).ready(function () {
@@ -404,6 +388,8 @@ $(document).ready(function () {
 				
 			});
 	}
+	
+
 	var connect = $( '.ladda-button' ).ladda();
 	$('#connect').click(function() {
 		 hd_nbufs=[];
@@ -448,19 +434,10 @@ $(document).ready(function () {
 		sleep_interval = 2000;
 	});
 
-	// $('.js-switch').on('ifChanged', function (event) {
-	//     if ($(this).prop('checked')) {
-	//          console.log(switchery.isChecked)
-	//     } else {
-	//          console.log(switchery.isChecked)
-	//     };
-	// });
-	
 	var elem = document.querySelector('.js-switch');
     var switchery = new Switchery(elem, { color: '#1AB394' });
     var myInterval;
     elem.onchange = function() {
-    	console.log("working!!!!!!");
 		if (elem.checked){
 			myInterval=setInterval(function(){
 				if (i<hd_nbufs.length-1) {	
