@@ -26,6 +26,13 @@
         input, #checkbox{
             margin: 7px 2px;
         }
+        /* the modal should be in the same z-index not overlay each other*/
+        .modal{z-index: 1060;}
+        /* the modal content should not overflow if you resize it */
+        .modal-content.ui-resizable {
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
        /* ul{
           list-style: none;
         }

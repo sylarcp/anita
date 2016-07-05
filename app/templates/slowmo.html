@@ -691,11 +691,11 @@ $(document).ready(function () {
 	var slow_times=[];
 	var i=0;
 	var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
-	$.getJSON('/api/' + ip_db + '/slow/times', function(data){
-		slow_nbufs=data.slow_nbufs;
-		slow_nows=data.slow_nows;
-		slow_times=data.slow_times;
-	});
+	// $.getJSON('/api/' + ip_db + '/slow/times', function(data){
+	// 	slow_nbufs=data.slow_nbufs;
+	// 	slow_nows=data.slow_nows;
+	// 	slow_times=data.slow_times;
+	// });
     function autoload(start_time){
         $.getJSON('/api/' + ip_db + '/slow/times/' + start_time, function(data){
                 new_length=data.slow_times.length

@@ -360,10 +360,10 @@ $(document).ready(function () {
 	var hd_times=[];
 	var i=0;
 	var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
-	$.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
-		hd_nbufs=data.hd_nbufs;
-		hd_evnums=data.hd_evnums;
-	});
+	// $.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
+	// 	hd_nbufs=data.hd_nbufs;
+	// 	hd_evnums=data.hd_evnums;
+	// });
 	console.log(hd_nbufs);
 
 	function autoload(start_time){
