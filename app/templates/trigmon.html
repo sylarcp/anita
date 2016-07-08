@@ -5,10 +5,560 @@
 {% endblock %}
 {% block page_content %}
 <div class="wrapper wrapper-content">
-	<div class="ibox float-e-margins">
-		<div class="ibox-content" >
-        <h5>Not developed yet!</h5>
-    </div>
+    <div classs='row'>
+       <div class="col-lg-7">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>TURF Monitor</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" data-page-size="20" id='turf' style="width:100%">
+                          <tbody>
+                            <tr>
+                                <td data-hide="xs">nbuf</td>
+                                <td id='nbuf'></td>
+                                <td>Now</td>
+                                <td id='now'></td> 
+                            </tr>
+                            <tr>
+                                <td>Time</td>
+                                <td id='time'></td>
+                                <td>Deadtime</td>
+                                <td id='deadtime'></td> 
+                            </tr>
+                            <tr>
+                                <td>l1TrigMask</td>
+                                <td id='l1trigmask'></td>
+                                <td>l1TrigMaskH</td>
+                                <td id='l1trigmaskh'></td> 
+                            </tr>
+                            <tr>
+                                <td>PhiTrigMask</td>
+                                <td id='phitrigmask'></td>
+                                <td>PhiTrigMaskH</td>
+                                <td id='phitrigmaskh'></td> 
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" data-page-size="56" id='lrates' style="width:100%">
+                          <h5>Rates [Hz}</h5>
+                          <tbody>
+                                <tr>
+                                    <td></td>
+                                    <td id='l1_0'></td>
+                                    <td id='l1_1'></td>
+                                    <td id='l1_2'></td>
+                                    <td id='l1_3'></td>
+                                    <td id='l1_4'></td>
+                                    <td id='l1_5'></td>
+                                    <td id='l1_6'></td>
+                                    <td id='l1_7'></td>
+                                    <td id='l1_8'></td>
+                                    <td id='l1_9'></td>
+                                    <td id='l1_10'></td>
+                                    <td id='l1_11'></td>
+                                    <td id='l1_12'></td>
+                                    <td id='l1_13'></td>
+                                    <td id='l1_14'></td>
+                                    <td id='l1_15'></td>
+                                </tr>
+                                <th>
+                                    <td>L1 1</td>
+                                    <td>L1 2</td>
+                                    <td>L1 3</td>
+                                    <td>L1 4</td>
+                                    <td>L1 5</td>
+                                    <td>L1 6</td>
+                                    <td>L1 7</td>
+                                    <td>L1 8</td>
+                                    <td>L1 9</td>
+                                    <td>L1 10</td>
+                                    <td>L1 11</td> 
+                                    <td>L1 12</td> 
+                                    <td>L1 13</td> 
+                                    <td>L1 14</td> 
+                                    <td>L1 15</td> 
+                                    <td>L1 16</td>                                   
+                                </th>
+                                <tr>
+                                    <td></td>
+                                    <td id='l1h_0'></td>
+                                    <td id='l1h_1'></td>
+                                    <td id='l1h_2'></td>
+                                    <td id='l1h_3'></td>
+                                    <td id='l1h_4'></td>
+                                    <td id='l1h_5'></td>
+                                    <td id='l1h_6'></td>
+                                    <td id='l1h_7'></td>
+                                    <td id='l1h_8'></td>
+                                    <td id='l1h_9'></td>
+                                    <td id='l1h_10'></td>
+                                    <td id='l1h_11'></td>
+                                    <td id='l1h_12'></td>
+                                    <td id='l1h_13'></td>
+                                    <td id='l1h_14'></td>
+                                    <td id='l1h_15'></td>
+                                </tr>
+                                <th>
+                                    <td>L1h 1</td>
+                                    <td>L1h 2</td>
+                                    <td>L1h 3</td>
+                                    <td>L1h 4</td>
+                                    <td>L1h 5</td>
+                                    <td>L1h 6</td>
+                                    <td>L1h 7</td>
+                                    <td>L1h 8</td>
+                                    <td>L1h 9</td>
+                                    <td>L1h 10</td>
+                                    <td>L1h 11</td> 
+                                    <td>L1h 12</td> 
+                                    <td>L1h 13</td> 
+                                    <td>L1h 14</td> 
+                                    <td>L1h 15</td> 
+                                    <td>L1h 16</td>                                   
+                                </th>
+                                <tr>
+                                    <td></td>
+                                    <td id='l3_0'></td>
+                                    <td id='l3_1'></td>
+                                    <td id='l3_2'></td>
+                                    <td id='l3_3'></td>
+                                    <td id='l3_4'></td>
+                                    <td id='l3_5'></td>
+                                    <td id='l3_6'></td>
+                                    <td id='l3_7'></td>
+                                    <td id='l3_8'></td>
+                                    <td id='l3_9'></td>
+                                    <td id='l3_10'></td>
+                                    <td id='l3_11'></td>
+                                    <td id='l3_12'></td>
+                                    <td id='l3_13'></td>
+                                    <td id='l3_14'></td>
+                                    <td id='l3_15'></td>
+                                </tr>
+                                <th>
+                                    <td>L3 1</td>
+                                    <td>L3 2</td>
+                                    <td>L3 3</td>
+                                    <td>L3 4</td>
+                                    <td>L3 5</td>
+                                    <td>L3 6</td>
+                                    <td>L3 7</td>
+                                    <td>L3 8</td>
+                                    <td>L3 9</td>
+                                    <td>L3 10</td>
+                                    <td>L3 11</td> 
+                                    <td>L3 12</td> 
+                                    <td>L3 13</td> 
+                                    <td>L3 14</td> 
+                                    <td>L3 15</td> 
+                                    <td>L3 16</td>                                   
+                                </th>
+                                <tr>
+                                    <td></td>
+                                    <td id='l3h_0'></td>
+                                    <td id='l3h_1'></td>
+                                    <td id='l3h_2'></td>
+                                    <td id='l3h_3'></td>
+                                    <td id='l3h_4'></td>
+                                    <td id='l3h_5'></td>
+                                    <td id='l3h_6'></td>
+                                    <td id='l3h_7'></td>
+                                    <td id='l3h_8'></td>
+                                    <td id='l3h_9'></td>
+                                    <td id='l3h_10'></td>
+                                    <td id='l3h_11'></td>
+                                    <td id='l3h_12'></td>
+                                    <td id='l3h_13'></td>
+                                    <td id='l3h_14'></td>
+                                    <td id='l3h_15'></td>
+                                </tr>
+                                <th>
+                                    <td>L3h 1</td>
+                                    <td>L3h 2</td>
+                                    <td>L3h 3</td>
+                                    <td>L3h 4</td>
+                                    <td>L3h 5</td>
+                                    <td>L3h 6</td>
+                                    <td>L3h 7</td>
+                                    <td>L3h 8</td>
+                                    <td>L3h 9</td>
+                                    <td>L3h 10</td>
+                                    <td>L3h 11</td> 
+                                    <td>L3h 12</td> 
+                                    <td>L3h 13</td> 
+                                    <td>L3h 14</td> 
+                                    <td>L3h 15</td> 
+                                    <td>L3h 16</td>                                   
+                                </th>
+                          </tbody>                    
+                    </table>
+                </div>
+            </div>
+        </div>
+       <div class="col-lg-5">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>SURF Monitor</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" data-page-size="20" id='power' style="width:100%">
+                          <h5>Power</h5>
+                          <tbody>
+                            <tr>
+                                <td></td>
+                                <td>Voltage [volts]</td>
+                                <td>Current [Amps]</td> 
+                            </tr>
+                            <tr>
+                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td data-hide="xs">+1.5V</td>
+                                <td id='p1_5v'></td>
+                                <td id='p1_5i'></td> 
+                            </tr>
+                            <tr>
+                                <td>+3.3V</td>
+                                <td id='p3_3v'></td>
+                                <td id='p3_3i'></td> 
+                            </tr>
+                            <tr>
+                                <td>+5V</td>
+                                <td id='p5v'></td>
+                                <td id='p5i'></td> 
+                            </tr>
+                            <tr>
+                                <td>+5V Short Board</td>
+                                <td id='p5sbv'></td>
+                                <td id='p5sbi'></td> 
+                            </tr>
+                            <tr>
+                                <td>+12V</td>
+                                <td id='p12v'></td>
+                                <td id='p12i'></td> 
+                            </tr>
+                            <tr>
+                                <td>+24V</td>
+                                <td id='p24v'></td>
+                                <td id='p24i'></td>
+                            </tr>
+                            <tr>
+                                <td>+PV</td>
+                                <td id='ppvv'></td> 
+                                <td id='ppvi'></td>
+                            </tr>
+                            <tr>
+                                <td>-5V</td>
+                                <td id='n5v'></td> 
+                                <td id='n5i'></td> 
+                            </tr>
+                            <tr>
+                                <td>-12V</td>
+                                <td id='n12v'></td> 
+                                <td id='n12i'></td> 
+                            </tr>
+                            <tr>
+                                <td>RFCM1</td>
+                                <td id='iprf1v'></td>
+                                <td id='iprf1i'></td>  
+                            </tr>
+                            <tr>
+                                <td>RFCM2</td>
+                                <td id='iprf2v'></td> 
+                                <td id='iprf2i'></td>
+                            </tr>
+                            <tr>
+                                <td>Battery</td>
+                                <td>None</td>
+                                <td id='bati'></td> 
+                            </tr>
+                          </tbody>
+                      
+                    </table>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" data-page-size="56" id='current' style="width:100%">
+                          <h5>Temperature [C]</h5>
+                          <tbody>
+                              
+
+                                <tr>
+                                    <td></td>
+                                    <td id='it_0'></td>
+                                    <td id='it_1'></td>
+                                    <td id='it_2'></td>
+                                    <td id='it_3'></td>
+                                    <td id='it_4'></td>
+                                    <td id='it_5'></td>
+                                    <td id='it_6'></td>
+                                    <td id='it_7'></td>
+                                    <td id='it_8'></td>
+                                    <td id='it_9'></td>
+                                </tr>
+
+                                <th>
+                                    <td>It 1</td>
+                                    <td>It 2</td>
+                                    <td>It 3</td>
+                                    <td>It 4</td>
+                                    <td>It 5</td>
+                                    <td>It 6</td>
+                                    <td>It 7</td>
+                                    <td>It 8</td>
+                                    <td>It 9</td>
+                                    <td>It 10</td>                                  
+                                </th>
+
+                                <tr>
+                                    <td></td>
+                                    <td id='it_10'></td>
+                                    <td id='it_11'></td>
+                                    <td id='it_12'></td>
+                                    <td id='it_13'></td>
+                                    <td id='it_14'></td>
+                                    <td id='it_15'></td>
+                                    <td id='it_16'></td>
+                                    <td id='it_17'></td>
+                                    <td id='it_18'></td>
+                                    <td id='it_19'></td>
+                                </tr>
+
+                                <th>
+                                    <td>It 11</td>
+                                    <td>It 12</td>
+                                    <td>It 13</td>
+                                    <td>It 14</td>
+                                    <td>It 15</td>
+                                    <td>It 16</td>
+                                    <td>It 17</td>
+                                    <td>It 18</td>
+                                    <td>It 19</td>
+                                    <td>It 20</td>                                  
+                                </th>
+
+                                <tr>
+                                    <td></td>
+                                    <td id='it_20'></td>
+                                    <td id='it_21'></td>
+                                    <td id='it_22'></td>
+                                    <td id='it_23'></td>
+                                    <td id='it_24'></td>
+                                    <td id='et_0'></td>
+                                    <td id='et_1'></td>
+                                    <td id='et_2'></td>
+                                    <td id='et_3'></td>
+                                    <td id='et_4'></td>
+                                </tr>
+
+                                <th>
+                                    <td>It 21</td>
+                                    <td>It 22</td>
+                                    <td>It 23</td>
+                                    <td>It 24</td>
+                                    <td>It 25</td>
+                                    <td>Et 1</td>
+                                    <td>Et 2</td>
+                                    <td>Et 3</td>
+                                    <td>Et 4</td>
+                                    <td>Et 5</td>                                   
+                                </th>
+
+                                <tr>
+                                    <td></td>
+                                    <td id='et_5'></td>
+                                    <td id='et_6'></td>
+                                    <td id='et_7'></td>
+                                    <td id='et_8'></td>
+                                    <td id='et_9'></td>
+                                    <td id='et_10'></td>
+                                    <td id='et_11'></td>
+                                    <td id='et_12'></td>
+                                    <td id='et_13'></td>
+                                    <td id='et_14'></td>
+                                </tr>
+
+                                <th>
+                                    <td>Et 6</td>
+                                    <td>Et 7</td>
+                                    <td>Et 8</td>
+                                    <td>Et 9</td>
+                                    <td>Et 10</td>
+                                    <td>Et 11</td>
+                                    <td>Et 12</td>
+                                    <td>Et 13</td>
+                                    <td>Et 14</td>
+                                    <td>Et 15</td>                                  
+                                </th>
+
+                                <tr>
+                                    <td></td>
+                                    <td id='et_15'></td>
+                                    <td id='et_16'></td>
+                                    <td id='et_17'></td>
+                                    <td id='et_18'></td>
+                                    <td id='et_19'></td>
+                                    <td id='et_20'></td>
+                                    <td id='et_21'></td>
+                                    <td id='et_22'></td>
+                                    <td id='et_23'></td>
+                                    <td id='et_24'></td>
+                                </tr>
+
+                                <th>
+                                    <td>Et 16</td>
+                                    <td>Et 17</td>
+                                    <td>Et 18</td>
+                                    <td>Et 19</td>
+                                    <td>Et 20</td>
+                                    <td>Et 21</td>
+                                    <td>Et 22</td>
+                                    <td>Et 23</td>
+                                    <td>Et 24</td>
+                                    <td>Et 25</td>                                  
+                                </th>
+
+                                <tr>
+                                    <td></td>
+                                    <td id='sbst1'></td>
+                                    <td id='sbst2'></td>
+                                    <td id='sbst5'></td>
+                                    <td id='sbst6'></td>
+                                    <td id='core1'></td>
+                                    <td id='core2'></td>
+                                </tr>
+
+                                <th>
+                                    <td>CPU 1</td>
+                                    <td>CPU 2</td>
+                                    <td>CPU 5</td>
+                                    <td>CPU 6</td>
+                                    <td>Core 1</td>
+                                    <td>Core 2</td>                             
+                                </th>
+                          </tbody>
+                      
+                    </table>
+                </div>
+                <div class="ibox-content" >
+                    <table data-sort="false" class="footable" data-page-size="20" id='aux' style="width:100%">
+                        <h5>Auxilary Information</h5>
+                        <tbody>
+                            <tr>
+                                <td>Time</td>
+                                <td id='time'></td>
+                                <td>Now</td>
+                                <td id='now'></td> 
+                            </tr>
+                            <tr>
+                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Pressure [torr]</td>
+                                <td id='pressl'></td>
+                                <td>Pressure [PSI]</td>
+                                <td id='pressh'></td> 
+                            </tr>
+                            <tr>
+                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Elevation</td>
+                                <td>Azimuth</td>
+                                <td>Flag</td> 
+                            </tr>
+                            <tr>
+                                <td>SunSensor 1</td>
+                                <td id='ssel_0'></td>
+                                <td id='ssaz_0'></td>
+                                <td id='ssflag_0'></td>
+                            </tr>
+                            <tr>
+                                <td>SunSensor 2</td>
+                                <td id='ssel_1'></td>
+                                <td id='ssaz_1'></td>
+                                <td id='ssflag_1'></td>  
+                            </tr>
+                            <tr>
+                                <td>SunSensor 3</td>
+                                <td id='ssel_2'></td>
+                                <td id='ssaz_2'></td>
+                                <td id='ssflag_2'></td>  
+                            </tr>
+                            <tr>
+                                <td>SunSensor 4</td>
+                                <td id='ssel_3'></td>
+                                <td id='ssaz_3'></td>
+                                <td id='ssflag_3'></td> 
+                            </tr>
+                            <tr>
+                                <td>SunSensor 5</td>
+                                <td id='ss_0'></td>
+                                <td id='ss_1'></td>
+                                <td id='ss_2'></td>
+                                <td id='ss_3'></td> 
+                            </tr>
+                            <tr>
+                                <td>SunSensor 6</td>
+                                <td id='ss_0'></td>
+                                <td id='ss_1'></td> 
+                                <td id='ss_2'></td> 
+                                <td id='ss_3'></td>  
+                            </tr>
+                            <tr>
+                                <td>SunSensor 7</td>
+                                <td id='ss_0'></td>
+                                <td id='ss_1'></td>
+                                <td id='ss_2'></td>
+                                <td id='ss_3'></td> 
+                            </tr>
+                            <tr>
+                                <td>SunSensor 8</td>
+                                <td id='ss_0'></td>
+                                <td id='ss_1'></td>
+                                <td id='ss_2'></td>
+                                <td id='ss_3'></td> 
+                            </tr>
+                            <tr>
+                               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Accel 1 [x,y,z]</td>
+                                <td id='accx_0'></td> 
+                                <td id='accy_0'></td>
+                                <td id='accz_0'></td>
+                            </tr>
+                            <tr>
+                                <td>Accel 2 [x,y,z]</td>
+                                <td id='accx_1'></td> 
+                                <td id='accy_1'></td>
+                                <td id='accz_1'></td>
+                            </tr>
+                            <tr>
+                                <td>Mag [x,y,z]</td>
+                                <td id='magx'></td> 
+                                <td id='magy'></td>
+                                <td id='magz'></td>
+                            </tr>
+                          </tbody>
+                      
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
@@ -19,6 +569,8 @@
 {% block scripts %}
 {{ super() }}
 <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
+<script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+
 <script>
 function timeConverter(UNIX_timestamp){
   var a = new Date(UNIX_timestamp * 1000);
@@ -32,48 +584,177 @@ function timeConverter(UNIX_timestamp){
   var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
   return time;
 }
-function updatehtml(header){
-	$.getJSON('/api/hd/'+ header, function(data){
-			$('#hd #nbuf').html(data.hd.nbuf);
-			$('#hd #now').html(timeConverter(data.hd.now));
-			$('#hd #time').html(timeConverter(data.hd.time));
-			$('#hd #us').html(data.hd.us);
-			$('#hd #ns').html(data.hd.ns);
-			$('#hd #evnum').html(data.hd.evnum);
-			$('#hd #priority').html(data.hd.priority);
-			$('#hd #trigtype').html(data.hd.trigtype);
-			$('#hd #trignum').html(data.hd.trignum);
-			$('#hd #trigtime').html(data.hd.trigtime);
-			$('#hd #l3cnt').html(data.hd.l3cnt);
-			$('#hd #pps').html(data.hd.pps);
-			$('#hd #deadtime').html(data.hd.deadtime);
-			$('#hd #turfword').html(data.hd.turfword);
-			$('#hd #calib').html(data.hd.calib);
-		});
+var l1_range_map = $.range_map({
+        '2000:5000': 'yellow',
+        '5000:30000:': 'green',
+        '30000:50000:':'yellow'
+})
+function update_l1_data($selector, new_data){
+    var array_string=$selector.attr('values');
+     array_string=new_data;
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: l1_range_map,
+        chartRangeMin:0,
+        chartRangeMax:65535
+    });
+}
+var l3_range_map = $.range_map({
+        '2:4': 'yellow',
+        '4:125:': 'green',
+        '125:170:':'yellow'
+})
+function update_l3_data($selector, new_data){
+    var array_string=$selector.attr('values');
+     array_string=new_data;
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: l3_range_map,
+        chartRangeMin:0,
+        chartRangeMax:255
+    });
+}
+function updatehtml_turf(turf){
+    $.getJSON('/api/' + ip_db + '/turf/'+ turf, function(data){
+        $('#turf #nbuf').html(data.turf.nbuf);
+        $('#turf #now').html(data.turf.now + " (" + timeConverter(data.turf.now) + ")");
+        $('#turf #time').html(data.turf.time + " (" + timeConverter(data.turf.time) + ")");
+        $('#turf #deadtime').html(data.turf.deadtime);
+        $('#turf #l1trigmask').html(data.turf.l1trigmask);
+        $('#turf #l1trigmaskh').html(data.turf.l1trigmaskh);
+        $('#turf #phitrigmask').html(data.turf.phitrigmask);
+        $('#turf #phitrigmaskh').html(data.turf.phitrigmaskh);
+
+        var l1_name;
+            for (i = 0; i < 16; i++) {
+                l1_name = '#l1_' + i;
+                update_l1_data($(l1_name), parseInt(data.turf.l1  [i]));
+            }
+        var l1h_name;
+            for (i = 0; i < 16; i++) {
+                l1h_name = '#l1h_' + i;
+                update_l1_data($(l1h_name), parseInt(data.turf.l1h  [i]));
+            }
+        var l3_name;
+            for (i = 0; i < 16; i++) {
+                l3_name = '#l3_' + i;
+                update_l3_data($(l3_name), parseInt(data.turf.l3  [i]));
+            }
+        var l3h_name;
+            for (i = 0; i < 16; i++) {
+                l3h_name = '#l3h_' + i;
+                update_l3_data($(l3h_name), parseInt(data.turf.l3h  [i]));
+            }
+    });
+       
 }
 
 $(document).ready(function () {
-	$('.footable').footable();
+    $('.footable').footable();
+    var turf_nbufs=[];
+    var turf_nows=[];
+    var turf_times=[];
+    var i=0;
+    var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
-	var header=[];
-	var i=0;
-	$.getJSON('/api/header', function(data){
-		header=data.header;
-	});
-	console.log(header);
+    $.getJSON('/api/' + ip_db + '/turf/nbufs', function(data){
+        turf_nbufs=data.turf_nbufs;
+        turf_nows=data.turf_nows;
+    });   
+    function autoload(start_time){
+        $.getJSON('/api/' + ip_db + '/turf/nbufs/' + start_time, function(data){
+                new_length=data.turf_nbufs.length
+                turf_nbufs=turf_nbufs.concat(data.turf_nbufs);
+                turf_nows=turf_nows.concat(data.turf_nows);
+                turf_times=turf_times.concat(data.turf_times);
+                start_time=Math.max(...turf_times);
+                connect.ladda('stop');
+            }).done(function(){
+                setTimeout(function(){
+                    if (new_length){
+                        sleep_interval = 2000;
+                    }else{
+                        sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+                    }
+                    autoload(start_time);
+                }, sleep_interval);
+                
+            });
+    }
 
-	$('#next').click( function(){
-		if (i<header.length) {
-			i=i+1;
-			updatehtml(header[i]);
-		};
-	});
-	$('#prev').click( function(){
-		if (i>0) {
-			i=i-1;
-			updatehtml(header[i]);
-		};
-	});
+    var connect = $( '.ladda-button' ).ladda();
+    $('#connect').click(function() {
+        turf_nbufs=[];
+        turf_nows=[];
+        turf_times=[];
+        i=0;
+        connect.ladda( 'start' );
+        $.ajax({
+            url: '/api/connect/'+ ip + '/' + db
+        }).done(function(response) {
+            if (response == 'success'){
+                autoload(0);
+            }else{
+                connect.ladda( 'stop' );
+                swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
+            }          
+        });
+    });
+
+    $('#next').click( function(){
+        if (i<turf_nbufs.length-1) {
+            i=i+1;
+            updatehtml_turf(turf_nbufs[i]);
+        };
+    });
+    $('#prev').click( function(){
+        if (i>0) {
+            i=i-1;
+            updatehtml_turf(turf_nbufs[i]);
+        };
+    });
+    $('#first').click( function(){
+        i=0
+        updatehtml_turf(turf_nbufs[i]);
+    });
+    $('#last').click( function(){
+        i=turf_nbufs.length-1
+        updatehtml_turf(turf_nbufs[i]);
+    });
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, { color: '#1AB394' });
+    var myInterval;
+    elem.onchange = function() {
+        if (elem.checked){
+            myInterval=setInterval(function(){
+                if (i<turf_nbufs.length-1) {  
+                    i=i+1;
+                    updatehtml_turf(turf_nbufs[i]);
+                };
+            }, 1000);
+        }else{
+            clearInterval(myInterval);
+        };
+    };
+    $('#goto').click( function(){
+        var keywords=parseInt($('#keywords').val());
+        console.log(keywords);
+        var index=turf_times.indexOf(keywords);
+        if (index!=-1 && keywords){
+            i=index;
+            console.log(i);
+            updatehtml_turf(turf_nbufs[i]);
+        }else{
+             swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
+        }
+        
+    });
 });
 
             
