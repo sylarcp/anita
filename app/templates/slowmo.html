@@ -690,6 +690,7 @@ $(document).ready(function () {
 	var slow_nows=[];
 	var slow_times=[];
 	var i=0;
+	var connected= false;
 	var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
 	// $.getJSON('/api/' + ip_db + '/slow/times', function(data){
 	// 	slow_nbufs=data.slow_nbufs;
@@ -703,6 +704,10 @@ $(document).ready(function () {
                 slow_nows=slow_nows.concat(data.slow_nows);
                 slow_times=slow_times.concat(data.slow_times);
                 start_time=Math.max(...slow_times);
+                $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
+        		$('#connect').html('Disconnect');
+        		$('.chosen-select').attr("disabled", true).trigger("chosen:updated");
+        		connected = true;
                 connect.ladda('stop');
                 console.log(start_time);
                 console.log(slow_times.length);
@@ -713,28 +718,45 @@ $(document).ready(function () {
                     }else{
                         sleep_interval = Math.min(sleep_interval * 1.2, 60000);
                     }
-                    autoload(start_time);
+                    if (connected == true){
+						autoload(start_time);
+					}
                 }, sleep_interval);
                 
             });
     }
     var connect = $( '.ladda-button' ).ladda();
     $('#connect').click(function() {
-        slow_nbufs=[];
-        slow_nows=[];
-        slow_times=[];
-        i=0;
-        connect.ladda( 'start' );
-        $.ajax({
-            url: '/api/connect/'+ ip + '/' + db
-        }).done(function(response) {
-        	if (response == 'success'){
-        		autoload(0);
-        	}else{
-        		connect.ladda( 'stop' );
-        		swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
-        	}         
-        });
+    	if ( $(this).hasClass('connect')){
+	        slow_nbufs=[];
+	        slow_nows=[];
+	        slow_times=[];
+	        i=0;
+	        connect.ladda( 'start' );
+	        $.ajax({
+	            url: '/api/connect/'+ ip + '/' + db
+	        }).done(function(response) {
+	        	if (response == 'success'){
+	        		autoload(0);
+	        	}else{
+	        		$('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
+	        		$('#connect').html('Disconnect');
+	        		$('.chosen-select').attr("disabled", true).trigger("chosen:updated");
+	        		connected = true;
+	        		connect.ladda( 'stop' );
+	        		swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
+	        	}         
+	        });
+	    }else{
+	    	//otherwise, stop all the requests.
+			$('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
+	        $('#connect').html('Connect');
+			$('.chosen-select').attr("disabled", false).trigger("chosen:updated");
+			if (switchery.isChecked()){
+				$('.switchery').click();
+			};				
+			connected = false;
+	    }
     });
 	
 

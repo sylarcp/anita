@@ -8,6 +8,7 @@
 
 <link rel="shortcut icon" href="{{ url_for('static', filename = 'img/favicons/favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename = 'img/favicons/favicon.ico') }}"type="image/x-icon">
+<link href="{{ url_for('static', filename='inspinia/css/plugins/chosen/chosen.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/bootstrap.min.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/animate.css') }}" rel="stylesheet">
@@ -17,17 +18,18 @@
 <link href="{{ url_for('static', filename='inspinia/css/plugins/switchery/switchery.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/plugins/ladda/ladda-themeless.min.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/plugins/jQueryUI/jquery-ui.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='anita/css/jquery.jqplot.min.css') }}" rel="stylesheet">
 
 
  <style>
-        button, select {
+        button, .chosen-container{
             margin: 7px 2px;
         }
         input, #checkbox{
             margin: 7px 2px;
         }
         /* the modal should be in the same z-index not overlay each other*/
-        .modal{z-index: 1060;}
+        /*.modal{z-index: 1060 !important;}*/
         /* the modal content should not overflow if you resize it */
         .modal-content.ui-resizable {
             overflow-y: scroll;
@@ -66,14 +68,15 @@
             <ul class="nav navbar-nav">
 
                 <li>
-                    <select id="ip" class="form-control m-b select_class" style="width:150px">
+                    <select id="ip" class="chosen-select" style="width:150px">
                         <option value="128_175_112_58">128.175.112.58</option>
                         <option value="128_175_112_80">128.175.112.80</option>
                         <option value="128_175_112_125">128.175.112.125</option>
+                        <option value="gse2_bartol_udel_edu">gse2.bartol.udel.edu</option>
                     </select>
                 </li>
                 <li>
-                    <select id="db" class="form-control m-b select_class" style="width:150px">
+                    <select id="db" class="chosen-select" style="width:150px">
                         <option value="anita_0102a">anita_0102a</option>
                         <option value="anita_0102b">anita_0102b</option>
                         <option value="anita_0102c">anita_0102c</option>
@@ -83,10 +86,11 @@
                         <option value="anita_0106d">anita_0106d</option>
                         <option value="anita_0107d">anita_0107d</option>
                         <option value="anita_0622d">anita_0622d</option>
+                        <option value="anita_0709c">anita_0709c</option>
                     </select>
                 </li>
                 <li>
-                     <button type="button" id="connect" class="ladda-button btn btn-primary" data-style="zoom-in">Connect</button>
+                     <button type="button" id="connect" class="ladda-button btn btn-primary connect"  data-style="zoom-in">Connect</button>
                 </li>
             </ul>
             <ul class="nav navbar-nav pull-right">
@@ -122,6 +126,8 @@
 
 {% block scripts %}
     <script src="{{ url_for('static', filename='inspinia/js/jquery-2.1.1.js') }}"></script>
+    <script src="{{ url_for('static', filename='inspinia/js/plugins/chosen/chosen.jquery.js') }}"></script>
+
     <script src="{{ url_for('static', filename='inspinia/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
     
@@ -135,6 +141,11 @@
     <script src="{{ url_for('static', filename='inspinia/js/plugins/ladda/ladda.min.js') }}"></script>
     <script src="{{ url_for('static', filename='inspinia/js/plugins/ladda/ladda.jquery.min.js') }}"></script>
 
+    <script src="{{ url_for('static', filename='anita/js/jqplot/jquery.jqplot.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='anita/js/jqplot/plugins/jqplot.canvasTextRenderer.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='anita/js/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='anita/js/jqplot/plugins/jqplot.dateAxisRenderer.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='anita/js/jqplot/plugins/jqplot.cursor.min.js') }}"></script>
     <script>
         var ip=$('#ip option:selected').val();
         var db=$('#db option:selected').val();
@@ -157,6 +168,8 @@
             // window.location.reload();
         });
         $(document).ready(function () {
+            $('#ip').chosen({disable_search_threshold:10});
+            $('#db').chosen({disable_search_threshold:10});
             // $(".ibox").resizable({
             //     helper: "ui-resizable-helper",
             //     handles: "e, s",
