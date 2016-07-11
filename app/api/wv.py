@@ -1,5 +1,7 @@
 from flask import jsonify, request, g, abort, url_for, current_app, session, Response
-from . import api, cache
+from . import api
+from .. import cache
+# from .. import cache
 from app.models import Wv
 
 
