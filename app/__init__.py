@@ -13,7 +13,7 @@ from flask.ext.cache import Cache
 app = Flask(__name__)
 app.debug = True
 app.secret_key = "super secret key"
-cache = Cache(config={'CACHE_TYPE': 'simple', 'CACHE_THRESHOLD': 5})
+cache = Cache(config={'CACHE_TYPE': 'simple', 'CACHE_THRESHOLD': 400})
 
 def create_app():
 	#I remove sqlAlchemy object db. Instead we have init_db() give us tables class for use.
