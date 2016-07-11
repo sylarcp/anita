@@ -1,6 +1,7 @@
 from flask import jsonify, request, g, abort, url_for, current_app, session
 from flask.ext.login import LoginManager, current_user
 from . import api
+from .. import cache
 from app.models import Hk
 
 # Primary key list: get the hk now list
@@ -24,6 +25,7 @@ def get_hk_count(ip_db):
 
 
 @api.route('/<ip_db>/hk/<nbuf>')
+@cache.cached(timeout=3600)
 def get_hk(ip_db, nbuf):
 
     hk =getattr(Hk,ip_db).filter_by(nbuf=nbuf).first()

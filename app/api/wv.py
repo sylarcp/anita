@@ -1,20 +1,17 @@
 from flask import jsonify, request, g, abort, url_for, current_app, session, Response
 from . import api
 from .. import cache
-# from .. import cache
 from app.models import Wv
 
 
 #Primary key list: get the (evnum, id)
 @api.route('/<ip_db>/wv/evnum_ids')
-@cache.cached(timeout=3600)
 def get_wv_evnum_ids(ip_db):
     wvs =getattr(Wv,ip_db).limit(1000).all()
     return jsonify({'wv': [(item.evnum, item.id) for item in wvs]})
 
 #get the length of wv list
 @api.route('/<ip_db>/wv/count')
-@cache.cached(timeout=3600)
 def get_wv_count(ip_db):
     #Todo how to make it count fask?
     count =getattr(Wv,ip_db).count()
