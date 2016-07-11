@@ -1,26 +1,8 @@
 from flask import jsonify, request, g, abort, url_for, current_app, session, Response
-from . import api
+from . import api, cache
 from app.models import Wv
 
-from werkzeug.contrib.cache import SimpleCache
 
-CACHE_TIMEOUT = 300
-
-cache = SimpleCache()
-
-class cached(object):
-
-    def __init__(self, timeout=None):
-        self.timeout = timeout or CACHE_TIMEOUT
-
-    def __call__(self, f):
-        def decorator(*args, **kwargs):
-            response = cache.get(request.path)
-            if response is None:
-                response = f(*args, **kwargs)
-                cache.set(request.path, response, self.timeout)
-            return response
-        return decorator
 #Primary key list: get the (evnum, id)
 @api.route('/<ip_db>/wv/evnum_ids')
 def get_wv_evnum_ids(ip_db):
@@ -43,7 +25,7 @@ def get_wv(ip_db, evnum, id):
 
 #get 40 waveforms for a evnum
 @api.route('/<ip_db>/wv/<int:evnum>')
-@cached()
+@cache.cached(timeout=50)
 def get_wvs(ip_db, evnum):
     json_comment={}
     wvs =getattr(Wv,ip_db).filter_by(evnum=evnum).order_by(Wv.id).all()
