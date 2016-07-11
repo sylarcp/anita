@@ -118,17 +118,17 @@ class Wv(Base):
     def to_json(self):
         json_comment = {
                         'nbuf': self.nbuf, 
-                        'crc': self.crc,
+                        # 'crc': self.crc,
                         'now': self.now,
                         'evnum': self.evnum,
                         'id': self.id,
-                        'chip': self.chip,
-                        'rcobit': self.rcobit,
-                        'hbwrap': self.hbwrap,
-                        'hbstart': self.hbstart,
-                        'hbend': self.hbend,
-                        'peds': self.peds,
-                        'raw': self.raw,
+                        # 'chip': self.chip,
+                        # 'rcobit': self.rcobit,
+                        # 'hbwrap': self.hbwrap,
+                        # 'hbstart': self.hbstart,
+                        # 'hbend': self.hbend,
+                        # 'peds': self.peds,
+                        # 'raw': self.raw,
                         'cal': self.cal
                         }
         return json_comment
