@@ -5,10 +5,12 @@ from config import config
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from app.database import init_db
+from flask_debugtoolbar import DebugToolbarExtension
 # from flask.ext.login import AnonymousUserMixin
 
 
 app = Flask(__name__)
+app.debug = True
 app.secret_key = "super secret key"
 
 def create_app():
@@ -19,6 +21,7 @@ def create_app():
 	bootstrap = Bootstrap(app)
 	moment = Moment(app)
 	login_manager = LoginManager(app)
+	toolbar = DebugToolbarExtension(app)
 
 	from .main import main as main_blueprint
 	app.register_blueprint(main_blueprint)
