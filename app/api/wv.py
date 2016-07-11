@@ -1,13 +1,27 @@
-from flask import jsonify, request, g, abort, url_for, current_app, session
+from flask import jsonify, request, g, abort, url_for, current_app, session, Response
 from . import api
 from app.models import Wv
+
+from werkzeug.contrib.cache import SimpleCache
+
+CACHE_TIMEOUT = 300
+
+cache = SimpleCache()
+
+class cached(object):
+
+    def __init__(self, timeout=None):
+        self.timeout = timeout or CACHE_TIMEOUT
+
+    def __call__(self, f):
+        def decorator(*args, **kwargs):
+            response = cache.get(request.path)
+            if response is None:
+                response = f(*args, **kwargs)
+                cache.set(request.path, response, self.timeout)
+            return response
+        return decorator
 #Primary key list: get the (evnum, id)
-# @api.route('/wv/evnum_ids)') 
-# @api.route('/wv)') 
-# def get_wv_evnum_ids():
-#     return '!!!!!!!!!'
-#     wvs = Wv.query.limit(1000).all()
-#     return jsonify({'wv': [(item.evnum, item.id) for item in wvs]})
 @api.route('/<ip_db>/wv/evnum_ids')
 def get_wv_evnum_ids(ip_db):
     wvs =getattr(Wv,ip_db).limit(1000).all()
@@ -29,10 +43,12 @@ def get_wv(ip_db, evnum, id):
 
 #get 40 waveforms for a evnum
 @api.route('/<ip_db>/wv/<int:evnum>')
+@cached()
 def get_wvs(ip_db, evnum):
     json_comment={}
     wvs =getattr(Wv,ip_db).filter_by(evnum=evnum).order_by(Wv.id).all()
     for wv in wvs:
         json_comment[wv.id]=wv.to_json()
     return jsonify(json_comment)
+
 

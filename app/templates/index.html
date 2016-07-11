@@ -326,6 +326,7 @@ function updatehtml(hd){
 	$.getJSON('/api/' + ip_db + '/hd/'+ hd, function(data){
 
 		$.getJSON('/api/' + ip_db + '/wv/'+ data.hd.evnum, function(data){
+			console.log(data);
 			var wv_name;
 			if (document.getElementById('rb1').checked) {
   	        	console.log(document.getElementById('rb1').value);
