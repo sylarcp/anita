@@ -1267,7 +1267,7 @@ $(document).ready(function () {
                 $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
                 $('#connect').html('Disconnect');
                 $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
-                switchery.enable();
+                // switchery.enable();
                 connected = true;
                 connect.ladda('stop');
             }).done(function(){
@@ -1339,24 +1339,39 @@ $(document).ready(function () {
                 if (response == 'success'){
                     autoload(0);
                 }else{
-                    $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
-                    $('#connect').html('Disconnect');
-                    $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
-                    switchery.enable();
-                    connected = true;
                     connect.ladda('stop');
                     swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
                 }          
             });
         }else{
+             hk_nbufs=[];
+            hk_nows=[];
+            hk_times=[];
+            mon_nbufs=[];
+            mon_nows=[];
+            mon_times=[];
+            adu5_pat_nbufs=[];
+            adu5_pat_nows=[];
+            adu5_pat_times=[];
+            adu5_vtg_nbufs=[];
+            adu5_vtg_nows=[];
+            adu5_vtg_times=[];
+            adu5_sat_nbufs=[];
+            adu5_sat_nows=[];
+            adu5_sat_times=[];
+            i=0;
+            j=0;
+            k=0;
+            l=0;
+            m=0;
             //otherwise, stop all the requests.
             $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
             $('#connect').html('Connect');
             $('.chosen-select').attr("disabled", false).trigger("chosen:updated");
-            if (switchery.isChecked()){
-                $('.switchery').click();
-            };
-            switchery.disable();              
+            // if (switchery.isChecked()){
+            //     $('.switchery').click();
+            // };
+            // switchery.disable();              
             connected = false;
         }
     });
@@ -1415,7 +1430,7 @@ $(document).ready(function () {
     });
     var elem = document.querySelector('.js-switch');
     var switchery = new Switchery(elem, { color: '#1AB394' });
-    switchery.disable();
+    // switchery.disable();
     var myInterval;
     elem.onchange = function() {
         if (elem.checked){

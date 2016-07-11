@@ -707,7 +707,7 @@ $(document).ready(function () {
                 $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
         		$('#connect').html('Disconnect');
         		$('.chosen-select').attr("disabled", true).trigger("chosen:updated");
-        		switchery.enable();
+        		// switchery.enable();
         		connected = true;
                 connect.ladda('stop');
                 console.log(start_time);
@@ -740,24 +740,23 @@ $(document).ready(function () {
 	        	if (response == 'success'){
 	        		autoload(0);
 	        	}else{
-	        		$('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
-	        		$('#connect').html('Disconnect');
-	        		$('.chosen-select').attr("disabled", true).trigger("chosen:updated");
-	        		switchery.enable();
-	        		connected = true;
 	        		connect.ladda( 'stop' );
 	        		swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
 	        	}         
 	        });
 	    }else{
+	    	slow_nbufs=[];
+	        slow_nows=[];
+	        slow_times=[];
+	        i=0;
 	    	//otherwise, stop all the requests.
 			$('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
 	        $('#connect').html('Connect');
 			$('.chosen-select').attr("disabled", false).trigger("chosen:updated");
-			if (switchery.isChecked()){
-				$('.switchery').click();
-			};
-			switchery.disable();				
+			// if (switchery.isChecked()){
+			// 	$('.switchery').click();
+			// };
+			// switchery.disable();				
 			connected = false;
 	    }
     });
@@ -785,7 +784,7 @@ $(document).ready(function () {
 	});
     var elem = document.querySelector('.js-switch');
     var switchery = new Switchery(elem, { color: '#1AB394' });
-    switchery.disable();
+    // switchery.disable();
     var myInterval;
     elem.onchange = function() {
         console.log("working!!!!!!");

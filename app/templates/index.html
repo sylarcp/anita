@@ -458,7 +458,6 @@ $(document).ready(function () {
 				$('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
 	        	$('#connect').html('Disconnect');
 				$('.chosen-select').attr("disabled", true).trigger("chosen:updated");
-				switchery.enable();
 				connected = true;
 				$('#connect').value = 'Disconnect'
 				connect.ladda('stop');
@@ -494,24 +493,19 @@ $(document).ready(function () {
 	        	if (response == 'success'){
 	        		autoload(0);
 	        	}else{
-	        		$('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
-	        		$('#connect').html('Disconnect');
-	        		$('.chosen-select').attr("disabled", true).trigger("chosen:updated");
-	        		switchery.enable();
-	        		connected = true;
 	        		connect.ladda( 'stop' );
 	        		swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
 	        	}
 	        });
 		}else{
+			hd_nbufs=[];
+			hd_evnums=[];
+			hd_times=[];
+			i=0;
 			//otherwise, stop all the requests.
 			$('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
 	        $('#connect').html('Connect');
 			$('.chosen-select').attr("disabled", false).trigger("chosen:updated");
-			if (switchery.isChecked()){
-				$('.switchery').click();
-			};
-			switchery.disable();
 			connected = false;
 		}
 		 
@@ -554,8 +548,7 @@ $(document).ready(function () {
 	});
 
 	var elem = document.querySelector('.js-switch');
-    var switchery = new Switchery(elem);
-    switchery.disable();
+    var switchery = new Switchery(elem, { color: '#1AB394' });
     var autoNext;
     elem.onchange = function() {
 		if (elem.checked){
