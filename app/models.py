@@ -129,7 +129,7 @@ class Wv(Base):
                         # 'hbend': self.hbend,
                         # 'peds': self.peds,
                         # 'raw': self.raw,
-                        'cal': [1]*len(self.cal)
+                        'cal': [12345]*len(self.cal)
                         }
         return json_comment
 
