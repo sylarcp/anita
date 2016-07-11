@@ -336,8 +336,8 @@ function updatehtml(hd){
 				    	var id = chan + 9*surf;
 				    	var waveform=data[id.toString()];
 				    	if (waveform != undefined) {
-				    		//console.log(waveform.cal);
-				    		$(wv_name).attr('values', waveform['cal']).sparkline('html', {
+				    		//console.log(waveform.raw);
+				    		$(wv_name).attr('values', waveform['raw']).sparkline('html', {
 							    type: 'line',
 							    // colorMap: rfpower_range_map,
 							    // chartRangeMin:-100,
@@ -364,10 +364,10 @@ function updatehtml(hd){
 				    	if (waveform != undefined) {				    		
 				    		var fftdata = new complex_array.ComplexArray(260);
 				    		fftdata.map(function(value, i, n) {
-       						   value.real = waveform.cal[i]
+       						   value.real = waveform.raw[i]
        						 });
 				    		//console.log(data.FFT().magnitude());
-				    		//console.log(waveform.cal);				    		
+				    		//console.log(waveform.raw);				    		
 				    		$(wv_name).attr('values', fftdata.FFT().InvFFT().magnitude()).sparkline('html', {
 							    type: 'line',
 							    // colorMap: rfpower_range_map,
@@ -392,10 +392,10 @@ function updatehtml(hd){
 				    	var id = chan + 9*surf;
 				    	var waveform=data[id.toString()];
 				    	if (waveform != undefined) {			    		
-				    		for (var i = 0; i < waveform.cal.length ; i++) {
-				    		waveform.cal[i] = Math.pow(waveform.cal[i],2);
+				    		for (var i = 0; i < waveform.raw.length ; i++) {
+				    		waveform.raw[i] = Math.pow(waveform.raw[i],2);
 				    		}	
-				    		$(wv_name).attr('values', waveform['cal']).sparkline('html', {
+				    		$(wv_name).attr('values', waveform['raw']).sparkline('html', {
 							    type: 'line',
 							    // colorMap: rfpower_range_map,
 							    // chartRangeMin:-100,
