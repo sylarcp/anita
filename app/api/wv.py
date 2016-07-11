@@ -44,6 +44,7 @@ def get_wvs(ip_db, evnum):
     try:
         json_comment={}
         wvs =getattr(Wv,ip_db).filter_by(evnum=evnum).order_by(Wv.id).all()
+        wvs =getattr(Wv,ip_db).filter_by(evnum=evnum).order_by(Wv.id).all()
         for wv in wvs:
             json_comment[wv.id]=wv.to_json()
         return jsonify(json_comment)
