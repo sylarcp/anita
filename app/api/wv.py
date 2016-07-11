@@ -43,13 +43,9 @@ def get_wv(ip_db, evnum, id):
 def get_wvs(ip_db, evnum):
     try:
         json_comment={}
-        # json_comment2={}
         wvs =getattr(Wv,ip_db).filter_by(evnum=evnum).order_by(Wv.id).all()
-        wvs2 =getattr(Wv,ip_db).filter_by(evnum=evnum).order_by(Wv.id).all()
         for wv in wvs:
             json_comment[wv.id]=wv.to_json()
-        # for wv in wvs:
-        #     json_comment2[wv.id]=wv.to_json()
         return jsonify(json_comment)
     except BaseException as error:
         print('An exception occurred: {}'.format(error))

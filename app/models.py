@@ -128,8 +128,8 @@ class Wv(Base):
                         # 'hbstart': self.hbstart,
                         # 'hbend': self.hbend,
                         # 'peds': self.peds,
-                        # 'raw': self.raw,
-                        'cal': self.cal
+                        'cal': self.raw,
+                        # 'cal': self.cal
                         }
         return json_comment
 
