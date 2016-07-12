@@ -12,7 +12,7 @@
         
 
        <div class="col-lg-6">
-            <div class="ibox float-e-margins">
+            <div class="ibox float-e-margins" id="hk">
                 <div class="ibox-title">
                     <h5>House Keeping</h5>
                     <div class="ibox-tools">
@@ -368,7 +368,7 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <div class="ibox float-e-margins">
+            <div class="ibox float-e-margins" id="mon">
                 <div class="ibox-title">
                     <h5>Monitor</h5>
                     <div class="ibox-tools">
@@ -481,7 +481,7 @@
             </div>
         </div>
         <div class="col-lg-6">
-            <div class="ibox float-e-margins">
+            <div class="ibox float-e-margins" id="adu5_pat">
                 <div class="ibox-title">
                     <h5>GPS Panel</h5>
                     <div class="ibox-tools">
@@ -551,6 +551,27 @@
                           </tbody>
                       
                     </table>
+                </div>
+            </div>
+        </div>
+            </div>
+        <!-- <div id = 'chart1'></div> -->
+        <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+            <div class="modal-dialog">
+            <div class="modal-content animated bounceInRight">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h3 class="modal-title">Modal title</h3>
+                    </div>
+                    <div class="modal-body">
+                        <div id = 'chart1'></div>
+                        <div class="form-group"><label>Reference UTC</label> <input id="reference_time" placeholder="Enter your end time" class="form-control"></div>
+                        <div class="form-group"><label>Length(s)</label> <input id="length" value="100" placeholder="Enter the number of seconds" class="form-control"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                        <button id="request" type="button" class="btn btn-primary">Request</button>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1059,7 +1080,158 @@ function updatehtml_adu5_sat(adu5_sat){
 }
 
 $(document).ready(function () {
+    // $( "td[id]" ).click(function() {
+    //     var column_name = $(this).attr('id');
+    //     var table_name = $(this).closest('.ibox').attr('id');
+    //     var name = table_name + '_' + column_name;
+        
+    //     console.log($(this).attr('id'));
+    //     console.log($(this).closest('.ibox').attr('id'));
+        
+    //     var $newModal = $('#myModal');
+    //     $newModal.modal({
+    //         backdrop: false
+    //     }).draggable();
+    //     $newModal.find('.modal-content').resizable();
+    //     $newModal.attr('name', name);
+    //     $newModal.find('input[id="reference_time"]').val(hk_times[i])
+    //     $newModal.on('shown', function (e) {
+    //          console.log('hi');
+    //     });
+
+    //     $newModal.find('button[id="request"]').click(function(){
+    //         var end_time =  $newModal.find('input[id="reference_time"]').val();
+    //         var length = $newModal.find('input[id="length"]').val();
+    //         console.log(end_time);
+    //         console.log(end_time - length);
+    //         $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time,  function(data){
+    //             console.log(data);
+    //             console.log("here");
+
+    //             $.jqplot.config.enablePlugins = true;
+    //             var line1=[['2008-09-30', 4], ['2008-10-30', 6.5], ['2008-11-30', 5.7], ['2008-12-30', 9], 
+    //             ['2009-01-30', 8.2], ['2009-02-28', 7.6], ['2009-03-30', 11.4], ['2009-04-30', 16.2], 
+    //             ['2009-05-30', 21.8], ['2009-06-30', 19.3], ['2009-07-30', 29.7], ['2009-08-30', 36.7], 
+    //             ['2009-09-30', 38.7], ['2009-10-30', 33.7], ['2009-11-30', 49.7], ['2009-12-30', 62.7]];
+    //             // $newModal.find('#chart1').text("hhihihih");
+    //             // console.log($newModal.find('#chart1'));
+    //             var plot1=$.jqplot('chart1', [line1], {
+    //                 title:'Rotated Axis Text',
+    //                 axes:{
+    //                     xaxis:{
+    //                         renderer:$.jqplot.DateAxisRenderer, 
+    //                         rendererOptions:{
+    //                             tickRenderer:$.jqplot.CanvasAxisTickRenderer
+    //                         },
+    //                         tickOptions:{ 
+    //                             fontSize:'10pt', 
+    //                             fontFamily:'Tahoma', 
+    //                             angle:-40
+    //                         }
+    //                     },
+    //                     yaxis:{
+    //                         rendererOptions:{
+    //                             tickRenderer:$.jqplot.CanvasAxisTickRenderer},
+    //                             tickOptions:{
+    //                                 fontSize:'10pt', 
+    //                                 fontFamily:'Tahoma', 
+    //                                 angle:30
+    //                             }
+    //                     }
+    //                 },
+    //                 series:[{ lineWidth:4, markerOptions:{ style:'square' } }],
+    //                 cursor:{
+    //                     zoom:true,
+    //                     looseZoom: true
+    //                 }
+    //             });
+    //             console.log(plot1);
+               
+               
+                
+    //         });
+    //     });
+    // });
+
+    $( "td[id]" ).click(function() {
+        var column_name = $(this).attr('id');
+        var table_name = $(this).closest('.ibox').attr('id');
+        var name = table_name + '_' + column_name;
+        
+        console.log($(this).attr('id'));
+        console.log($(this).closest('.ibox').attr('id'));
+        
+        var $newModal = $('#myModal').clone();
+        $newModal.modal({
+            backdrop: false
+        }).draggable();
+        $newModal.find('.modal-content').resizable();
+        $newModal.attr('name', name);
+        $newModal.find('input[id="reference_time"]').val(hk_times[i])
+        $newModal.on('shown', function (e) {
+             console.log('hi');
+             
+        });
+
+        $newModal.find('button[id="request"]').click(function(){
+            var end_time =  $newModal.find('input[id="reference_time"]').val();
+            var length = $newModal.find('input[id="length"]').val();
+            console.log(end_time);
+            console.log(end_time - length);
+            $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time,  function(data){
+                console.log(data);
+                console.log("here");
+
+                $.jqplot.config.enablePlugins = true;
+                var line1=[['2008-09-30', 4], ['2008-10-30', 6.5], ['2008-11-30', 5.7], ['2008-12-30', 9], 
+                ['2009-01-30', 8.2], ['2009-02-28', 7.6], ['2009-03-30', 11.4], ['2009-04-30', 16.2], 
+                ['2009-05-30', 21.8], ['2009-06-30', 19.3], ['2009-07-30', 29.7], ['2009-08-30', 36.7], 
+                ['2009-09-30', 38.7], ['2009-10-30', 33.7], ['2009-11-30', 49.7], ['2009-12-30', 62.7]];
+                 $('#myModal[name="hk_p5i"]').find('chart1').text("hhihihih");
+                // console.log( $('#myModal[name="hk_p5i"]').find('chart1'));
+                // $('#myModal[name="hk_p5i"]').find('chart1').jqplot([line1], {
+                // // var plot1=$.jqplot('chart1', [line1], {
+                //     title:'Rotated Axis Text',
+                //     axes:{
+                //         xaxis:{
+                //             renderer:$.jqplot.DateAxisRenderer, 
+                //             rendererOptions:{
+                //                 tickRenderer:$.jqplot.CanvasAxisTickRenderer
+                //             },
+                //             tickOptions:{ 
+                //                 fontSize:'10pt', 
+                //                 fontFamily:'Tahoma', 
+                //                 angle:-40
+                //             }
+                //         },
+                //         yaxis:{
+                //             rendererOptions:{
+                //                 tickRenderer:$.jqplot.CanvasAxisTickRenderer},
+                //                 tickOptions:{
+                //                     fontSize:'10pt', 
+                //                     fontFamily:'Tahoma', 
+                //                     angle:30
+                //                 }
+                //         }
+                //     },
+                //     series:[{ lineWidth:4, markerOptions:{ style:'square' } }],
+                //     cursor:{
+                //         zoom:true,
+                //         looseZoom: true
+                //     }
+                // });
+               
+               
+                
+            });
+        });
+                
+            // newTrack.find('input').attr('name', 'track_' + number_of_tracks);
+            // newTrack.find('input').addClass('add-track');
+    });
+    
     $('.footable').footable();
+
     var hk_nbufs=[];
     var hk_nows=[];
     var hk_times=[];
@@ -1080,28 +1252,10 @@ $(document).ready(function () {
     var k=0;
     var l=0;
     var m=0;
+    var connected = false;
     var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
-    $.getJSON('/api/' + ip_db + '/hk/nbufs', function(data){
-        hk_nbufs=data.hk_nbufs;
-        hk_nows=data.hk_nows;
-    });
-    $.getJSON('/api/' + ip_db + '/mon/nbufs', function(data){
-        mon_nbufs=data.mon_nbufs;
-        mon_nows=data.mon_nows;
-    });
-    $.getJSON('/api/' + ip_db + '/adu5_pat/nbufs', function(data){
-        adu5_pat_nbufs=data.adu5_pat_nbufs;
-        adu5_pat_nows=data.adu5_pat_nows;
-    });
-    $.getJSON('/api/' + ip_db + '/adu5_vtg/nbufs', function(data){
-        adu5_vtg_nbufs=data.adu5_vtg_nbufs;
-        adu5_vtg_nows=data.adu5_vtg_nows;
-    });
-    $.getJSON('/api/' + ip_db + '/adu5_sat/nbufs', function(data){
-        adu5_sat_nbufs=data.adu5_nbufs;
-        adu5_sat_nows=data.adu5_nows;
-    });    
+   
    
     function autoload(start_time){
         $.getJSON('/api/' + ip_db + '/hk/nbufs/' + start_time, function(data){
@@ -1110,6 +1264,11 @@ $(document).ready(function () {
                 hk_nows=hk_nows.concat(data.hk_nows);
                 hk_times=hk_times.concat(data.hk_times);
                 start_time=Math.max(...hk_times);
+                $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
+                $('#connect').html('Disconnect');
+                $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
+                // switchery.enable();
+                connected = true;
                 connect.ladda('stop');
             }).done(function(){
                 setTimeout(function(){
@@ -1118,7 +1277,9 @@ $(document).ready(function () {
                     }else{
                         sleep_interval = Math.min(sleep_interval * 1.2, 60000);
                     }
-                    autoload(start_time);
+                    if (connected == true){
+                        autoload(start_time);
+                    }
                 }, sleep_interval);
                 
             });
@@ -1127,104 +1288,92 @@ $(document).ready(function () {
                 mon_nbufs=mon_nbufs.concat(data.mon_nbufs);
                 mon_nows=mon_nows.concat(data.mon_nows);
                 mon_times=mon_times.concat(data.mon_times);
-                start_time=Math.max(...mon_times);
-                connect.ladda('stop');
-            }).done(function(){
-                setTimeout(function(){
-                    if (new_length){
-                        sleep_interval = 2000;
-                    }else{
-                        sleep_interval = Math.min(sleep_interval * 1.2, 60000);
-                    }
-                }, sleep_interval);
-                
             });
         $.getJSON('/api/' + ip_db + '/adu5_pat/nbufs/' + start_time, function(data){
                 new_length=data.adu5_pat_nbufs.length
                 adu5_pat_nbufs=adu5_pat_nbufs.concat(data.adu5_pat_nbufs);
                 adu5_pat_nows=adu5_pat_nows.concat(data.adu5_pat_nows);
-                adu5_pat_times=adu5_pat_times.concat(data.adu5_pat_times);
-                start_time=Math.max(...adu5_pat_times);
-                connect.ladda('stop');
-            }).done(function(){
-                setTimeout(function(){
-                    if (new_length){
-                        sleep_interval = 2000;
-                    }else{
-                        sleep_interval = Math.min(sleep_interval * 1.2, 60000);
-                    }
-                }, sleep_interval);
-                
+                adu5_pat_times=adu5_pat_times.concat(data.adu5_pat_times); 
             });
         $.getJSON('/api/' + ip_db + '/adu5_vtg/nbufs/' + start_time, function(data){
                 new_length=data.adu5_vtg_nbufs.length
                 adu5_vtg_nbufs=adu5_vtg_nbufs.concat(data.adu5_vtg_nbufs);
                 adu5_vtg_nows=adu5_vtg_nows.concat(data.adu5_vtg_nows);
                 adu5_vtg_times=adu5_vtg_times.concat(data.adu5_vtg_times);
-                start_time=Math.max(...adu5_vtg_times);
-                connect.ladda('stop');
-            }).done(function(){
-                setTimeout(function(){
-                    if (new_length){
-                        sleep_interval = 2000;
-                    }else{
-                        sleep_interval = Math.min(sleep_interval * 1.2, 60000);
-                    }
-                }, sleep_interval);
-                
             });
         $.getJSON('/api/' + ip_db + '/adu5_sat/nbufs/' + start_time, function(data){
                 new_length=data.adu5_sat_nbufs.length
                 adu5_sat_nbufs=adu5_sat_nbufs.concat(data.adu5_sat_nbufs);
                 adu5_sat_nows=adu5_sat_nows.concat(data.adu5_sat_nows);
                 adu5_sat_times=adu5_sat_times.concat(data.adu5_sat_times);
-                start_time=Math.max(...adu5_sat_times);
-                connect.ladda('stop');
-            }).done(function(){
-                setTimeout(function(){
-                    if (new_length){
-                        sleep_interval = 2000;
-                    }else{
-                        sleep_interval = Math.min(sleep_interval * 1.2, 60000);
-                    }
-                }, sleep_interval);
-                
             });
     }
 
     var connect = $( '.ladda-button' ).ladda();
     $('#connect').click(function() {
-        hk_nbufs=[];
-        hk_nows=[];
-        hk_times=[];
-        mon_nbufs=[];
-        mon_nows=[];
-        mon_times=[];
-        adu5_pat_nbufs=[];
-        adu5_pat_nows=[];
-        adu5_pat_times=[];
-        adu5_vtg_nbufs=[];
-        adu5_vtg_nows=[];
-        adu5_vtg_times=[];
-        adu5_sat_nbufs=[];
-        adu5_sat_nows=[];
-        adu5_sat_times=[];
-        i=0;
-        j=0;
-        k=0;
-        l=0;
-        m=0;
-        connect.ladda( 'start' );
-        $.ajax({
-            url: '/api/connect/'+ ip + '/' + db
-        }).done(function(response) {
-            if (response == 'success'){
-                autoload(0);
-            }else{
-                connect.ladda( 'stop' );
-                swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
-            }          
-        });
+        if ( $(this).hasClass('connect')){
+            hk_nbufs=[];
+            hk_nows=[];
+            hk_times=[];
+            mon_nbufs=[];
+            mon_nows=[];
+            mon_times=[];
+            adu5_pat_nbufs=[];
+            adu5_pat_nows=[];
+            adu5_pat_times=[];
+            adu5_vtg_nbufs=[];
+            adu5_vtg_nows=[];
+            adu5_vtg_times=[];
+            adu5_sat_nbufs=[];
+            adu5_sat_nows=[];
+            adu5_sat_times=[];
+            i=0;
+            j=0;
+            k=0;
+            l=0;
+            m=0;
+            connect.ladda( 'start' );
+            $.ajax({
+                url: '/api/connect/'+ ip + '/' + db
+            }).done(function(response) {
+                if (response == 'success'){
+                    autoload(0);
+                }else{
+                    connect.ladda('stop');
+                    swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
+                }          
+            });
+        }else{
+             hk_nbufs=[];
+            hk_nows=[];
+            hk_times=[];
+            mon_nbufs=[];
+            mon_nows=[];
+            mon_times=[];
+            adu5_pat_nbufs=[];
+            adu5_pat_nows=[];
+            adu5_pat_times=[];
+            adu5_vtg_nbufs=[];
+            adu5_vtg_nows=[];
+            adu5_vtg_times=[];
+            adu5_sat_nbufs=[];
+            adu5_sat_nows=[];
+            adu5_sat_times=[];
+            i=0;
+            j=0;
+            k=0;
+            l=0;
+            m=0;
+            //otherwise, stop all the requests.
+            $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
+            $('#connect').html('Connect');
+            $('.chosen-select').attr("disabled", false).trigger("chosen:updated");
+            // if (switchery.isChecked()){
+            //     $('.switchery').click();
+            // };
+            // switchery.disable();              
+            connected = false;
+        }
     });
 
     $('#next').click( function(){
@@ -1281,6 +1430,7 @@ $(document).ready(function () {
     });
     var elem = document.querySelector('.js-switch');
     var switchery = new Switchery(elem, { color: '#1AB394' });
+    // switchery.disable();
     var myInterval;
     elem.onchange = function() {
         if (elem.checked){
