@@ -80,6 +80,7 @@
 								<td>L1 8</td>
 							</th>
 							<tr>
+								<td></td>
 								<td id='l1_8'></td>
 								<td id='l1_9'></td>
 								<td id='l1_10'></td>
@@ -122,6 +123,7 @@
 								<td>L1h 8</td>
 							</th>
 							<tr>
+								<td></td>
 								<td id='l1h_8'></td>
 								<td id='l1h_9'></td>
 								<td id='l1h_10'></td>
@@ -164,6 +166,7 @@
 								<td>L3 8</td>
 							</th>
 							<tr>
+								<td></td>
 								<td id='l3_8'></td>
 								<td id='l3_9'></td>
 								<td id='l3_10'></td>
@@ -206,6 +209,7 @@
 								<td>L3h 8</td>
 							</th>
 							<tr>
+								<td></td>
 								<td id='l3h_8'></td>
 								<td id='l3h_9'></td>
 								<td id='l3h_10'></td>
@@ -231,8 +235,8 @@
 				</div>
 			</div>
 		</div>
-		<div class="col-lg-8">
 
+		<div class="col-lg-8">
 			<div class="ibox float-e-margins">
 				<div class="ibox-title">
 					<h5>SURF Monitor</h5>
@@ -1311,6 +1315,31 @@
 
 
 
+<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content animated bounceInRight">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+				<h3 class="modal-title">Modal title</h3>
+			</div>
+			<div class="modal-body">
+				<div id = 'chart1'></div>
+				<div class="form-group"><label>Reference UTC</label> <input id="reference_time" placeholder="Enter your end time" class="form-control"></div>
+				<div class="form-group"><label>Length(s)</label> <input id="length" value="100" placeholder="Enter the number of seconds" class="form-control"></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+				<button id="request" type="button" class="btn btn-primary">Request</button>
+			</div>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
+
+
+
 {% endblock %}
 {% block scripts %}
 {{ super() }}
@@ -1335,6 +1364,26 @@
 		'5000:30000:': 'green',
 		'30000:50000:':'yellow'
 	})
+	var l3_range_map = $.range_map({
+		'2:4': 'yellow',
+		'4:125:': 'green',
+		'125:170:':'yellow'
+	})
+	var scaler_range_map = $.range_map({
+		'4:5': 'yellow',
+		'5:6.5:': 'green',
+		'6.5:7.5:':'yellow'
+	})
+	var rfpow_range_map = $.range_map({
+		'0:400': 'blue',
+		'400:800:': 'green',
+		'800:1200:':'yellow'
+	})
+	var thresh_range_map = $.range_map({
+		'.5:1': 'yellow',
+		'1:2:': 'green',
+		'2:2.4:':'yellow'
+	})
 	function update_l1_data($selector, new_data){
 		var array_string=$selector.attr('values');
 		array_string=new_data;
@@ -1348,11 +1397,6 @@
         chartRangeMax:65535
     });
     }
-    var l3_range_map = $.range_map({
-    	'2:4': 'yellow',
-    	'4:125:': 'green',
-    	'125:170:':'yellow'
-    })
     function update_l3_data($selector, new_data){
     	var array_string=$selector.attr('values');
     	array_string=new_data;
@@ -1366,11 +1410,6 @@
         chartRangeMax:255
     });
     }
-    var scaler_range_map = $.range_map({
-    	'4:5': 'yellow',
-    	'5:6.5:': 'green',
-    	'6.5:7.5:':'yellow'
-    })
     function update_scaler_data($selector, new_data){
     	var array_string=$selector.attr('values');
     	array_string=new_data;
@@ -1384,11 +1423,6 @@
         chartRangeMax:8
     });
     }
-    var rfpow_range_map = $.range_map({
-    	'0:400': 'blue',
-    	'400:800:': 'green',
-    	'800:1200:':'yellow'
-    })
     function update_rfpow_data($selector, new_data){
     	var array_string=$selector.attr('values');
     	array_string=new_data;
@@ -1402,11 +1436,7 @@
         chartRangeMax:1200
     });
     }
-    var thresh_range_map = $.range_map({
-    	'.5:1': 'yellow',
-    	'1:2:': 'green',
-    	'2:2.4:':'yellow'
-    })
+
     function update_thresh_data($selector, new_data){
     	var array_string=$selector.attr('values');
     	array_string=new_data;
@@ -1454,20 +1484,81 @@
     	});
 
     }
-        function updatehtml_hk_surf(hk_surf){
-    	$.getJSON('/api/' + ip_db + '/hk_surf/'+ hk_surf, function(data){
+
+    function updatehtml_hk_surf(hk_surf){
+    	if (!hk_surf) return;
+    	$.getJSON('/api/' + ip_db + '/hk_surf/' + hk_surf, function(data){
     		$('#rfpower #nbuf').html(data.hk_surf.nbuf);
+    		console.log(data.hk_surf.nbuf);
     		$('#rfpower #now').html(data.hk_surf.now + " (" + timeConverter(data.hk_surf.now) + ")");
     		$('#rfpower #time').html(data.hk_surf.time + " (" + timeConverter(data.hk_surf.time) + ")");
-    		$('#rfpower #us').html(data.hk_surf.us);
+    		$('#rfp #us').html(data.hk_surf.us);
     		$('#rfpower #global').html(data.hk_surf.global);
     		$('#rfpower #error').html(data.hk_surf.error);
-    	});
+    		$('#rfpower #upper_0').html(data.hk_surf.upper[0]);
+    		$('#rfpower #upper_1').html(data.hk_surf.upper[1]);
+    		$('#rfpower #upper_2').html(data.hk_surf.upper[2]);
+    		$('#rfpower #upper_3').html(data.hk_surf.upper[3]);
+    		$('#rfpower #upper_4').html(data.hk_surf.upper[4]);
+    		$('#rfpower #upper_5').html(data.hk_surf.upper[5]);
+    		$('#rfpower #upper_6').html(data.hk_surf.upper[6]);
+    		$('#rfpower #upper_7').html(data.hk_surf.upper[7]);
+    		$('#rfpower #upper_8').html(data.hk_surf.upper[8]);
+    		$('#rfpower #upper_9').html(data.hk_surf.upper[9]);
+    		$('#rfpower #upper_10').html(data.hk_surf.upper[10]);
+    		$('#rfpower #upper_11').html(data.hk_surf.upper[11]);
 
+
+    		//update_link_data($(linkped_name), parseInt(data.hk_surf.linkped));
+    		//var linkev_name;
+    		//for (i = 0; i < 10; i++) {
+    			//linkev_name = '#linkev_' + i;
+    			//update_link_data($(linkev_name), parseInt(data.hk_surf.linkev  [i]));
+    		//}
+    	});
     }
 
 
+
     $(document).ready(function () {
+    	$( "td[id]" ).click(function() {
+    		var column_name = $(this).attr('id');
+    		var table_name = $(this).closest('.ibox').attr('id');
+    		var name = table_name + '_' + column_name;
+
+    		console.log($(this).attr('id'));
+    		console.log($(this).closest('.ibox').attr('id'));
+
+    		var $newModal = $('#myModal').clone();
+    		$newModal.modal({
+    			backdrop: false
+    		}).draggable();
+    		$newModal.find('.modal-content').resizable();
+    		$newModal.attr('name', name);
+    		$newModal.find('input[id="reference_time"]').val(hk_times[i])
+    		$newModal.on('shown', function (e) {
+    			console.log('hi');
+
+    		});
+
+    		$newModal.find('button[id="request"]').click(function(){
+    			var end_time =  $newModal.find('input[id="reference_time"]').val();
+    			var length = $newModal.find('input[id="length"]').val();
+    			console.log(end_time);
+    			console.log(end_time - length);
+    			$.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time,  function(data){
+    				console.log(data);
+    				console.log("here");
+
+    				$.jqplot.config.enablePlugins = true;
+    				var line1=[['2008-09-30', 4], ['2008-10-30', 6.5], ['2008-11-30', 5.7], ['2008-12-30', 9], 
+    				['2009-01-30', 8.2], ['2009-02-28', 7.6], ['2009-03-30', 11.4], ['2009-04-30', 16.2], 
+    				['2009-05-30', 21.8], ['2009-06-30', 19.3], ['2009-07-30', 29.7], ['2009-08-30', 36.7], 
+    				['2009-09-30', 38.7], ['2009-10-30', 33.7], ['2009-11-30', 49.7], ['2009-12-30', 62.7]];
+    				$('#myModal[name="hk_p5i"]').find('chart1').text("hhihihih");                
+    			});
+    		});
+    	});
     	$('.footable').footable();
     	var turf_nbufs=[];
     	var turf_nows=[];
@@ -1477,135 +1568,153 @@
     	var hk_surf_times=[];
     	var i=0;
     	var j=0;
-    var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
+    	var connected = false;
+        var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
-    $.getJSON('/api/' + ip_db + '/turf/nbufs', function(data){
-    	turf_nbufs=data.turf_nbufs;
-    	turf_nows=data.turf_nows;
-    });   
-    function autoload(start_time){
-    	$.getJSON('/api/' + ip_db + '/turf/nbufs/' + start_time, function(data){
-    		new_length=data.turf_nbufs.length
-    		turf_nbufs=turf_nbufs.concat(data.turf_nbufs);
-    		turf_nows=turf_nows.concat(data.turf_nows);
-    		turf_times=turf_times.concat(data.turf_times);
-    		start_time=Math.max(...turf_times);
-    		connect.ladda('stop');
-    	}).done(function(){
-    		setTimeout(function(){
-    			if (new_length){
-    				sleep_interval = 2000;
-    			}else{
-    				sleep_interval = Math.min(sleep_interval * 1.2, 60000);
-    			}
-    			autoload(start_time);
-    		}, sleep_interval);
+        $.getJSON('/api/' + ip_db + '/hk_surf/nbufs', function(data){
+        	turf_nbufs=data.turf_nbufs;
+        	turf_nows=data.turf_nows;
+        });   
+        function autoload(start_time){
+        	$.getJSON('/api/' + ip_db + '/turf/nbufs/' + start_time, function(data){
+        		new_length=data.turf_nbufs.length
+        		turf_nbufs=turf_nbufs.concat(data.turf_nbufs);
+        		turf_nows=turf_nows.concat(data.turf_nows);
+        		turf_times=turf_times.concat(data.turf_times);
+        		start_time=Math.max(...turf_times);
+        		$('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
+        		$('#connect').html('Disconnect');
+        		$('.chosen-select').attr("disabled", true).trigger("chosen:updated");
+                // switchery.enable();
+                connected = true;
+                connect.ladda('stop');
+                console.log(start_time);
+                console.log(turf_times.length);
+            }).done(function(){
+            	setTimeout(function(){
+            		if (new_length){
+            			sleep_interval = 2000;
+            		}else{
+            			sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+            		}
+            		if (connected == true){
+            			autoload(start_time);
+            		}
+            	}, sleep_interval);
 
-    	});
-    	$.getJSON('/api/' + ip_db + '/hk_surf/nbufs/' + start_time, function(data){
-    		new_length=data.hk_surf_nbufs.length
-    		hk_surf_nbufs=hk_surf_nbufs.concat(data.hk_surf_nbufs);
-    		hk_surf_nows=hk_surf_nows.concat(data.hk_surf_nows);
-    		hk_surf_times=hk_surf_times.concat(data.hk_surf_times);
-    		start_time=Math.max(...hk_surf_times);
-    		connect.ladda('stop');
-    	}).done(function(){
-    		setTimeout(function(){
-    			if (new_length){
-    				sleep_interval = 2000;
-    			}else{
-    				sleep_interval = Math.min(sleep_interval * 1.2, 60000);
-    			}
-    			autoload(start_time);
-    		}, sleep_interval);
+            });
+            $.getJSON('/api/' + ip_db + '/hk_surf/nbufs/' + start_time, function(data){
+            	new_length=data.hk_surf_nbufs.length
+            	hk_surf_nbufs=hk_surf_nbufs.concat(data.hk_surf_nbufs);
+            	hk_surf_nows=hk_surf_nows.concat(data.hk_surf_nows);
+            	hk_surf_times=hk_surf_times.concat(data.hk_surf_times);
+            });
+        }
 
-    	});
-    }
-
-    var connect = $( '.ladda-button' ).ladda();
-    $('#connect').click(function() {
-    	turf_nbufs=[];
-    	turf_nows=[];
-    	turf_times=[];
-    	hk_surf_nbufs=[];
-    	hk_surf_nows=[];
-    	hk_surf_times=[];
-    	i=0;
-    	j=0;
-    	connect.ladda( 'start' );
-    	$.ajax({
-    		url: '/api/connect/'+ ip + '/' + db
-    	}).done(function(response) {
-    		if (response == 'success'){
-    			autoload(0);
-    		}else{
-    			connect.ladda( 'stop' );
-    			swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
-    		}          
-    	});
+        var connect = $( '.ladda-button' ).ladda();
+        $('#connect').click(function() {
+        	if ( $(this).hasClass('connect')){
+        		turf_nbufs=[];
+        		turf_nows=[];
+        		turf_times=[];
+        		hk_surf_nbufs=[];
+        		hk_surf_nows=[];
+        		hk_surf_times=[];
+        		i=0;
+        		j=0;
+        		connect.ladda( 'start' );
+        		$.ajax({
+        			url: '/api/connect/'+ ip + '/' + db
+        		}).done(function(response) {
+        			if (response == 'success'){
+        				autoload(0);
+        			}else{
+        				connect.ladda('stop');
+        				swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
+        			}          
+        		});
+        	}else{
+        		turf_nbufs=[];
+        		turf_nows=[];
+        		turf_times=[];
+        		hk_surf_nbufs=[];
+        		hk_surf_nows=[];
+        		hk_surf_times=[];
+        		i=0;
+        		j=0;
+            //otherwise, stop all the requests.
+            $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
+            $('#connect').html('Connect');
+            $('.chosen-select').attr("disabled", false).trigger("chosen:updated");
+            // if (switchery.isChecked()){
+            //     $('.switchery').click();
+            // };
+            // switchery.disable();              
+            connected = false;
+        }
     });
 
-    $('#next').click( function(){
-    	if (i<turf_nbufs.length-1) {
-    		i=i+1;
-    		updatehtml_turf(turf_nbufs[i]);
-    		j=hk_surf_nows.indexOf(turf_nows[i]);
-    		if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
-    	};
-    });
-    $('#prev').click( function(){
-    	if (i>0) {
-    		i=i-1;
-    		updatehtml_turf(turf_nbufs[i]);
-    		j=hk_surf_nows.indexOf(turf_nows[i]);
-    		if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
-    	};
-    });
-    $('#first').click( function(){
-    	i=0
-    	updatehtml_turf(turf_nbufs[i]);
-    	j=hk_surf_nows.indexOf(turf_nows[i]);
-    	if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
-    });
-    $('#last').click( function(){
-    	i=turf_nbufs.length-1
-    	updatehtml_turf(turf_nbufs[i]);
-    	j=hk_surf_nows.indexOf(turf_nows[i]);
-    	if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
-    });
-    var elem = document.querySelector('.js-switch');
-    var switchery = new Switchery(elem, { color: '#1AB394' });
-    var myInterval;
-    elem.onchange = function() {
-    	if (elem.checked){
-    		myInterval=setInterval(function(){
-    			if (i<turf_nbufs.length-1) {  
-    				i=i+1;
-    				updatehtml_turf(turf_nbufs[i]);
-    				j=hk_surf_nows.indexOf(turf_nows[i]);
-    				if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
-    			};
-    		}, 1000);
-    	}else{
-    		clearInterval(myInterval);
-    	};
-    };
-    $('#goto').click( function(){
-    	var keywords=parseInt($('#keywords').val());
-    	console.log(keywords);
-    	var index=turf_times.indexOf(keywords);
-    	if (index!=-1 && keywords){
-    		i=index;
-    		console.log(i);
-    		updatehtml_turf(turf_nbufs[i]);
-    		j=hk_surf_nows.indexOf(turf_nows[i]);
-    		if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
-    	}else{
-    		swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
-    	}
+        $('#next').click( function(){
+        	if (i<turf_nbufs.length-1) {
+        		i=i+1;
+        		updatehtml_turf(turf_nbufs[i]);
+        		j=hk_surf_nows.indexOf(turf_nows[i]);
+        		if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
+        	};
+        });
+        $('#prev').click( function(){
+        	if (i>0) {
+        		i=i-1;
+        		updatehtml_turf(turf_nbufs[i]);
+        		j=hk_surf_nows.indexOf(turf_nows[i]);
+        		if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
+        	};
+        });
+        $('#first').click( function(){
+        	i=0
+        	updatehtml_turf(turf_nbufs[i]);
+        	j=hk_surf_nows.indexOf(turf_nows[i]);
+        	if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
+        });
+        $('#last').click( function(){
+        	i=turf_nbufs.length-1
+        	updatehtml_turf(turf_nbufs[i]);
+        	j=hk_surf_nows.indexOf(turf_nows[i]);
+        	if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
+        });
+        var elem = document.querySelector('.js-switch');
+        var switchery = new Switchery(elem, { color: '#1AB394' });
+        var myInterval;
+        elem.onchange = function() {
+        	if (elem.checked){
+        		myInterval=setInterval(function(){
+        			if (i<turf_nbufs.length-1) {  
+        				i=i+1;
+        				updatehtml_turf(turf_nbufs[i]);
+        				j=hk_surf_nows.indexOf(turf_nows[i]);
+        				if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
+        			};
+        		}, 1000);
+        	}else{
+        		clearInterval(myInterval);
+        	};
+        };
+        $('#goto').click( function(){
+        	var keywords=parseInt($('#keywords').val());
+        	console.log(keywords);
+        	var index=turf_times.indexOf(keywords);
+        	if (index!=-1 && keywords){
+        		i=index;
+        		console.log(i);
+        		updatehtml_turf(turf_nbufs[i]);
+        		j=hk_surf_nows.indexOf(turf_nows[i]);
+        		if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
+        	}else{
+        		swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
+        	}
 
+        });
     });
-});
 
 
 
