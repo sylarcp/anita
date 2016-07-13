@@ -15,7 +15,7 @@ def get_hd_nbufs(ip_db, start_time):
         # print str(getattr(Hd,ip_db).with_entities(Hd.nbuf, Hd.evnum).filter(Hd.time>0).order_by(Hd.now).limit(1000))
         return jsonify({'hd_nbufs': [item.nbuf for item in hds], 'hd_evnums': [item.evnum for item in hds], 'hd_times': [item.time for item in hds]})
     except BaseException as error:
-        print('Invalid request: {}'.format(error))
+        print('Invalid request: {}', format(error))
         return jsonify({})
         # return jsonify({'hd': [item.nbuf&mask for item in hds]})
 
@@ -30,7 +30,7 @@ def get_hd_count(ip_db):
         return str(count)
         # return jsonify({'hd': [item.nbuf&mask for item in hds]})
     except BaseException as error:
-        print('Invalid request: {}'.format(error))
+        print('Invalid request: {}', format(error))
         return jsonify({})
 
 # get a tuple of Hd table
@@ -43,6 +43,6 @@ def get_hd(ip_db, nbuf):
         hd =getattr(Hd,ip_db).get(nbuf)
         return jsonify({'hd': hd.to_json()})
     except BaseException as error:
-        print('Invalid request: {}'.format(error))
+        print('Invalid request: {}', format(error))
         return jsonify({})
 

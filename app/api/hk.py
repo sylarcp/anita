@@ -12,7 +12,7 @@ def get_hk_nbufs(ip_db, start_time):
         hks =getattr(Hk,ip_db).with_entities(Hk.nbuf, Hk.now, Hk.time).filter(Hk.time>start_time).order_by(Hk.now).limit(200).all()
         return jsonify({'hk_nbufs': [item.nbuf for item in hks], 'hk_nows': [item.now for item in hks], 'hk_times': [item.time for item in hks]})
     except BaseException as error:
-        print('Invalid request: {}'.format(error))
+        print('Invalid request: {}', format(error))
         return jsonify({})
 # get the length of hk now list
 
@@ -25,7 +25,7 @@ def get_hk_count(ip_db):
         return str(count)
         # return jsonify({'hk': [item.now&mask for item in hks]})
     except BaseException as error:
-        print('Invalid request: {}'.format(error))
+        print('Invalid request: {}', format(error))
         return jsonify({})
 # get a tuple of Hk table
 
@@ -37,5 +37,5 @@ def get_hk(ip_db, nbuf):
         hk =getattr(Hk,ip_db).filter_by(nbuf=nbuf).first()
         return jsonify({'hk': hk.to_json()})
     except BaseException as error:
-        print('Invalid request: {}'.format(error))
+        print('Invalid request: {}', format(error))
         return jsonify({})
