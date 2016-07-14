@@ -1492,7 +1492,7 @@
     		console.log(data.hk_surf.nbuf);
     		$('#rfpower #now').html(data.hk_surf.now + " (" + timeConverter(data.hk_surf.now) + ")");
     		$('#rfpower #time').html(data.hk_surf.time + " (" + timeConverter(data.hk_surf.time) + ")");
-    		$('#rfp #us').html(data.hk_surf.us);
+    		$('#rfpower #us').html(data.hk_surf.us);
     		$('#rfpower #global').html(data.hk_surf.global);
     		$('#rfpower #error').html(data.hk_surf.error);
     		$('#rfpower #upper_0').html(data.hk_surf.upper[0]);
@@ -1508,14 +1508,29 @@
     		$('#rfpower #upper_10').html(data.hk_surf.upper[10]);
     		$('#rfpower #upper_11').html(data.hk_surf.upper[11]);
 
-
-    		//update_link_data($(linkped_name), parseInt(data.hk_surf.linkped));
-    		//var linkev_name;
-    		//for (i = 0; i < 10; i++) {
-    			//linkev_name = '#linkev_' + i;
-    			//update_link_data($(linkev_name), parseInt(data.hk_surf.linkev  [i]));
-    		//}
+    		var rfpow_name;
+    		for (i = 0; i < 8; i++) { 
+    			for (j = 0; j < 12; j++) { 
+    				rfpow_name='#rfpow_'+ i +'_'+ j ;
+    				update_rfpow_data($(rfpow_name),  parseInt(data.hk_surf.rfpow[i][j]));
+    			}
+    		}
+    		var scaler_name;
+    		for (i = 0; i < 12; i++) { 
+    			for (j = 0; j < 12; j++) { 
+    				scaler_name='#scaler_'+ i +'_'+ j ;
+    				update_scaler_data($(scaler_name),  parseInt(data.hk_surf.scaler[i][j]));
+    			}
+    		}
+    		var thresh_name;
+    		for (i = 0; i < 12; i++) { 
+    			for (j = 0; j < 12; j++) { 
+    				thresh_name='#thresh_'+ i +'_'+ j ;
+    				update_thresh_data($(thresh_name),  parseInt(data.hk_surf.thresh[i][j]));
+    			}
+    		}
     	});
+
     }
 
 

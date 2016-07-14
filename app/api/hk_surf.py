@@ -12,7 +12,7 @@ def get_hk_surf_nbufs(ip_db, start_time):
         hk_surfs =getattr(Hk_surf,ip_db).with_entities(Hk_surf.nbuf, Hk_surf.now, Hk_surf.time).filter(Hk_surf.time>start_time).order_by(Hk_surf.now).limit(200).all()
         return jsonify({'hk_surf_nbufs': [item.nbuf for item in hk_surfs], 'hk_surf_nows': [item.now for item in hk_surfs], 'hk_surf_times': [item.time for item in hk_surfs]})
     except BaseException as error:
-        print('Invalid request: {}'.format(error))
+        print('Invalid request: {}',format(error))
         return jsonify({})
 # get the length of hk_surf now list
 
@@ -25,7 +25,7 @@ def get_hk_surf_count(ip_db):
         return str(count)
         # return jsonify({'hk_surf': [item.now&mask for item in hk_surfs]})
     except BaseException as error:
-        print('Invalid request: {}'.format(error))
+        print('Invalid request: {}',format(error))
         return jsonify({})
 # get a tuple of Hk_surf table
 
@@ -37,5 +37,5 @@ def get_hk_surf(ip_db, nbuf):
         hk_surf =getattr(Hk_surf,ip_db).filter_by(nbuf=nbuf).first()
         return jsonify({'hk_surf': hk_surf.to_json()})
     except BaseException as error:
-        print('Invalid request: {}'.format(error))
+        print('Invalid request: {}',format(error))
         return jsonify({})
