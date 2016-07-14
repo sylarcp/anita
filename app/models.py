@@ -198,7 +198,7 @@ class Hk_surf(Base):
                         'nbuf': self.nbuf,
                         'crc': self.crc,
                         'now': self.now,
-                        'time': slef.time,
+                        'time': self.time,
                         'us': self.us,
                         #'global': self.global,
                         'error': self.error,
