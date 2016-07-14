@@ -28,11 +28,16 @@
             <div class="col-lg-4">
                 <p class="m-t-sm text-center">
                     Or you can create an issue on github by clicking this link: <a href="https://github.com/sylarcp/anita/issues" target="_blank">https://github.com/sylarcp/anita/issues</a>  <br/>
-					Any details you can provide about the problem or bug will help contribute to our team creating a speedy fix. <br/>
+                    Any details you can provide about the problem or bug will help contribute to our team creating a speedy fix. <br/>
                 </p>
             </div>
         </div>
-       
+        <div class="row">
+            <div class="col-lg-12 text-center">
+            <a href="mailto:sylarcp@udel.edu" class="btn btn-primary">Send us mail</a>
+            </div>
+        </div>
+
                <!--  <p class="container">
 					To create an issue on github simply follow these five steps:<br/>
 					1. Make sure you are signed into github, if you have not created an account you should do so now.<br/>
@@ -41,13 +46,59 @@
 					4. Create a write up of the problem with any relevent information you can think of.<br/>
 					5. Once you are finished, hit the green "Submit new issue" button and your work is done.<br/>
                 </p> -->
-        <div class="row">
-            <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
-                <p><strong>&copy; 2016 ANITA IV</strong><br/></p>
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center m-t-lg m-b-lg">
+                        <p><strong>&copy; 2016 ANITA IV</strong><br/></p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-</section>
-	
+        </section>
 
-{% endblock %}
+
+        {% endblock %}
+        {% block scripts %}
+        {{ super() }}
+        <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='anita/js/complex_array.js') }}"></script>
+        <script src="{{ url_for('static', filename='anita/js/fft.js') }}"></script>
+
+
+        <script>
+
+            $(document).ready(function () {
+                $(window).on('resize', resizeWindow);
+                $('.footable').footable();
+
+                var connect = $( '.ladda-button' ).ladda();
+                $('#connect').click(function() {  
+                });
+                $('#rb1').click( function(){
+                });
+                $('#rb2').click( function(){
+                });
+                $('#rb3').click( function(){
+                });
+                $('#next').click( function(){
+                });
+                $('#prev').click( function(){
+                });
+                $('#first').click( function(){
+                });
+                $('#last').click( function(){
+                });
+
+                var elem = document.querySelector('.js-switch');
+                var switchery = new Switchery(elem, { color: '#1AB394' });
+                var autoNext;
+                elem.onchange = function() {
+                };
+
+
+                $('#goto').click( function(){
+                });
+
+
+
+            </script>
+            {% endblock %}

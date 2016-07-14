@@ -118,18 +118,18 @@ class Wv(Base):
     def to_json(self):
         json_comment = {
                         'nbuf': self.nbuf, 
-                        'crc': self.crc,
+                        # 'crc': self.crc,
                         'now': self.now,
                         'evnum': self.evnum,
                         'id': self.id,
-                        'chip': self.chip,
-                        'rcobit': self.rcobit,
-                        'hbwrap': self.hbwrap,
-                        'hbstart': self.hbstart,
-                        'hbend': self.hbend,
-                        'peds': self.peds,
-                        'raw': self.raw,
-                        'cal': self.cal
+                        # 'chip': self.chip,
+                        # 'rcobit': self.rcobit,
+                        # 'hbwrap': self.hbwrap,
+                        # 'hbstart': self.hbstart,
+                        # 'hbend': self.hbend,
+                        # 'peds': self.peds,
+                        # 'raw': self.raw,
+                        'cal': [int(cal*100) for cal in self.cal]
                         }
         return json_comment
 
@@ -198,7 +198,7 @@ class Hk_surf(Base):
                         'nbuf': self.nbuf,
                         'crc': self.crc,
                         'now': self.now,
-                        'time': slef.time,
+                        'time': self.time,
                         'us': self.us,
                         #'global': self.global,
                         'error': self.error,
