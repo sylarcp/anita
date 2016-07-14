@@ -18,5 +18,5 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
         return jsonify({ 'values':[getattr(result, column_name) for result in results], 'times':[result.time for result in results]});
         # return jsonify({'hk_nbufs': [item.nbuf for item in hks], 'hk_nows': [item.now for item in hks], 'hk_times': [item.time for item in hks]})
     except BaseException as error:
-        print('Invalid request: {}'.format(error))
+        print('Invalid request: {}', format(error))
         return jsonify({})

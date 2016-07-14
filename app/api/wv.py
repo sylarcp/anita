@@ -11,7 +11,7 @@ def get_wv_evnum_ids(ip_db):
         wvs =getattr(Wv,ip_db).limit(1000).all()
         return jsonify({'wv': [(item.evnum, item.id) for item in wvs]})
     except BaseException as error:
-        print('Invalid request: {}'.format(error))
+        print('Invalid request: {}', format(error))
         return jsonify({})
 
 #get the length of wv list
@@ -23,7 +23,7 @@ def get_wv_count(ip_db):
         # could not return long type, so use str()
         return str(count)
     except BaseException as error:
-        print('Invalid request: {}'.format(error))
+        print('Invalid request: {}', format(error))
         return jsonify({})
 
 #get wv table content for evnum and id
@@ -34,7 +34,7 @@ def get_wv(ip_db, evnum, id):
         wv =getattr(Wv,ip_db).filter_by(evnum=evnum, id=id).first()
         return jsonify({'wv': wv.to_json()})
     except BaseException as error:
-        print('Invalid request: {}'.format(error))
+        print('Invalid request: {}', format(error))
         return jsonify({})
 
 #get 40 waveforms for a evnum
