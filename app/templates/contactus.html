@@ -1,9 +1,68 @@
-{% extends "base.html" %}
+{% extends "bootstrap/base.html" %}
+
+{% block title %}Flasky{% endblock %}
+
 {% block head %}
-{{ super() }}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<link rel="shortcut icon" href="{{ url_for('static', filename = 'img/favicons/favicon.ico') }}" type="image/x-icon">
+<link rel="icon" href="{{ url_for('static', filename = 'img/favicons/favicon.ico') }}"type="image/x-icon">
+<link href="{{ url_for('static', filename='inspinia/css/plugins/chosen/chosen.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='inspinia/css/bootstrap.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='inspinia/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='inspinia/css/animate.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='inspinia/css/style.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.metismenu/2.5.0/metisMenu.min.css">
+<link href="{{ url_for('static', filename='inspinia/css/plugins/sweetalert/sweetalert.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='anita/css/switchery.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='inspinia/css/plugins/ladda/ladda-themeless.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='inspinia/css/plugins/jQueryUI/jquery-ui.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='anita/css/jquery.jqplot.min.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/plugins/footable/footable.core.css') }}" rel="stylesheet">
+
+
+ <style>
+        button, .chosen-container{
+            margin: 7px 2px;
+        }
+        input, .switchery{
+            margin: 7px 2px;
+        }
+        /* the modal should be in the same z-index not overlay each other*/
+        /*.modal{z-index: 1060 !important;}*/
+        /* the modal content should not overflow if you resize it */
+        .modal-content.ui-resizable {
+            overflow-y: scroll;
+            overflow-x: hidden;
+        }
+       /* ul{
+          list-style: none;
+        }
+
+        li{
+          display: inline;
+        }*/
+    </style>
 {% endblock %}
-{% block page_content %}
+
+{% block navbar %}
+<div class="navbar navbar-inverse" role="navigation">
+    <div class="container-fluid">
+        <!-- <div class="navbar-header"> -->
+            
+            <a class="navbar-brand" href="{{ url_for('main.index') }}">ANITA IV</a>
+       <!--  </div>
+        <div class="navbar"> -->
+            <ul class="nav navbar-nav ">
+                <li><a href="{{ url_for('main.index') }}">Anita Viewer</a></li>
+                <li><a href="{{ url_for('main.hk') }}">HK Viewer</a></li>
+                <li><a href="{{ url_for('main.trigmon') }}">Trigger Monitor</a></li>
+                <li><a href="{{ url_for('main.slowmo') }}">Slow Monitor</a></li>
+                <li><a href="{{ url_for('main.contactus') }}">Contact Us</a></li>
+            </ul>
+    </div>
+</div>
 
 <section id="contact" class="gray-section contact ibox-content">
     <div class="container">
@@ -53,20 +112,52 @@
                 </div>
             </div>
         </section>
-
-
         {% endblock %}
+
+
         {% block scripts %}
-        {{ super() }}
-        <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
-        <script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+        
+        
         <script src="{{ url_for('static', filename='anita/js/complex_array.js') }}"></script>
         <script src="{{ url_for('static', filename='anita/js/fft.js') }}"></script>
+        <script src="{{ url_for('static', filename='inspinia/js/jquery-2.1.1.js') }}"></script>
+        <script src="{{ url_for('static', filename='inspinia/js/plugins/chosen/chosen.jquery.js') }}"></script>
+
+        <script src="{{ url_for('static', filename='inspinia/js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
+
+        <script src="{{ url_for('static', filename='inspinia/js/inspinia.js') }}"></script>
+        <script src="{{ url_for('static', filename='inspinia/js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='inspinia/js/plugins/pace/pace.min.js') }}"></script>
+        <script src="//cdn.jsdelivr.net/jquery.metismenu/2.5.0/metisMenu.min.js"></script>
+        <script src="{{ url_for('static', filename='inspinia/js/plugins/sweetalert/sweetalert.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='anita/js/switchery.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='inspinia/js/plugins/ladda/spin.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='inspinia/js/plugins/ladda/ladda.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='inspinia/js/plugins/ladda/ladda.jquery.min.js') }}"></script>
+
+        <script src="{{ url_for('static', filename='anita/js/jqplot/jquery.jqplot.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='anita/js/jqplot/plugins/jqplot.canvasTextRenderer.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='anita/js/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='anita/js/jqplot/plugins/jqplot.dateAxisRenderer.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='anita/js/jqplot/plugins/jqplot.cursor.min.js') }}"></script>
 
 
         <script>
 
             $(document).ready(function () {
+                // $(':hidden').show();
+                // $('.connect').hide();
+                // $('#next').hide();
+                // $('#prev').hide();
+                // $('#first').hide();
+                // $('#last').hide();
+                // $('#keywords').hide();
+                // $('#goto').hide();
+                // $('#checkbox').hide();
+
+                // $document.getElementById('next').style.display = 'hidden';
+
                 $(window).on('resize', resizeWindow);
                 $('.footable').footable();
 
