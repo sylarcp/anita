@@ -1,1 +1,1 @@
-web: gunicorn -w 2 manage:app
+web: gunicorn -w 2 --timeout 120 manage:app
