@@ -67,38 +67,8 @@
         <script>
 
             $(document).ready(function () {
-                $(window).on('resize', resizeWindow);
-                $('.footable').footable();
-
-                var connect = $( '.ladda-button' ).ladda();
-                $('#connect').click(function() {  
-                });
-                $('#rb1').click( function(){
-                });
-                $('#rb2').click( function(){
-                });
-                $('#rb3').click( function(){
-                });
-                $('#next').click( function(){
-                });
-                $('#prev').click( function(){
-                });
-                $('#first').click( function(){
-                });
-                $('#last').click( function(){
-                });
-
-                var elem = document.querySelector('.js-switch');
-                var switchery = new Switchery(elem, { color: '#1AB394' });
-                var autoNext;
-                elem.onchange = function() {
-                };
-
-
-                $('#goto').click( function(){
-                });
-
-
-
-            </script>
+                $('#connect').parent().parent().attr('style', 'display:none');
+                $('#next').parent().parent().attr('style', 'display:none');
+            });
+        </script>
             {% endblock %}
