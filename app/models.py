@@ -1,5 +1,5 @@
 from sqlalchemy.orm import relationship
-from app.database import Base
+from app.database import Base, engine0
 # from app import db
 from sqlalchemy import Table, Integer, Column, PrimaryKeyConstraint
 # Base.metadata.reflect(db.engine)
@@ -422,3 +422,4 @@ class File(Base):
                         
                         }
         return json_comment
+Base.prepare(engine0)
