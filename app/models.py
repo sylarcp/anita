@@ -422,4 +422,3 @@ class File(Base):
                         
                         }
         return json_comment
-Base.prepare(engine0)

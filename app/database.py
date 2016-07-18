@@ -1,9 +1,9 @@
 from sqlalchemy import create_engine
 from sqlalchemy.orm import scoped_session, sessionmaker
 from sqlalchemy.ext.declarative import declarative_base
-engine0 = create_engine('postgresql://gui:AniTa08@67.239.76.218/anita_0710a', convert_unicode=True)
+engine0 = create_engine('postgresql://gui:AniTa08@128.175.112.58/anita_0101a', convert_unicode=True)
 Base = declarative_base()
-# engine0 seems can be any database, does not affect the Base.query we use.
+# engine0 seems can be any database with the tables we need, does not affect the Base.query we use.
 Base.metadata.bind=engine0
 def init_db():
     # import all modules here that might define models so that

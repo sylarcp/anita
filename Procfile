@@ -1,1 +1,1 @@
-web: gunicorn --log-level=DEBUG --timeout 120 manage:app
+web: gunicorn --log-level=DEBUG manage:app
