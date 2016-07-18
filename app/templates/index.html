@@ -5,340 +5,347 @@
 {% endblock %}
 {% block page_content %}
 <div class="wrapper wrapper-content">
-        	
-    <div class="row">
+
+	<div class="row">
     	<!-- <button id='next' class="btn btn-primary"  type="button">Next event</button>
     	<button id='prev' class="btn btn-primary"  type="button">Prev event</button> -->
-        <div class="col-lg-3">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>hd</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                	</div>
-                </div>
-                <div class="ibox-content" >
-                    <table data-sort="false" class="footable" data-page-size="20" id='hd' style="width:100%">
+    	<div class="col-lg-3">
+    		<div class="ibox float-e-margins">
+    			<div class="ibox-title">
+    				<h5>hd</h5>
+    				<div class="ibox-tools">
+    					<a class="collapse-link">
+    						<i class="fa fa-chevron-up"></i>
+    					</a>
+    				</div>
+    			</div>
+    			<div class="ibox-content" >
+    				<table data-sort="false" class="footable" data-page-size="20" id='hd' style="width:100%">
 
-				  		<tbody>
-				  			<tr>
-							    <td data-hide="xs">nbuf</td>
-							    <td id='nbuf'></td> 
-							</tr>
-							<tr>
-								<td>now</td>
-								<td id='now'></td> 
-							</tr>
-							<tr>
-								<td>time</td>
-								<td id='time'></td> 
-							</tr>
-							<tr>
-								<td>us</td>
-								<td id='us'></td> 
-							</tr>
-							<tr>
-								<td>ns</td>
-								<td id='ns'></td> 
-							</tr>
-							<tr>
-								<td>evnum</td>
-								<td id='evnum'></td> 
-							</tr>
-							<tr>
-								<td>priority</td>
-								<td id='priority'></td> 
-							</tr>
-							<tr>
-								<td>trigtype</td>
-								<td id='trigtype'></td> 
-							</tr>
-							<tr>
-								<td>trignum</td>
-								<td id='trignum'></td> 
-							</tr>
-							<tr>
-								<td>trigtime</td>
-								<td id='trigtime'></td> 
-							</tr>
-							<tr>
-								<td>l3cnt</td>
-								<td id='l3cnt'></td> 
-							</tr>
-							<tr>
-								<td>pps</td>
-								<td id='pps'></td> 
-							</tr>
-							<tr>
-								<td>deadtime</td>
-								<td id='deadtime'></td> 
-							</tr>
-							<tr>
-								<td>turfword</td>
-								<td id='turfword'></td> 
-							</tr>
-							<tr>
-								<td>calib</td>
-								<td id='calib'></td> 
-							</tr>
-				  		</tbody>
-					  
-					</table>
-                </div>
-            </div>
-        </div>
-        <div class="col-xs-12 col-lg-9 ">
-            <div class="ibox float-e-margins">
-                <div class="ibox-title">
-                    <h5>waveform</h5>
-                    <div class="ibox-tools">
-                    	<a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                            <i class="fa fa-cog"></i>
-                        </a>
-                    	<ul class="dropdown-menu dropdown-user">
-                        <div class="radio">
-                          <label><input type="radio" name="waveradio" id="rb1" value="mV" checked>mV</label>
-                        </div>
-                        <div class="radio">
-                          <label><input type="radio" name="waveradio" id="rb2" value="FFT">FFT</label>
-                        </div>
-                        <div class="radio">
-                          <label><input type="radio" name="waveradio" id="rb3" value="Power">Power</label>
-                        </div>
-                        </ul>         
-                        
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                	</div>
-                </div>
-                <div class="ibox-content" >
-                    <table data-sort="false" class="footable" id='wv' style="width:100% height:100%" data-page-size="13">
+    					<tbody>
+    						<tr>
+    							<td data-hide="xs">nbuf</td>
+    							<td id='nbuf'></td> 
+    						</tr>
+    						<tr>
+    							<td>now</td>
+    							<td id='now'></td> 
+    						</tr>
+    						<tr>
+    							<td>time</td>
+    							<td id='time'></td> 
+    						</tr>
+    						<tr>
+    							<td>us</td>
+    							<td id='us'></td> 
+    						</tr>
+    						<tr>
+    							<td>ns</td>
+    							<td id='ns'></td> 
+    						</tr>
+    						<tr>
+    							<td>evnum</td>
+    							<td id='evnum'></td> 
+    						</tr>
+    						<tr>
+    							<td>priority</td>
+    							<td id='priority'></td> 
+    						</tr>
+    						<tr>
+    							<td>trigtype</td>
+    							<td id='trigtype'></td> 
+    						</tr>
+    						<tr>
+    							<td>trignum</td>
+    							<td id='trignum'></td> 
+    						</tr>
+    						<tr>
+    							<td>trigtime</td>
+    							<td id='trigtime'></td> 
+    						</tr>
+    						<tr>
+    							<td>l3cnt</td>
+    							<td id='l3cnt'></td> 
+    						</tr>
+    						<tr>
+    							<td>pps</td>
+    							<td id='pps'></td> 
+    						</tr>
+    						<tr>
+    							<td>deadtime</td>
+    							<td id='deadtime'></td> 
+    						</tr>
+    						<tr>
+    							<td>turfword</td>
+    							<td id='turfword'></td> 
+    						</tr>
+    						<tr>
+    							<td>calib</td>
+    							<td id='calib'></td> 
+    						</tr>
+    					</tbody>
 
-				  		<tbody>
-				  			<th>
-								<td>chan 1</td>
-								<td>chan 2</td>
-								<td>chan 3</td>
-								<td>chan 4</td>
-								<td>chan 5</td>
-								<td>chan 6</td>
-								<td>chan 7</td>
-								<td>chan 8</td>
-								<td>clock</td>
-							</th>		
-				  			<tr>
-								<td>surf 1</td>
-								<td id='wv_0_0'></td>
-								<td id='wv_0_1'></td>
-								<td id='wv_0_2'></td>
-								<td id='wv_0_3'></td>
-								<td id='wv_0_4'></td>
-								<td id='wv_0_5'></td>
-								<td id='wv_0_6'></td>
-								<td id='wv_0_7'></td>
-								<td id='wv_0_8'></td>
-							</tr>
-							<tr>
-								<td>surf 2</td>
-								<td id='wv_1_0'></td>
-								<td id='wv_1_1'></td>
-								<td id='wv_1_2'></td>
-								<td id='wv_1_3'></td>
-								<td id='wv_1_4'></td>
-								<td id='wv_1_5'></td>
-								<td id='wv_1_6'></td>
-								<td id='wv_1_7'></td>
-								<td id='wv_1_8'></td>
+    				</table>
+    			</div>
+    		</div>
+    	</div>
+    	<div class="col-xs-12 col-lg-9 ">
+    		<div class="ibox float-e-margins">
+    			<div class="ibox-title">
+    				<h5>waveform</h5>
+    				<div class="ibox-tools">
+    					<label id='lblrad'></label>
+    					<label>-</label>
+    					<label id='lblview'></label>
+    					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+    						<i class="fa fa-cog"></i>
+    					</a>   					
+    					<ul class="dropdown-menu dropdown-user">    						
+    						<div data-toggle="buttons" class="btn-group">
+    							<div>
+    								<div>
+    									<button class="btn btn-primary" id='radio1' type="button">mV</button>    							
+    									<button class="btn btn-primary" id='radio2'  type="button">FFT</button>    							
+    									<button class="btn btn-primary" id='radio3' type="button">Power</button>
+    								</div>
+    								<li class="divider"></li>
+    								<div>
+    									<button class="btn btn-primary" id='surfv' type="button">Surf View</button>
+    									<button class="btn btn-primary" id='phiv' type="button">Phi View</button>
+    								</div>
 
-							</tr>
-							<tr>
-								<td>surf 3</td>
-								<td id='wv_2_0'></td>
-								<td id='wv_2_1'></td>
-								<td id='wv_2_2'></td>
-								<td id='wv_2_3'></td>
-								<td id='wv_2_4'></td>
-								<td id='wv_2_5'></td>
-								<td id='wv_2_6'></td>
-								<td id='wv_2_7'></td>
-								<td id='wv_2_8'></td>
+    							</ul>         
 
-							</tr>
-							<tr>
-								<td>surf 4</td>
-								<td id='wv_3_0'></td>
-								<td id='wv_3_1'></td>
-								<td id='wv_3_2'></td>
-								<td id='wv_3_3'></td>
-								<td id='wv_3_4'></td>
-								<td id='wv_3_5'></td>
-								<td id='wv_3_6'></td>
-								<td id='wv_3_7'></td>
-								<td id='wv_3_8'></td>
+    							<a class="collapse-link">
+    								<i class="fa fa-chevron-up"></i>
+    							</a>
+    						</div>
+    					</div>
+    					<div class="ibox-content" >
+    						<table data-sort="false" class="footable" id='wv' style="width:100% height:100%" data-page-size="13">
 
-							</tr>
-							<tr>
-								<td>surf 5</td>
-								<td id='wv_4_0'></td>
-								<td id='wv_4_1'></td>
-								<td id='wv_4_2'></td>
-								<td id='wv_4_3'></td>
-								<td id='wv_4_4'></td>
-								<td id='wv_4_5'></td>
-								<td id='wv_4_6'></td>
-								<td id='wv_4_7'></td>
-								<td id='wv_4_8'></td>
+    							<tbody>
+    								<th>
+    									<td>chan 1</td>
+    									<td>chan 2</td>
+    									<td>chan 3</td>
+    									<td>chan 4</td>
+    									<td>chan 5</td>
+    									<td>chan 6</td>
+    									<td>chan 7</td>
+    									<td>chan 8</td>
+    									<td>clock</td>
+    								</th>		
+    								<tr>
+    									<td>surf 1</td>
+    									<td id='wv_0_0'></td>
+    									<td id='wv_0_1'></td>
+    									<td id='wv_0_2'></td>
+    									<td id='wv_0_3'></td>
+    									<td id='wv_0_4'></td>
+    									<td id='wv_0_5'></td>
+    									<td id='wv_0_6'></td>
+    									<td id='wv_0_7'></td>
+    									<td id='wv_0_8'></td>
+    								</tr>
+    								<tr>
+    									<td>surf 2</td>
+    									<td id='wv_1_0'></td>
+    									<td id='wv_1_1'></td>
+    									<td id='wv_1_2'></td>
+    									<td id='wv_1_3'></td>
+    									<td id='wv_1_4'></td>
+    									<td id='wv_1_5'></td>
+    									<td id='wv_1_6'></td>
+    									<td id='wv_1_7'></td>
+    									<td id='wv_1_8'></td>
 
-							</tr>
-							<tr>
-								<td>surf 6</td>
-								<td id='wv_5_0'></td>
-								<td id='wv_5_1'></td>
-								<td id='wv_5_2'></td>
-								<td id='wv_5_3'></td>
-								<td id='wv_5_4'></td>
-								<td id='wv_5_5'></td>
-								<td id='wv_5_6'></td>
-								<td id='wv_5_7'></td>
-								<td id='wv_5_8'></td>
+    								</tr>
+    								<tr>
+    									<td>surf 3</td>
+    									<td id='wv_2_0'></td>
+    									<td id='wv_2_1'></td>
+    									<td id='wv_2_2'></td>
+    									<td id='wv_2_3'></td>
+    									<td id='wv_2_4'></td>
+    									<td id='wv_2_5'></td>
+    									<td id='wv_2_6'></td>
+    									<td id='wv_2_7'></td>
+    									<td id='wv_2_8'></td>
 
-							</tr>
-							<tr>
-								<td>surf 7</td>
-								<td id='wv_6_0'></td>
-								<td id='wv_6_1'></td>
-								<td id='wv_6_2'></td>
-								<td id='wv_6_3'></td>
-								<td id='wv_6_4'></td>
-								<td id='wv_6_5'></td>
-								<td id='wv_6_6'></td>
-								<td id='wv_6_7'></td>
-								<td id='wv_6_8'></td>
+    								</tr>
+    								<tr>
+    									<td>surf 4</td>
+    									<td id='wv_3_0'></td>
+    									<td id='wv_3_1'></td>
+    									<td id='wv_3_2'></td>
+    									<td id='wv_3_3'></td>
+    									<td id='wv_3_4'></td>
+    									<td id='wv_3_5'></td>
+    									<td id='wv_3_6'></td>
+    									<td id='wv_3_7'></td>
+    									<td id='wv_3_8'></td>
 
-							</tr>
-							<tr>
-								<td>surf 8</td>
-								<td id='wv_7_0'></td>
-								<td id='wv_7_1'></td>
-								<td id='wv_7_2'></td>
-								<td id='wv_7_3'></td>
-								<td id='wv_7_4'></td>
-								<td id='wv_7_5'></td>
-								<td id='wv_7_6'></td>
-								<td id='wv_7_7'></td>
-								<td id='wv_7_8'></td>
+    								</tr>
+    								<tr>
+    									<td>surf 5</td>
+    									<td id='wv_4_0'></td>
+    									<td id='wv_4_1'></td>
+    									<td id='wv_4_2'></td>
+    									<td id='wv_4_3'></td>
+    									<td id='wv_4_4'></td>
+    									<td id='wv_4_5'></td>
+    									<td id='wv_4_6'></td>
+    									<td id='wv_4_7'></td>
+    									<td id='wv_4_8'></td>
 
-							</tr>
-							<tr>
-								<td>surf 9</td>
-								<td id='wv_8_0'></td>
-								<td id='wv_8_1'></td>
-								<td id='wv_8_2'></td>
-								<td id='wv_8_3'></td>
-								<td id='wv_8_4'></td>
-								<td id='wv_8_5'></td>
-								<td id='wv_8_6'></td>
-								<td id='wv_8_7'></td>
-								<td id='wv_8_8'></td>
+    								</tr>
+    								<tr>
+    									<td>surf 6</td>
+    									<td id='wv_5_0'></td>
+    									<td id='wv_5_1'></td>
+    									<td id='wv_5_2'></td>
+    									<td id='wv_5_3'></td>
+    									<td id='wv_5_4'></td>
+    									<td id='wv_5_5'></td>
+    									<td id='wv_5_6'></td>
+    									<td id='wv_5_7'></td>
+    									<td id='wv_5_8'></td>
 
-							</tr>
-							<tr>
-								<td>surf 10</td>
-								<td id='wv_9_0'></td>
-								<td id='wv_9_1'></td>
-								<td id='wv_9_2'></td>
-								<td id='wv_9_3'></td>
-								<td id='wv_9_4'></td>
-								<td id='wv_9_5'></td>
-								<td id='wv_9_6'></td>
-								<td id='wv_9_7'></td>
-								<td id='wv_9_8'></td>
+    								</tr>
+    								<tr>
+    									<td>surf 7</td>
+    									<td id='wv_6_0'></td>
+    									<td id='wv_6_1'></td>
+    									<td id='wv_6_2'></td>
+    									<td id='wv_6_3'></td>
+    									<td id='wv_6_4'></td>
+    									<td id='wv_6_5'></td>
+    									<td id='wv_6_6'></td>
+    									<td id='wv_6_7'></td>
+    									<td id='wv_6_8'></td>
 
-							</tr>
-							<tr>
-								<td>surf 11</td>
-								<td id='wv_10_0'></td>
-								<td id='wv_10_1'></td>
-								<td id='wv_10_2'></td>
-								<td id='wv_10_3'></td>
-								<td id='wv_10_4'></td>
-								<td id='wv_10_5'></td>
-								<td id='wv_10_6'></td>
-								<td id='wv_10_7'></td>
-								<td id='wv_10_8'></td>		
-							</tr>
-							<tr>
-								<td>surf 12</td>
-								<td id='wv_11_0'></td>
-								<td id='wv_11_1'></td>
-								<td id='wv_11_2'></td>
-								<td id='wv_11_3'></td>
-								<td id='wv_11_4'></td>
-								<td id='wv_11_5'></td>
-								<td id='wv_11_6'></td>
-								<td id='wv_11_7'></td>
-								<td id='wv_11_8'></td>		
-							</tr>
-				  		</tbody>
-					  
-					</table>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+    								</tr>
+    								<tr>
+    									<td>surf 8</td>
+    									<td id='wv_7_0'></td>
+    									<td id='wv_7_1'></td>
+    									<td id='wv_7_2'></td>
+    									<td id='wv_7_3'></td>
+    									<td id='wv_7_4'></td>
+    									<td id='wv_7_5'></td>
+    									<td id='wv_7_6'></td>
+    									<td id='wv_7_7'></td>
+    									<td id='wv_7_8'></td>
 
+    								</tr>
+    								<tr>
+    									<td>surf 9</td>
+    									<td id='wv_8_0'></td>
+    									<td id='wv_8_1'></td>
+    									<td id='wv_8_2'></td>
+    									<td id='wv_8_3'></td>
+    									<td id='wv_8_4'></td>
+    									<td id='wv_8_5'></td>
+    									<td id='wv_8_6'></td>
+    									<td id='wv_8_7'></td>
+    									<td id='wv_8_8'></td>
 
-	
+    								</tr>
+    								<tr>
+    									<td>surf 10</td>
+    									<td id='wv_9_0'></td>
+    									<td id='wv_9_1'></td>
+    									<td id='wv_9_2'></td>
+    									<td id='wv_9_3'></td>
+    									<td id='wv_9_4'></td>
+    									<td id='wv_9_5'></td>
+    									<td id='wv_9_6'></td>
+    									<td id='wv_9_7'></td>
+    									<td id='wv_9_8'></td>
 
-	
-{% endblock %}
-{% block scripts %}
-{{ super() }}
-<script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
-<script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
-<script src="{{ url_for('static', filename='anita/js/complex_array.js') }}"></script>
-<script src="{{ url_for('static', filename='anita/js/fft.js') }}"></script>
+    								</tr>
+    								<tr>
+    									<td>surf 11</td>
+    									<td id='wv_10_0'></td>
+    									<td id='wv_10_1'></td>
+    									<td id='wv_10_2'></td>
+    									<td id='wv_10_3'></td>
+    									<td id='wv_10_4'></td>
+    									<td id='wv_10_5'></td>
+    									<td id='wv_10_6'></td>
+    									<td id='wv_10_7'></td>
+    									<td id='wv_10_8'></td>		
+    								</tr>
+    								<tr>
+    									<td>surf 12</td>
+    									<td id='wv_11_0'></td>
+    									<td id='wv_11_1'></td>
+    									<td id='wv_11_2'></td>
+    									<td id='wv_11_3'></td>
+    									<td id='wv_11_4'></td>
+    									<td id='wv_11_5'></td>
+    									<td id='wv_11_6'></td>
+    									<td id='wv_11_7'></td>
+    									<td id='wv_11_8'></td>		
+    								</tr>
+    							</tbody>
+
+    						</table>
+    					</div>
+    				</div>
+    			</div>
+    		</div>
+    	</div>
 
 
-<script>
-function resizeWindow() {
-           $("canvas").each(function() {
-               $(this).attr('style', 'width: 100%');
-           });
-        }
-function timeConverter(UNIX_timestamp){
-  var a = new Date(UNIX_timestamp * 1000);
-  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var year = a.getFullYear();
-  var month = months[a.getMonth()];
-  var date = a.getDate();
-  var hour = a.getHours();
-  var min = a.getMinutes();
-  var sec = a.getSeconds();
-  var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-  return time;
-}
-function updatehtml(hd){
-	$.getJSON('/api/' + ip_db + '/hd/'+ hd, function(data){
 
-		$.getJSON('/api/' + ip_db + '/wv/'+ data.hd.evnum, function(data){
-			console.log(data);
-			var wv_name;
-			if (document.getElementById('rb1').checked) {
-  	        	console.log(document.getElementById('rb1').value);
-  	        	for (var surf = 0; surf < 12; surf++) { 
-					for (var chan = 0; chan < 9; chan++) { 
-				    	wv_name='#wv_'+ surf +'_'+ chan ;
-				    	var id = chan + 9*surf;
-				    	var waveform=data[id.toString()];
-				    	if (waveform != undefined) {
+
+
+    	{% endblock %}
+    	{% block scripts %}
+    	{{ super() }}
+    	<script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
+    	<script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+    	<script src="{{ url_for('static', filename='anita/js/complex_array.js') }}"></script>
+    	<script src="{{ url_for('static', filename='anita/js/fft.js') }}"></script>
+
+
+    	<script>    	
+    	function resizeWindow() {
+    		$("canvas").each(function() {
+    			$(this).attr('style', 'width: 100%');
+    		});
+    	}
+    	function timeConverter(UNIX_timestamp){
+    		var a = new Date(UNIX_timestamp * 1000);
+    		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+    		var year = a.getFullYear();
+    		var month = months[a.getMonth()];
+    		var date = a.getDate();
+    		var hour = a.getHours();
+    		var min = a.getMinutes();
+    		var sec = a.getSeconds();
+    		var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
+    		return time;
+    	}
+    	function updatehtml(hd){
+    		$.getJSON('/api/' + ip_db + '/hd/'+ hd, function(data){
+
+    			$.getJSON('/api/' + ip_db + '/wv/'+ data.hd.evnum, function(data){
+    				//console.log(data);
+    				var wv_name;
+    				if (datatype == 'mV') {    			
+    					console.log(datatype);		
+    					for (var surf = 0; surf < 12; surf++) { 
+    						for (var chan = 0; chan < 9; chan++) { 
+    							wv_name='#wv_'+ surf +'_'+ chan ;
+    							var id = chan + 9*surf;
+    							var waveform=data[id.toString()];
+    							if (waveform != undefined) {
 				    		//console.log(waveform.cal);
 				    		$(wv_name).attr('values', waveform['cal']).sparkline('html', {
-							    type: 'line',
+				    			type: 'line',
 							    // colorMap: rfpower_range_map,
 							    // chartRangeMin:-100,
 							    // chartRangeMax:100,
@@ -349,27 +356,27 @@ function updatehtml(hd){
 							});
 				    	};
 				    }
-		   			
+
 				}
-			resizeWindow();
-            }
-            else if (document.getElementById('rb2').checked) {
-  	        	console.log(document.getElementById('rb2').value);
-  	        	for (var surf = 0; surf < 12; surf++) { 
+				resizeWindow();
+			}
+			else if (datatype == 'FFT') {	
+				console.log(datatype);			
+				for (var surf = 0; surf < 12; surf++) { 
 					for (var chan = 0; chan < 9; chan++) { 
-				    	wv_name='#wv_'+ surf +'_'+ chan ;
-				    	var id = chan + 9*surf;
-				    	var waveform=data[id.toString()];
+						wv_name='#wv_'+ surf +'_'+ chan ;
+						var id = chan + 9*surf;
+						var waveform=data[id.toString()];
 				    	//console.log(waveform);
 				    	if (waveform != undefined) {				    		
 				    		var fftdata = new complex_array.ComplexArray(260);
 				    		fftdata.map(function(value, i, n) {
-       						   value.real = waveform.cal[i]
-       						 });
+				    			value.real = waveform.cal[i]
+				    		});
 				    		//console.log(data.FFT().magnitude());
 				    		//console.log(waveform.cal);				    		
 				    		$(wv_name).attr('values', fftdata.FFT().InvFFT().magnitude()).sparkline('html', {
-							    type: 'line',
+				    			type: 'line',
 							    // colorMap: rfpower_range_map,
 							    // chartRangeMin:-100,
 							    // chartRangeMax:100,
@@ -380,23 +387,23 @@ function updatehtml(hd){
 							});
 				    	};
 				    }
-		   			
+
 				}
-			resizeWindow();
-  	        }
-  	        else if (document.getElementById('rb3').checked) {
-  	        	console.log(document.getElementById('rb3').value);
-  	        	for (var surf = 0; surf < 12; surf++) { 
+				resizeWindow();
+			}
+			else if (datatype == 'Power') {
+				console.log(datatype);
+				for (var surf = 0; surf < 12; surf++) { 
 					for (var chan = 0; chan < 9; chan++) { 
-				    	wv_name='#wv_'+ surf +'_'+ chan ;
-				    	var id = chan + 9*surf;
-				    	var waveform=data[id.toString()];
-				    	if (waveform != undefined) {			    		
-				    		for (var i = 0; i < waveform.cal.length ; i++) {
-				    		waveform.cal[i] = Math.pow(waveform.cal[i],2);
-				    		}	
-				    		$(wv_name).attr('values', waveform['cal']).sparkline('html', {
-							    type: 'line',
+						wv_name='#wv_'+ surf +'_'+ chan ;
+						var id = chan + 9*surf;
+						var waveform=data[id.toString()];
+						if (waveform != undefined) {			    		
+							for (var i = 0; i < waveform.cal.length ; i++) {
+								waveform.cal[i] = Math.pow(waveform.cal[i],2);
+							}	
+							$(wv_name).attr('values', waveform['cal']).sparkline('html', {
+								type: 'line',
 							    // colorMap: rfpower_range_map,
 							    // chartRangeMin:-100,
 							    // chartRangeMax:100,
@@ -405,31 +412,31 @@ function updatehtml(hd){
 							    lineWidth: 0.5,
 							    spotColor: false
 							});
-				    	};
-				    }
-		   			
+						};
+					}
+
 				}
-			resizeWindow();
-  	        }
+				resizeWindow();
+			}
 			
 
 		});
-		$('#hd #nbuf').html(data.hd.nbuf);
-		$('#hd #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
-		$('#hd #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
-		$('#hd #us').html(data.hd.us);
-		$('#hd #ns').html(data.hd.ns);
-		$('#hd #evnum').html(data.hd.evnum);
-		$('#hd #priority').html(data.hd.priority);
-		$('#hd #trigtype').html(data.hd.trigtype);
-		$('#hd #trignum').html(data.hd.trignum);
-		$('#hd #trigtime').html(data.hd.trigtime);
-		$('#hd #l3cnt').html(data.hd.l3cnt);
-		$('#hd #pps').html(data.hd.pps);
-		$('#hd #deadtime').html(data.hd.deadtime);
-		$('#hd #turfword').html(data.hd.turfword);
-		$('#hd #calib').html(data.hd.calib);
-	});
+$('#hd #nbuf').html(data.hd.nbuf);
+$('#hd #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
+$('#hd #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
+$('#hd #us').html(data.hd.us);
+$('#hd #ns').html(data.hd.ns);
+$('#hd #evnum').html(data.hd.evnum);
+$('#hd #priority').html(data.hd.priority);
+$('#hd #trigtype').html(data.hd.trigtype);
+$('#hd #trignum').html(data.hd.trignum);
+$('#hd #trigtime').html(data.hd.trigtime);
+$('#hd #l3cnt').html(data.hd.l3cnt);
+$('#hd #pps').html(data.hd.pps);
+$('#hd #deadtime').html(data.hd.deadtime);
+$('#hd #turfword').html(data.hd.turfword);
+$('#hd #calib').html(data.hd.calib);
+});
 }
 
 $(document).ready(function () {
@@ -440,147 +447,175 @@ $(document).ready(function () {
 	var hd_evnums=[];
 	var hd_times=[];
 	var i=0;
+	datatype = 'mV';
+	document.getElementById('lblrad').innerHTML = 'mV';
+	dataview = 'Surf';
+	document.getElementById('lblview').innerHTML = 'Surf';
 	var connected= false;
 	var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
 	// $.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
 	// 	hd_nbufs=data.hd_nbufs;
 	// 	hd_evnums=data.hd_evnums;
 	// });
-	console.log(hd_nbufs);
+console.log(hd_nbufs);
 
-	function autoload(start_time){
-		$.getJSON('/api/' + ip_db + '/hd/nbufs/' + start_time, function(data){
-				new_length=data.hd_nbufs.length
-				hd_nbufs=hd_nbufs.concat(data.hd_nbufs);
-				hd_evnums=hd_evnums.concat(data.hd_evnums);
-				hd_times=hd_times.concat(data.hd_times);
-				start_time=Math.max(...hd_times);
-				$('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
-	        	$('#connect').html('Disconnect');
-				$('.chosen-select').attr("disabled", true).trigger("chosen:updated");
-				connected = true;
-				$('#connect').value = 'Disconnect'
-				connect.ladda('stop');
-				console.log(start_time);
-				console.log(hd_nbufs.length);
-			}).done(function(){
-				setTimeout(function(){
-					if (new_length){
-						sleep_interval = 2000;
-					}else{
-						sleep_interval = Math.min(sleep_interval * 1.2, 60000);
-					}
-					if (connected == true){
-						autoload(start_time);
-					}
-				}, sleep_interval);
-				
-			});
-	}
-	
+function autoload(start_time){
+	$.getJSON('/api/' + ip_db + '/hd/nbufs/' + start_time, function(data){
+		new_length=data.hd_nbufs.length
+		hd_nbufs=hd_nbufs.concat(data.hd_nbufs);
+		hd_evnums=hd_evnums.concat(data.hd_evnums);
+		hd_times=hd_times.concat(data.hd_times);
+		start_time=Math.max(...hd_times);
+		$('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
+		$('#connect').html('Disconnect');
+		$('.chosen-select').attr("disabled", true).trigger("chosen:updated");
+		connected = true;
+		$('#connect').value = 'Disconnect'
+		connect.ladda('stop');
+		console.log(start_time);
+		console.log(hd_nbufs.length);
+	}).done(function(){
+		setTimeout(function(){
+			if (new_length){
+				sleep_interval = 2000;
+			}else{
+				sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+			}
+			if (connected == true){
+				autoload(start_time);
+			}
+		}, sleep_interval);
 
-	var connect = $( '.ladda-button' ).ladda();
-	$('#connect').click(function() {
-		if ( $(this).hasClass('connect')){
-			hd_nbufs=[];
-			hd_evnums=[];
-			hd_times=[];
-			i=0;
-			connect.ladda( 'start' );
-			$.ajax({
-	            url: '/api/connect/'+ ip + '/' + db
-	        }).done(function(response) {
-	        	setTimeout(function(){;}, 1000);
-	        	if (response == 'success'){
-	        		autoload(0);
-	        	}else{
-	        		connect.ladda( 'stop' );
-	        		swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
-	        	}
-	        });
-		}else{
-			hd_nbufs=[];
-			hd_evnums=[];
-			hd_times=[];
-			i=0;
+	});
+}
+
+
+var connect = $( '.ladda-button' ).ladda();
+$('#connect').click(function() {
+	if ( $(this).hasClass('connect')){
+		hd_nbufs=[];
+		hd_evnums=[];
+		hd_times=[];
+		i=0;
+		connect.ladda( 'start' );
+		$.ajax({
+			url: '/api/connect/'+ ip + '/' + db
+		}).done(function(response) {
+			setTimeout(function(){;}, 1000);
+			if (response == 'success'){
+				autoload(0);
+			}else{
+				connect.ladda( 'stop' );
+				swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
+			}
+		});
+	}else{
+		hd_nbufs=[];
+		hd_evnums=[];
+		hd_times=[];
+		i=0;
 			//otherwise, stop all the requests.
 			$('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
-	        $('#connect').html('Connect');
+			$('#connect').html('Connect');
 			$('.chosen-select').attr("disabled", false).trigger("chosen:updated");
 			connected = false;
 		}
-		 
-	});
-	$('#rb1').click( function(){
-		updatehtml(hd_nbufs[i]);
-		sleep_interval = 2000;
-	});
-	$('#rb2').click( function(){
-		updatehtml(hd_nbufs[i]);
-		sleep_interval = 2000;
-	});
-	$('#rb3').click( function(){
-		updatehtml(hd_nbufs[i]);
-		sleep_interval = 2000;
-	});
-	$('#next').click( function(){
-		if (i<hd_nbufs.length-1) {	
-			i=i+1;
-			updatehtml(hd_nbufs[i]);
-		};
-		sleep_interval = 2000;
-	});
-	$('#prev').click( function(){
-		if (i>0) {
-			i=i-1;
-			updatehtml(hd_nbufs[i]);
-		};
-		sleep_interval = 2000;
-	});
-	$('#first').click( function(){
-		i=0;
-		updatehtml(hd_nbufs[i]);
-		sleep_interval = 2000;
-	});
-	$('#last').click( function(){
-		i=hd_nbufs.length-1;
-		updatehtml(hd_nbufs[i]);
-		sleep_interval = 2000;
-	});
 
-	var elem = document.querySelector('.js-switch');
-    var switchery = new Switchery(elem, { color: '#1AB394' });
-    var autoNext;
-    elem.onchange = function() {
-		if (elem.checked){
-			autoNext=setInterval(function(){
-				if (i<hd_nbufs.length-1) {	
-					i=i+1;
-					updatehtml(hd_nbufs[i]);
-				};
-			}, 2000);
-		}else{
-			clearInterval(autoNext);
-		};
-	};
-
-
-	$('#goto').click( function(){
-		var keywords=parseInt($('#keywords').val());
-		console.log(keywords);
-		var index=hd_evnums.indexOf(keywords);
-		if (index!=-1 && keywords){
-			i=index;
-			console.log(i);
-			updatehtml(hd_nbufs[i]);
-		}else{
-			 swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
-		}
-		
 	});
+$('#radio1').click( function(){
+	datatype = 'mV';
+	updatehtml(hd_nbufs[i]);
+	var lblradio1 = 'mV';
+	document.getElementById('lblrad').innerHTML = lblradio1;
+	sleep_interval = 2000;
+});
+$('#radio2').click(function(){	
+	datatype = 'FFT'
+	updatehtml(hd_nbufs[i]);
+	var lblradio2 = 'FFT';
+	document.getElementById('lblrad').innerHTML = lblradio2;
+	sleep_interval = 2000;
+});
+$('#radio3').click(function(){
+	datatype = 'Power';
+	updatehtml(hd_nbufs[i]);
+	var lblradio3 = 'Power';
+	document.getElementById('lblrad').innerHTML = lblradio3;
+	sleep_interval = 2000;
+});
+$('#surfv').click(function(){
+	dataview = 'Surf';
+	//updatehtml(hd_nbufs[i]);
+	var lblsurf = 'Surf';
+	document.getElementById('lblview').innerHTML = lblsurf;
+	sleep_interval = 2000;
+});
+$('#phiv').click(function(){
+	dataview = 'Phi';
+	//updatehtml(hd_nbufs[i]);
+	var lblphi = 'Phi';
+	document.getElementById('lblview').innerHTML = lblphi;
+	sleep_interval = 2000;
 });
 
-            
-                    
+$('#next').click( function(){
+	if (i<hd_nbufs.length-1) {	
+		i=i+1;
+		updatehtml(hd_nbufs[i]);
+	};
+	sleep_interval = 2000;
+});
+$('#prev').click( function(){
+	if (i>0) {
+		i=i-1;
+		updatehtml(hd_nbufs[i]);
+	};
+	sleep_interval = 2000;
+});
+$('#first').click( function(){
+	i=0;
+	updatehtml(hd_nbufs[i]);
+	sleep_interval = 2000;
+});
+$('#last').click( function(){
+	i=hd_nbufs.length-1;
+	updatehtml(hd_nbufs[i]);
+	sleep_interval = 2000;
+});
+
+var elem = document.querySelector('.js-switch');
+var switchery = new Switchery(elem, { color: '#1AB394' });
+var autoNext;
+elem.onchange = function() {
+	if (elem.checked){
+		autoNext=setInterval(function(){
+			if (i<hd_nbufs.length-1) {	
+				i=i+1;
+				updatehtml(hd_nbufs[i]);
+			};
+		}, 2000);
+	}else{
+		clearInterval(autoNext);
+	};
+};
+
+
+$('#goto').click( function(){
+	var keywords=parseInt($('#keywords').val());
+	console.log(keywords);
+	var index=hd_evnums.indexOf(keywords);
+	if (index!=-1 && keywords){
+		i=index;
+		console.log(i);
+		updatehtml(hd_nbufs[i]);
+	}else{
+		swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
+	}
+
+});
+});
+
+
+
 </script>
 {% endblock %}
