@@ -6,7 +6,7 @@
 {% block page_content %}
 <div class="wrapper wrapper-content">
         	
-    <div class="row">
+   	
     	<!-- <button id='next' class="btn btn-primary"  type="button">Next event</button>
     	<button id='prev' class="btn btn-primary"  type="button">Prev event</button> -->
         <div class="col-lg-3">
@@ -354,21 +354,21 @@ function updatehtml(hd){
 			resizeWindow();
             }
             else if (document.getElementById('rb2').checked) {
-  	        	console.log(document.getElementById('rb2').value);
+  	        	// console.log(document.getElementById('rb2').value);
   	        	for (var surf = 0; surf < 12; surf++) { 
 					for (var chan = 0; chan < 9; chan++) { 
 				    	wv_name='#wv_'+ surf +'_'+ chan ;
 				    	var id = chan + 9*surf;
 				    	var waveform=data[id.toString()];
 				    	//console.log(waveform);
-				    	if (waveform != undefined) {				    		
+				    	if (waveform != undefined) {	
 				    		var fftdata = new complex_array.ComplexArray(260);
 				    		fftdata.map(function(value, i, n) {
        						   value.real = waveform.cal[i]
        						 });
-				    		//console.log(data.FFT().magnitude());
+				    		// console.log(data.FFT().magnitude());
 				    		//console.log(waveform.cal);				    		
-				    		$(wv_name).attr('values', fftdata.FFT().InvFFT().magnitude()).sparkline('html', {
+				    		$(wv_name).attr('values', fftdata.FFT().magnitude().slice(1, 130)).sparkline('html', {
 							    type: 'line',
 							    // colorMap: rfpower_range_map,
 							    // chartRangeMin:-100,
