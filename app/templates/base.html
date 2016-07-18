@@ -11,6 +11,7 @@
 <link href="{{ url_for('static', filename='inspinia/css/plugins/chosen/chosen.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/bootstrap.min.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='inspinia/css/plugins/iCheck/custom.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/animate.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/style.css') }}" rel="stylesheet">
 <link rel="stylesheet" href="//cdn.jsdelivr.net/jquery.metismenu/2.5.0/metisMenu.min.css">
@@ -136,6 +137,7 @@
     <script src="{{ url_for('static', filename='inspinia/js/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
     <script src="{{ url_for('static', filename='inspinia/js/plugins/pace/pace.min.js') }}"></script>
     <script src="//cdn.jsdelivr.net/jquery.metismenu/2.5.0/metisMenu.min.js"></script>
+    <script src="{{ url_for('static', filename='inspinia/js/plugins/iCheck/icheck.min.js') }}"></script>
     <script src="{{ url_for('static', filename='inspinia/js/plugins/sweetalert/sweetalert.min.js') }}"></script>
     <script src="{{ url_for('static', filename='anita/js/switchery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='inspinia/js/plugins/ladda/spin.min.js') }}"></script>
@@ -171,6 +173,7 @@
         $(document).ready(function () {
             $('#ip').chosen({disable_search_threshold:10});
             $('#db').chosen({disable_search_threshold:10});
+            
             // $(".ibox").resizable({
             //     helper: "ui-resizable-helper",
             //     handles: "e, s",

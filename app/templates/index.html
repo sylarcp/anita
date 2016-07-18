@@ -5,13 +5,9 @@
 {% endblock %}
 {% block page_content %}
 <div class="wrapper wrapper-content">
-<<<<<<< HEAD
-        	
-   	
-=======
+
 
 	<div class="row">
->>>>>>> 189d27e5e8aee3db7c41b0395ab3475ca1560870
     	<!-- <button id='next' class="btn btn-primary"  type="button">Next event</button>
     	<button id='prev' class="btn btn-primary"  type="button">Prev event</button> -->
     	<div class="col-lg-3">
@@ -99,33 +95,41 @@
     			<div class="ibox-title">
     				<h5>waveform</h5>
     				<div class="ibox-tools">
-    					<label id='lblrad'></label>
-    					<label>-</label>
-    					<label id='lblview'></label>
     					<a class="dropdown-toggle" data-toggle="dropdown" href="#">
     						<i class="fa fa-cog"></i>
-    					</a>   					
-    					<ul class="dropdown-menu dropdown-user">    						
-    						<div data-toggle="buttons" class="btn-group">
-    							<div>
-    								<div>
-    									<button class="btn btn-primary" id='radio1' type="button">mV</button>    							
-    									<button class="btn btn-primary" id='radio2'  type="button">FFT</button>    							
-    									<button class="btn btn-primary" id='radio3' type="button">Power</button>
-    								</div>
-    								<li class="divider"></li>
-    								<div>
-    									<button class="btn btn-primary" id='surfv' type="button">Surf View</button>
-    									<button class="btn btn-primary" id='phiv' type="button">Phi View</button>
-    								</div>
-
-    							</ul>         
-
-    							<a class="collapse-link">
-    								<i class="fa fa-chevron-up"></i>
-    							</a>
+    					</a> 
+    							
+    					<div class="dropdown-menu dropdown-user " style='width:250px'> 
+    						<div id="icheckForm" method="post" class="form-vertical">
+							    <div class="form-group">
+							        <div class="col-xs-6">
+							            <div class="wv_radio">
+							                <label>
+							                    <input type="radio" name="wv" value="mV" /> mV
+							                </label>
+							            </div>
+							            <div class="wv_radio">
+							                <label>
+							                    <input type="radio" name="wv" value="FFT" /> FFT
+							                </label>
+							            </div>
+							            <div class="wv_radio">
+							                <label>
+							                    <input type="radio" name="wv" value="Power" /> Power
+							                </label>
+							            </div>
+							        </div>
+							    </div> 
+							</div> 			
+							<div  class="row">
+								<button class="btn btn-primary" id='surfv' type="button">Surf View</button>
+								<button class="btn btn-primary" id='phiv' type="button">Phi View</button>
     						</div>
-    					</div>
+    					</div>         
+							<a class="collapse-link">
+								<i class="fa fa-chevron-up"></i>
+							</a>
+						</div>
     					<div class="ibox-content" >
     						<table data-sort="false" class="footable" id='wv' style="width:100% height:100%" data-page-size="13">
 
@@ -316,7 +320,8 @@
     	<script src="{{ url_for('static', filename='anita/js/fft.js') }}"></script>
 
 
-    	<script>    	
+    	<script>
+    	var datatype = 'mV';    	
     	function resizeWindow() {
     		$("canvas").each(function() {
     			$(this).attr('style', 'width: 100%');
@@ -453,10 +458,6 @@ $(document).ready(function () {
 	var hd_evnums=[];
 	var hd_times=[];
 	var i=0;
-	datatype = 'mV';
-	document.getElementById('lblrad').innerHTML = 'mV';
-	dataview = 'Surf';
-	document.getElementById('lblview').innerHTML = 'Surf';
 	var connected= false;
 	var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
 	// $.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
@@ -464,6 +465,13 @@ $(document).ready(function () {
 	// 	hd_evnums=data.hd_evnums;
 	// });
 console.log(hd_nbufs);
+	$('#icheckForm').iCheck({
+        checkboxClass: 'icheckbox_square-green',
+        radioClass: 'iradio_square-green',
+    });
+    $('input[value=mV]').iCheck('check');
+	 
+
 
 function autoload(start_time){
 	$.getJSON('/api/' + ip_db + '/hd/nbufs/' + start_time, function(data){
@@ -528,27 +536,11 @@ $('#connect').click(function() {
 		}
 
 	});
-$('#radio1').click( function(){
-	datatype = 'mV';
-	updatehtml(hd_nbufs[i]);
-	var lblradio1 = 'mV';
-	document.getElementById('lblrad').innerHTML = lblradio1;
-	sleep_interval = 2000;
-});
-$('#radio2').click(function(){	
-	datatype = 'FFT'
-	updatehtml(hd_nbufs[i]);
-	var lblradio2 = 'FFT';
-	document.getElementById('lblrad').innerHTML = lblradio2;
-	sleep_interval = 2000;
-});
-$('#radio3').click(function(){
-	datatype = 'Power';
-	updatehtml(hd_nbufs[i]);
-	var lblradio3 = 'Power';
-	document.getElementById('lblrad').innerHTML = lblradio3;
-	sleep_interval = 2000;
-});
+	$('input').on('ifChecked', function(event){
+        datatype = $(this).attr('value');
+		updatehtml(hd_nbufs[i]);
+    });
+
 $('#surfv').click(function(){
 	dataview = 'Surf';
 	//updatehtml(hd_nbufs[i]);
