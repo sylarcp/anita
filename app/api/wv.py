@@ -50,4 +50,4 @@ def get_wvs(ip_db, evnum):
         return jsonify(json_comment)
     except BaseException as error:
         print('An exception occurred: {}'.format(error))
-        return None
+        return jsonify({})
