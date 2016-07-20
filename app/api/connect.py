@@ -22,7 +22,7 @@ def connect(ip,db):
         query_ip_db= 'query_' + ip  + '_' + db
         #  query_ip_db is a string and should be Base's attribute. setattr() is perfect for this job
         setattr(Base,query_ip_db, db_session.query_property())
-        print '------', getattr(Base,ip_db)
+        print '------', getattr(Base,query_ip_db)
         # flash("Database connect Successful", 'success') # flash message not working, why?
         return 'success'
     except BaseException as error:
