@@ -5,7 +5,7 @@ from config import config
 from flask.ext.sqlalchemy import SQLAlchemy
 from flask.ext.login import LoginManager
 from app.database import init_db
-from flask_debugtoolbar import DebugToolbarExtension
+# from flask_debugtoolbar import DebugToolbarExtension
 from flask.ext.cache import Cache
 # from flask.ext.login import AnonymousUserMixin
 
@@ -23,7 +23,7 @@ def create_app():
 	bootstrap = Bootstrap(app)
 	moment = Moment(app)
 	login_manager = LoginManager(app)
-	toolbar = DebugToolbarExtension(app)
+	# toolbar = DebugToolbarExtension(app)
 	cache.init_app(app)
 
 	from .main import main as main_blueprint
