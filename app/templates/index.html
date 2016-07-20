@@ -516,6 +516,7 @@ $('#connect').click(function() {
 			url: '/api/connect/'+ ip + '/' + db
 		}).done(function(response) {
 			if (response == 'success'){
+                console.log('succeed');
 				autoload(0);
 			}else{
 				connect.ladda( 'stop' );
