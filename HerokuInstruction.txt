@@ -1,0 +1,10 @@
+# a step by step instruction of how to set up a server on Heroku.
+
+Register at  https://id.heroku.com/login
+
+1. Log in and look at your dashboard
+2. New->Create new app
+3. New pipeline -> input your pipline name -> Create pipeline
+4. Connect to Github  ->  type in your repo name -> Search -> Connect
+5. Click your app name -> Deploy tab -> Enable Automatic Deploys -> Deploy the master branch 
+6. You can now watch the logs how app starts and view the app after it is done.
