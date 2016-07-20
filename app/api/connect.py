@@ -25,5 +25,6 @@ def connect(ip,db):
         print '------', getattr(Base,ip_db)
         # flash("Database connect Successful", 'success') # flash message not working, why?
         return 'success'
-    except:
+    except BaseException as error:
+        print error
         return 'fail'
