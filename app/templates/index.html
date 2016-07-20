@@ -474,43 +474,33 @@ console.log(hd_nbufs);
 
 
 function autoload(start_time){
-    try{
-        $.getJSON('/api/' + ip_db + '/hd/nbufs/' + start_time, function(data){
-            new_length=data.hd_nbufs.length
-            hd_nbufs=hd_nbufs.concat(data.hd_nbufs);
-            hd_evnums=hd_evnums.concat(data.hd_evnums);
-            hd_times=hd_times.concat(data.hd_times);
-            start_time=Math.max(...hd_times);
-            $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
-            $('#connect').html('Disconnect');
-            $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
-            connected = true;
-            $('#connect').value = 'Disconnect'
-            connect.ladda('stop');
-            console.log(start_time);
-            console.log(hd_nbufs.length);
-        }).done(function(){
-            setTimeout(function(){
-                if (new_length){
-                    sleep_interval = 2000;
-                }else{
-                    sleep_interval = Math.min(sleep_interval * 1.2, 60000);
-                }
-                if (connected == true){
-                    autoload(start_time);
-                }
-            }, sleep_interval);
+	$.getJSON('/api/' + ip_db + '/hd/nbufs/' + start_time, function(data){
+		new_length=data.hd_nbufs.length
+		hd_nbufs=hd_nbufs.concat(data.hd_nbufs);
+		hd_evnums=hd_evnums.concat(data.hd_evnums);
+		hd_times=hd_times.concat(data.hd_times);
+		start_time=Math.max(...hd_times);
+		$('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
+		$('#connect').html('Disconnect');
+		$('.chosen-select').attr("disabled", true).trigger("chosen:updated");
+		connected = true;
+		$('#connect').value = 'Disconnect'
+		connect.ladda('stop');
+		console.log(start_time);
+		console.log(hd_nbufs.length);
+	}).done(function(){
+		setTimeout(function(){
+			if (new_length){
+				sleep_interval = 2000;
+			}else{
+				sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+			}
+			if (connected == true){
+				autoload(start_time);
+			}
+		}, sleep_interval);
 
-        });
-    }
-    catch(err){
-        console.log('fail to autoload');
-        setTimeout(function(){
-            autoload(start_time);
-            }, sleep_interval);
-
-    }
-	
+	});
 }
 
 
