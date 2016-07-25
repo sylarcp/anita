@@ -874,8 +874,8 @@ $('#connect').click(function() {
 		$.ajax({
 			url: '/api/connect/'+ ip + '/' + db
 		}).done(function(response) {
-			setTimeout(function(){;}, 1000);
 			if (response == 'success'){
+                console.log('succeed');
 				autoload(0);
 			}else{
 				connect.ladda( 'stop' );
