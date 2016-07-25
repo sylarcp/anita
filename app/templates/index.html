@@ -580,6 +580,52 @@ function timeConverter(UNIX_timestamp){
   var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
   return time;
 }
+function displayData(datatype, name, waveform){
+  if (datatype=='mV'){
+    $(name).attr('values', waveform['cal']).sparkline('html', {
+      type: 'line',
+      width: '100',
+      height: '40 ',
+      lineWidth: 0.5,
+      spotColor: false
+    });
+  }
+  else if (datatype=='FFT'){
+    var fftdata = new complex_array.ComplexArray(260);
+    fftdata.map(function(value, i, n) {
+      value.real = waveform.cal[i]
+    });               
+    $(name).attr('values', fftdata.FFT().magnitude().slice(1, 130)).sparkline('html', {
+     type: 'line',
+     width: '100',
+     height: '40 ',
+     lineWidth: 0.5,
+     spotColor: false
+   });
+  }
+  else if (datatype=='Power'){
+    for (var i = 0; i < waveform.cal.length ; i++) {
+      waveform.cal[i] = Math.pow(waveform.cal[i],2);
+    } 
+    $(name).attr('values', waveform['cal']).sparkline('html', {
+      type: 'line',
+      width: '100',
+      height: '40 ',
+      lineWidth: 0.5,
+      spotColor: false
+    });
+  }    
+}
+function displayDataNone(name){
+  console.log('***undef***');
+  $(name).attr('values', 0).sparkline('html', {
+    type: 'line',
+    width: '100',
+    height: '40 ',
+    lineWidth: 0.5,
+    spotColor: false
+  }); 
+}
 function updatehtml(hd){
   $.getJSON('/api/' + ip_db + '/hd/'+ hd, function(data){
 
@@ -587,80 +633,37 @@ function updatehtml(hd){
     				//console.log(data);
     				var wv_name;
     				if (datatype == 'mV' && dataview == 'Surf') {    			
-    					console.log(datatype);		
+    					//console.log(datatype);		
     					for (var surf = 0; surf < 12; surf++) { 
     						for (var chan = 0; chan < 9; chan++) { 
     							wv_name='#wv_'+ surf +'_'+ chan ;
     							var id = chan + 9*surf;
     							var waveform=data[id.toString()];
-    							if (waveform != undefined) {
-				    		//console.log(waveform.cal);
-				    		$(wv_name).attr('values', waveform['cal']).sparkline('html', {
-				    			type: 'line',
-							    // colorMap: rfpower_range_map,
-							    // chartRangeMin:-100,
-							    // chartRangeMax:100,
-							    width: '100',
-							    height: '40 ',
-							    lineWidth: 0.5,
-							    spotColor: false
-               });
-				    	} 
-              else {
-                $(wv_name).attr('values', 0).sparkline('html', {
-                  type: 'line',
-                  // colorMap: rfpower_range_map,
-                  // chartRangeMin:-100,
-                  // chartRangeMax:100,
-                  width: '100',
-                  height: '40 ',
-                  lineWidth: 0.5,
-                  spotColor: false
-                });
-              };
-
+                  if (waveform != undefined){
+                    displayData('mV', wv_name, waveform);
+                  }
+                  else{                    
+                    displayDataNone(wv_name);
+                  };    							
+                  
+                  
+                }
+                resizeWindow();
+              }
             }
-            resizeWindow();
-          }
-        }
-        else if (datatype == 'FFT' && dataview == 'Surf') {	
-          console.log(datatype);			
+            else if (datatype == 'FFT' && dataview == 'Surf') {	
+          //console.log(datatype);			
           for (var surf = 0; surf < 12; surf++) { 
            for (var chan = 0; chan < 9; chan++) { 
             wv_name='#wv_'+ surf +'_'+ chan ;
             var id = chan + 9*surf;
             var waveform=data[id.toString()];
 				    	//console.log(waveform);
-				    	if (waveform != undefined) {	
-				    		var fftdata = new complex_array.ComplexArray(260);
-				    		fftdata.map(function(value, i, n) {
-                  value.real = waveform.cal[i]
-                });
-				    		// console.log(data.FFT().magnitude());
-				    		//console.log(waveform.cal);				    		
-				    		$(wv_name).attr('values', fftdata.FFT().magnitude().slice(1, 130)).sparkline('html', {
-                 type: 'line',
-
-							    // colorMap: rfpower_range_map,
-							    // chartRangeMin:-100,
-							    // chartRangeMax:100,
-							    width: '100',
-							    height: '40 ',
-							    lineWidth: 0.5,
-							    spotColor: false
-               });
-				    	}
+				    	if (waveform != undefined) {
+                displayData('FFT', wv_name, waveform);
+              }
               else {
-                $(wv_name).attr('values', 0).sparkline('html', {
-                  type: 'line',
-                  // colorMap: rfpower_range_map,
-                  // chartRangeMin:-100,
-                  // chartRangeMax:100,
-                  width: '100',
-                  height: '40 ',
-                  lineWidth: 0.5,
-                  spotColor: false
-                });
+                displayDataNone(wv_name);
               };
             }
 
@@ -668,125 +671,153 @@ function updatehtml(hd){
           resizeWindow();
         }
         else if (datatype == 'Power' && dataview == 'Surf') {
-          console.log(datatype);
+          //console.log(datatype);
           for (var surf = 0; surf < 12; surf++) { 
            for (var chan = 0; chan < 9; chan++) { 
             wv_name='#wv_'+ surf +'_'+ chan ;
             var id = chan + 9*surf;
             var waveform=data[id.toString()];
-            if (waveform != undefined) {			    		
-             for (var i = 0; i < waveform.cal.length ; i++) {
-              waveform.cal[i] = Math.pow(waveform.cal[i],2);
-            }	
-            $(wv_name).attr('values', waveform['cal']).sparkline('html', {
-              type: 'line',
-							    // colorMap: rfpower_range_map,
-							    // chartRangeMin:-100,
-							    // chartRangeMax:100,
-							    width: '100',
-							    height: '40 ',
-							    lineWidth: 0.5,
-							    spotColor: false
-               });
+            if (waveform != undefined) {
+              displayData('Power', wv_name, waveform);            
+            }
+            else {
+              displayDataNone(wv_name);
+            };
+          }
+
+        }
+        resizeWindow();
+      }
+
+      if (datatype == 'mV' && dataview == 'Phi') {
+        var phi_h_name;
+        var phi_v_name;
+        var philoc;     
+        for (var arrpos = 0; arrpos < 48; arrpos++) {
+          if (arrpos >= 0 && arrpos <= 15){
+            philoc = 0;
+            philoc2 = 1;
+          }                          
+          else if (arrpos >= 16 && arrpos <= 31 ){
+            philoc = 2;
+            philoc2 = 3;
+          }
+          else if (arrpos >= 32 && arrpos <= 48){
+            philoc = 4;
+            philoc2 = 5;
+          }                        
+          var h_surf = surfMap[arrpos][0]-1;
+          var h_chan = surfMap[arrpos][1]-1;
+          var v_surf = surfMap[arrpos][2]-1;
+          var v_chan = surfMap[arrpos][3]-1;
+          var phiarray = surfMap[arrpos][4]-1;
+          phi_h_name='#phi_'+ philoc +'_'+ phiarray;
+          phi_v_name='#phi_'+ philoc2 +'_'+ phiarray;
+          var h_id = h_chan + 9*h_surf;
+          var v_id = v_chan + 9*v_surf;
+          var h_waveform=data[h_id.toString()];
+          var v_waveform=data[v_id.toString()];
+          if (h_waveform != undefined) {
+            displayData('mV', phi_h_name, h_waveform);            
           }
           else {
-            $(wv_name).attr('values', 0).sparkline('html', {
-              type: 'line',
-                  // colorMap: rfpower_range_map,
-                  // chartRangeMin:-100,
-                  // chartRangeMax:100,
-                  width: '100',
-                  height: '40 ',
-                  lineWidth: 0.5,
-                  spotColor: false
-                });
+            displayDataNone(phi_h_name);
           };
+          if (v_waveform != undefined) {
+            displayData('mV', phi_v_name, v_waveform);            
+          }
+          else {
+            displayDataNone(phi_v_name);
+          };
+
         }
+        resizeWindow();                        
+      }                
 
+      if (datatype == 'FFT' && dataview == 'Phi') {
+        for (var arrpos = 0; arrpos < 48; arrpos++) {
+          if (arrpos >= 0 && arrpos <= 15){
+            philoc = 0;
+            philoc2 = 1;
+          }                          
+          else if (arrpos >= 16 && arrpos <= 31 ){
+            philoc = 2;
+            philoc2 = 3;
+          }
+          else if (arrpos >= 32 && arrpos <= 48){
+            philoc = 4;
+            philoc2 = 5;
+          }                                                  
+          var h_surf = surfMap[arrpos][0]-1;
+          var h_chan = surfMap[arrpos][1]-1;
+          var v_surf = surfMap[arrpos][2]-1;
+          var v_chan = surfMap[arrpos][3]-1;
+          var phiarray = surfMap[arrpos][4]-1;
+          phi_h_name='#phi_'+ philoc +'_'+ phiarray;
+          phi_v_name='#phi_'+ philoc2 +'_'+ phiarray;
+          var h_id = h_chan + 9*h_surf;
+          var v_id = v_chan + 9*v_surf;
+          var h_waveform=data[h_id.toString()];
+          var v_waveform=data[v_id.toString()];
+          if (h_waveform != undefined) {
+            displayData('FFT', phi_h_name, h_waveform);            
+          }
+          else {
+            displayDataNone(phi_h_name);
+          };
+          if (v_waveform != undefined) {
+            displayData('FFT', phi_v_name, v_waveform);            
+          }
+          else {
+            displayDataNone(phi_v_name);
+          };
+
+  }
+  resizeWindow();
+}
+
+if (datatype == 'Power' && dataview == 'Phi') {               
+    //console.log(datatype);      
+    for (var arrpos = 0; arrpos < 48; arrpos++) {
+      if (arrpos >= 0 && arrpos <= 15){
+        philoc = 0;
+        philoc2 = 1;
+      }                          
+      else if (arrpos >= 16 && arrpos <= 31 ){
+        philoc = 2;
+        philoc2 = 3;
       }
-      resizeWindow();
+      else if (arrpos >= 32 && arrpos <= 48){
+        philoc = 4;
+        philoc2 = 5;
+      }                                                  
+      var h_surf = surfMap[arrpos][0]-1;
+      var h_chan = surfMap[arrpos][1]-1;
+      var v_surf = surfMap[arrpos][2]-1;
+      var v_chan = surfMap[arrpos][3]-1;
+      var phiarray = surfMap[arrpos][4]-1;
+      phi_h_name='#phi_'+ philoc +'_'+ phiarray;
+      phi_v_name='#phi_'+ philoc2 +'_'+ phiarray;
+      var h_id = h_chan + 9*h_surf;
+      var v_id = v_chan + 9*v_surf;
+      var h_waveform=data[h_id.toString()];
+      var v_waveform=data[v_id.toString()];
+      if (h_waveform != undefined) {
+            displayData('Power', phi_h_name, h_waveform);            
+          }
+          else {
+            displayDataNone(phi_h_name);
+          };
+          if (v_waveform != undefined) {
+            displayData('Power', phi_v_name, v_waveform);            
+          }
+          else {
+            displayDataNone(phi_v_name);
+          };
     }
-  });
-
-$.getJSON('/api/' + ip_db + '/wv/'+ data.hd.evnum, function(data){
-                    //console.log(data);
-                    var phi_h_name;
-                    var phi_v_name;
-                    var philoc;
-                    if (datatype == 'mV' && dataview == 'Phi') {               
-                        //console.log(datatype);      
-                        for (var arrpos = 0; arrpos < 48; arrpos++) {
-                          if (arrpos >= 0 && arrpos <= 15){
-                            philoc = 0;
-                            philoc2 = 1;
-                          }                          
-                          else if (arrpos >= 16 && arrpos <= 31 ){
-                            philoc = 2;
-                            philoc2 = 3;
-                          }
-                          else if (arrpos >= 32 && arrpos <= 48){
-                            philoc = 4;
-                            philoc2 = 5;
-                          }
-                          //console.log(philoc);                         
-                          var h_surf = surfMap[arrpos][0]-1;
-                          var h_chan = surfMap[arrpos][1]-1;
-                          //console.log(h_chan);
-                          var v_surf = surfMap[arrpos][2]-1;
-                          var v_chan = surfMap[arrpos][3]-1;
-                          var phiarray = surfMap[arrpos][4]-1;
-                          phi_h_name='#phi_'+ philoc +'_'+ phiarray;
-                          phi_v_name='#phi_'+ philoc2 +'_'+ phiarray;
-                          var h_id = h_chan + 9*h_surf;
-                          var v_id = v_chan + 9*v_surf;
-                          var h_waveform=data[h_id.toString()];
-                          var v_waveform=data[v_id.toString()];
-                          //console.log(h_waveform);
-                          //console.log(v_waveform);
-                          if (h_waveform != undefined) {
-                                  //console.log(waveform.cal);
-                                  $(phi_h_name).attr('values', h_waveform['cal']).sparkline('html', {
-                                    type: 'line',
-                                  width: '100',
-                                  height: '40 ',
-                                  lineWidth: 0.5,
-                                  spotColor: false
-                                });
-                                }
-                                else {
-                                  $(phi_h_name).attr('values', 0).sparkline('html', {
-                                    type: 'line',
-                                width: '100',
-                                height: '40 ',
-                                lineWidth: 0.5,
-                                spotColor: false
-                              });
-                                }
-                            if (v_waveform != undefined) {
-                              //console.log(waveform.cal);
-                              $(phi_v_name).attr('values', v_waveform['cal']).sparkline('html', {
-                                type: 'line',
-                                width: '100',
-                                height: '40 ',
-                                lineWidth: 0.5,
-                                spotColor: false
-                              });
-                            }
-                            else {
-                              $(phi_v_name).attr('values', 0).sparkline('html', {
-                                type: 'line',
-                                height: '40 ',
-                                lineWidth: 0.5,
-                                spotColor: false
-                              });
-                            };
-                          
-                        }
-                          resizeWindow();
-                        
-                        }
-                      });
-
+    resizeWindow();
+  }      
+});
 $('#hd #nbuf').html(data.hd.nbuf);
 $('#hd #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
 $('#hd #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
@@ -875,13 +906,13 @@ $('#connect').click(function() {
 			url: '/api/connect/'+ ip + '/' + db
 		}).done(function(response) {
 			if (response == 'success'){
-                console.log('succeed');
-				autoload(0);
-			}else{
-				connect.ladda( 'stop' );
-				swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
-			}
-		});
+        console.log('succeed');
+        autoload(0);
+      }else{
+        connect.ladda( 'stop' );
+        swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
+      }
+    });
 	}else{
 		hd_nbufs=[];
 		hd_evnums=[];
