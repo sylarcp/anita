@@ -589,7 +589,7 @@ function timeConverter(UNIX_timestamp){
 function displayData(datatype, name, waveform){
     waveform['cal'] = waveform['cal'].map(function(x){
         return x/100;
-    })
+    });
   if (datatype=='mV'){
     $(name).attr('values', waveform['cal']).sparkline('html', {
       type: 'line',
@@ -606,7 +606,12 @@ function displayData(datatype, name, waveform){
     fftdata.map(function(value, i, n) {
       value.real = waveform.cal[i]
     });               
-    $(name).attr('values', fftdata.FFT().magnitude().slice(1, 130)).sparkline('html', {
+    // Array.from(), translate Float32Array into Array.  To make it compatiable with firefox.
+    var fft = Array.from(fftdata.FFT().magnitude().slice(1, 130));
+    console.log(fft);
+    console.log(waveform['cal']);
+    $(name).attr('values', fft).sparkline('html', {
+    // $(name).attr('values', fftdata.FFT().magnitude().slice(1, 130)).sparkline('html', {
      type: 'line',
      width: '100',
      height: '40 ',
