@@ -4,14 +4,9 @@
 <link href="{{ url_for('static', filename='inspinia/css/plugins/footable/footable.core.css') }}" rel="stylesheet">
 {% endblock %}
 {% block page_content %}
-<div class="wrapper wrapper-content " ng-app="contentEditor">
+<div class="wrapper wrapper-content">
 
     <div class="row">
-        <button>Click me</button>
-        <!-- <button id='next' class="btn btn-primary"  type="button">Next event</button>
-        <button id='prev' class="btn btn-primary"  type="button">Prev event</button> -->
-        
-
         <div class="col-lg-6">
             <div class="ibox float-e-margins" id="hk">
                 <div class="ibox-title">
@@ -36,8 +31,8 @@
                        </tr>
                        <tr>
                         <td data-hide="xs">+1.5V</td>
-                        <td id='p1_5v'  magicbox-creator></td>
-                        <td id='p1_5i'  magicbox-creator></td> 
+                        <td id='p1_5v'></td>
+                        <td id='p1_5i'></td> 
                     </tr>
                     <tr>
                         <td>+3.3V</td>
@@ -490,71 +485,85 @@
                     <i class="fa fa-chevron-up"></i>
                 </a>
             </div>
+            </div>
+            <div class="ibox-content" >
+                <table data-sort="false" class="footable" data-page-size="20" id='gps' style="width:100%">
+                    <tbody>
+                        <tr>
+                            <td>GPS type</td>
+                            <td id='pat_gpstype'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                        <tr>
+                          <td>Time</td>
+                          <td id='time'></td>
+                        </tr>
+                        <tr>
+                          <td>Now</td>
+                          <td id='now'></td>                                
+                        </tr>
+
+                        <tr>
+                            <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                        </tr>
+                        
+                        <tr>
+                            <td>Latitude</td>
+                            <td id='latitude'></td>
+                        </tr>
+                        <tr>
+                            <td>Longitude</td>  
+                            <td id='longitude'></td>                              
+                        </tr>
+                        <tr>
+                             <td>Altitude</td>
+                            <td id='altitude'></td>
+                        </tr>
+
+                        <tr>
+                            <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                        </tr>
+
+
+                        <tr>
+                            <td>Pitch</td>
+                            <td id='pitch'></td> 
+                        </tr>
+                        <tr>                                
+                            <td>Roll</td> 
+                            <td id='roll'></td>  
+                        </tr>
+
+                        <tr>
+                            <td>Heading</td>      
+                            <td id='heading'></td>
+                        </tr>
+
+                        <tr>
+                            <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                            <td>GPS type</td>
+                            <td id='vtg_gpstype'></td>
+                        </tr>
+
+                        <tr>                                
+                            <td>knots</td>
+                            <td id='vkt'></td> 
+                            
+                        </tr>
+
+                        <tr>
+                            <td>kph</td> 
+                            <td id='vkph'></td>                           
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
-        <div class="ibox-content" >
-            <table data-sort="false" class="footable" data-page-size="20" id='gps' style="width:100%">
-
-              <tbody>
-                <tr>
-                  <td>Time</td>
-                  <td id='time'></td>
-                  <td>Now</td>
-                  <td id='now'></td>                                
-              </tr>
-
-              <tr>
-               <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
-           </tr>
-
-           <tr>
-            <td>Location</td>
-            <td id='latitude'></td>
-            <td id='longitude'></td>                                
-            <td id='altitude'></td>
-        </tr>
-        <th>
-            <td>Latitude</td>
-            <td>Longitude</td>                                
-            <td>Altitude</td>                                  
-        </th>
-
-        <tr>
-            <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-        </tr>
-
-
-        <tr>
-            <td>Orientation</td>
-            <td id='pitch'></td> 
-            <td id='roll'></td>
-            <td id='heading'></td>
-        </tr>
-        <th>                                
-            <td>Pitch</td>
-            <td>Roll</td>   
-            <td>Heading</td>                             
-        </th>
-
-        <tr>
-            <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-        </tr>
-
-        <tr>
-            <td>Velocity</td>
-            <td id='vkt'></td> 
-            <td id='vkph'></td>
-        </tr>
-
-        <th>                                
-            <td>knots</td>
-            <td>kph</td>                            
-        </th>
-    </tbody>
-
-</table>
-</div>
-</div>
-</div>
+    </div>
 </div>
 <!-- <div id = 'chart1'></div> -->
 <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
@@ -600,75 +609,90 @@
       var sec = a.getSeconds();
       var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
       return time;
-  }
-  var it_et_range_map = $.range_map({
-    '0:20': 'blue',
-    '20:45:': 'green',
-    '45:55:': 'yellow'
-})
-  var sbst_range_map = $.range_map({
-    '0:20': 'blue',
-    '20:45:': 'green',
-    '45:55:': 'yellow'
-})
-  var core_range_map = $.range_map({
-    '0:30': 'blue',
-    '30:60:': 'green',
-    '60:80:': 'yellow'
-})
-  var stemp_range_map = $.range_map({
-    '0:4000': 'blue',
-    '30:60:': 'green',
-    '60:80:': 'yellow'
-})
-  var disk0_range_map = $.range_map({
-    '400:5000': 'green',
-    '100:400:': 'yellow'
-})
-  var disk1_range_map = $.range_map({
-    '150:2000': 'green',
-    '40:150:': 'yellow',
-})
-  var disk2_range_map = $.range_map({
-    '300:3500': 'green',
-    '80:300:': 'yellow',
-})
-  var disk3_range_map = $.range_map({
-    '300:4000': 'green',
-    '50:300:': 'yellow',
-})
-  var disk4_range_map = $.range_map({
-    '1000000:7000000': 'green',
-    '6000:1000000:': 'yellow',
-})
-  var disk5_range_map = $.range_map({
-    '1000000:7000000': 'green',
-    '6000:1000000:': 'yellow',
-})
-  var disk6_range_map = $.range_map({
-    '300:4000': 'green',
-    '80:300:': 'yellow',
-})
-  var disk7_range_map = $.range_map({
-    '25000:350000': 'green',
-    '2500:25000:': 'yellow',
-})
-  var link_range_map = $.range_map({
-    '0:15': 'green',
-    '15:50:': 'yellow',
-})
-  function update_sbst1_data($selector, new_data){
-    var array_string=$selector.attr('values');
-    array_string=new_data;
-    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
-        // zeroAxis: false,
-        colorMap: sbst_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
-    });
+    }
+
+    var it_et_range_map = $.range_map({
+        '0:20': 'blue',
+        '20:45:': 'green',
+        '45:55:': 'yellow'
+    })
+    var sbst_range_map = $.range_map({
+        '0:20': 'blue',
+        '20:45:': 'green',
+    '4  5:55:': 'yellow'
+    })
+    var core_range_map = $.range_map({
+        '0:30': 'blue',
+        '30:60:': 'green',
+    '6  0:80:': 'yellow'
+    })
+    var stemp_range_map = $.range_map({
+        '0:4000': 'blue',
+        '30:60:': 'green',
+    '6  0:80:': 'yellow'
+    })
+    var disk0_range_map = $.range_map({
+        '400:5000': 'green',
+        '100:400:': 'yellow'
+    })
+    var disk1_range_map = $.range_map({
+        '150:2000': 'green',
+        '40:150:': 'yellow',
+    })
+    var disk2_range_map = $.range_map({
+        '300:3500': 'green',
+        '80:300:': 'yellow',
+    })
+    var disk3_range_map = $.range_map({
+        '300:4000': 'green',
+        '50:300:': 'yellow',
+    })
+    var disk4_range_map = $.range_map({
+        '1000000:7000000': 'green',
+        '6000:1000000:': 'yellow',
+    })
+    var disk5_range_map = $.range_map({
+        '1000000:7000000': 'green',
+        '6000:1000000:': 'yellow',
+    })
+    var disk6_range_map = $.range_map({
+        '300:4000': 'green',
+        '80:300:': 'yellow',
+    })
+    var disk7_range_map = $.range_map({
+        '25000:350000': 'green',
+        '2500:25000:': 'yellow',
+    })
+    var link_range_map = $.range_map({
+        '0:15': 'green',
+        '15:50:': 'yellow',
+    })
+
+    function gpstype(gpstype){
+        if (gpstype == 0x10000){
+            return 'g12';
+        }else if(gpstype == 0x20000){
+            return 'adu5A';
+        }else if(gpstype == 0x40000){
+            return 'adu5B';
+        }else if(gpstype == 0x80000){
+            return 'cmd';
+        }else{
+            return 'unknown';
+        };
+    }
+    function update_sbst1_data($selector, new_data){
+        var array_string=$selector.attr('values');
+        array_string=new_data;
+        // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+            $selector.attr('values', array_string).sparkline('html', {
+                type: 'bar',
+                barWidth: 30,
+            // zeroAxis: false,
+            colorMap: sbst_range_map,
+            chartRangeMin:-10,
+            chartRangeMax:100
+        });
     }
     function update_sbst2_data($selector, new_data){
         var array_string=$selector.attr('values');
@@ -1053,6 +1077,7 @@ function updatehtml_mon(mon){
 function updatehtml_adu5_pat(adu5_pat){
     if (!adu5_pat) return;
     $.getJSON('/api/' + ip_db + '/adu5_pat/' + adu5_pat, function(data){
+        $('#gps #pat_gpstype').html(gpstype(data.pat.gpstype));
         $('#gps #now').html(data.pat.now + " (" + timeConverter(data.pat.now) + ")");
         $('#gps #time').html(data.pat.time + " (" + timeConverter(data.pat.time) + ")");
         $('#gps #heading').html(data.pat.heading);
@@ -1067,6 +1092,7 @@ function updatehtml_adu5_pat(adu5_pat){
 function updatehtml_adu5_vtg(adu5_vtg){
     if (!adu5_vtg) return;
     $.getJSON('/api/' + ip_db + '/adu5_vtg/' + adu5_vtg, function(data){
+        $('#gps #vtg_gpstype').html(gpstype(data.vtg.gpstype));
         $('#gps #vkph').html(data.vtg.vkph);
         $('#gps #vkt').html(data.vtg.vkt);
     });
@@ -1079,9 +1105,6 @@ function updatehtml_adu5_sat(adu5_sat){
 }
 
 $(document).ready(function () {
-    $( "td[id]" ).click(function() {
-
-    });
     // $( "td[id]" ).click(function() {
     //     var column_name = $(this).attr('id');
     //     var table_name = $(this).closest('.ibox').attr('id');
@@ -1098,9 +1121,8 @@ $(document).ready(function () {
     //     $newModal.attr('name', name);
     //     $newModal.find('input[id="reference_time"]').val(hk_times[i])
     //     $newModal.on('shown', function (e) {
-    //      console.log('hi');
-
-    //  });
+    //         console.log('hi');
+    //     });
 
     //     $newModal.find('button[id="request"]').click(function(){
     //         var end_time =  $newModal.find('input[id="reference_time"]').val();
