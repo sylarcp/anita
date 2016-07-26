@@ -128,8 +128,8 @@
                             <div >
                                 <div> wv Max<input class='wv_range' id='wv_max_range' value="50">mV </div>
                                 <div> wv Min<input class='wv_range' id='wv_min_range' value="-50">mV </div>
-                                <div> FFT Max<input class='wv_range' id='fft_max_range' value="100">mV </div>
-                                <div> FFt Min<input class='wv_range' id='fft_min_range' value="0">mV </div>
+                                <div> FFT Max<input class='wv_range' id='fft_max_range' value="100"> </div>
+                                <div> FFt Min<input class='wv_range' id='fft_min_range' value="0"> </div>
                             </div>
                         </div>         
                         <a class="collapse-link">
@@ -857,6 +857,7 @@ $('#hd #calib').html(data.hd.calib);
 
 
 $(document).ready(function () {
+    $('#navbar_aview').parent().addClass("active");
 
     $(window).on('resize', resizeWindow);
     $('.footable').footable();

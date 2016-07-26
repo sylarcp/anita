@@ -48,19 +48,19 @@
 {% endblock %}
 
 {% block navbar %}
-<div class="navbar navbar-inverse" role="navigation">
+<div class="navbar navbar-inverse " role="navigation">
     <div class="container-fluid">
         <!-- <div class="navbar-header"> -->
             
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">ANITA IV</a>
+            <a class="navbar-brand">ANITA IV</a>
        <!--  </div>
         <div class="navbar"> -->
-            <ul class="nav navbar-nav ">
-                <li><a href="{{ url_for('main.index') }}">Anita Viewer</a></li>
-                <li><a href="{{ url_for('main.hk') }}">HK Viewer</a></li>
-                <li><a href="{{ url_for('main.trigmon') }}">Trigger Monitor</a></li>
-                <li><a href="{{ url_for('main.slowmo') }}">Slow Monitor</a></li>
-                <li><a href="{{ url_for('main.contactus') }}">Contact Us</a></li>
+            <ul class="nav navbar-nav navbar-inverse">
+                <li><a id='navbar_aview' href="{{ url_for('main.index') }}">Anita Viewer</a></li>
+                <li><a id='navbar_hk' href="{{ url_for('main.hk') }}">HK Viewer</a></li>
+                <li><a id='navbar_trig' href="{{ url_for('main.trigmon') }}">Trigger Monitor</a></li>
+                <li><a id='navbar_slow' href="{{ url_for('main.slowmo') }}">Slow Monitor</a></li>
+                <li><a id='navbar_contact'href="{{ url_for('main.contactus') }}">Contact Us</a></li>
             </ul>
                <!--  {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('main.index') }}">Sign Out</a></li> 
@@ -188,6 +188,10 @@
         $(document).ready(function () {
             $('#ip').chosen({disable_search_threshold:10});
             $('#db').chosen({disable_search_threshold:10});
+            // $(".nav a").on("click", function(){
+            //    $(".nav").find(".active").removeClass("active");
+            //    $(this).parent().addClass("active");
+            // });
             
             // $(".ibox").resizable({
             //     helper: "ui-resizable-helper",
