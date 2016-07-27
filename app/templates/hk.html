@@ -310,32 +310,29 @@
         </tr>
         <tr>
             <td>SunSensor 5</td>
-            <td id='ss_0'></td>
-            <td id='ss_1'></td>
-            <td id='ss_2'></td>
-            <td id='ss_3'></td> 
+            <td id='ssel_5'></td>
+            <td id='ssaz_5'></td>
+            <td id='ssflag_5'></td>
         </tr>
         <tr>
             <td>SunSensor 6</td>
-            <td id='ss_0'></td>
-            <td id='ss_1'></td> 
-            <td id='ss_2'></td> 
-            <td id='ss_3'></td>  
+            <td id='ssel_6'></td>
+            <td id='ssaz_6'></td>
+            <td id='ssflag_6'></td>  
         </tr>
         <tr>
             <td>SunSensor 7</td>
-            <td id='ss_0'></td>
-            <td id='ss_1'></td>
-            <td id='ss_2'></td>
-            <td id='ss_3'></td> 
+            <td id='ssel_7'></td>
+            <td id='ssaz_7'></td>
+            <td id='ssflag_7'></td>  
         </tr>
         <tr>
             <td>SunSensor 8</td>
-            <td id='ss_0'></td>
-            <td id='ss_1'></td>
-            <td id='ss_2'></td>
-            <td id='ss_3'></td> 
+            <td id='ssel_8'></td>
+            <td id='ssaz_8'></td>
+            <td id='ssflag_8'></td> 
         </tr>
+        
         <tr>
            <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
        </tr>
@@ -1009,6 +1006,23 @@ array_string=new_data;
         });
 
 }
+    function updatehtml_sshk(sshk){
+        if (!sshk) return;
+        $.getJSON('/api/' + ip_db + '/sshk/'+ sshk, function(data){      
+            $('#aux #ssflag_5').html(data.sshk.ssflag[0]);
+            $('#aux #ssflag_6').html(data.sshk.ssflag[1]);
+            $('#aux #ssflag_7').html(data.sshk.ssflag[2]);
+            $('#aux #ssflag_8').html(data.sshk.ssflag[3]);
+            $('#aux #ssel_5').html(data.sshk.ssel[0]);
+            $('#aux #ssel_6').html(data.sshk.ssel[1]);
+            $('#aux #ssel_7').html(data.sshk.ssel[2]);
+            $('#aux #ssel_8').html(data.sshk.ssel[3]);
+            $('#aux #ssaz_5').html(data.sshk.ssaz[0]);
+            $('#aux #ssaz_6').html(data.sshk.ssaz[1]);
+            $('#aux #ssaz_7').html(data.sshk.ssaz[2]);
+            $('#aux #ssaz_8').html(data.sshk.ssaz[3]);
+        });
+    }
 function updatehtml_mon(mon){
     if (!mon) return;
     $.getJSON('/api/' + ip_db + '/mon/' + mon, function(data){
@@ -1149,6 +1163,9 @@ $(document).ready(function () {
     var hk_nbufs=[];
     var hk_nows=[];
     var hk_times=[];
+    var sshk_nbufs=[];
+    var sshk_nows=[];
+    var sshk_times=[];
     var mon_nbufs=[];
     var mon_nows=[];
     var mon_times=[];
@@ -1166,6 +1183,7 @@ $(document).ready(function () {
     var k=0;
     var l=0;
     var m=0;
+    var n=0;
     var connected = false;
     var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
@@ -1195,7 +1213,16 @@ $(document).ready(function () {
                         autoload(start_time);
                     }
                 }, sleep_interval);
-                
+            });
+
+            $.getJSON('/api/' + ip_db + '/sshk/nbufs/' + start_time, function(data){
+                new_length=data.sshk_nbufs.length
+                sshk_nbufs=sshk_nbufs.concat(data.sshk_nbufs);
+                sshk_nows=sshk_nows.concat(data.sshk_nows);
+                sshk_times=sshk_times.concat(data.sshk_times);
+                console.log(sshk_nbufs);
+                console.log(sshk_nows);
+                console.log(sshk_times);
             });
             $.getJSON('/api/' + ip_db + '/mon/nbufs/' + start_time, function(data){
                 new_length=data.mon_nbufs.length
@@ -1229,6 +1256,9 @@ $(document).ready(function () {
                 hk_nbufs=[];
                 hk_nows=[];
                 hk_times=[];
+                sshk_nbufs=[];
+                sshk_nows=[];
+                sshk_times=[];
                 mon_nbufs=[];
                 mon_nows=[];
                 mon_times=[];
@@ -1246,6 +1276,7 @@ $(document).ready(function () {
                 k=0;
                 l=0;
                 m=0;
+                n=0;
                 connect.ladda( 'start' );
                 $.ajax({
                     url: '/api/connect/'+ ip + '/' + db
@@ -1261,6 +1292,9 @@ $(document).ready(function () {
              hk_nbufs=[];
              hk_nows=[];
              hk_times=[];
+             sshk_nbufs=[];
+             sshk_nows=[];
+             sshk_times=[];
              mon_nbufs=[];
              mon_nows=[];
              mon_times=[];
@@ -1278,6 +1312,7 @@ $(document).ready(function () {
              k=0;
              l=0;
              m=0;
+             n=0;
             //otherwise, stop all the requests.
             $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
             $('#connect').html('Connect');
@@ -1302,6 +1337,9 @@ $(document).ready(function () {
                 if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
                 m=adu5_sat_nows.indexOf(hk_nows[i]);
                 if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+                n=sshk_nows.indexOf(hk_nows[i]);
+                console.log(n);
+                if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
             };
         });
         $('#prev').click( function(){
@@ -1316,6 +1354,8 @@ $(document).ready(function () {
                 if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
                 m=adu5_sat_nows.indexOf(hk_nows[i]);
                 if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+                n=sshk_nows.indexOf(hk_nows[i]);
+                if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
             };
         });
         $('#first').click( function(){
@@ -1329,6 +1369,8 @@ $(document).ready(function () {
             if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
             m=adu5_sat_nows.indexOf(hk_nows[i]);
             if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+            n=sshk_nows.indexOf(hk_nows[i]);
+            if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
         });
         $('#last').click( function(){
             i=hk_nbufs.length-1
@@ -1341,6 +1383,8 @@ $(document).ready(function () {
             if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
             m=adu5_sat_nows.indexOf(hk_nows[i]);
             if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+            n=sshk_nows.indexOf(hk_nows[i]);
+            if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
         });
         var elem = document.querySelector('.js-switch');
         var switchery = new Switchery(elem, { color: '#1AB394' });
@@ -1360,6 +1404,8 @@ $(document).ready(function () {
                     if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
                     m=adu5_sat_nows.indexOf(hk_nows[i]);
                     if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+                    n=sshk_nows.indexOf(hk_nows[i]);
+                    if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
                 };
             }, 1000);
         }else{
@@ -1382,6 +1428,8 @@ $(document).ready(function () {
             if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
             m=adu5_sat_nows.indexOf(hk_times[i]);
             if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+            n=sshk_nows.indexOf(hk_nows[i]);
+            if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
         }else{
          swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
      }
