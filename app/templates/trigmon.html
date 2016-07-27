@@ -1615,6 +1615,9 @@
             		}
             		if (connected == true){
             			autoload(start_time);
+            			setTimeout(function(){
+            				$('#first').click();
+            			},0000);
             		}
             	}, sleep_interval);
 
