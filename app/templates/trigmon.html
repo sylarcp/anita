@@ -1597,7 +1597,7 @@
         		turf_nbufs=turf_nbufs.concat(data.turf_nbufs);
         		turf_nows=turf_nows.concat(data.turf_nows);
         		turf_times=turf_times.concat(data.turf_times);
-        		start_time=Math.max(...turf_times);
+        		start_time=Math.max.apply(null, turf_times);
         		$('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
         		$('#connect').html('Disconnect');
         		$('.chosen-select').attr("disabled", true).trigger("chosen:updated");

@@ -1195,7 +1195,7 @@ $(document).ready(function () {
             hk_nbufs=hk_nbufs.concat(data.hk_nbufs);
             hk_nows=hk_nows.concat(data.hk_nows);
             hk_times=hk_times.concat(data.hk_times);
-            start_time=Math.max(...hk_times);
+            start_time=Math.max.apply(null, hk_times);
             $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
             $('#connect').html('Disconnect');
             $('.chosen-select').attr("disabled", true).trigger("chosen:updated");

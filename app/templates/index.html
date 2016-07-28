@@ -890,7 +890,7 @@ function autoload(start_time){
 		hd_nbufs=hd_nbufs.concat(data.hd_nbufs);
 		hd_evnums=hd_evnums.concat(data.hd_evnums);
 		hd_times=hd_times.concat(data.hd_times);
-		start_time=Math.max(...hd_times);
+		start_time=Math.max.apply(null, hd_times);
 		$('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
 		$('#connect').html('Disconnect');
 		$('.chosen-select').attr("disabled", true).trigger("chosen:updated");
