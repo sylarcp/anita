@@ -17,6 +17,9 @@ def make_shell_context():
     	Adu5_pat=Adu5_pat,Adu5_vtg=Adu5_vtg, Adu5_sat=Adu5_sat,G12_pos=G12_pos,G12_sat=G12_sat,\
     	Cmd=Cmd,Wakeup=Wakeup,File=File)
 # manager.add_command("runserver", Server(host='128.175.112.125'))
+# thread share info, while processes does not.
+manager.add_command("runserver", Server(threaded=True, processes=1))
+
 manager.add_command("shell", Shell(make_context=make_shell_context))
 manager.add_command('db', MigrateCommand)
 

@@ -101,35 +101,41 @@
 
     					<div class="dropdown-menu dropdown-user " style='width:250px'> 
     						<div id="icheckForm" method="post" class="form-vertical">
-                 <div class="form-group">
-                   <div class="col-xs-6">
-                     <div class="wv_radio">
-                       <label>
-                         <input type="radio" name="wv" value="mV" /> mV
-                       </label>
-                     </div>
-                     <div class="wv_radio">
-                       <label>
-                         <input type="radio" name="wv" value="FFT" /> FFT
-                       </label>
-                     </div>
-                     <div class="wv_radio">
-                       <label>
-                         <input type="radio" name="wv" value="Power" /> Power
-                       </label>
-                     </div>
-                   </div>
-                 </div> 
-               </div> 			
-               <div  class="row">
-                <button class="btn btn-primary" id='surfv' type="button">Surf View</button>
-                <button class="btn btn-primary" id='phiv' type="button">Phi View</button>
-              </div>
-            </div>         
-            <a class="collapse-link">
-              <i class="fa fa-chevron-up"></i>
-            </a>
-          </div>
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <div class="wv_radio">
+                                        <label>
+                                            <input type="radio" name="wv" value="mV" /> mV
+                                        </label>
+                                        </div>
+                                        <div class="wv_radio">
+                                        <label>
+                                            <input type="radio" name="wv" value="FFT" /> FFT
+                                        </label>
+                                        </div>
+                                        <div class="wv_radio">
+                                        <label>
+                                            <input type="radio" name="wv" value="Power" /> Power
+                                        </label>
+                                        </div>
+                                    </div>
+                                </div> 
+                            </div> 			
+                            <div  class="row">
+                                <button class="btn btn-primary" id='surfv' type="button">Surf View</button>
+                                <button class="btn btn-primary" id='phiv' type="button">Phi View</button>
+                            </div>
+                            <div >
+                                <div> wv Max<input class='wv_range' id='wv_max_range' value="50">mV </div>
+                                <div> wv Min<input class='wv_range' id='wv_min_range' value="-50">mV </div>
+                                <div> FFT Max<input class='wv_range' id='fft_max_range' value="100"> </div>
+                                <div> FFt Min<input class='wv_range' id='fft_min_range' value="0"> </div>
+                            </div>
+                        </div>         
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
           <div class="ibox-content" >
             <table data-sort="false" class="footable" id='wv' style="width:100% height:100%" data-page-size="13">
 
@@ -581,13 +587,18 @@ function timeConverter(UNIX_timestamp){
   return time;
 }
 function displayData(datatype, name, waveform){
+    waveform['cal'] = waveform['cal'].map(function(x){
+        return x/100;
+    });
   if (datatype=='mV'){
     $(name).attr('values', waveform['cal']).sparkline('html', {
       type: 'line',
       width: '100',
       height: '40 ',
       lineWidth: 0.5,
-      spotColor: false
+      spotColor: false,
+      chartRangeMin: $('#wv_min_range').val(),
+      chartRangeMax: $('#wv_max_range').val(),
     });
   }
   else if (datatype=='FFT'){
@@ -595,12 +606,19 @@ function displayData(datatype, name, waveform){
     fftdata.map(function(value, i, n) {
       value.real = waveform.cal[i]
     });               
-    $(name).attr('values', fftdata.FFT().magnitude().slice(1, 130)).sparkline('html', {
+    // Array.from(), translate Float32Array into Array.  To make it compatiable with firefox.
+    var fft = Array.from(fftdata.FFT().magnitude().slice(1, 130));
+    console.log(fft);
+    console.log(waveform['cal']);
+    $(name).attr('values', fft).sparkline('html', {
+    // $(name).attr('values', fftdata.FFT().magnitude().slice(1, 130)).sparkline('html', {
      type: 'line',
      width: '100',
      height: '40 ',
      lineWidth: 0.5,
-     spotColor: false
+     spotColor: false,
+     chartRangeMin: $('#fft_min_range').val(),
+     chartRangeMax: $('#fft_max_range').val(),
    });
   }
   else if (datatype=='Power'){
@@ -612,7 +630,9 @@ function displayData(datatype, name, waveform){
       width: '100',
       height: '40 ',
       lineWidth: 0.5,
-      spotColor: false
+      spotColor: false,
+      chartRangeMin: Math.pow($('#wv_min_range').val(), 2),
+      chartRangeMax: Math.pow($('#wv_max_range').val(), 2),
     });
   }    
 }
@@ -837,9 +857,11 @@ $('#hd #calib').html(data.hd.calib);
 
 
 $(document).ready(function () {
-	$(window).on('resize', resizeWindow);
-	$('.footable').footable();
+    $('#navbar_aview').parent().addClass("active");
 
+    $(window).on('resize', resizeWindow);
+    $('.footable').footable();
+    
   document.getElementById("phi").style.display="none";
 
   var hd_nbufs=[];
@@ -848,11 +870,11 @@ $(document).ready(function () {
   var i=0;
   var connected= false;
 	var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
-	// $.getJSON('/api/' + ip_db + '/hd/nbufs', function(data){
-	// 	hd_nbufs=data.hd_nbufs;
-	// 	hd_evnums=data.hd_evnums;
-	// });
-console.log(hd_nbufs);
+	
+    $('.wv_range').change(function(){
+        updatehtml(hd_nbufs[i]);
+    });
+   
 
 $('#icheckForm').iCheck({
   checkboxClass: 'icheckbox_square-green',
@@ -868,7 +890,7 @@ function autoload(start_time){
 		hd_nbufs=hd_nbufs.concat(data.hd_nbufs);
 		hd_evnums=hd_evnums.concat(data.hd_evnums);
 		hd_times=hd_times.concat(data.hd_times);
-		start_time=Math.max(...hd_times);
+		start_time=Math.max.apply(null, hd_times);
 		$('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
 		$('#connect').html('Disconnect');
 		$('.chosen-select').attr("disabled", true).trigger("chosen:updated");

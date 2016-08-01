@@ -20,9 +20,10 @@
 <link href="{{ url_for('static', filename='inspinia/css/plugins/ladda/ladda-themeless.min.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/plugins/jQueryUI/jquery-ui.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='anita/css/jquery.jqplot.min.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='anita/css/magicbox.css') }}" rel="stylesheet">
 
 
- <style>
+ <style>    
         button, .chosen-container{
             margin: 7px 2px;
         }
@@ -47,19 +48,19 @@
 {% endblock %}
 
 {% block navbar %}
-<div class="navbar navbar-inverse" role="navigation">
+<div class="navbar navbar-inverse " role="navigation">
     <div class="container-fluid">
         <!-- <div class="navbar-header"> -->
             
-            <a class="navbar-brand" href="{{ url_for('main.index') }}">ANITA IV</a>
+            <a class="navbar-brand">ANITA IV</a>
        <!--  </div>
         <div class="navbar"> -->
-            <ul class="nav navbar-nav ">
-                <li><a href="{{ url_for('main.index') }}">Anita Viewer</a></li>
-                <li><a href="{{ url_for('main.hk') }}">HK Viewer</a></li>
-                <li><a href="{{ url_for('main.trigmon') }}">Trigger Monitor</a></li>
-                <li><a href="{{ url_for('main.slowmo') }}">Slow Monitor</a></li>
-                <li><a href="{{ url_for('main.contactus') }}">Contact Us</a></li>
+            <ul class="nav navbar-nav navbar-inverse">
+                <li><a id='navbar_aview' href="{{ url_for('main.index') }}">Anita Viewer</a></li>
+                <li><a id='navbar_hk' href="{{ url_for('main.hk') }}">HK Viewer</a></li>
+                <li><a id='navbar_trig' href="{{ url_for('main.trigmon') }}">Trigger Monitor</a></li>
+                <li><a id='navbar_slow' href="{{ url_for('main.slowmo') }}">Slow Monitor</a></li>
+                <li><a id='navbar_contact'href="{{ url_for('main.contactus') }}">Contact Us</a></li>
             </ul>
                <!--  {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('main.index') }}">Sign Out</a></li> 
@@ -70,15 +71,19 @@
 
                 <li>
                     <select id="ip" class="chosen-select" style="width:150px">
-                        <option value="128_175_112_58" selected>128.175.112.58</option>
+                        <!-- <option value="128_175_112_58" selected>128.175.112.58</option>
                         <option value="128_175_112_80">128.175.112.80</option>
-                        <option value="128_175_112_125">128.175.112.125</option>
+                        <option value="128_175_112_125">128.175.112.125</option> -->
+                        
+                        <!-- <option value="192_168_20_222">192.168.20.222</option> -->
+                        <option value="67_239_76_218">67.239.76.218</option>
                         <option value="192_168_20_221">192.168.20.221</option>
+                        <!-- <option value="67_239_76_219">67.239.76.219</option> -->
                     </select>
                 </li>
                 <li>
                     <select id="db" class="chosen-select" style="width:150px">
-                        <option value="anita_0102a">anita_0102a</option>
+                        <!-- <option value="anita_0102a">anita_0102a</option>
                         <option value="anita_0102b">anita_0102b</option>
                         <option value="anita_0102c">anita_0102c</option>
                         <option value="anita_0102d">anita_0102d</option>
@@ -88,7 +93,19 @@
                         <option value="anita_0107d">anita_0107d</option>
                         <option value="anita_0622d">anita_0622d</option>
                         <option value="anita_0710a">anita_0710a</option>
-                        <option value="anita_0711a">anita_0711a</option>
+                        <option value="anita_0711a">anita_0711a</option> -->
+                       <!--  <option value="anita_0725d">anita_0725d</option>
+                        <option value="anita_0726a">anita_0726a</option>
+                        <option value="anita_0726b">anita_0726b</option>
+                        <option value="anita_0726c">anita_0726c</option>
+                        <option value="anita_0726d">anita_0726d</option> -->
+                        
+                        <option value="anita_0730c">anita_0730c</option>
+                        <option value="anita_0730d">anita_0730d</option>
+                        <option value="anita_0731a">anita_0731a</option>
+                        <option value="anita_0731b">anita_0731b</option>
+                        <option value="anita_0731c">anita_0731c</option>
+                        <option value="anita_0731d">anita_0731d</option>
                     </select>
                 </li>
                 <li>
@@ -149,6 +166,8 @@
     <script src="{{ url_for('static', filename='anita/js/jqplot/plugins/jqplot.canvasAxisTickRenderer.min.js') }}"></script>
     <script src="{{ url_for('static', filename='anita/js/jqplot/plugins/jqplot.dateAxisRenderer.min.js') }}"></script>
     <script src="{{ url_for('static', filename='anita/js/jqplot/plugins/jqplot.cursor.min.js') }}"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+    <script src="{{ url_for('static', filename='anita/js/magicbox.js') }}"></script>
     <script>
         var ip=$('#ip option:selected').val();
         var db=$('#db option:selected').val();
@@ -173,6 +192,10 @@
         $(document).ready(function () {
             $('#ip').chosen({disable_search_threshold:10});
             $('#db').chosen({disable_search_threshold:10});
+            // $(".nav a").on("click", function(){
+            //    $(".nav").find(".active").removeClass("active");
+            //    $(this).parent().addClass("active");
+            // });
             
             // $(".ibox").resizable({
             //     helper: "ui-resizable-helper",

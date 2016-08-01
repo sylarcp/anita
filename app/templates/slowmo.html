@@ -685,6 +685,7 @@ function updatehtml(slow_times){
 }
 
 $(document).ready(function () {
+	$('#navbar_slow').parent().addClass("active");
 	$('.footable').footable();
 	var slow_nbufs=[];
 	var slow_nows=[];
@@ -703,7 +704,7 @@ $(document).ready(function () {
                 slow_nbufs=slow_nbufs.concat(data.slow_nbufs);
                 slow_nows=slow_nows.concat(data.slow_nows);
                 slow_times=slow_times.concat(data.slow_times);
-                start_time=Math.max(...slow_times);
+                start_time=Math.max.apply(null, slow_times);
                 $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
         		$('#connect').html('Disconnect');
         		$('.chosen-select').attr("disabled", true).trigger("chosen:updated");
