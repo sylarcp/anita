@@ -8,7 +8,7 @@
 
 <link rel="shortcut icon" href="{{ url_for('static', filename = 'img/favicons/favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename = 'img/favicons/favicon.ico') }}"type="image/x-icon">
-<link href="{{ url_for('static', filename='inspinia/css/plugins/chosen/chosen.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='anita/css/select2.min.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/bootstrap.min.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/font-awesome/css/font-awesome.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='inspinia/css/plugins/iCheck/custom.css') }}" rel="stylesheet">
@@ -24,7 +24,7 @@
 
 
  <style>    
-        button, .chosen-container{
+        button, .select2-container{
             margin: 7px 2px;
         }
         input, .switchery{
@@ -52,7 +52,7 @@
     <div class="container-fluid">
         <!-- <div class="navbar-header"> -->
             
-            <a class="navbar-brand">ANITA IV</a>
+            <a class="navbar-brand">ANITA IV``</a>
        <!--  </div>
         <div class="navbar"> -->
             <ul class="nav navbar-nav navbar-inverse">
@@ -70,19 +70,18 @@
             <ul class="nav navbar-nav">
 
                 <li>
-                    <select id="ip" class="chosen-select" style="width:150px">
-                        <!-- <option value="128_175_112_58" selected>128.175.112.58</option>
-                        <option value="128_175_112_80">128.175.112.80</option>
-                        <option value="128_175_112_125">128.175.112.125</option> -->
-                        
-                        <!-- <option value="192_168_20_222">192.168.20.222</option> -->
-                        <option value="67_239_76_218">67.239.76.218</option>
-                        <option value="192_168_20_221">192.168.20.221</option>
-                        <!-- <option value="67_239_76_219">67.239.76.219</option> -->
+                    <select id="ip" class='chosen-select' style="width:150px" data-placeholder="Choose an IP..">
+                        <!-- <option elected>128.175.112.58</option>
+                        <option>128.175.112.80</option>
+                        <option>128.175.112.125</option> -->
+                        <!-- <option>192.168.20.222</option> -->
+                        <option selected>67.239.76.218</option>
+                        <option>192.168.20.221</option>
+                        <!-- <option ="67_239_76_219">67.239.76.219</option> -->
                     </select>
                 </li>
                 <li>
-                    <select id="db" class="chosen-select" style="width:150px">
+                    <select id="db" class='chosen-select' style="width:150px" data-placeholder="Choose a DB..">
                         <!-- <option value="anita_0102a">anita_0102a</option>
                         <option value="anita_0102b">anita_0102b</option>
                         <option value="anita_0102c">anita_0102c</option>
@@ -99,13 +98,12 @@
                         <option value="anita_0726b">anita_0726b</option>
                         <option value="anita_0726c">anita_0726c</option>
                         <option value="anita_0726d">anita_0726d</option> -->
-                        
-                        <option value="anita_0730c">anita_0730c</option>
-                        <option value="anita_0730d">anita_0730d</option>
-                        <option value="anita_0731a">anita_0731a</option>
-                        <option value="anita_0731b">anita_0731b</option>
-                        <option value="anita_0731c">anita_0731c</option>
-                        <option value="anita_0731d">anita_0731d</option>
+                        <option selected>anita_0730c</option>
+                        <option>anita_0730d</option>
+                        <option>anita_0731a</option>
+                        <option>anita_0731b</option>
+                        <option>anita_0731c</option>
+                        <option>anita_0731d</option>
                     </select>
                 </li>
                 <li>
@@ -145,7 +143,7 @@
 
 {% block scripts %}
     <script src="{{ url_for('static', filename='inspinia/js/jquery-2.1.1.js') }}"></script>
-    <script src="{{ url_for('static', filename='inspinia/js/plugins/chosen/chosen.jquery.js') }}"></script>
+    <script src="{{ url_for('static', filename='anita/js/select2.full.min.js') }}"></script>
 
     <script src="{{ url_for('static', filename='inspinia/js/bootstrap.min.js') }}"></script>
     <script src="{{ url_for('static', filename='inspinia/js/plugins/slimscroll/jquery.slimscroll.min.js') }}"></script>
@@ -169,29 +167,22 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <script src="{{ url_for('static', filename='anita/js/magicbox.js') }}"></script>
     <script>
-        var ip=$('#ip option:selected').val();
-        var db=$('#db option:selected').val();
-        var ip_db= "query_"+ ip + "_" + db;
-        
+        var ip;
+        var db;
         // On changing the ip in the <select>, we want
-        $('#ip').change(function() {
-            ip= $(this).val();
-            console.log($(this).val());
-            ip_db= "query_"+ ip + "_" + db;
-
-            // window.location.reload();
-        });
-        $('#db').change(function() {
-            db= $(this).val();
+        $('.chosen-select').change(function() {
+            // var ip=$('#ip').val().replace(/./gi, '_');
+            ip=$('#ip option:selected').text().replace(/\./gi, '_');
+            db=$('#db option:selected').text();
+            console.log(ip);
             console.log(db);
             ip_db= "query_"+ ip + "_" + db;
-            // $.get("/api/session/"+ ip +"/"+db);
-            // refresh the page
-            // window.location.reload();
+            console.log(ip_db);
         });
         $(document).ready(function () {
-            $('#ip').chosen({disable_search_threshold:10});
-            $('#db').chosen({disable_search_threshold:10});
+            $('.chosen-select').select2({tags: true});
+            ip=$('#ip option:selected').text().replace(/\./gi, '_');
+            db=$('#db option:selected').text();
             // $(".nav a").on("click", function(){
             //    $(".nav").find(".active").removeClass("active");
             //    $(this).parent().addClass("active");
