@@ -101,405 +101,417 @@
 
     					<div class="dropdown-menu dropdown-user " style='width:250px'> 
     						<div id="icheckForm" method="post" class="form-vertical">
-                                <div class="form-group">
-                                    <div class="col-xs-6">
-                                        <div class="wv_radio">
-                                        <label>
-                                            <input type="radio" name="wv" value="mV" /> mV
-                                        </label>
-                                        </div>
-                                        <div class="wv_radio">
-                                        <label>
-                                            <input type="radio" name="wv" value="FFT" /> FFT
-                                        </label>
-                                        </div>
-                                        <div class="wv_radio">
-                                        <label>
-                                            <input type="radio" name="wv" value="Power" /> Power
-                                        </label>
-                                        </div>
-                                    </div>
-                                </div> 
-                            </div> 			
-                            <div  class="row">
-                                <button class="btn btn-primary" id='surfv' type="button">Surf View</button>
-                                <button class="btn btn-primary" id='phiv' type="button">Phi View</button>
-                            </div>
-                            <div >
-                                <div> wv Max<input class='wv_range' id='wv_max_range' value="50">mV </div>
-                                <div> wv Min<input class='wv_range' id='wv_min_range' value="-50">mV </div>
-                                <div> FFT Max<input class='wv_range' id='fft_max_range' value="100"> </div>
-                                <div> FFt Min<input class='wv_range' id='fft_min_range' value="0"> </div>
-                            </div>
-                        </div>         
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
+                  <div class="form-group">
+                    <div class="col-xs-6">
+                      <div class="wv_radio">
+                        <label>
+                          <input type="radio" name="wv" value="mV" /> mV
+                        </label>
+                      </div>
+                      <div class="wv_radio">
+                        <label>
+                          <input type="radio" name="wv" value="FFT" /> FFT
+                        </label>
+                      </div>
+                      <div class="wv_radio">
+                        <label>
+                          <input type="radio" name="wv" value="Power" /> Power
+                        </label>
+                      </div>
                     </div>
-          <div class="ibox-content" >
-            <table data-sort="false" class="footable" id='wv' style="width:100% height:100%" data-page-size="13">
+                  </div> 
+                </div>
+                <div id="icheckForm2" method="post" class="form-vertical">
+                  <div class="form-group">
+                    <div class="col-xs-6">
+                      <div class="view_radio">
+                        <label>
+                          <input type="radio" name="view" value="Surf" /> Surf View
+                        </label>
+                      </div>
+                      <div class="view_radio">
+                        <label>
+                          <input type="radio" name="view" value="Phi" /> Phi View
+                        </label>
+                      </div>                                                             
+                    </div>
+                  </div> 
+                </div>
+                  <div class="col-sm-12">
+                    <div >
+                      <div> wv Max<input class='wv_range' id='wv_max_range' value="50">mV </div>
+                      <div> wv Min<input class='wv_range' id='wv_min_range' value="-50">mV </div>
+                      <div> FFT Max<input class='wv_range' id='fft_max_range' value="100"> </div>
+                      <div> FFT Min<input class='wv_range' id='fft_min_range' value="0"> </div>
+                    </div> 
+                </div> 
+              </div>         
+              <a class="collapse-link">
+                <i class="fa fa-chevron-up"></i>
+              </a>
+            </div>
+            <div class="ibox-content" >
+              <table data-sort="false" class="footable" id='wv' style="width:100% height:100%" data-page-size="13">
 
-             <tbody>
+               <tbody>
+                <th>
+                 <td>chan 1</td>
+                 <td>chan 2</td>
+                 <td>chan 3</td>
+                 <td>chan 4</td>
+                 <td>chan 5</td>
+                 <td>chan 6</td>
+                 <td>chan 7</td>
+                 <td>chan 8</td>
+                 <td>clock</td>
+               </th>		
+               <tr>
+                 <td>surf 1</td>
+                 <td id='wv_0_0'></td>
+                 <td id='wv_0_1'></td>
+                 <td id='wv_0_2'></td>
+                 <td id='wv_0_3'></td>
+                 <td id='wv_0_4'></td>
+                 <td id='wv_0_5'></td>
+                 <td id='wv_0_6'></td>
+                 <td id='wv_0_7'></td>
+                 <td id='wv_0_8'></td>
+               </tr>
+               <tr>
+                 <td>surf 2</td>
+                 <td id='wv_1_0'></td>
+                 <td id='wv_1_1'></td>
+                 <td id='wv_1_2'></td>
+                 <td id='wv_1_3'></td>
+                 <td id='wv_1_4'></td>
+                 <td id='wv_1_5'></td>
+                 <td id='wv_1_6'></td>
+                 <td id='wv_1_7'></td>
+                 <td id='wv_1_8'></td>
+
+               </tr>
+               <tr>
+                 <td>surf 3</td>
+                 <td id='wv_2_0'></td>
+                 <td id='wv_2_1'></td>
+                 <td id='wv_2_2'></td>
+                 <td id='wv_2_3'></td>
+                 <td id='wv_2_4'></td>
+                 <td id='wv_2_5'></td>
+                 <td id='wv_2_6'></td>
+                 <td id='wv_2_7'></td>
+                 <td id='wv_2_8'></td>
+
+               </tr>
+               <tr>
+                 <td>surf 4</td>
+                 <td id='wv_3_0'></td>
+                 <td id='wv_3_1'></td>
+                 <td id='wv_3_2'></td>
+                 <td id='wv_3_3'></td>
+                 <td id='wv_3_4'></td>
+                 <td id='wv_3_5'></td>
+                 <td id='wv_3_6'></td>
+                 <td id='wv_3_7'></td>
+                 <td id='wv_3_8'></td>
+
+               </tr>
+               <tr>
+                 <td>surf 5</td>
+                 <td id='wv_4_0'></td>
+                 <td id='wv_4_1'></td>
+                 <td id='wv_4_2'></td>
+                 <td id='wv_4_3'></td>
+                 <td id='wv_4_4'></td>
+                 <td id='wv_4_5'></td>
+                 <td id='wv_4_6'></td>
+                 <td id='wv_4_7'></td>
+                 <td id='wv_4_8'></td>
+
+               </tr>
+               <tr>
+                 <td>surf 6</td>
+                 <td id='wv_5_0'></td>
+                 <td id='wv_5_1'></td>
+                 <td id='wv_5_2'></td>
+                 <td id='wv_5_3'></td>
+                 <td id='wv_5_4'></td>
+                 <td id='wv_5_5'></td>
+                 <td id='wv_5_6'></td>
+                 <td id='wv_5_7'></td>
+                 <td id='wv_5_8'></td>
+
+               </tr>
+               <tr>
+                 <td>surf 7</td>
+                 <td id='wv_6_0'></td>
+                 <td id='wv_6_1'></td>
+                 <td id='wv_6_2'></td>
+                 <td id='wv_6_3'></td>
+                 <td id='wv_6_4'></td>
+                 <td id='wv_6_5'></td>
+                 <td id='wv_6_6'></td>
+                 <td id='wv_6_7'></td>
+                 <td id='wv_6_8'></td>
+
+               </tr>
+               <tr>
+                 <td>surf 8</td>
+                 <td id='wv_7_0'></td>
+                 <td id='wv_7_1'></td>
+                 <td id='wv_7_2'></td>
+                 <td id='wv_7_3'></td>
+                 <td id='wv_7_4'></td>
+                 <td id='wv_7_5'></td>
+                 <td id='wv_7_6'></td>
+                 <td id='wv_7_7'></td>
+                 <td id='wv_7_8'></td>
+
+               </tr>
+               <tr>
+                 <td>surf 9</td>
+                 <td id='wv_8_0'></td>
+                 <td id='wv_8_1'></td>
+                 <td id='wv_8_2'></td>
+                 <td id='wv_8_3'></td>
+                 <td id='wv_8_4'></td>
+                 <td id='wv_8_5'></td>
+                 <td id='wv_8_6'></td>
+                 <td id='wv_8_7'></td>
+                 <td id='wv_8_8'></td>
+
+               </tr>
+               <tr>
+                 <td>surf 10</td>
+                 <td id='wv_9_0'></td>
+                 <td id='wv_9_1'></td>
+                 <td id='wv_9_2'></td>
+                 <td id='wv_9_3'></td>
+                 <td id='wv_9_4'></td>
+                 <td id='wv_9_5'></td>
+                 <td id='wv_9_6'></td>
+                 <td id='wv_9_7'></td>
+                 <td id='wv_9_8'></td>
+
+               </tr>
+               <tr>
+                 <td>surf 11</td>
+                 <td id='wv_10_0'></td>
+                 <td id='wv_10_1'></td>
+                 <td id='wv_10_2'></td>
+                 <td id='wv_10_3'></td>
+                 <td id='wv_10_4'></td>
+                 <td id='wv_10_5'></td>
+                 <td id='wv_10_6'></td>
+                 <td id='wv_10_7'></td>
+                 <td id='wv_10_8'></td>		
+               </tr>
+               <tr>
+                 <td>surf 12</td>
+                 <td id='wv_11_0'></td>
+                 <td id='wv_11_1'></td>
+                 <td id='wv_11_2'></td>
+                 <td id='wv_11_3'></td>
+                 <td id='wv_11_4'></td>
+                 <td id='wv_11_5'></td>
+                 <td id='wv_11_6'></td>
+                 <td id='wv_11_7'></td>
+                 <td id='wv_11_8'></td>		
+               </tr>
+             </tbody>
+           </table>
+           <table data-sort="false" class="footable" id='phi' style="width:100% height:100%" data-page-size="17">
+
+            <tbody>
               <th>
-               <td>chan 1</td>
-               <td>chan 2</td>
-               <td>chan 3</td>
-               <td>chan 4</td>
-               <td>chan 5</td>
-               <td>chan 6</td>
-               <td>chan 7</td>
-               <td>chan 8</td>
-               <td>clock</td>
-             </th>		
-             <tr>
-               <td>surf 1</td>
-               <td id='wv_0_0'></td>
-               <td id='wv_0_1'></td>
-               <td id='wv_0_2'></td>
-               <td id='wv_0_3'></td>
-               <td id='wv_0_4'></td>
-               <td id='wv_0_5'></td>
-               <td id='wv_0_6'></td>
-               <td id='wv_0_7'></td>
-               <td id='wv_0_8'></td>
-             </tr>
-             <tr>
-               <td>surf 2</td>
-               <td id='wv_1_0'></td>
-               <td id='wv_1_1'></td>
-               <td id='wv_1_2'></td>
-               <td id='wv_1_3'></td>
-               <td id='wv_1_4'></td>
-               <td id='wv_1_5'></td>
-               <td id='wv_1_6'></td>
-               <td id='wv_1_7'></td>
-               <td id='wv_1_8'></td>
+                <td>phi 1</td>
+                <td>phi 2</td>
+                <td>phi 3</td>
+                <td>phi 4</td>
+                <td>phi 5</td>
+                <td>phi 6</td>
+                <td>phi 7</td>
+                <td>phi 8</td>
+              </th>       
+              <tr>
+                <td>top_h</td>
+                <td id='phi_0_0'></td>
+                <td id='phi_0_1'></td>
+                <td id='phi_0_2'></td>
+                <td id='phi_0_3'></td>
+                <td id='phi_0_4'></td>
+                <td id='phi_0_5'></td>
+                <td id='phi_0_6'></td>
+                <td id='phi_0_7'></td>
+                <td id='phi_0_c'></td>
+              </tr>
+              <tr>
+                <td>top_v</td>
+                <td id='phi_1_0'></td>
+                <td id='phi_1_1'></td>
+                <td id='phi_1_2'></td>
+                <td id='phi_1_3'></td>
+                <td id='phi_1_4'></td>
+                <td id='phi_1_5'></td>
+                <td id='phi_1_6'></td>
+                <td id='phi_1_7'></td>
+                <td id='phi_1_c'></td>
 
-             </tr>
-             <tr>
-               <td>surf 3</td>
-               <td id='wv_2_0'></td>
-               <td id='wv_2_1'></td>
-               <td id='wv_2_2'></td>
-               <td id='wv_2_3'></td>
-               <td id='wv_2_4'></td>
-               <td id='wv_2_5'></td>
-               <td id='wv_2_6'></td>
-               <td id='wv_2_7'></td>
-               <td id='wv_2_8'></td>
+              </tr>
+              <tr>
+                <td>middle_h</td>
+                <td id='phi_2_0'></td>
+                <td id='phi_2_1'></td>
+                <td id='phi_2_2'></td>
+                <td id='phi_2_3'></td>
+                <td id='phi_2_4'></td>
+                <td id='phi_2_5'></td>
+                <td id='phi_2_6'></td>
+                <td id='phi_2_7'></td>
+                <td id='phi_2_c'></td>
 
-             </tr>
-             <tr>
-               <td>surf 4</td>
-               <td id='wv_3_0'></td>
-               <td id='wv_3_1'></td>
-               <td id='wv_3_2'></td>
-               <td id='wv_3_3'></td>
-               <td id='wv_3_4'></td>
-               <td id='wv_3_5'></td>
-               <td id='wv_3_6'></td>
-               <td id='wv_3_7'></td>
-               <td id='wv_3_8'></td>
+              </tr>
+              <tr>
+                <td>middle_v</td>
+                <td id='phi_3_0'></td>
+                <td id='phi_3_1'></td>
+                <td id='phi_3_2'></td>
+                <td id='phi_3_3'></td>
+                <td id='phi_3_4'></td>
+                <td id='phi_3_5'></td>
+                <td id='phi_3_6'></td>
+                <td id='phi_3_7'></td>
+                <td id='phi_3_c'></td>
 
-             </tr>
-             <tr>
-               <td>surf 5</td>
-               <td id='wv_4_0'></td>
-               <td id='wv_4_1'></td>
-               <td id='wv_4_2'></td>
-               <td id='wv_4_3'></td>
-               <td id='wv_4_4'></td>
-               <td id='wv_4_5'></td>
-               <td id='wv_4_6'></td>
-               <td id='wv_4_7'></td>
-               <td id='wv_4_8'></td>
+              </tr>
+              <tr>
+                <td>bottom_h</td>
+                <td id='phi_4_0'></td>
+                <td id='phi_4_1'></td>
+                <td id='phi_4_2'></td>
+                <td id='phi_4_3'></td>
+                <td id='phi_4_4'></td>
+                <td id='phi_4_5'></td>
+                <td id='phi_4_6'></td>
+                <td id='phi_4_7'></td>
+                <td id='phi_4_c'></td>
 
-             </tr>
-             <tr>
-               <td>surf 6</td>
-               <td id='wv_5_0'></td>
-               <td id='wv_5_1'></td>
-               <td id='wv_5_2'></td>
-               <td id='wv_5_3'></td>
-               <td id='wv_5_4'></td>
-               <td id='wv_5_5'></td>
-               <td id='wv_5_6'></td>
-               <td id='wv_5_7'></td>
-               <td id='wv_5_8'></td>
+              </tr>
+              <tr>
+                <td>bottom_v</td>
+                <td id='phi_5_0'></td>
+                <td id='phi_5_1'></td>
+                <td id='phi_5_2'></td>
+                <td id='phi_5_3'></td>
+                <td id='phi_5_4'></td>
+                <td id='phi_5_5'></td>
+                <td id='phi_5_6'></td>
+                <td id='phi_5_7'></td>
+                <td id='phi_5_c'></td>
+              </tr>
+              <tr>
+                <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+              </tr>
+              <tr>
+                <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+              </tr>
+              <tr>
+                <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+              </tr>
 
-             </tr>
-             <tr>
-               <td>surf 7</td>
-               <td id='wv_6_0'></td>
-               <td id='wv_6_1'></td>
-               <td id='wv_6_2'></td>
-               <td id='wv_6_3'></td>
-               <td id='wv_6_4'></td>
-               <td id='wv_6_5'></td>
-               <td id='wv_6_6'></td>
-               <td id='wv_6_7'></td>
-               <td id='wv_6_8'></td>
+              <th>
+                <td>phi 9</td>
+                <td>phi 10</td>
+                <td>phi 11</td>
+                <td>phi 12</td>
+                <td>phi 13</td>
+                <td>phi 14</td>
+                <td>phi 15</td>
+                <td>phi 16</td>
+              </th> 
 
-             </tr>
-             <tr>
-               <td>surf 8</td>
-               <td id='wv_7_0'></td>
-               <td id='wv_7_1'></td>
-               <td id='wv_7_2'></td>
-               <td id='wv_7_3'></td>
-               <td id='wv_7_4'></td>
-               <td id='wv_7_5'></td>
-               <td id='wv_7_6'></td>
-               <td id='wv_7_7'></td>
-               <td id='wv_7_8'></td>
+              <tr>
+                <td>top_h</td>
+                <td id='phi_0_8'></td>
+                <td id='phi_0_9'></td>
+                <td id='phi_0_10'></td>
+                <td id='phi_0_11'></td>
+                <td id='phi_0_12'></td>
+                <td id='phi_0_13'></td>
+                <td id='phi_0_14'></td>
+                <td id='phi_0_15'></td>
+                <td id='phi_0_16'></td>
 
-             </tr>
-             <tr>
-               <td>surf 9</td>
-               <td id='wv_8_0'></td>
-               <td id='wv_8_1'></td>
-               <td id='wv_8_2'></td>
-               <td id='wv_8_3'></td>
-               <td id='wv_8_4'></td>
-               <td id='wv_8_5'></td>
-               <td id='wv_8_6'></td>
-               <td id='wv_8_7'></td>
-               <td id='wv_8_8'></td>
+              </tr>
+              <tr>
+                <td>top_v</td>
+                <td id='phi_1_8'></td>
+                <td id='phi_1_9'></td>
+                <td id='phi_1_10'></td>
+                <td id='phi_1_11'></td>
+                <td id='phi_1_12'></td>
+                <td id='phi_1_13'></td>
+                <td id='phi_1_14'></td>
+                <td id='phi_1_15'></td>
+                <td id='phi_1_16'></td>
 
-             </tr>
-             <tr>
-               <td>surf 10</td>
-               <td id='wv_9_0'></td>
-               <td id='wv_9_1'></td>
-               <td id='wv_9_2'></td>
-               <td id='wv_9_3'></td>
-               <td id='wv_9_4'></td>
-               <td id='wv_9_5'></td>
-               <td id='wv_9_6'></td>
-               <td id='wv_9_7'></td>
-               <td id='wv_9_8'></td>
+              </tr>
+              <tr>
+                <td>middle_h</td>
+                <td id='phi_2_8'></td>
+                <td id='phi_2_9'></td>
+                <td id='phi_2_10'></td>
+                <td id='phi_2_11'></td>
+                <td id='phi_2_12'></td>
+                <td id='phi_2_13'></td>
+                <td id='phi_2_14'></td>
+                <td id='phi_2_15'></td>
+                <td id='phi_2_16'></td>
 
-             </tr>
-             <tr>
-               <td>surf 11</td>
-               <td id='wv_10_0'></td>
-               <td id='wv_10_1'></td>
-               <td id='wv_10_2'></td>
-               <td id='wv_10_3'></td>
-               <td id='wv_10_4'></td>
-               <td id='wv_10_5'></td>
-               <td id='wv_10_6'></td>
-               <td id='wv_10_7'></td>
-               <td id='wv_10_8'></td>		
-             </tr>
-             <tr>
-               <td>surf 12</td>
-               <td id='wv_11_0'></td>
-               <td id='wv_11_1'></td>
-               <td id='wv_11_2'></td>
-               <td id='wv_11_3'></td>
-               <td id='wv_11_4'></td>
-               <td id='wv_11_5'></td>
-               <td id='wv_11_6'></td>
-               <td id='wv_11_7'></td>
-               <td id='wv_11_8'></td>		
-             </tr>
-           </tbody>
-         </table>
-         <table data-sort="false" class="footable" id='phi' style="width:100% height:100%" data-page-size="17">
+              </tr>
+              <tr>
+                <td>middle_v</td>
+                <td id='phi_3_8'></td>
+                <td id='phi_3_9'></td>
+                <td id='phi_3_10'></td>
+                <td id='phi_3_11'></td>
+                <td id='phi_3_12'></td>
+                <td id='phi_3_13'></td>
+                <td id='phi_3_14'></td>
+                <td id='phi_3_15'></td>
+                <td id='phi_3_16'></td>
 
-          <tbody>
-            <th>
-              <td>phi 1</td>
-              <td>phi 2</td>
-              <td>phi 3</td>
-              <td>phi 4</td>
-              <td>phi 5</td>
-              <td>phi 6</td>
-              <td>phi 7</td>
-              <td>phi 8</td>
-              <td>clock</td>
-            </th>       
-            <tr>
-              <td>top_h</td>
-              <td id='phi_0_0'></td>
-              <td id='phi_0_1'></td>
-              <td id='phi_0_2'></td>
-              <td id='phi_0_3'></td>
-              <td id='phi_0_4'></td>
-              <td id='phi_0_5'></td>
-              <td id='phi_0_6'></td>
-              <td id='phi_0_7'></td>
-              <td id='phi_0_c'></td>
-            </tr>
-            <tr>
-              <td>top_v</td>
-              <td id='phi_1_0'></td>
-              <td id='phi_1_1'></td>
-              <td id='phi_1_2'></td>
-              <td id='phi_1_3'></td>
-              <td id='phi_1_4'></td>
-              <td id='phi_1_5'></td>
-              <td id='phi_1_6'></td>
-              <td id='phi_1_7'></td>
-              <td id='phi_1_c'></td>
-
-            </tr>
-            <tr>
-              <td>middle_h</td>
-              <td id='phi_2_0'></td>
-              <td id='phi_2_1'></td>
-              <td id='phi_2_2'></td>
-              <td id='phi_2_3'></td>
-              <td id='phi_2_4'></td>
-              <td id='phi_2_5'></td>
-              <td id='phi_2_6'></td>
-              <td id='phi_2_7'></td>
-              <td id='phi_2_c'></td>
-
-            </tr>
-            <tr>
-              <td>middle_v</td>
-              <td id='phi_3_0'></td>
-              <td id='phi_3_1'></td>
-              <td id='phi_3_2'></td>
-              <td id='phi_3_3'></td>
-              <td id='phi_3_4'></td>
-              <td id='phi_3_5'></td>
-              <td id='phi_3_6'></td>
-              <td id='phi_3_7'></td>
-              <td id='phi_3_c'></td>
-
-            </tr>
-            <tr>
-              <td>bottom_h</td>
-              <td id='phi_4_0'></td>
-              <td id='phi_4_1'></td>
-              <td id='phi_4_2'></td>
-              <td id='phi_4_3'></td>
-              <td id='phi_4_4'></td>
-              <td id='phi_4_5'></td>
-              <td id='phi_4_6'></td>
-              <td id='phi_4_7'></td>
-              <td id='phi_4_c'></td>
-
-            </tr>
-            <tr>
-              <td>bottom_v</td>
-              <td id='phi_5_0'></td>
-              <td id='phi_5_1'></td>
-              <td id='phi_5_2'></td>
-              <td id='phi_5_3'></td>
-              <td id='phi_5_4'></td>
-              <td id='phi_5_5'></td>
-              <td id='phi_5_6'></td>
-              <td id='phi_5_7'></td>
-              <td id='phi_5_c'></td>
-            </tr>
-            <tr>
-              <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
-            </tr>
-            <tr>
-              <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
-            </tr>
-            <tr>
-              <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
-            </tr>
-
-            <th>
-              <td>phi 9</td>
-              <td>phi 10</td>
-              <td>phi 11</td>
-              <td>phi 12</td>
-              <td>phi 13</td>
-              <td>phi 14</td>
-              <td>phi 15</td>
-              <td>phi 16</td>
-              <td>clock</td>
-            </th> 
-
-            <tr>
-              <td>top_h</td>
-              <td id='phi_0_8'></td>
-              <td id='phi_0_9'></td>
-              <td id='phi_0_10'></td>
-              <td id='phi_0_11'></td>
-              <td id='phi_0_12'></td>
-              <td id='phi_0_13'></td>
-              <td id='phi_0_14'></td>
-              <td id='phi_0_15'></td>
-              <td id='phi_0_16'></td>
-
-            </tr>
-            <tr>
-              <td>top_v</td>
-              <td id='phi_1_8'></td>
-              <td id='phi_1_9'></td>
-              <td id='phi_1_10'></td>
-              <td id='phi_1_11'></td>
-              <td id='phi_1_12'></td>
-              <td id='phi_1_13'></td>
-              <td id='phi_1_14'></td>
-              <td id='phi_1_15'></td>
-              <td id='phi_1_16'></td>
-
-            </tr>
-            <tr>
-              <td>middle_h</td>
-              <td id='phi_2_8'></td>
-              <td id='phi_2_9'></td>
-              <td id='phi_2_10'></td>
-              <td id='phi_2_11'></td>
-              <td id='phi_2_12'></td>
-              <td id='phi_2_13'></td>
-              <td id='phi_2_14'></td>
-              <td id='phi_2_15'></td>
-              <td id='phi_2_16'></td>
-
-            </tr>
-            <tr>
-              <td>middle_v</td>
-              <td id='phi_3_8'></td>
-              <td id='phi_3_9'></td>
-              <td id='phi_3_10'></td>
-              <td id='phi_3_11'></td>
-              <td id='phi_3_12'></td>
-              <td id='phi_3_13'></td>
-              <td id='phi_3_14'></td>
-              <td id='phi_3_15'></td>
-              <td id='phi_3_16'></td>
-
-            </tr>
-            <tr>
-              <td>bottom_h</td>
-              <td id='phi_4_8'></td>
-              <td id='phi_4_9'></td>
-              <td id='phi_4_10'></td>
-              <td id='phi_4_11'></td>
-              <td id='phi_4_12'></td>
-              <td id='phi_4_13'></td>
-              <td id='phi_4_14'></td>
-              <td id='phi_4_15'></td>
-              <td id='phi_4_16'></td>    
-            </tr>
-            <tr>
-              <td>bottom_v</td>
-              <td id='phi_5_8'></td>
-              <td id='phi_5_9'></td>
-              <td id='phi_5_10'></td>
-              <td id='phi_5_11'></td>
-              <td id='phi_5_12'></td>
-              <td id='phi_5_13'></td>
-              <td id='phi_5_14'></td>
-              <td id='phi_5_15'></td>
-              <td id='phi_5_16'></td>    
-            </tr>
-          </tbody>
-        </table>
+              </tr>
+              <tr>
+                <td>bottom_h</td>
+                <td id='phi_4_8'></td>
+                <td id='phi_4_9'></td>
+                <td id='phi_4_10'></td>
+                <td id='phi_4_11'></td>
+                <td id='phi_4_12'></td>
+                <td id='phi_4_13'></td>
+                <td id='phi_4_14'></td>
+                <td id='phi_4_15'></td>
+                <td id='phi_4_16'></td>    
+              </tr>
+              <tr>
+                <td>bottom_v</td>
+                <td id='phi_5_8'></td>
+                <td id='phi_5_9'></td>
+                <td id='phi_5_10'></td>
+                <td id='phi_5_11'></td>
+                <td id='phi_5_12'></td>
+                <td id='phi_5_13'></td>
+                <td id='phi_5_14'></td>
+                <td id='phi_5_15'></td>
+                <td id='phi_5_16'></td>    
+              </tr>
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   </div>
-</div>
 </div>
 
 
@@ -587,9 +599,9 @@ function timeConverter(UNIX_timestamp){
   return time;
 }
 function displayData(datatype, name, waveform){
-    waveform['cal'] = waveform['cal'].map(function(x){
-        return x/100;
-    });
+  waveform['cal'] = waveform['cal'].map(function(x){
+    return x/100;
+  });
   if (datatype=='mV'){
     $(name).attr('values', waveform['cal']).sparkline('html', {
       type: 'line',
@@ -791,11 +803,11 @@ function updatehtml(hd){
             displayDataNone(phi_v_name);
           };
 
-  }
-  resizeWindow();
-}
+        }
+        resizeWindow();
+      }
 
-if (datatype == 'Power' && dataview == 'Phi') {               
+      if (datatype == 'Power' && dataview == 'Phi') {               
     //console.log(datatype);      
     for (var arrpos = 0; arrpos < 48; arrpos++) {
       if (arrpos >= 0 && arrpos <= 15){
@@ -822,17 +834,17 @@ if (datatype == 'Power' && dataview == 'Phi') {
       var h_waveform=data[h_id.toString()];
       var v_waveform=data[v_id.toString()];
       if (h_waveform != undefined) {
-            displayData('Power', phi_h_name, h_waveform);            
-          }
-          else {
-            displayDataNone(phi_h_name);
-          };
-          if (v_waveform != undefined) {
-            displayData('Power', phi_v_name, v_waveform);            
-          }
-          else {
-            displayDataNone(phi_v_name);
-          };
+        displayData('Power', phi_h_name, h_waveform);            
+      }
+      else {
+        displayDataNone(phi_h_name);
+      };
+      if (v_waveform != undefined) {
+        displayData('Power', phi_v_name, v_waveform);            
+      }
+      else {
+        displayDataNone(phi_v_name);
+      };
     }
     resizeWindow();
   }      
@@ -857,11 +869,11 @@ $('#hd #calib').html(data.hd.calib);
 
 
 $(document).ready(function () {
-    $('#navbar_aview').parent().addClass("active");
+  $('#navbar_aview').parent().addClass("active");
 
-    $(window).on('resize', resizeWindow);
-    $('.footable').footable();
-    
+  $(window).on('resize', resizeWindow);
+  $('.footable').footable();
+
   document.getElementById("phi").style.display="none";
 
   var hd_nbufs=[];
@@ -871,47 +883,53 @@ $(document).ready(function () {
   var connected= false;
 	var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
 	
-    $('.wv_range').change(function(){
-        updatehtml(hd_nbufs[i]);
-    });
-   
-
-$('#icheckForm').iCheck({
-  checkboxClass: 'icheckbox_square-green',
-  radioClass: 'iradio_square-green',
-});
-$('input[value=mV]').iCheck('check');
+  $('.wv_range').change(function(){
+    updatehtml(hd_nbufs[i]);
+  });
 
 
+  $('#icheckForm').iCheck({
+    checkboxClass: 'icheckbox_square-green',
+    radioClass: 'iradio_square-green',
+  });
+  $('input[value=mV]').iCheck('check');
 
-function autoload(start_time){
-	$.getJSON('/api/' + ip_db + '/hd/nbufs/' + start_time, function(data){
-		new_length=data.hd_nbufs.length
-		hd_nbufs=hd_nbufs.concat(data.hd_nbufs);
-		hd_evnums=hd_evnums.concat(data.hd_evnums);
-		hd_times=hd_times.concat(data.hd_times);
-		start_time=Math.max.apply(null, hd_times);
-		$('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
-		$('#connect').html('Disconnect');
-		$('.chosen-select').attr("disabled", true).trigger("chosen:updated");
-		connected = true;
-		$('#connect').value = 'Disconnect'
-		connect.ladda('stop');
-		console.log(start_time);
-		console.log(hd_nbufs.length);
-	}).done(function(){
-		setTimeout(function(){
-			if (new_length){
-				sleep_interval = 2000;
-			}else{
-				sleep_interval = Math.min(sleep_interval * 1.2, 60000);
-			}
-			if (connected == true){
-				autoload(start_time);
-			}
-		}, sleep_interval);
+  $('#icheckForm2').iCheck({
+    checkboxClass: 'icheckbox_square-green',
+    radioClass: 'iradio_square-green',
+  });
+  $('input[value=Surf]').iCheck('check');
 
-	});
+
+
+  function autoload(start_time){
+   $.getJSON('/api/' + ip_db + '/hd/nbufs/' + start_time, function(data){
+    new_length=data.hd_nbufs.length
+    hd_nbufs=hd_nbufs.concat(data.hd_nbufs);
+    hd_evnums=hd_evnums.concat(data.hd_evnums);
+    hd_times=hd_times.concat(data.hd_times);
+    start_time=Math.max.apply(null, hd_times);
+    $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
+    $('#connect').html('Disconnect');
+    $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
+    connected = true;
+    $('#connect').value = 'Disconnect'
+    connect.ladda('stop');
+    console.log(start_time);
+    console.log(hd_nbufs.length);
+  }).done(function(){
+    setTimeout(function(){
+     if (new_length){
+      sleep_interval = 2000;
+    }else{
+      sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+    }
+    if (connected == true){
+      autoload(start_time);
+    }
+  }, sleep_interval);
+
+  });
 }
 
 
@@ -948,24 +966,21 @@ $('#connect').click(function() {
 
 	});
 $('input').on('ifChecked', function(event){
-  datatype = $(this).attr('value');
+  if ($(this).attr('value')=='mV'|| $(this).attr('value')=='FFT'|| $(this).attr('value')=='Power'){
+    datatype = $(this).attr('value');
+  }
+  else if ($(this).attr('value')=='Surf'|| $(this).attr('value')=='Phi'){
+    dataview = $(this).attr('value');
+    if (dataview == 'Surf'){
+      document.getElementById("wv").style.display="table";
+      document.getElementById("phi").style.display="none";
+    }
+    else if (dataview == 'Phi'){
+      document.getElementById("phi").style.display="table";
+      document.getElementById("wv").style.display="none";
+    }
+  }
   updatehtml(hd_nbufs[i]);
-});
-
-$('#surfv').click(function(){
-	dataview = 'Surf';
-  document.getElementById("wv").style.display="table";
-  document.getElementById("phi").style.display="none";
-  updatehtml(hd_nbufs[i]);
-  sleep_interval = 2000;
-});
-$('#phiv').click(function(){
-	dataview = 'Phi';
-  document.getElementById("phi").style.display="table";
-  document.getElementById("wv").style.display="none";
-  updatehtml(hd_nbufs[i]);
-	//updatehtml(hd_nbufs[i]);
-	sleep_interval = 2000;
 });
 
 $('#next').click( function(){
