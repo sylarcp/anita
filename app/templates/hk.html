@@ -5,6 +5,7 @@
 {% endblock %}
 {% block page_content %}
 <div class="wrapper wrapper-content">
+   
 
     <div class="row">
         <div class="col-lg-6">
@@ -31,8 +32,8 @@
                        </tr>
                        <tr>
                         <td data-hide="xs">+1.5V</td>
-                        <td id='p1_5v'></td>
-                        <td id='p1_5i'></td> 
+                        <td magicbox-creator id='p1_5v'></td>
+                        <td magicbox-creator id='p1_5i'></td> 
                     </tr>
                     <tr>
                         <td>+3.3V</td>
@@ -571,7 +572,7 @@
                 <h3 class="modal-title">Modal title</h3>
             </div>
             <div class="modal-body">
-                <div id = 'chart1'></div>
+                <!-- <div id = 'chart1'></div> -->
                 <div class="form-group"><label>Reference UTC</label> <input id="reference_time" placeholder="Enter your end time" class="form-control"></div>
                 <div class="form-group"><label>Length(s)</label> <input id="length" value="100" placeholder="Enter the number of seconds" class="form-control"></div>
             </div>
@@ -581,6 +582,13 @@
             </div>
         </div>
     </div>
+</div>
+
+<div id="dialog">
+<!-- <div id="dialog" class = 'hide'> -->
+    <div class="form-group"><label>Reference UTC</label> <input id="reference_time" placeholder="Enter your end time" class="form-control"></div>
+    <div class="form-group"><label>Length(s)</label> <input id="length" value="100" placeholder="Enter the number of seconds" class="form-control"></div>
+    <button id="request" type="button" class="btn btn-primary">Request</button>
 </div>
 </div>
 </div>
@@ -1119,44 +1127,137 @@ function updatehtml_adu5_sat(adu5_sat){
 }
 
 $(document).ready(function () {
+    // $( "#dialog" ).dialog();
     $('#navbar_hk').parent().addClass("active");
-    // $( "td[id]" ).click(function() {
-    //     var column_name = $(this).attr('id');
-    //     var table_name = $(this).closest('.ibox').attr('id');
-    //     var name = table_name + '_' + column_name;
-        
-    //     console.log($(this).attr('id'));
-    //     console.log($(this).closest('.ibox').attr('id'));
-        
-    //     var $newModal = $('#myModal').clone();
-    //     $newModal.modal({
-    //         backdrop: false
-    //     }).draggable();
-    //     $newModal.find('.modal-content').resizable();
-    //     $newModal.attr('name', name);
-    //     $newModal.find('input[id="reference_time"]').val(hk_times[i])
-    //     $newModal.on('shown', function (e) {
-    //         console.log('hi');
-    //     });
 
-    //     $newModal.find('button[id="request"]').click(function(){
-    //         var end_time =  $newModal.find('input[id="reference_time"]').val();
-    //         var length = $newModal.find('input[id="length"]').val();
-    //         console.log(end_time);
-    //         console.log(end_time - length);
-    //         $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time,  function(data){
-    //             console.log(data);
-    //             console.log("here");
+    $( "td[id]" ).click(function() {
+        var column_name = $(this).attr('id');
+        var table_name = $(this).closest('.ibox').attr('id');
+        var name = table_name + '_' + column_name;
+        
+        console.log($(this).attr('id'));
+        console.log($(this).closest('.ibox').attr('id'));
 
-    //             $.jqplot.config.enablePlugins = true;
-    //             var line1=[['2008-09-30', 4], ['2008-10-30', 6.5], ['2008-11-30', 5.7], ['2008-12-30', 9], 
-    //             ['2009-01-30', 8.2], ['2009-02-28', 7.6], ['2009-03-30', 11.4], ['2009-04-30', 16.2], 
-    //             ['2009-05-30', 21.8], ['2009-06-30', 19.3], ['2009-07-30', 29.7], ['2009-08-30', 36.7], 
-    //             ['2009-09-30', 38.7], ['2009-10-30', 33.7], ['2009-11-30', 49.7], ['2009-12-30', 62.7]];
-    //             $('#myModal[name="hk_p5i"]').find('chart1').text("hhihihih");                
-    //         });
-    //     });
-    // });
+        var $newDialog = $('#dialog').clone();
+        $newDialog.removeClass('hide');
+        $newDialog.attr('title', name);
+        $newDialog.prepend('<div id="'+ "plot_" +name+'"></div>');
+        $newDialog.find('input[id="reference_time"]').val(hk_times[i]);
+         // var line1=[['2008-09-30', 4], ['2008-10-30', 6.5], ['2008-11-30', 5.7], ['2008-12-30', 9], 
+         //        ['2009-01-30', 8.2], ['2009-02-28', 7.6], ['2009-03-30', 11.4], ['2009-04-30', 16.2], 
+         //        ['2009-05-30', 21.8], ['2009-06-30', 19.3], ['2009-07-30', 29.7], ['2009-08-30', 36.7], 
+         //        ['2009-09-30', 38.7], ['2009-10-30', 33.7], ['2009-11-30', 49.7], ['2009-12-30', 62.7]];
+         //        var plot1 = $.jqplot('chart1', [line1], {
+         //            title:'Rotated Axis Text',
+         //            axes:{
+         //                xaxis:{
+         //                    renderer:$.jqplot.DateAxisRenderer, 
+         //                    rendererOptions:{
+         //                        tickRenderer:$.jqplot.CanvasAxisTickRenderer
+         //                    },
+         //                    tickOptions:{ 
+         //                        fontSize:'10pt', 
+         //                        fontFamily:'Tahoma', 
+         //                        angle:-40
+         //                    }
+         //                },
+         //                yaxis:{
+         //                    rendererOptions:{
+         //                        tickRenderer:$.jqplot.CanvasAxisTickRenderer},
+         //                        tickOptions:{
+         //                            fontSize:'10pt', 
+         //                            fontFamily:'Tahoma', 
+         //                            angle:30
+         //                        }
+         //                }
+         //            },
+         //            series:[{ lineWidth:4, markerOptions:{ style:'square' } }],
+         //            cursor:{
+         //                zoom:true,
+         //                looseZoom: true
+         //            }
+         //        });
+        console.log($('#' + 'plot_'+ name));
+        $('#' + 'plot_'+ name).jqplot([[3,7,9,1,5,3,8,2,5]]);      
+        $newDialog.dialog();
+
+        $newDialog.find('button[id="request"]').click(function(){
+            var end_time =  $newDialog.find('input[id="reference_time"]').val();
+            var length = $newDialog.find('input[id="length"]').val();
+            console.log(end_time);
+            console.log(end_time - length);
+            $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time,  function(data){
+                console.log(data);
+                console.log("here");
+
+                $.jqplot.config.enablePlugins = true;
+                var line1=[['2008-09-30', 4], ['2008-10-30', 6.5], ['2008-11-30', 5.7], ['2008-12-30', 9], 
+                ['2009-01-30', 8.2], ['2009-02-28', 7.6], ['2009-03-30', 11.4], ['2009-04-30', 16.2], 
+                ['2009-05-30', 21.8], ['2009-06-30', 19.3], ['2009-07-30', 29.7], ['2009-08-30', 36.7], 
+                ['2009-09-30', 38.7], ['2009-10-30', 33.7], ['2009-11-30', 49.7], ['2009-12-30', 62.7]];
+                var plot1 = $.jqplot('chart1', [line1], {
+                    title:'Rotated Axis Text',
+                    axes:{
+                        xaxis:{
+                            renderer:$.jqplot.DateAxisRenderer, 
+                            rendererOptions:{
+                                tickRenderer:$.jqplot.CanvasAxisTickRenderer
+                            },
+                            tickOptions:{ 
+                                fontSize:'10pt', 
+                                fontFamily:'Tahoma', 
+                                angle:-40
+                            }
+                        },
+                        yaxis:{
+                            rendererOptions:{
+                                tickRenderer:$.jqplot.CanvasAxisTickRenderer},
+                                tickOptions:{
+                                    fontSize:'10pt', 
+                                    fontFamily:'Tahoma', 
+                                    angle:30
+                                }
+                        }
+                    },
+                    series:[{ lineWidth:4, markerOptions:{ style:'square' } }],
+                    cursor:{
+                        zoom:true,
+                        looseZoom: true
+                    }
+                });      
+            });
+        });
+
+        
+        // var $newModal = $('#myModal').clone();
+        // $newModal.modal({
+        //     backdrop: false
+        // }).draggable();
+        // $newModal.find('.modal-content').resizable();
+        // $newModal.attr('name', name);
+        // $newModal.find('input[id="reference_time"]').val(hk_times[i])
+        // $newModal.on('shown', function (e) {
+        //     console.log('hi');
+        // });
+
+        // $newModal.find('button[id="request"]').click(function(){
+        //     var end_time =  $newModal.find('input[id="reference_time"]').val();
+        //     var length = $newModal.find('input[id="length"]').val();
+        //     console.log(end_time);
+        //     console.log(end_time - length);
+        //     $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time,  function(data){
+        //         console.log(data);
+        //         console.log("here");
+
+        //         $.jqplot.config.enablePlugins = true;
+        //         var line1=[['2008-09-30', 4], ['2008-10-30', 6.5], ['2008-11-30', 5.7], ['2008-12-30', 9], 
+        //         ['2009-01-30', 8.2], ['2009-02-28', 7.6], ['2009-03-30', 11.4], ['2009-04-30', 16.2], 
+        //         ['2009-05-30', 21.8], ['2009-06-30', 19.3], ['2009-07-30', 29.7], ['2009-08-30', 36.7], 
+        //         ['2009-09-30', 38.7], ['2009-10-30', 33.7], ['2009-11-30', 49.7], ['2009-12-30', 62.7]];
+        //         $('#myModal[name="hk_p5i"]').find('chart1').text("hhihihih");                
+        //     });
+        // });
+    });
     
     $('.footable').footable();
 
