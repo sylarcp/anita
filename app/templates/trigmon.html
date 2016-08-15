@@ -590,18 +590,18 @@
 										<tbody>
 											<tr>
 												<td></td>
-												<td id='scaler_0_0'></td>
-												<td id='scaler_0_1'></td>
-												<td id='scaler_0_2'></td>
-												<td id='scaler_0_3'></td>
-												<td id='scaler_0_4'></td>
-												<td id='scaler_0_5'></td>
-												<td id='scaler_0_6'></td>
-												<td id='scaler_0_7'></td>
-												<td id='scaler_0_8'></td>
-												<td id='scaler_0_9'></td>
-												<td id='scaler_0_10'></td>
-												<td id='scaler_0_11'></td>
+												<td id='scaler_0_0' class='scaler'></td>
+												<td id='scaler_0_1' class='scaler'></td>
+												<td id='scaler_0_2' class='scaler'></td>
+												<td id='scaler_0_3' class='scaler'></td>
+												<td id='scaler_0_4' class='scaler'></td>
+												<td id='scaler_0_5' class='scaler'></td>
+												<td id='scaler_0_6' class='scaler'></td>
+												<td id='scaler_0_7' class='scaler'></td>
+												<td id='scaler_0_8' class='scaler'></td>
+												<td id='scaler_0_9' class='scaler'></td>
+												<td id='scaler_0_10' class='scaler'></td>
+												<td id='scaler_0_11' class='scaler'></td>
 											</tr>
 											<th>
 												<td>nu 01</td>
@@ -1537,6 +1537,7 @@
 
     $(document).ready(function () {
     	$('#navbar_trig').parent().addClass("active");
+    	
     	$( "td[id]" ).click(function() {
     		var column_name = $(this).attr('id');
     		var table_name = $(this).closest('.ibox').attr('id');
@@ -1729,6 +1730,16 @@
         		swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
         	}
 
+        });
+
+        $(".nav-tabs a[href='#tab-1']").on('shown.bs.tab', function () {
+            updatehtml_hk_surf(hk_surf_nbufs[j]);
+        });
+        $(".nav-tabs a[href='#tab-2']").on('shown.bs.tab', function () {
+            updatehtml_hk_surf(hk_surf_nbufs[j]);
+        });
+        $(".nav-tabs a[href='#tab-3']").on('shown.bs.tab', function () {
+            updatehtml_hk_surf(hk_surf_nbufs[j]);
         });
     });
 
