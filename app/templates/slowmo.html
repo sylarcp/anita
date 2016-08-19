@@ -740,9 +740,6 @@ $(document).ready(function () {
 	        }).done(function(response) {
 	        	if (response == 'success'){
 	        		autoload(0);
-	        		setTimeout(function(){
-	        			$('#first').click();
-	        		},1000);
 	        	}else{
 	        		connect.ladda( 'stop' );
 	        		swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
