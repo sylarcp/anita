@@ -563,33 +563,13 @@
         </div>
     </div>
 </div>
-<!-- <div id = 'chart1'></div> -->
-<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content animated bounceInRight">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h3 class="modal-title">Modal title</h3>
-            </div>
-            <div class="modal-body">
-                <!-- <div id = 'chart1'></div> -->
-                <div class="form-group"><label>Reference UTC</label> <input id="reference_time" placeholder="Enter your end time" class="form-control"></div>
-                <div class="form-group"><label>Length(s)</label> <input id="length" value="100" placeholder="Enter the number of seconds" class="form-control"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                <button id="request" type="button" class="btn btn-primary">Request</button>
-            </div>
-        </div>
-    </div>
-</div>
 
 <!-- <div id="dialog"> -->
 <div id="dialog" class = 'hide'>
     <div id = 'chart1'></div>
 </br>
     <div class="form-group"><label>Reference UTC</label> <input id="reference_time" placeholder="Enter your end time" class="form-control"></div>
-    <div class="form-group"><label>Length(s)</label> <input id="length" value="100" placeholder="Enter the number of seconds" class="form-control"></div>
+    <div class="form-group"><label>Length(s)</label> <input id="length" value="1000" placeholder="Enter the number of seconds" class="form-control"></div>
     <button id="request" type="button" class="btn btn-primary">Request</button>
 </div>
 </div>
@@ -1129,14 +1109,6 @@ function updatehtml_adu5_sat(adu5_sat){
 }
 
 $(document).ready(function () {
-    // var plot1 = $.jqplot('chart1', [[3,4,9,1,5,6,7]]);
-    // var plot1 = $( "#dialog #chart1" ).jqplot([[3,7,9,1,5,3,8,2,5]]);  
-    // $( "#dialog" ).dialog({
-    //     resize: function(event, ui) { 
-    //         console.log(plot1);
-    //         plot1.replot( { resetAxes: true } ); 
-    //     }
-    // });
     $('#navbar_hk').parent().addClass("active");
 
     $( "td[id]" ).click(function() {
@@ -1146,67 +1118,83 @@ $(document).ready(function () {
         
         console.log($(this).attr('id'));
         console.log($(this).closest('.ibox').attr('id'));
+        if ($( "#dialog_"+name ).length ){
+            $( "#dialog_"+name ).dialog('open');
+            $( "#dialog_"+name ).find('input[id="reference_time"]').val(hk_times[i]);
+        }else{
+            var $newDialog = $('#dialog').clone();
+            $newDialog.attr('id', 'dialog_'+name);
+            $newDialog.removeClass('hide');
+            $newDialog.attr('title', name);
+            $newDialog.prepend('<div id="'+ "plot_" +name+'"></div>');
+            $newDialog.find('input[id="reference_time"]').val(hk_times[i]);
+            $newDialog.dialog();
+            var line1=[['2008-09-30', 14], ['2008-10-30', 6.5], ['2008-11-30', 5.7], ['2008-12-30', 9], 
+                    ['2009-01-30', 8.2], ['2009-02-28', 7.6], ['2009-03-30', 11.4], ['2009-04-30', 16.2], 
+                    ['2009-05-30', 21.8], ['2009-06-30', 19.3], ['2009-07-30', 29.7], ['2009-08-30', 36.7], 
+                    ['2009-09-30', 38.7], ['2009-10-30', 33.7], ['2009-11-30', 49.7], ['2009-12-30', 62.7]];
+            var plot1 = $.jqplot('plot_'+name , [line1], {
+                height: 200,
+                width: 600,
+                axes:{
+                    xaxis:{
+                        renderer:$.jqplot.DateAxisRenderer, 
+                        rendererOptions:{
+                            tickRenderer:$.jqplot.CanvasAxisTickRenderer
+                        },
+                        tickOptions:{ 
+                            // formatString: '%M:%S%#N ',
+                            fontSize:'10pt', 
+                            fontFamily:'Tahoma', 
+                        }
+                    },
+                    yaxis:{
+                        rendererOptions:{
+                            tickRenderer:$.jqplot.CanvasAxisTickRenderer},
+                            tickOptions:{
+                                fontSize:'10pt', 
+                                fontFamily:'Tahoma', 
+                            }
+                    }
+                },
+                series:[{ lineWidth:2}],
+                cursor:{
+                    zoom:true, 
+                    looseZoom: true, 
+                    showTooltip:true, 
+                    followMouse: true, 
+                    showTooltipOutsideZoom: true, 
+                    constrainOutsideZoom: false
+                }
+            });
+            $newDialog.dialog({
+                resize: function(event, ui) { 
+                    plot1.replot( { resetAxes: true } ); 
+                }
+            });
+        }
+        
 
-        var $newDialog = $('#dialog').clone();
-        $newDialog.removeClass('hide');
-        $newDialog.attr('title', name);
-        $newDialog.prepend('<div id="'+ "plot_" +name+'"></div>');
-        $newDialog.find('input[id="reference_time"]').val(hk_times[i]);
-        $newDialog.dialog();
-        var line1=[['2008-09-30', 14], ['2008-10-30', 6.5], ['2008-11-30', 5.7], ['2008-12-30', 9], 
-                ['2009-01-30', 8.2], ['2009-02-28', 7.6], ['2009-03-30', 11.4], ['2009-04-30', 16.2], 
-                ['2009-05-30', 21.8], ['2009-06-30', 19.3], ['2009-07-30', 29.7], ['2009-08-30', 36.7], 
-                ['2009-09-30', 38.7], ['2009-10-30', 33.7], ['2009-11-30', 49.7], ['2009-12-30', 62.7]];
-        var plot1 = $.jqplot('plot_'+name , [line1], {
-            // title:'Rotated Axis Text',
-            // axes:{
-            //     xaxis:{
-            //         renderer:$.jqplot.DateAxisRenderer, 
-            //         rendererOptions:{
-            //             tickRenderer:$.jqplot.CanvasAxisTickRenderer
-            //         },
-            //         tickOptions:{ 
-            //             fontSize:'10pt', 
-            //             fontFamily:'Tahoma', 
-            //             angle:-40
-            //         }
-            //     },
-            //     yaxis:{
-            //         rendererOptions:{
-            //             tickRenderer:$.jqplot.CanvasAxisTickRenderer},
-            //             tickOptions:{
-            //                 fontSize:'10pt', 
-            //                 fontFamily:'Tahoma', 
-            //                 angle:30
-            //             }
-            //     }
-            // },
-            series:[{ lineWidth:4, markerOptions:{ style:'square' } }],
-            cursor:{
-                zoom:true,
-                looseZoom: true
-            }
-        });
-        $newDialog.dialog({
-            resize: function(event, ui) { 
-                plot1.replot( { resetAxes: true } ); 
-            }
-        });
+        
 
-        $newDialog.find('button[id="request"]').click(function(){
+        $( "#dialog_"+name ).find('button[id="request"]').click(function(){
             console.log('click');
             var end_time =  $newDialog.find('input[id="reference_time"]').val();
             var length = $newDialog.find('input[id="length"]').val();
+            // var line1=[[1420166606, 0.718764], [1420166681, 0.720717], [1420166682, 0.718764], [1420166739, 0.718764], [1420166814, 0.720717], [1420166890, 0.724624], [1420166929, 0.72853], [1420166967, 0.73439], [1420167044, 0.740249], [1420167154, 0.716811], [1420167155, 0.687514], [1420167232, 0.689467], [1420167310, 0.689467], [1420167391, 0.701186], [1420167430, 0.746109]];
             console.log(end_time);
             console.log(end_time - length);
             $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time,  function(data){
                 console.log(data.data);
-
+                // plot1.replot({data:[line1]});
                 plot1.replot({data:[data.data]});
                 // plot1.replot({data:[[(2,3),(4,5),(8,7)]]});
 
             });
         });
+
+        $( "#dialog_"+name ).find('button[id="request"]').trigger( "click" );
+    });
               
         
 
@@ -1270,7 +1258,7 @@ $(document).ready(function () {
         // });
 
         
-    });
+    
     
     $('.footable').footable();
 
