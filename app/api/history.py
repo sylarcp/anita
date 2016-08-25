@@ -28,12 +28,12 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
             print column_name, column_id, table
             results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).order_by(table.time).all()
             print [[result.time, getattr(result, column_name)[column_id]] for result in results]
-            return jsonify({'data':[[10000*result.time ,getattr(result, column_name)[column_id]] for result in results]})
+            return jsonify({'data':[[1000*result.time ,getattr(result, column_name)[column_id]] for result in results]})
         else:
             results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).order_by(table.time).all()
         # print results
             print [[result.time, getattr(result, column_name)] for result in results]
-            return jsonify({'data':[[10000*result.time ,getattr(result, column_name)] for result in results]})
+            return jsonify({'data':[[1000*result.time ,getattr(result, column_name)] for result in results]})
     except BaseException as error:
         print('Invalid request: {}', format(error))
         return jsonify({})
