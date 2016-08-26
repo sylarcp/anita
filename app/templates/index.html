@@ -488,24 +488,6 @@
         </div>
     </div>
     <div id="dialog" class='hide'>
-        <div id='chart1'></div>
-        </br>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label>Reference UTC</label>
-                <input id="reference_time" placeholder="Enter your end time" class="form-control">
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="form-group">
-                <label>Length(s)</label>
-                <input id="length" value="10000" placeholder="Enter the number of seconds" class="form-control">
-            </div>
-        </div>
-        <div class="col-sm-3">
-            </br>
-            <button id="request" type="button" class="btn btn-primary">Request</button>
-        </div>
     </div>
 </div>
     {% endblock %} {% block scripts %} {{ super() }}
@@ -514,6 +496,7 @@
     <script src="{{ url_for('static', filename='anita/js/complex_array.js') }}"></script>
     <script src="{{ url_for('static', filename='anita/js/fft.js') }}"></script>
     <script>
+    var currentData=null;
     var datatype = 'mV';
     dataview = 'Surf';
     var surfMap = [
@@ -653,6 +636,7 @@
             $.getJSON('/api/' + ip_db + '/wv/' + data.hd.evnum, function(data) {
                 //console.log(data);
                 var wv_name;
+                currentData=data
                 if (datatype == 'mV' && dataview == 'Surf') {
                     //console.log(datatype);        
                     for (var surf = 0; surf < 12; surf++) {
@@ -849,39 +833,57 @@
 
         $.jqplot.config.enablePlugins = true;
         $("td[id]").click(function() {
-            var column_name = $(this).attr('id');
-            var table_name = $(this).closest('.ibox').attr('id');
-            var name = table_name + '_' + column_name;
-
-            console.log($(this).attr('id'));
-            console.log($(this).closest('.ibox').attr('id'));
+            var waveform_name = $(this).attr('id').split('_');
+            if(waveform_name[0]=='wv'){
+                surf=parseInt(waveform_name[1]);
+                chan=parseInt(waveform_name[2]);
+            }else{
+                row=parseInt(waveform_name[1]);
+                phi=parseInt(waveform_name[2]);
+                var antPos= phi + parseInt(row/2) * 16;
+                console.log(antPos);
+                if (row%2 == 0){
+                    surf = surfMap[antPos][0]-1;
+                    chan = surfMap[antPos][1]-1;
+                }else{
+                    surf = surfMap[antPos][2]-1;
+                    chan = surfMap[antPos][3]-1;
+                }
+            }
+            var name=surf + '_' + chan;
+            
+            var id = chan + 9 * surf;
+   
             if ($("#dialog_" + name).length) {
                 $("#dialog_" + name).dialog('open');
-                $("#dialog_" + name).find('input[id="reference_time"]').val(hk_times[i]);
             } else {
                 var $newDialog = $('#dialog').clone();
                 $newDialog.attr('id', 'dialog_' + name);
                 $newDialog.removeClass('hide');
-                $newDialog.attr('title', name);
+                chanPlusOne=chan+1;
+                surfPlusOne=surf+1;
+                $newDialog.attr('title', 'chan='+chanPlusOne+' surf='+surfPlusOne);
                 $newDialog.prepend('<div id="' + "plot_" + name + '"></div>');
-                $newDialog.find('input[id="reference_time"]').val(hk_times[i]);
                 $newDialog.dialog({
-                    width: 600,
-                    height: 500,
+                    width: 1000,
+                    height: 370,
                 });
-                var line1 = [
-                    ['2008-09-30', 14]
-                ];
+                var line1 = currentData[id.toString()]['cal'];
                 var plot1 = $.jqplot('plot_' + name, [line1], {
                     title: 'double click to reset the zoom',
+                    axesDefaults: {
+                        labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+                    },
                     axes: {
                         xaxis: {
-                            renderer: $.jqplot.DateAxisRenderer,
+                            min:0,
+                            max:262,
+                            // renderer: $.jqplot.DateAxisRenderer,
                             rendererOptions: {
                                 tickRenderer: $.jqplot.CanvasAxisTickRenderer
                             },
                             tickOptions: {
-                                // formatString: '%M:%S%#N ',
+                                formatString: '%d',
                                 fontSize: '10pt',
                                 fontFamily: 'Tahoma',
                             }
@@ -897,8 +899,15 @@
                         }
                     },
                     series: [{
-                        lineWidth: 2
+                        lineWidth: .5,
+                        markerOptions: { size: 2 }
                     }],
+                    seriesDefaults: {
+                        rendererOptions: {
+                            smooth: true
+                        }
+                    },
+
                     cursor: {
                         zoom: true,
                         looseZoom: true,
@@ -911,7 +920,7 @@
 
                 $newDialog.dialog({
                     resize: function(event, ui) {
-                        $("#plot_" + name).height(Math.max(100, $newDialog.height() - 120));
+                        $("#plot_" + name).height(Math.max(100, $newDialog.height()*0.95));
                         plot1.replot({
                             resetAxes: true,
                         });
