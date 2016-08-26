@@ -850,7 +850,7 @@
                     chan = surfMap[antPos][3]-1;
                 }
             }
-            var name=surf + '_' + chan;
+            var name=datatype+'_'+surf + '_' + chan;
             
             var id = chan + 9 * surf;
    
@@ -868,7 +868,25 @@
                     width: 1000,
                     height: 370,
                 });
-                var line1 = currentData[id.toString()]['cal'];
+                var waveform = currentData[id.toString()];
+                if (datatype == 'mV'){
+                    var line1=waveform.cal;
+                } else if (datatype == 'FFT') {
+                    var fftdata = new complex_array.ComplexArray(260);
+                    fftdata.map(function(value, i, n) {
+                        value.real = waveform.cal[i]
+                    });
+                    // Array.from(), translate Float32Array into Array.  To make it compatiable with firefox.
+                    var fft = Array.from(fftdata.FFT().magnitude().slice(1, 130));
+                    var line1=fft;
+                } else if (datatype == 'Power') {
+                    for (var i = 0; i < waveform.cal.length; i++) {
+                        waveform.cal[i] = Math.pow(waveform.cal[i], 2);
+                    }
+                    var line1=waveform.cal;
+                }
+                console.log(line1);
+                
                 var plot1 = $.jqplot('plot_' + name, [line1], {
                     title: 'double click to reset the zoom',
                     axesDefaults: {
@@ -876,8 +894,8 @@
                     },
                     axes: {
                         xaxis: {
-                            min:0,
-                            max:262,
+                            // min:0,
+                            // max:262,
                             // renderer: $.jqplot.DateAxisRenderer,
                             rendererOptions: {
                                 tickRenderer: $.jqplot.CanvasAxisTickRenderer
@@ -900,7 +918,10 @@
                     },
                     series: [{
                         lineWidth: .5,
-                        markerOptions: { size: 2 }
+                        markerOptions: {
+                            size: 3,
+                            color: 'blue' 
+                        }
                     }],
                     seriesDefaults: {
                         rendererOptions: {
@@ -928,21 +949,21 @@
                 });
             }
 
-            $("#dialog_" + name).find('button[id="request"]').click(function() {
-                console.log('click');
-                var end_time = $newDialog.find('input[id="reference_time"]').val();
-                var length = $newDialog.find('input[id="length"]').val();
-                console.log(end_time);
-                console.log(end_time - length);
-                $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
-                    console.log(data.data);
-                    plot1.replot({
-                        data: [data.data]
-                    });
-                });
-            });
+            // $("#dialog_" + name).find('button[id="request"]').click(function() {
+            //     console.log('click');
+            //     var end_time = $newDialog.find('input[id="reference_time"]').val();
+            //     var length = $newDialog.find('input[id="length"]').val();
+            //     console.log(end_time);
+            //     console.log(end_time - length);
+            //     $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
+            //         console.log(data.data);
+            //         plot1.replot({
+            //             data: [data.data]
+            //         });
+            //     });
+            // });
 
-            $("#dialog_" + name).find('button[id="request"]').trigger("click");
+            
         });
         $('.footable').footable();
 
