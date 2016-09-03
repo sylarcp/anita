@@ -1040,6 +1040,9 @@
                     if (response == 'success') {
                         console.log('succeed');
                         autoload(0);
+                        setTimeout(function(){
+                            $('#first').click();
+                        },1000);
                     } else {
                         connect.ladda('stop');
                         swal({

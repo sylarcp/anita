@@ -1,6 +1,6 @@
  {% extends "base.html" %} {% block head %} {{ super() }}
-<link href="{{ url_for('static', filename='inspinia/css/plugins/footable/footable.core.css') }}" rel="stylesheet"> {% endblock %} {% block page_content %}
-<div class="wrapper wrapper-content">
+ <link href="{{ url_for('static', filename='inspinia/css/plugins/footable/footable.core.css') }}" rel="stylesheet"> {% endblock %} {% block page_content %}
+ <div class="wrapper wrapper-content">
     <div class="row">
         <div class="col-lg-6">
             <div class="ibox float-e-margins" id="hk">
@@ -395,104 +395,154 @@
                 </div>
             </div>
         </div>
-        <div class="col-lg-6">
-            <div class="ibox float-e-margins" id="adu5_pat">
-                <div class="ibox-title">
-                    <h5>GPS Panel</h5>
-                    <div class="ibox-tools">
-                        <a class="collapse-link">
-                            <i class="fa fa-chevron-up"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="ibox-content">
-                    <table data-sort="false" class="footable" data-page-size="20" id='gps' style="width:100%">
-                        <tbody>
-                            <tr>
-                                <td>GPS type</td>
-                                <td id='pat_gpstype'></td>
-                                <td></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td>Time</td>
-                                <td id='time'></td>
-                            </tr>
-                            <tr>
-                                <td>Now</td>
-                                <td id='now'></td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Latitude</td>
-                                <td id='latitude'></td>
-                            </tr>
-                            <tr>
-                                <td>Longitude</td>
-                                <td id='longitude'></td>
-                            </tr>
-                            <tr>
-                                <td>Altitude</td>
-                                <td id='altitude'></td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Pitch</td>
-                                <td id='pitch'></td>
-                            </tr>
-                            <tr>
-                                <td>Roll</td>
-                                <td id='roll'></td>
-                            </tr>
-                            <tr>
-                                <td>Heading</td>
-                                <td id='heading'></td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>GPS type</td>
-                                <td id='vtg_gpstype'></td>
-                            </tr>
-                            <tr>
-                                <td>knots</td>
-                                <td id='vkt'></td>
-                            </tr>
-                            <tr>
-                                <td>kph</td>
-                                <td id='vkph'></td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+    <div class="col-lg-6">
+       <div class="ibox float-e-margins" id="adu5_pat">
+           <div class="ibox-title">
+               <h5>GPS Panel</h5>
+               <div class="ibox-tools">
+                   <a class="collapse-link">
+                      <i class="fa fa-chevron-up"></i>
+                  </a>
+              </div>
+          </div>
+          <div class="ibox-content" >
+             <table data-sort="false" class="footable" data-page-size="26" id='gps' style="width:100%">
+                 <tbody>
+                    <tr>
+                     <td>Curret GPS:</td>                        
+                     <td id='pat_gpstype'></td>
+                 </tr>
+                 <tr>
+                     <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                 </tr>
+                 <tr>
+                     <td>GPS:</td>
+                     <td>adu5A</td>
+                     <td>adu5B</td>
+                     <td>g12</td>
+                 </tr>
+                 <tr>
+                     <td>Full Time</td>
+                     <td id='fulltime_5A'></td>
+                     <td id='fulltime_5B'></td>
+                     <td id='fulltime_g12'></td>
+                 </tr>
+                 <tr>
+                     <td>Time</td>
+                     <td id='time_5A'></td>
+                     <td id='time_5B'></td>
+                     <td id='time_g12'></td>
+                 </tr>
+                 <tr>
+                     <td>Full Now</td>
+                     <td id='fullnow_5A'></td>
+                     <td id='fullnow_5B'></td>
+                     <td id='fullnow_g12'></td>                                
+                 </tr>
+                 <tr>
+                     <td>Now</td>
+                     <td id='now_5A'></td>
+                     <td id='now_5B'></td> 
+                     <td id='now_g12'></td>                                 
+                 </tr>
+                 <tr>
+                     <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                 </tr>
+                 <tr>
+                     <td>Latitude</td>
+                     <td id='latitude_5A'></td>
+                     <td id='latitude_5B'></td>
+                     <td id='latitude_g12'></td>
+                 </tr>
+                 <tr>
+                     <td>Longitude</td>  
+                     <td id='longitude_5A'></td>
+                     <td id='longitude_5B'></td>
+                     <td id='longitude_g12'></td>                              
+                 </tr>
+                 <tr>
+                    <td>Altitude</td>
+                    <td id='altitude_5A'></td>
+                    <td id='altitude_5B'></td>
+                    <td id='altitude_g12'></td>
+                </tr>
+                <tr>
+                    <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                </tr>
+                <tr>
+                 <td>Pitch</td>
+                 <td id='pitch_5A'></td>
+                 <td id='pitch_5B'></td>
+             </tr>
+             <tr>                                
+                 <td>Roll</td> 
+                 <td id='roll_5A'></td>
+                 <td id='roll_5B'></td>
+             </tr>
+             <tr>
+               <td>Heading</td>      
+               <td id='heading_5A'></td>
+               <td id='heading_5B'></td>
+           </tr>
+           <tr>
+               <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+           </tr>
+           <tr>
+               <td>Current GPS:</td>
+               <td id='vtg_gpstype'></td>
+           </tr>
+           <tr>                                
+             <td>knots</td>
+             <td id='vkt_5A'></td>
+             <td id='vkt_5B'></td>
+             <td id='vkt_g12'></td> 
+         </tr>
+
+         <tr>
+             <td>kph</td> 
+             <td id='vkph_5A'></td>
+             <td id='vkph_5B'></td>
+             <td id='vkph_g12'></td>                           
+         </tr>
+         <tr>
+             <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+         </tr>
+         <tr>
+             <td>Current GPS:</td>
+             <td id='sat_gpstype'></td>
+         </tr>
+         <tr>
+             <td># of Sats</td>
+             <td id='numsats_5A'></td>
+             <td id='numsats_5B'></td> 
+             <td id='numsats_g12'></td>                                 
+         </tr>
+     </tbody>
+ </table>
+</div>
+</div>
+</div>
+</div>
+<div id="dialog" class='hide'>
+    <div id='chart1'></div>
+</br>
+<div class="col-sm-6">
+    <div class="form-group">
+        <label>Reference UTC</label>
+        <input id="reference_time" placeholder="Enter your end time" class="form-control">
     </div>
-    <div id="dialog" class='hide'>
-        <div id='chart1'></div>
-        </br>
-        <div class="col-sm-6">
-            <div class="form-group">
-                <label>Reference UTC</label>
-                <input id="reference_time" placeholder="Enter your end time" class="form-control">
-            </div>
-        </div>
-        <div class="col-sm-3">
-            <div class="form-group">
-                <label>Length(s)</label>
-                <input id="length" value="10000" placeholder="Enter the number of seconds" class="form-control">
-            </div>
-        </div>
-        <div class="col-sm-3">
-            </br>
-            <button id="request" type="button" class="btn btn-primary">Request</button>
-        </div>
+</div>
+<div class="col-sm-3">
+    <div class="form-group">
+        <label>Length(s)</label>
+        <input id="length" value="10000" placeholder="Enter the number of seconds" class="form-control">
     </div>
+</div>
+<div class="col-sm-3">
+</br>
+<button id="request" type="button" class="btn btn-primary">Request</button>
+</div>
+</div>
 </div>
 {% endblock %} {% block scripts %} {{ super() }}
 <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
@@ -586,345 +636,345 @@ function update_sbst1_data($selector, new_data) {
     var array_string = $selector.attr('values');
     array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: sbst_range_map,
         chartRangeMin: -10,
         chartRangeMax: 100
     });
-}
+    }
 
-function update_sbst2_data($selector, new_data) {
-    var array_string = $selector.attr('values');
-    array_string = new_data;
+    function update_sbst2_data($selector, new_data) {
+        var array_string = $selector.attr('values');
+        array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: sbst_range_map,
         chartRangeMin: -10,
         chartRangeMax: 100
     });
-}
+    }
 
-function update_sbst5_data($selector, new_data) {
-    var array_string = $selector.attr('values');
-    array_string = new_data;
+    function update_sbst5_data($selector, new_data) {
+        var array_string = $selector.attr('values');
+        array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: sbst_range_map,
         chartRangeMin: -10,
         chartRangeMax: 100
     });
-}
+    }
 
-function update_sbst6_data($selector, new_data) {
-    var array_string = $selector.attr('values');
-    array_string = new_data;
+    function update_sbst6_data($selector, new_data) {
+        var array_string = $selector.attr('values');
+        array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: sbst_range_map,
         chartRangeMin: -10,
         chartRangeMax: 100
     });
-}
+    }
 
-function update_core1_data($selector, new_data) {
-    var array_string = $selector.attr('values');
-    array_string = new_data;
+    function update_core1_data($selector, new_data) {
+        var array_string = $selector.attr('values');
+        array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: core_range_map,
         chartRangeMin: -10,
         chartRangeMax: 100
     });
-}
+    }
 
-function update_core2_data($selector, new_data) {
-    var array_string = $selector.attr('values');
-    array_string = new_data;
+    function update_core2_data($selector, new_data) {
+        var array_string = $selector.attr('values');
+        array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: core_range_map,
         chartRangeMin: -10,
         chartRangeMax: 100
     });
-}
+    }
 
-function update_it_data($selector, new_data) {
-    var array_string = $selector.attr('values');
-    array_string = new_data;
+    function update_it_data($selector, new_data) {
+        var array_string = $selector.attr('values');
+        array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: it_et_range_map,
         chartRangeMin: -10,
         chartRangeMax: 100
     });
-}
+    }
 
-function update_et_data($selector, new_data) {
-    var array_string = $selector.attr('values');
-    array_string = new_data;
+    function update_et_data($selector, new_data) {
+        var array_string = $selector.attr('values');
+        array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: it_et_range_map,
         chartRangeMin: -10,
         chartRangeMax: 100
     });
-}
+    }
 
-function update_disk0_data($selector, new_data) {
+    function update_disk0_data($selector, new_data) {
     //slash temp
     var array_string = $selector.attr('values');
     array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: disk0_range_map,
         chartRangeMin: 0,
         chartRangeMax: 4000
     });
-}
+    }
 
-function update_disk1_data($selector, new_data) {
+    function update_disk1_data($selector, new_data) {
     //var
     var array_string = $selector.attr('values');
     array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: disk1_range_map,
         chartRangeMin: 0,
         chartRangeMax: 1000
     });
-}
+    }
 
-function update_disk2_data($selector, new_data) {
+    function update_disk2_data($selector, new_data) {
     //home
     var array_string = $selector.attr('values');
     array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: disk2_range_map,
         chartRangeMin: 0,
         chartRangeMax: 2500
     });
-}
+    }
 
-function update_disk3_data($selector, new_data) {
+    function update_disk3_data($selector, new_data) {
     //slash
     var array_string = $selector.attr('values');
     array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: disk3_range_map,
         chartRangeMin: 0,
         chartRangeMax: 3000
     });
-}
+    }
 
-function update_disk45_data($selector, new_data) {
+    function update_disk45_data($selector, new_data) {
     //He1 
     var array_string = $selector.attr('values');
     array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: disk45_range_map,
         chartRangeMin: 0,
         chartRangeMax: 6000000
     });
-}
+    }
 
-function update_disk5_data($selector, new_data) {
+    function update_disk5_data($selector, new_data) {
     // He2
     var array_string = $selector.attr('values');
     array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: disk5_range_map,
         chartRangeMin: 0,
         chartRangeMax: 6000000
     });
-}
+    }
 
-function update_disk6_data($selector, new_data) {
+    function update_disk6_data($selector, new_data) {
     //int
     var array_string = $selector.attr('values');
     array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: disk6_range_map,
         chartRangeMin: 0,
         chartRangeMax: 3000
     });
-}
+    }
 
-function update_disk7_data($selector, new_data) {
+    function update_disk7_data($selector, new_data) {
     //NTU
     var array_string = $selector.attr('values');
     array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: disk7_range_map,
         chartRangeMin: 0,
         chartRangeMax: 250000
     });
-}
+    }
 
-function update_link_data($selector, new_data) {
+    function update_link_data($selector, new_data) {
     //for all link stuff in queue entries
     var array_string = $selector.attr('values');
     array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    $selector.attr('values', array_string).sparkline('html', {
-        type: 'bar',
-        barWidth: 30,
+        $selector.attr('values', array_string).sparkline('html', {
+            type: 'bar',
+            barWidth: 30,
         // zeroAxis: false,
         colorMap: link_range_map,
         chartRangeMin: 0,
         chartRangeMax: 100
     });
-}
+    }
 
-function updatehtml_hk(hk) {
-    $.getJSON('/api/' + ip_db + '/hk/' + hk, function(data) {
-        $('#power #p1_5v').html(data.hk.p1_5v);
-        $('#power #p3_3v').html(data.hk.p3_3v);
-        $('#power #p5v').html(data.hk.p5v);
-        $('#power #p5sbv').html(data.hk.p5sbv);
-        $('#power #p12v').html(data.hk.p12v);
-        $('#power #p24v').html(data.hk.p24v);
-        $('#power #ppvv').html(data.hk.ppvv);
-        $('#power #n5v').html(data.hk.n5v);
-        $('#power #n12v').html(data.hk.n12v);
-        $('#power #iprf1v').html(data.hk.iprf1v);
-        $('#power #iprf2v').html(data.hk.iprf2v);
-        $('#power #p1_5i').html(data.hk.p1_5i);
-        $('#power #p3_3i').html(data.hk.p3_3i);
-        $('#power #p5i').html(data.hk.p5i);
-        $('#power #p5sbi').html(data.hk.p5sbi);
-        $('#power #p12i').html(data.hk.p12i);
-        $('#power #p24i').html(data.hk.p24i);
-        $('#power #ppvi').html(data.hk.ppvi);
-        $('#power #n5i').html(data.hk.n5i);
-        $('#power #n12i').html(data.hk.n12i);
-        $('#power #iprf1i').html(data.hk.iprf1i);
-        $('#power #iprf2i').html(data.hk.iprf2i);
-        $('#power #bati').html(data.hk.bati);
-        $('#aux #now').html(data.hk.now + " (" + timeConverter(data.hk.now) + ")");
-        $('#aux #time').html(data.hk.time + " (" + timeConverter(data.hk.time) + ")");
-        $('#aux #pressl').html(data.hk.pressl);
-        $('#aux #pressh').html(data.hk.pressh);
-        $('#aux #ssx-0').html(data.hk.ssx[0]);
-        $('#aux #ssx-1').html(data.hk.ssx[1]);
-        $('#aux #ssx-2').html(data.hk.ssx[2]);
-        $('#aux #ssx-3').html(data.hk.ssx[3]);
-        $('#aux #ssy-0').html(data.hk.ssy[0]);
-        $('#aux #ssy-1').html(data.hk.ssy[1]);
-        $('#aux #ssy-2').html(data.hk.ssy[2]);
-        $('#aux #ssy-3').html(data.hk.ssy[3]);
-        $('#aux #ssi-0').html(data.hk.ssi[0]);
-        $('#aux #ssi-1').html(data.hk.ssi[1]);
-        $('#aux #ssi-2').html(data.hk.ssi[2]);
-        $('#aux #ssi-3').html(data.hk.ssi[3]);
-        $('#aux #ssflag-0').html(data.hk.ssflag[0]);
-        $('#aux #ssflag-1').html(data.hk.ssflag[1]);
-        $('#aux #ssflag-2').html(data.hk.ssflag[2]);
-        $('#aux #ssflag-3').html(data.hk.ssflag[3]);
-        $('#aux #ssel-0').html(data.hk.ssel[0]);
-        $('#aux #ssel-1').html(data.hk.ssel[1]);
-        $('#aux #ssel-2').html(data.hk.ssel[2]);
-        $('#aux #ssel-3').html(data.hk.ssel[3]);
-        $('#aux #ssaz-0').html(data.hk.ssaz[0]);
-        $('#aux #ssaz-1').html(data.hk.ssaz[1]);
-        $('#aux #ssaz-2').html(data.hk.ssaz[2]);
-        $('#aux #ssaz-3').html(data.hk.ssaz[3]);
-        $('#aux #sst-0').html(data.hk.sst[0]);
-        $('#aux #sst-1').html(data.hk.sst[1]);
-        $('#aux #sst-2').html(data.hk.sst[2]);
-        $('#aux #sst-3').html(data.hk.sst[3]);
-        $('#aux #accx-0').html(data.hk.accx[0]);
-        $('#aux #accy-0').html(data.hk.accy[0]);
-        $('#aux #accz-0').html(data.hk.accz[0]);
-        $('#aux #accx-1').html(data.hk.accx[1]);
-        $('#aux #accy-1').html(data.hk.accy[1]);
-        $('#aux #accz-1').html(data.hk.accz[1]);
-        $('#aux #magx').html(data.hk.magx);
-        $('#aux #magy').html(data.hk.magy);
-        $('#aux #magz').html(data.hk.magz);
-        var sbst1_name;
-        sbst1_name = '#sbst1';
-        update_sbst1_data($(sbst1_name), parseInt(data.hk.sbst1));
-        var sbst2_name;
-        sbst2_name = '#sbst2';
-        update_sbst2_data($(sbst2_name), parseInt(data.hk.sbst2));
+    function updatehtml_hk(hk) {
+        $.getJSON('/api/' + ip_db + '/hk/' + hk, function(data) {
+            $('#power #p1_5v').html(data.hk.p1_5v);
+            $('#power #p3_3v').html(data.hk.p3_3v);
+            $('#power #p5v').html(data.hk.p5v);
+            $('#power #p5sbv').html(data.hk.p5sbv);
+            $('#power #p12v').html(data.hk.p12v);
+            $('#power #p24v').html(data.hk.p24v);
+            $('#power #ppvv').html(data.hk.ppvv);
+            $('#power #n5v').html(data.hk.n5v);
+            $('#power #n12v').html(data.hk.n12v);
+            $('#power #iprf1v').html(data.hk.iprf1v);
+            $('#power #iprf2v').html(data.hk.iprf2v);
+            $('#power #p1_5i').html(data.hk.p1_5i);
+            $('#power #p3_3i').html(data.hk.p3_3i);
+            $('#power #p5i').html(data.hk.p5i);
+            $('#power #p5sbi').html(data.hk.p5sbi);
+            $('#power #p12i').html(data.hk.p12i);
+            $('#power #p24i').html(data.hk.p24i);
+            $('#power #ppvi').html(data.hk.ppvi);
+            $('#power #n5i').html(data.hk.n5i);
+            $('#power #n12i').html(data.hk.n12i);
+            $('#power #iprf1i').html(data.hk.iprf1i);
+            $('#power #iprf2i').html(data.hk.iprf2i);
+            $('#power #bati').html(data.hk.bati);
+            $('#aux #now').html(data.hk.now + " (" + timeConverter(data.hk.now) + ")");
+            $('#aux #time').html(data.hk.time + " (" + timeConverter(data.hk.time) + ")");
+            $('#aux #pressl').html(data.hk.pressl);
+            $('#aux #pressh').html(data.hk.pressh);
+            $('#aux #ssx-0').html(data.hk.ssx[0]);
+            $('#aux #ssx-1').html(data.hk.ssx[1]);
+            $('#aux #ssx-2').html(data.hk.ssx[2]);
+            $('#aux #ssx-3').html(data.hk.ssx[3]);
+            $('#aux #ssy-0').html(data.hk.ssy[0]);
+            $('#aux #ssy-1').html(data.hk.ssy[1]);
+            $('#aux #ssy-2').html(data.hk.ssy[2]);
+            $('#aux #ssy-3').html(data.hk.ssy[3]);
+            $('#aux #ssi-0').html(data.hk.ssi[0]);
+            $('#aux #ssi-1').html(data.hk.ssi[1]);
+            $('#aux #ssi-2').html(data.hk.ssi[2]);
+            $('#aux #ssi-3').html(data.hk.ssi[3]);
+            $('#aux #ssflag-0').html(data.hk.ssflag[0]);
+            $('#aux #ssflag-1').html(data.hk.ssflag[1]);
+            $('#aux #ssflag-2').html(data.hk.ssflag[2]);
+            $('#aux #ssflag-3').html(data.hk.ssflag[3]);
+            $('#aux #ssel-0').html(data.hk.ssel[0]);
+            $('#aux #ssel-1').html(data.hk.ssel[1]);
+            $('#aux #ssel-2').html(data.hk.ssel[2]);
+            $('#aux #ssel-3').html(data.hk.ssel[3]);
+            $('#aux #ssaz-0').html(data.hk.ssaz[0]);
+            $('#aux #ssaz-1').html(data.hk.ssaz[1]);
+            $('#aux #ssaz-2').html(data.hk.ssaz[2]);
+            $('#aux #ssaz-3').html(data.hk.ssaz[3]);
+            $('#aux #sst-0').html(data.hk.sst[0]);
+            $('#aux #sst-1').html(data.hk.sst[1]);
+            $('#aux #sst-2').html(data.hk.sst[2]);
+            $('#aux #sst-3').html(data.hk.sst[3]);
+            $('#aux #accx-0').html(data.hk.accx[0]);
+            $('#aux #accy-0').html(data.hk.accy[0]);
+            $('#aux #accz-0').html(data.hk.accz[0]);
+            $('#aux #accx-1').html(data.hk.accx[1]);
+            $('#aux #accy-1').html(data.hk.accy[1]);
+            $('#aux #accz-1').html(data.hk.accz[1]);
+            $('#aux #magx').html(data.hk.magx);
+            $('#aux #magy').html(data.hk.magy);
+            $('#aux #magz').html(data.hk.magz);
+            var sbst1_name;
+            sbst1_name = '#sbst1';
+            update_sbst1_data($(sbst1_name), parseInt(data.hk.sbst1));
+            var sbst2_name;
+            sbst2_name = '#sbst2';
+            update_sbst2_data($(sbst2_name), parseInt(data.hk.sbst2));
 
-        var sbst5_name;
-        sbst5_name = '#sbst5';
-        update_sbst5_data($(sbst5_name), parseInt(data.hk.sbst5));
-        var sbst6_name;
-        sbst6_name = '#sbst6';
-        update_sbst6_data($(sbst6_name), parseInt(data.hk.sbst6));
-        var core1_name;
-        core1_name = '#core1';
-        update_core1_data($(core1_name), parseInt(data.hk.core1));
-        var core2_name;
-        core2_name = '#core2';
-        update_core2_data($(core2_name), parseInt(data.hk.core2));
-        var it_name;
-        for (i = 0; i < 15; i++) {
-            it_name = '#it-' + i;
-            update_it_data($(it_name), parseInt(data.hk.it[i]));
-        }
-        var et_name;
-        for (i = 0; i < 15; i++) {
-            et_name = '#et-' + i;
-            update_et_data($(et_name), parseInt(data.hk.et[i]));
-        }
-    });
+            var sbst5_name;
+            sbst5_name = '#sbst5';
+            update_sbst5_data($(sbst5_name), parseInt(data.hk.sbst5));
+            var sbst6_name;
+            sbst6_name = '#sbst6';
+            update_sbst6_data($(sbst6_name), parseInt(data.hk.sbst6));
+            var core1_name;
+            core1_name = '#core1';
+            update_core1_data($(core1_name), parseInt(data.hk.core1));
+            var core2_name;
+            core2_name = '#core2';
+            update_core2_data($(core2_name), parseInt(data.hk.core2));
+            var it_name;
+            for (i = 0; i < 15; i++) {
+                it_name = '#it-' + i;
+                update_it_data($(it_name), parseInt(data.hk.it[i]));
+            }
+            var et_name;
+            for (i = 0; i < 15; i++) {
+                et_name = '#et-' + i;
+                update_et_data($(et_name), parseInt(data.hk.et[i]));
+            }
+        });
 
 }
 
@@ -1015,29 +1065,81 @@ function updatehtml_adu5_pat(adu5_pat) {
     if (!adu5_pat) return;
     $.getJSON('/api/' + ip_db + '/adu5_pat/' + adu5_pat, function(data) {
         $('#gps #pat_gpstype').html(gpstype(data.pat.gpstype));
-        $('#gps #now').html(data.pat.now + " (" + timeConverter(data.pat.now) + ")");
-        $('#gps #time').html(data.pat.time + " (" + timeConverter(data.pat.time) + ")");
-        $('#gps #heading').html(data.pat.heading);
-        $('#gps #latitude').html(data.pat.latitude);
-        $('#gps #longitude').html(data.pat.longitude);
-        $('#gps #pitch').html(data.pat.pitch);
-        $('#gps #roll').html(data.pat.roll);
-        $('#gps #altitude').html(data.pat.altitude);
-    });
+        if (gpstype(data.pat.gpstype) == 'adu5A'){        
+           $('#gps #now_5A').html(data.pat.now);
+           $('#gps #time_5A').html(data.pat.time);
+           $('#gps #fullnow_5A').html(timeConverter(data.pat.now));
+           $('#gps #fulltime_5A').html(timeConverter(data.pat.time));
+           $('#gps #heading_5A').html(data.pat.heading);
+           $('#gps #latitude_5A').html(data.pat.latitude);
+           $('#gps #longitude_5A').html(data.pat.longitude);
+           $('#gps #pitch_5A').html(data.pat.pitch);
+           $('#gps #roll_5A').html(data.pat.roll);
+           $('#gps #altitude_5A').html(data.pat.altitude);        
+       }
+       else if (gpstype(data.pat.gpstype) == 'adu5B'){
+           $('#gps #now_5B').html(data.pat.now);
+           $('#gps #time_5B').html(data.pat.time);
+           $('#gps #fullnow_5B').html(timeConverter(data.pat.now));
+           $('#gps #fulltime_5B').html(timeConverter(data.pat.time));
+           $('#gps #heading_5B').html(data.pat.heading);
+           $('#gps #latitude_5B').html(data.pat.latitude);
+           $('#gps #longitude_5B').html(data.pat.longitude);
+           $('#gps #pitch_5B').html(data.pat.pitch);
+           $('#gps #roll_5B').html(data.pat.roll);
+           $('#gps #altitude_5B').html(data.pat.altitude);
+           $('#gps #numsats_5B').html(data.pat.numsats);
+       }
+   });
 }
 
 function updatehtml_adu5_vtg(adu5_vtg) {
     if (!adu5_vtg) return;
     $.getJSON('/api/' + ip_db + '/adu5_vtg/' + adu5_vtg, function(data) {
         $('#gps #vtg_gpstype').html(gpstype(data.vtg.gpstype));
-        $('#gps #vkph').html(data.vtg.vkph);
-        $('#gps #vkt').html(data.vtg.vkt);
-    });
+        if (gpstype(data.vtg.gpstype) == 'adu5A'){
+           $('#gps #vkph_5A').html(data.vtg.vkph);
+           $('#gps #vkt_5A').html(data.vtg.vkt);
+       }
+       else if (gpstype(data.vtg.gpstype) == 'adu5B'){
+           $('#gps #vkph_5B').html(data.vtg.vkph);
+           $('#gps #vkt_5B').html(data.vtg.vkt);
+       }
+   });
 }
 
 function updatehtml_adu5_sat(adu5_sat) {
     if (!adu5_sat) return;
-    $.getJSON('/api/' + ip_db + '/adu5_sat/' + adu5_sat, function(data) {});
+    $.getJSON('/api/' + ip_db + '/adu5_sat/' + adu5_sat, function(data) {
+        $('#gps #sat_gpstype').html(gpstype(data.sat.gpstype));
+        if (gpstype(data.sat.gpstype) == 'adu5A'){
+           $('#gps #numsats_5A').html(data.sat.numsats[0]+', '+data.sat.numsats[1]+', '+data.sat.numsats[2]+', '+data.sat.numsats[3]);
+       }
+       else if (gpstype(data.sat.gpstype) == 'adu5B'){
+           $('#gps #numsats_5B').html(data.sat.numsats[0]+', '+data.sat.numsats[1]+', '+data.sat.numsats[2]+', '+data.sat.numsats[3]);
+       }
+   });
+}
+
+function updatehtml_g12_pos(g12_pos){
+   if (!g12_pos) return;
+   $.getJSON('/api/' + ip_db + '/g12_pos/' + g12_pos, function(data){
+       $('#gps #now_g12').html(data.pos.now);
+       $('#gps #time_g12').html(data.pos.time);
+       $('#gps #fullnow_g12').html(timeConverter(data.pos.now));
+       $('#gps #fulltime_g12').html(timeConverter(data.pos.time));
+       $('#gps #latitude_g12').html(data.pos.latitude);
+       $('#gps #longitude_g12').html(data.pos.longitude);
+       $('#gps #altitude_g12').html(data.pos.altitude);        
+   });
+}
+
+function updatehtml_g12_sat(g12_sat){
+   if (!g12_sat) return;
+   $.getJSON('/api/' + ip_db + '/g12_sat/' + g12_sat, function(data){
+       $('#gps #sat_gpstype').html(gpstype(data.sat.gpstype));        
+       $('#gps #numsats_g12').html(data.sat.numsats); 
+   });
 }
 
 $(document).ready(function() {
@@ -1066,7 +1168,7 @@ $(document).ready(function() {
                 height: 500,
             });
             var line1 = [
-                ['2008-09-30', 14]
+            ['2008-09-30', 14]
             ];
             var plot1 = $.jqplot('plot_' + name, [line1], {
                 title: 'double click to reset the zoom',
@@ -1105,62 +1207,70 @@ $(document).ready(function() {
                 }
             });
 
-            $newDialog.dialog({
-                resize: function(event, ui) {
-                    $("#plot_" + name).height(Math.max(100, $newDialog.height() - 120));
-                    plot1.replot({
-                        resetAxes: true,
-                    });
-                }
-            });
-        }
-
-        $("#dialog_" + name).find('button[id="request"]').click(function() {
-            console.log('click');
-            var end_time = $newDialog.find('input[id="reference_time"]').val();
-            var length = $newDialog.find('input[id="length"]').val();
-            console.log(end_time);
-            console.log(end_time - length);
-            $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
-                console.log(data.data);
-                plot1.replot({
-                    data: [data.data]
-                });
-            });
+ $newDialog.dialog({
+    resize: function(event, ui) {
+        $("#plot_" + name).height(Math.max(100, $newDialog.height() - 120));
+        plot1.replot({
+            resetAxes: true,
         });
+    }
+});
+}
 
-        $("#dialog_" + name).find('button[id="request"]').trigger("click");
+$("#dialog_" + name).find('button[id="request"]').click(function() {
+    console.log('click');
+    var end_time = $newDialog.find('input[id="reference_time"]').val();
+    var length = $newDialog.find('input[id="length"]').val();
+    console.log(end_time);
+    console.log(end_time - length);
+    $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
+        console.log(data.data);
+        plot1.replot({
+            data: [data.data]
+        });
     });
+});
+
+$("#dialog_" + name).find('button[id="request"]').trigger("click");
+});
 
 
 
-    $('.footable').footable();
-
-    var hk_nbufs = [];
-    var hk_nows = [];
-    var hk_times = [];
-    var sshk_nbufs = [];
-    var sshk_nows = [];
-    var sshk_times = [];
-    var mon_nbufs = [];
-    var mon_nows = [];
-    var mon_times = [];
-    var adu5_pat_nbufs = [];
-    var adu5_pat_nows = [];
-    var adu5_pat_times = [];
-    var adu5_vtg_nbufs = [];
-    var adu5_vtg_nows = [];
-    var adu5_vtg_times = [];
-    var adu5_sat_nbufs = [];
-    var adu5_sat_nows = [];
-    var adu5_sat_times = [];
-    var i = 0;
-    var j = 0;
-    var k = 0;
-    var l = 0;
-    var m = 0;
-    var n = 0;
-    var connected = false;
+ $('.footable').footable();
+ 
+ var hk_nbufs=[];
+ var hk_nows=[];
+ var hk_times=[];
+ var sshk_nbufs=[];
+ var sshk_nows=[];
+ var sshk_times=[];
+ var mon_nbufs=[];
+ var mon_nows=[];
+ var mon_times=[];
+ var adu5_pat_nbufs=[];
+ var adu5_pat_nows=[];
+ var adu5_pat_times=[];
+ var adu5_vtg_nbufs=[];
+ var adu5_vtg_nows=[];
+ var adu5_vtg_times=[];
+ var adu5_sat_nbufs=[];
+ var adu5_sat_nows=[];
+ var adu5_sat_times=[];
+ var g12_pos_nbufs=[];
+ var g12_pos_nows=[];
+ var g12_pos_times=[];
+ var g12_sat_nbufs=[];
+ var g12_sat_nows=[];
+ var g12_sat_times=[];
+ var i=0;
+ var j=0;
+ var k=0;
+ var l=0;
+ var m=0;
+ var n=0;
+ var o=0;
+ var p=0;
+ var connected = false;
     var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
 
@@ -1224,6 +1334,18 @@ $(document).ready(function() {
             adu5_sat_nows = adu5_sat_nows.concat(data.adu5_sat_nows);
             adu5_sat_times = adu5_sat_times.concat(data.adu5_sat_times);
         });
+        $.getJSON('/api/' + ip_db + '/g12_pos/nbufs/' + start_time, function(data){
+           new_length=data.g12_pos_nbufs.length
+           g12_pos_nbufs=g12_pos_nbufs.concat(data.g12_pos_nbufs);
+           g12_pos_nows=g12_pos_nows.concat(data.g12_pos_nows);
+           g12_pos_times=g12_pos_times.concat(data.g12_pos_times);
+       });
+        $.getJSON('/api/' + ip_db + '/g12_sat/nbufs/' + start_time, function(data){
+           new_length=data.g12_sat_nbufs.length
+           g12_sat_nbufs=g12_sat_nbufs.concat(data.g12_sat_nbufs);
+           g12_sat_nows=g12_sat_nows.concat(data.g12_sat_nows);
+           g12_sat_times=g12_sat_times.concat(data.g12_sat_times);                
+       });
     }
 
     var connect = $('.ladda-button').ladda();
@@ -1247,18 +1369,29 @@ $(document).ready(function() {
             adu5_sat_nbufs = [];
             adu5_sat_nows = [];
             adu5_sat_times = [];
+            g12_pos_nbufs=[];
+            g12_pos_nows=[];
+            g12_pos_times=[];
+            g12_sat_nbufs=[];
+            g12_sat_nows=[];
+            g12_sat_times=[];
             i = 0;
             j = 0;
             k = 0;
             l = 0;
             m = 0;
             n = 0;
+            o=0;
+            p=0;
             connect.ladda('start');
             $.ajax({
                 url: '/api/connect/' + ip + '/' + db
             }).done(function(response) {
                 if (response == 'success') {
                     autoload(0);
+                    setTimeout(function(){
+                        $('#first').click();
+                    },3000);
                 } else {
                     connect.ladda('stop');
                     swal({
@@ -1270,30 +1403,38 @@ $(document).ready(function() {
                 }
             });
         } else {
-            hk_nbufs = [];
-            hk_nows = [];
-            hk_times = [];
-            sshk_nbufs = [];
-            sshk_nows = [];
-            sshk_times = [];
-            mon_nbufs = [];
-            mon_nows = [];
-            mon_times = [];
-            adu5_pat_nbufs = [];
-            adu5_pat_nows = [];
-            adu5_pat_times = [];
-            adu5_vtg_nbufs = [];
-            adu5_vtg_nows = [];
-            adu5_vtg_times = [];
-            adu5_sat_nbufs = [];
-            adu5_sat_nows = [];
-            adu5_sat_times = [];
-            i = 0;
-            j = 0;
-            k = 0;
-            l = 0;
-            m = 0;
-            n = 0;
+            hk_nbufs=[];
+            hk_nows=[];
+            hk_times=[];
+            sshk_nbufs=[];
+            sshk_nows=[];
+            sshk_times=[];
+            mon_nbufs=[];
+            mon_nows=[];
+            mon_times=[];
+            adu5_pat_nbufs=[];
+            adu5_pat_nows=[];
+            adu5_pat_times=[];
+            adu5_vtg_nbufs=[];
+            adu5_vtg_nows=[];
+            adu5_vtg_times=[];
+            adu5_sat_nbufs=[];
+            adu5_sat_nows=[];
+            adu5_sat_times=[];             
+            g12_pos_nbufs=[];
+            g12_pos_nows=[];
+            g12_pos_times=[];
+            g12_sat_nbufs=[];
+            g12_sat_nows=[];
+            g12_sat_times=[];
+            i=0;
+            j=0;
+            k=0;
+            l=0;
+            m=0;
+            n=0;
+            o=0;
+            p=0;
             //otherwise, stop all the requests.
             $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
             $('#connect').html('Connect');
@@ -1306,71 +1447,84 @@ $(document).ready(function() {
         }
     });
 
-    $('#next').click(function() {
-        if (i < hk_nbufs.length - 1) {
-            i = i + 1;
-            updatehtml_hk(hk_nbufs[i]);
-            j = mon_nows.indexOf(hk_nows[i]);
-            if (j != -1) updatehtml_mon(mon_nbufs[j]);
-            k = adu5_pat_nows.indexOf(hk_nows[i]);
-            if (k != -1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-            l = adu5_vtg_nows.indexOf(hk_nows[i]);
-            if (l != -1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-            m = adu5_sat_nows.indexOf(hk_nows[i]);
-            if (m != -1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-            n = sshk_nows.indexOf(hk_nows[i]);
-            console.log(n);
-            if (n != -1) updatehtml_sshk(sshk_nbufs[n]);
-        };
-    });
-    $('#prev').click(function() {
-        if (i > 0) {
-            i = i - 1;
-            updatehtml_hk(hk_nbufs[i]);
-            j = mon_nows.indexOf(hk_nows[i]);
-            if (j != -1) updatehtml_mon(mon_nbufs[j]);
-            k = adu5_pat_nows.indexOf(hk_nows[i]);
-            if (k != -1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-            l = adu5_vtg_nows.indexOf(hk_nows[i]);
-            if (l != -1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-            m = adu5_sat_nows.indexOf(hk_nows[i]);
-            if (m != -1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-            n = sshk_nows.indexOf(hk_nows[i]);
-            if (n != -1) updatehtml_sshk(sshk_nbufs[n]);
-        };
-    });
-    $('#first').click(function() {
-        i = 0
-        updatehtml_hk(hk_nbufs[i]);
-        j = mon_nows.indexOf(hk_nows[i]);
-        if (j != -1) updatehtml_mon(mon_nbufs[j]);
-        k = adu5_pat_nows.indexOf(hk_nows[i]);
-        if (k != -1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-        l = adu5_vtg_nows.indexOf(hk_nows[i]);
-        if (l != -1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-        m = adu5_sat_nows.indexOf(hk_nows[i]);
-        if (m != -1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-        n = sshk_nows.indexOf(hk_nows[i]);
-        if (n != -1) updatehtml_sshk(sshk_nbufs[n]);
-    });
-    $('#last').click(function() {
-        i = hk_nbufs.length - 1
-        updatehtml_hk(hk_nbufs[i]);
-        j = mon_nows.indexOf(hk_nows[i]);
-        if (j != -1) updatehtml_mon(mon_nbufs[j]);
-        k = adu5_pat_nows.indexOf(hk_nows[i]);
-        if (k != -1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-        l = adu5_vtg_nows.indexOf(hk_nows[i]);
-        if (l != -1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-        m = adu5_sat_nows.indexOf(hk_nows[i]);
-        if (m != -1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-        n = sshk_nows.indexOf(hk_nows[i]);
-        if (n != -1) updatehtml_sshk(sshk_nbufs[n]);
-    });
-    var elem = document.querySelector('.js-switch');
-    var switchery = new Switchery(elem, {
-        color: '#1AB394'
-    });
+ $('#next').click( function(){
+   if (i<hk_nbufs.length-1) {
+       i=i+1;
+       updatehtml_hk(hk_nbufs[i]);
+       j=mon_nows.indexOf(hk_nows[i]);
+       if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+       k=adu5_pat_nows.indexOf(hk_nows[i]);
+       if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+       l=adu5_vtg_nows.indexOf(hk_nows[i]);
+       if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+       m=adu5_sat_nows.indexOf(hk_nows[i]);
+       if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+       n=sshk_nows.indexOf(hk_nows[i]);
+       if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
+       o=g12_pos_nows.indexOf(hk_nows[i]);
+       if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
+       p=g12_sat_nows.indexOf(hk_nows[i]);
+       if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
+   };
+});
+ $('#prev').click( function(){
+   if (i>0) {
+       i=i-1;
+       updatehtml_hk(hk_nbufs[i]);
+       j=mon_nows.indexOf(hk_nows[i]);
+       if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+       k=adu5_pat_nows.indexOf(hk_nows[i]);
+       if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+       l=adu5_vtg_nows.indexOf(hk_nows[i]);
+       if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+       m=adu5_sat_nows.indexOf(hk_nows[i]);
+       if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+       n=sshk_nows.indexOf(hk_nows[i]);
+       if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
+       o=g12_pos_nows.indexOf(hk_nows[i]);
+       if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
+       p=g12_sat_nows.indexOf(hk_nows[i]);
+       if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
+   };
+});
+ $('#first').click( function(){
+   i=0
+   updatehtml_hk(hk_nbufs[i]);
+   j=mon_nows.indexOf(hk_nows[i]);
+   if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+   k=adu5_pat_nows.indexOf(hk_nows[i]);
+   if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+   l=adu5_vtg_nows.indexOf(hk_nows[i]);
+   if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+   m=adu5_sat_nows.indexOf(hk_nows[i]);
+   if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+   n=sshk_nows.indexOf(hk_nows[i]);
+   if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
+   o=g12_pos_nows.indexOf(hk_nows[i]);
+   if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
+   p=g12_sat_nows.indexOf(hk_nows[i]);
+   if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
+});
+ $('#last').click( function(){
+   i=hk_nbufs.length-1
+   updatehtml_hk(hk_nbufs[i]);
+   j=mon_nows.indexOf(hk_nows[i]);
+   if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+   k=adu5_pat_nows.indexOf(hk_nows[i]);
+   if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+   l=adu5_vtg_nows.indexOf(hk_nows[i]);
+   if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+   m=adu5_sat_nows.indexOf(hk_nows[i]);
+   if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+   n=sshk_nows.indexOf(hk_nows[i]);
+   if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
+   o=g12_pos_nows.indexOf(hk_nows[i]);
+   if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
+   p=g12_sat_nows.indexOf(hk_nows[i]);
+   if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
+});
+ var elem = document.querySelector('.js-switch');
+ var switchery = new Switchery(elem, { color: '#1AB394' });
     // switchery.disable();
     var myInterval;
     elem.onchange = function() {
@@ -1389,40 +1543,43 @@ $(document).ready(function() {
                     if (m != -1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
                     n = sshk_nows.indexOf(hk_nows[i]);
                     if (n != -1) updatehtml_sshk(sshk_nbufs[n]);
+                    o=g12_pos_nows.indexOf(hk_nows[i]);
+                    if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
+                    p=g12_sat_nows.indexOf(hk_nows[i]);
+                    if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
                 };
             }, 1000);
-        } else {
-            clearInterval(myInterval);
-        };
-    };
-    $('#goto').click(function() {
-        var keywords = parseInt($('#keywords').val());
-        console.log(keywords);
-        var index = hk_times.indexOf(keywords);
-        if (index != -1 && keywords) {
-            i = index;
-            console.log(i);
-            updatehtml_hk(hk_nbufs[i]);
-            j = mon_nows.indexOf(hk_times[i]);
-            if (j != -1) updatehtml_mon(mon_nbufs[j]);
-            k = adu5_pat_nows.indexOf(hk_times[i]);
-            if (k != -1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-            l = adu5_vtg_nows.indexOf(hk_times[i]);
-            if (l != -1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-            m = adu5_sat_nows.indexOf(hk_times[i]);
-            if (m != -1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-            n = sshk_nows.indexOf(hk_nows[i]);
-            if (n != -1) updatehtml_sshk(sshk_nbufs[n]);
-        } else {
-            swal({
-                title: 'Data not found!',
-                type: "warning",
-                timer: 3000,
-                showConfirmButton: true
-            });
-        }
+} else {
+    clearInterval(myInterval);
+};
+};
+$('#goto').click( function(){
+   var keywords=parseInt($('#keywords').val());
+   console.log(keywords);
+   var index=hk_times.indexOf(keywords);
+   if (index!=-1 && keywords){
+       i=index;
+       console.log(i);
+       updatehtml_hk(hk_nbufs[i]);
+       j=mon_nows.indexOf(hk_times[i]);
+       if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+       k=adu5_pat_nows.indexOf(hk_times[i]);
+       if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+       l=adu5_vtg_nows.indexOf(hk_times[i]);
+       if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+       m=adu5_sat_nows.indexOf(hk_times[i]);
+       if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+       n=sshk_nows.indexOf(hk_nows[i]);
+       if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
+       o=g12_pos_nows.indexOf(hk_nows[i]);
+       if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
+       p=g12_sat_nows.indexOf(hk_nows[i]);
+       if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
+   }else{
+    swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
+}
 
-    });
 });
-</script>
-{% endblock %}
+});
+ </script>
+ {% endblock %}
