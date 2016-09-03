@@ -71,7 +71,8 @@
 
                 <li>
                     <select id="ip" class='chosen-select' style="width:150px" data-placeholder="Choose an IP..">
-                        <option selected>128.175.112.58</option>
+                        <option selected>gse2.bartol.udel.edu</option>
+                        <option>128.175.112.58</option>
                         <option>128.175.112.80</option>
                         <option>128.175.112.125</option>
                         <!-- <option>192.168.20.222</option> -->
@@ -82,11 +83,12 @@
                 </li>
                 <li>
                     <select id="db" class='chosen-select' style="width:150px" data-placeholder="Choose a DB..">
+                        <option selected>anita_0730c</option>
                         <option>anita_0102a</option>
                         <option>anita_0102b</option>
                         <option>anita_0102c</option>
                         <option>anita_0102d</option>
-                        <option selected>anita_0104d</option>
+                        <option>anita_0104d</option>
                         <option>anita_0105d</option>
                         <option>anita_0106d</option>
                         <option>anita_0107d</option>
@@ -175,26 +177,11 @@
             // var ip=$('#ip').val().replace(/./gi, '_');
             ip=$('#ip option:selected').text().replace(/\./gi, '_');
             db=$('#db option:selected').text();
-            console.log(ip);
-            console.log(db);
             ip_db= "query_"+ ip + "_" + db;
-            console.log(ip_db);
         });
         $(document).ready(function () {
             $('.chosen-select').select2({tags: true});
-            ip=$('#ip option:selected').text().replace(/\./gi, '_');
-            db=$('#db option:selected').text();
-            // $(".nav a").on("click", function(){
-            //    $(".nav").find(".active").removeClass("active");
-            //    $(this).parent().addClass("active");
-            // });
-            
-            // $(".ibox").resizable({
-            //     helper: "ui-resizable-helper",
-            //     handles: "e, s",
-            //     animate: true,
-            //     grid: 40
-            // });
+            $('.chosen-select').trigger('change');
         });
         </script>
 {% endblock %}

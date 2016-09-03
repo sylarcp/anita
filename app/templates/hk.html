@@ -1,12 +1,6 @@
-{% extends "base.html" %}
-{% block head %}
-{{ super() }}
-<link href="{{ url_for('static', filename='inspinia/css/plugins/footable/footable.core.css') }}" rel="stylesheet">
-{% endblock %}
-{% block page_content %}
+ {% extends "base.html" %} {% block head %} {{ super() }}
+<link href="{{ url_for('static', filename='inspinia/css/plugins/footable/footable.core.css') }}" rel="stylesheet"> {% endblock %} {% block page_content %}
 <div class="wrapper wrapper-content">
-
-
     <div class="row">
         <div class="col-lg-6">
             <div class="ibox float-e-margins" id="hk">
@@ -18,597 +12,503 @@
                         </a>
                     </div>
                 </div>
-                <div class="ibox-content" >
+                <div class="ibox-content">
                     <table data-sort="false" class="footable" data-page-size="20" id='power' style="width:100%">
-                      <h5>Power</h5>
-                      <tbody>
-                        <tr>
-                            <td></td>
-                            <td>Voltage [volts]</td>
-                            <td>Current [Amps]</td> 
-                        </tr>
-                        <tr>
-                         <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
-                     </tr>
-                     <tr>
-                        <td data-hide="xs">+1.5V</td>
-                        <td magicbox-creator id='p1_5v'></td>
-                        <td magicbox-creator id='p1_5i'></td> 
-                    </tr>
-                    <tr>
-                        <td>+3.3V</td>
-                        <td id='p3_3v'></td>
-                        <td id='p3_3i'></td> 
-                    </tr>
-                    <tr>
-                        <td>+5V</td>
-                        <td id='p5v'></td>
-                        <td id='p5i'></td> 
-                    </tr>
-                    <tr>
-                        <td>+5V Short Board</td>
-                        <td id='p5sbv'></td>
-                        <td id='p5sbi'></td> 
-                    </tr>
-                    <tr>
-                        <td>+12V</td>
-                        <td id='p12v'></td>
-                        <td id='p12i'></td> 
-                    </tr>
-                    <tr>
-                        <td>+24V</td>
-                        <td id='p24v'></td>
-                        <td id='p24i'></td>
-                    </tr>
-                    <tr>
-                        <td>+PV</td>
-                        <td id='ppvv'></td> 
-                        <td id='ppvi'></td>
-                    </tr>
-                    <tr>
-                        <td>-5V</td>
-                        <td id='n5v'></td> 
-                        <td id='n5i'></td> 
-                    </tr>
-                    <tr>
-                        <td>-12V</td>
-                        <td id='n12v'></td> 
-                        <td id='n12i'></td> 
-                    </tr>
-                    <tr>
-                        <td>RFCM1</td>
-                        <td id='iprf1v'></td>
-                        <td id='iprf1i'></td>  
-                    </tr>
-                    <tr>
-                        <td>RFCM2</td>
-                        <td id='iprf2v'></td> 
-                        <td id='iprf2i'></td>
-                    </tr>
-                    <tr>
-                        <td>Battery</td>
-                        <td>None</td>
-                        <td id='bati'></td> 
-                    </tr>
-                </tbody>
-
-            </table>
-        </div>
-        <div class="ibox-content" >
-            <table data-sort="false" class="footable" data-page-size="56" id='current' style="width:100%">
-              <h5>Temperature [C]</h5>
-              <tbody>
-
-
-                <tr>
-                    <td></td>
-                    <td id='it_0'></td>
-                    <td id='it_1'></td>
-                    <td id='it_2'></td>
-                    <td id='it_3'></td>
-                    <td id='it_4'></td>
-                    <td id='it_5'></td>
-                    <td id='it_6'></td>
-                    <td id='it_7'></td>
-                    <td id='it_8'></td>
-                    <td id='it_9'></td>
-                </tr>
-
-                <th>
-                    <td>It 1</td>
-                    <td>It 2</td>
-                    <td>It 3</td>
-                    <td>It 4</td>
-                    <td>It 5</td>
-                    <td>It 6</td>
-                    <td>It 7</td>
-                    <td>It 8</td>
-                    <td>It 9</td>
-                    <td>It 10</td>                                  
-                </th>
-
-                <tr>
-                    <td></td>
-                    <td id='it_10'></td>
-                    <td id='it_11'></td>
-                    <td id='it_12'></td>
-                    <td id='it_13'></td>
-                    <td id='it_14'></td>
-                    <td id='et_0'></td>
-                    <td id='et_1'></td>
-                    <td id='et_2'></td>
-                    <td id='et_3'></td>
-                    <td id='et_4'></td>
-                </tr>
-
-                <th>
-                    <td>It 11</td>
-                    <td>It 12</td>
-                    <td>It 13</td>
-                    <td>It 14</td>
-                    <td>It 15</td>
-                    <td>Et 1</td>
-                    <td>Et 2</td>
-                    <td>Et 3</td>
-                    <td>Et 4</td>
-                    <td>Et 5</td>                                  
-                </th>                
-
-                <tr>
-                    <td></td>
-                    <td id='et_5'></td>
-                    <td id='et_6'></td>
-                    <td id='et_7'></td>
-                    <td id='et_8'></td>
-                    <td id='et_9'></td>
-                    <td id='et_10'></td>
-                    <td id='et_11'></td>
-                    <td id='et_12'></td>
-                    <td id='et_13'></td>
-                    <td id='et_14'></td>
-                </tr>
-
-                <th>
-                    <td>Et 6</td>
-                    <td>Et 7</td>
-                    <td>Et 8</td>
-                    <td>Et 9</td>
-                    <td>Et 10</td>
-                    <td>Et 11</td>
-                    <td>Et 12</td>
-                    <td>Et 13</td>
-                    <td>Et 14</td>
-                    <td>Et 15</td>                                  
-                </th>                
-
-                <tr>
-                    <td></td>
-                    <td id='sbst1'></td>
-                    <td id='sbst2'></td>
-                    <td id='sbst5'></td>
-                    <td id='sbst6'></td>
-                    <td id='core1'></td>
-                    <td id='core2'></td>
-                </tr>
-
-                <th>
-                    <td>CPU 1</td>
-                    <td>CPU 2</td>
-                    <td>CPU 5</td>
-                    <td>CPU 6</td>
-                    <td>Core 1</td>
-                    <td>Core 2</td>                             
-                </th>
-            </tbody>
-
-        </table>
-    </div>
-    <div class="ibox-content" >
-        <table data-sort="false" class="footable" data-page-size="20" id='aux' style="width:100%">
-            <h5>Auxilary Information</h5>
-            <tbody>
-                <tr>
-                    <td>Time</td>
-                    <td id='time'></td>
-                    <td>Now</td>
-                    <td id='now'></td> 
-                </tr>
-                <tr>
-                 <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
-             </tr>
-             <tr>
-                <td>Pressure [torr]</td>
-                <td id='pressl'></td>
-                <td>Pressure [PSI]</td>
-                <td id='pressh'></td> 
-            </tr>
-            <tr>
-             <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
-         </tr>
-         <tr>
-            <td></td>
-            <td>Elevation</td>
-            <td>Azimuth</td>
-            <td>Flag</td> 
-        </tr>
-        <tr>
-            <td>SunSensor 1</td>
-            <td id='ssel_0'></td>
-            <td id='ssaz_0'></td>
-            <td id='ssflag_0'></td>
-        </tr>
-        <tr>
-            <td>SunSensor 2</td>
-            <td id='ssel_1'></td>
-            <td id='ssaz_1'></td>
-            <td id='ssflag_1'></td>  
-        </tr>
-        <tr>
-            <td>SunSensor 3</td>
-            <td id='ssel_2'></td>
-            <td id='ssaz_2'></td>
-            <td id='ssflag_2'></td>  
-        </tr>
-        <tr>
-            <td>SunSensor 4</td>
-            <td id='ssel_3'></td>
-            <td id='ssaz_3'></td>
-            <td id='ssflag_3'></td> 
-        </tr>
-        <tr>
-            <td>SunSensor 5</td>
-            <td id='ssel_5'></td>
-            <td id='ssaz_5'></td>
-            <td id='ssflag_5'></td>
-        </tr>
-        <tr>
-            <td>SunSensor 6</td>
-            <td id='ssel_6'></td>
-            <td id='ssaz_6'></td>
-            <td id='ssflag_6'></td>  
-        </tr>
-        <tr>
-            <td>SunSensor 7</td>
-            <td id='ssel_7'></td>
-            <td id='ssaz_7'></td>
-            <td id='ssflag_7'></td>  
-        </tr>
-        <tr>
-            <td>SunSensor 8</td>
-            <td id='ssel_8'></td>
-            <td id='ssaz_8'></td>
-            <td id='ssflag_8'></td> 
-        </tr>
-        
-        <tr>
-         <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
-     </tr>
-     <tr>
-        <td>Accel 1 [x,y,z]</td>
-        <td id='accx_0'></td> 
-        <td id='accy_0'></td>
-        <td id='accz_0'></td>
-    </tr>
-    <tr>
-        <td>Accel 2 [x,y,z]</td>
-        <td id='accx_1'></td> 
-        <td id='accy_1'></td>
-        <td id='accz_1'></td>
-    </tr>
-    <tr>
-        <td>Mag [x,y,z]</td>
-        <td id='magx'></td> 
-        <td id='magy'></td>
-        <td id='magz'></td>
-    </tr>
-</tbody>
-
-</table>
-</div>
-</div>
-</div>
-<div class="col-lg-6">
-    <div class="ibox float-e-margins" id="mon">
-        <div class="ibox-title">
-            <h5>Monitor</h5>
-            <div class="ibox-tools">
-                <a class="collapse-link">
-                    <i class="fa fa-chevron-up"></i>
-                </a>
+                        <h5>Power</h5>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td>Voltage [volts]</td>
+                                <td>Current [Amps]</td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td data-hide="xs">+1.5V</td>
+                                <td magicbox-creator id='p1_5v'></td>
+                                <td magicbox-creator id='p1_5i'></td>
+                            </tr>
+                            <tr>
+                                <td>+3.3V</td>
+                                <td id='p3_3v'></td>
+                                <td id='p3_3i'></td>
+                            </tr>
+                            <tr>
+                                <td>+5V</td>
+                                <td id='p5v'></td>
+                                <td id='p5i'></td>
+                            </tr>
+                            <tr>
+                                <td>+5V Short Board</td>
+                                <td id='p5sbv'></td>
+                                <td id='p5sbi'></td>
+                            </tr>
+                            <tr>
+                                <td>+12V</td>
+                                <td id='p12v'></td>
+                                <td id='p12i'></td>
+                            </tr>
+                            <tr>
+                                <td>+24V</td>
+                                <td id='p24v'></td>
+                                <td id='p24i'></td>
+                            </tr>
+                            <tr>
+                                <td>+PV</td>
+                                <td id='ppvv'></td>
+                                <td id='ppvi'></td>
+                            </tr>
+                            <tr>
+                                <td>-5V</td>
+                                <td id='n5v'></td>
+                                <td id='n5i'></td>
+                            </tr>
+                            <tr>
+                                <td>-12V</td>
+                                <td id='n12v'></td>
+                                <td id='n12i'></td>
+                            </tr>
+                            <tr>
+                                <td>RFCM1</td>
+                                <td id='iprf1v'></td>
+                                <td id='iprf1i'></td>
+                            </tr>
+                            <tr>
+                                <td>RFCM2</td>
+                                <td id='iprf2v'></td>
+                                <td id='iprf2i'></td>
+                            </tr>
+                            <tr>
+                                <td>Battery</td>
+                                <td>None</td>
+                                <td id='bati'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ibox-content">
+                    <table data-sort="false" class="footable" data-page-size="56" id='current' style="width:100%">
+                        <h5>Temperature [C]</h5>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td id='it-0'></td>
+                                <td id='it-1'></td>
+                                <td id='it-2'></td>
+                                <td id='it-3'></td>
+                                <td id='it-4'></td>
+                                <td id='it-5'></td>
+                                <td id='it-6'></td>
+                                <td id='it-7'></td>
+                                <td id='it-8'></td>
+                                <td id='it-9'></td>
+                            </tr>
+                            <th>
+                                <td>It 1</td>
+                                <td>It 2</td>
+                                <td>It 3</td>
+                                <td>It 4</td>
+                                <td>It 5</td>
+                                <td>It 6</td>
+                                <td>It 7</td>
+                                <td>It 8</td>
+                                <td>It 9</td>
+                                <td>It 10</td>
+                            </th>
+                            <tr>
+                                <td></td>
+                                <td id='it-10'></td>
+                                <td id='it-11'></td>
+                                <td id='it-12'></td>
+                                <td id='it-13'></td>
+                                <td id='it-14'></td>
+                                <td id='et-0'></td>
+                                <td id='et-1'></td>
+                                <td id='et-2'></td>
+                                <td id='et-3'></td>
+                                <td id='et-4'></td>
+                            </tr>
+                            <th>
+                                <td>It 11</td>
+                                <td>It 12</td>
+                                <td>It 13</td>
+                                <td>It 14</td>
+                                <td>It 15</td>
+                                <td>Et 1</td>
+                                <td>Et 2</td>
+                                <td>Et 3</td>
+                                <td>Et 4</td>
+                                <td>Et 5</td>
+                            </th>
+                            <tr>
+                                <td></td>
+                                <td id='et-5'></td>
+                                <td id='et-6'></td>
+                                <td id='et-7'></td>
+                                <td id='et-8'></td>
+                                <td id='et-9'></td>
+                                <td id='et-10'></td>
+                                <td id='et-11'></td>
+                                <td id='et-12'></td>
+                                <td id='et-13'></td>
+                                <td id='et-14'></td>
+                            </tr>
+                            <th>
+                                <td>Et 6</td>
+                                <td>Et 7</td>
+                                <td>Et 8</td>
+                                <td>Et 9</td>
+                                <td>Et 10</td>
+                                <td>Et 11</td>
+                                <td>Et 12</td>
+                                <td>Et 13</td>
+                                <td>Et 14</td>
+                                <td>Et 15</td>
+                            </th>
+                            <tr>
+                                <td></td>
+                                <td id='sbst1'></td>
+                                <td id='sbst2'></td>
+                                <td id='sbst5'></td>
+                                <td id='sbst6'></td>
+                                <td id='core1'></td>
+                                <td id='core2'></td>
+                            </tr>
+                            <th>
+                                <td>CPU 1</td>
+                                <td>CPU 2</td>
+                                <td>CPU 5</td>
+                                <td>CPU 6</td>
+                                <td>Core 1</td>
+                                <td>Core 2</td>
+                            </th>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ibox-content">
+                    <table data-sort="false" class="footable" data-page-size="20" id='aux' style="width:100%">
+                        <h5>Auxilary Information</h5>
+                        <tbody>
+                            <tr>
+                                <td>Time</td>
+                                <td id='time'></td>
+                                <td>Now</td>
+                                <td id='now'></td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Pressure [torr]</td>
+                                <td id='pressl'></td>
+                                <td>Pressure [PSI]</td>
+                                <td id='pressh'></td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td>Elevation</td>
+                                <td>Azimuth</td>
+                                <td>Flag</td>
+                            </tr>
+                            <tr>
+                                <td>SunSensor 1</td>
+                                <td id='ssel-0'></td>
+                                <td id='ssaz-0'></td>
+                                <td id='ssflag-0'></td>
+                            </tr>
+                            <tr>
+                                <td>SunSensor 2</td>
+                                <td id='ssel-1'></td>
+                                <td id='ssaz-1'></td>
+                                <td id='ssflag-1'></td>
+                            </tr>
+                            <tr>
+                                <td>SunSensor 3</td>
+                                <td id='ssel-2'></td>
+                                <td id='ssaz-2'></td>
+                                <td id='ssflag-2'></td>
+                            </tr>
+                            <tr>
+                                <td>SunSensor 4</td>
+                                <td id='ssel-3'></td>
+                                <td id='ssaz-3'></td>
+                                <td id='ssflag-3'></td>
+                            </tr>
+                            <tr>
+                                <td>SunSensor 5</td>
+                                <td id='ssel-4'></td>
+                                <td id='ssaz-4'></td>
+                                <td id='ssflag-4'></td>
+                            </tr>
+                            <tr>
+                                <td>SunSensor 6</td>
+                                <td id='ssel-5'></td>
+                                <td id='ssaz-5'></td>
+                                <td id='ssflag-5'></td>
+                            </tr>
+                            <tr>
+                                <td>SunSensor 7</td>
+                                <td id='ssel-6'></td>
+                                <td id='ssaz-6'></td>
+                                <td id='ssflag-6'></td>
+                            </tr>
+                            <tr>
+                                <td>SunSensor 8</td>
+                                <td id='ssel-7'></td>
+                                <td id='ssaz-7'></td>
+                                <td id='ssflag-7'></td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Accel 1 [x,y,z]</td>
+                                <td id='accx-0'></td>
+                                <td id='accy-0'></td>
+                                <td id='accz-0'></td>
+                            </tr>
+                            <tr>
+                                <td>Accel 2 [x,y,z]</td>
+                                <td id='accx-1'></td>
+                                <td id='accy-1'></td>
+                                <td id='accz-1'></td>
+                            </tr>
+                            <tr>
+                                <td>Mag [x,y,z]</td>
+                                <td id='magx'></td>
+                                <td id='magy'></td>
+                                <td id='magz'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="ibox-content" >
-            <table data-sort="false" class="footable" data-page-size="56" id='montimes' style="width:100%">
-                <tbody>
-                    <th >
-                        <td>Time:</td>
-                        <td id='time'></td>
-                        <td> Now:</td>
-                        <td id='now'></td>                              
-                    </th>
-                </tbody>
-            </table>
-        </div>
-        <div class="ibox-content" >
-            <table data-sort="false" class="footable" data-page-size="20" id='query_entries' style="width:100%">
-                <h5>Queue Entries</h5>
-                <tbody>
-                    <tr>
-                        <td>P's</td>
-                        <td id='linkev_0'></td>
-                        <td id='linkev_1'></td>
-                        <td id='linkev_2'></td>
-                        <td id='linkev_3'></td>
-                        <td id='linkev_4'></td>
-                        <td id='linkev_5'></td>
-                        <td id='linkev_6'></td>
-                        <td id='linkev_7'></td>
-                        <td id='linkev_8'></td>
-                        <td id='linkev_9'></td>
-                    </tr>
-
-                    <th>
-                        <td>p0</td>
-                        <td>p1</td>
-                        <td>p2</td>
-                        <td>p3</td>
-                        <td>p4</td>
-                        <td>p5</td>
-                        <td>p6</td>
-                        <td>p7</td>
-                        <td>p8</td>
-                        <td>p9</td>                                 
-                    </th>
-
-                    <tr>
-                        <td>Other</td>
-                        <td id='linkcmdlos'></td>
-                        <td id='linkcmdsip'></td>
-                        <td id='linkhd'></td>
-                        <td id='linkgps'></td>
-                        <td id='linkhk'></td>
-                        <td id='linkmon'></td>
-                        <td id='linksurf'></td>
-                        <td id='linkturf'></td>
-                        <td id='linkped'></td>
-                    </tr>
-
-                    <th>
-                        <td>cmdL</td>
-                        <td>cmd5</td>
-                        <td>hd</td>
-                        <td>gps</td>
-                        <td>hk</td>
-                        <td>mon</td>
-                        <td>surf</td>
-                        <td>turf</td>
-                        <td>ped</td>                                    
-                    </th>
-
-                </tbody>                      
-            </table>
-        </div>
-        <div class="ibox-content" >
-            <table data-sort="false" class="footable" data-page-size="20" id='disk' style="width:100%">
-              <h5>Disk Space [MB]</h5>
-              <tbody>   
-                <tr>
-                    <td></td>
-                    <td id='disk_0'></td>
-                    <td id='disk_1'></td> 
-                    <td id='disk_2'></td>
-                    <td id='disk_3'></td>
-                    <td id='disk_4'></td>
-                    <td id='disk_5'></td>
-                    <td id='disk_6'></td>
-                    <td id='disk_7'></td>
-                </tr>
-
-                <th>
-                    <td>/temp</td>
-                    <td>var</td>
-                    <td>home</td>                                 
-                    <td>/DS</td>                                  
-                    <td>He1</td>                                 
-                    <td>He2</td>                                 
-                    <td>int</td>
-                    <td>NTU</td>  
-                </th>
-            </tbody>
-
-        </table>
-    </div>                
-</div>
-</div>
-<div class="col-lg-6">
-    <div class="ibox float-e-margins" id="adu5_pat">
-        <div class="ibox-title">
-            <h5>GPS Panel</h5>
-            <div class="ibox-tools">
-                <a class="collapse-link">
-                    <i class="fa fa-chevron-up"></i>
-                </a>
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins" id="mon">
+                <div class="ibox-title">
+                    <h5>Monitor</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table data-sort="false" class="footable" data-page-size="56" id='montimes' style="width:100%">
+                        <tbody>
+                            <th>
+                                <td>Time:</td>
+                                <td id='time'></td>
+                                <td> Now:</td>
+                                <td id='now'></td>
+                            </th>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ibox-content">
+                    <table data-sort="false" class="footable" data-page-size="20" id='query_entries' style="width:100%">
+                        <h5>Queue Entries</h5>
+                        <tbody>
+                            <tr>
+                                <td>P's</td>
+                                <td id='linkev-0'></td>
+                                <td id='linkev-1'></td>
+                                <td id='linkev-2'></td>
+                                <td id='linkev-3'></td>
+                                <td id='linkev-4'></td>
+                                <td id='linkev-5'></td>
+                                <td id='linkev-6'></td>
+                                <td id='linkev-7'></td>
+                                <td id='linkev-8'></td>
+                                <td id='linkev-9'></td>
+                            </tr>
+                            <th>
+                                <td>p0</td>
+                                <td>p1</td>
+                                <td>p2</td>
+                                <td>p3</td>
+                                <td>p4</td>
+                                <td>p5</td>
+                                <td>p6</td>
+                                <td>p7</td>
+                                <td>p8</td>
+                                <td>p9</td>
+                            </th>
+                            <tr>
+                                <td>Other</td>
+                                <td id='linkcmdlos'></td>
+                                <td id='linkcmdsip'></td>
+                                <td id='linkhd'></td>
+                                <td id='linkgps'></td>
+                                <td id='linkhk'></td>
+                                <td id='linkmon'></td>
+                                <td id='linksurf'></td>
+                                <td id='linkturf'></td>
+                                <td id='linkped'></td>
+                            </tr>
+                            <th>
+                                <td>cmdL</td>
+                                <td>cmd5</td>
+                                <td>hd</td>
+                                <td>gps</td>
+                                <td>hk</td>
+                                <td>mon</td>
+                                <td>surf</td>
+                                <td>turf</td>
+                                <td>ped</td>
+                            </th>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ibox-content">
+                    <table data-sort="false" class="footable" data-page-size="20" id='disk' style="width:100%">
+                        <h5>Disk Space [MB]</h5>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td id='disk-0'></td>
+                                <td id='disk-1'></td>
+                                <td id='disk-2'></td>
+                                <td id='disk-3'></td>
+                                <td id='disk-4'></td>
+                                <td id='disk-5'></td>
+                                <td id='disk-6'></td>
+                                <td id='disk-7'></td>
+                            </tr>
+                            <th>
+                                <td>/temp</td>
+                                <td>var</td>
+                                <td>home</td>
+                                <td>/DS</td>
+                                <td>He1</td>
+                                <td>He2</td>
+                                <td>int</td>
+                                <td>NTU</td>
+                            </th>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-        <div class="ibox-content" >
-            <table data-sort="false" class="footable" data-page-size="26" id='gps' style="width:100%">
-                <tbody>
-                    <tr>
-                        <td>Curret GPS:</td>                        
-                        <td id='pat_gpstype'></td>
-                    </tr>
-                    <tr>
-                    <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-                </tr>
-                    <tr>
-                        <td>GPS:</td>
-                        <td>adu5A</td>
-                        <td>adu5B</td>
-                        <td>g12</td>
-                    </tr>
-                    <tr>
-                      <td>Full Time</td>
-                      <td id='fulltime_5A'></td>
-                      <td id='fulltime_5B'></td>
-                      <td id='fulltime_g12'></td>
-                  </tr>
-                  <tr>
-                      <td>Time</td>
-                      <td id='time_5A'></td>
-                      <td id='time_5B'></td>
-                      <td id='time_g12'></td>
-                  </tr>
-                  <tr>
-                      <td>Full Now</td>
-                      <td id='fullnow_5A'></td>
-                      <td id='fullnow_5B'></td>
-                      <td id='fullnow_g12'></td>                                
-                  </tr>
-                  <tr>
-                      <td>Now</td>
-                      <td id='now_5A'></td>
-                      <td id='now_5B'></td> 
-                      <td id='now_g12'></td>                                 
-                  </tr>
-
-                  <tr>
-                    <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-                </tr>
-
-                <tr>
-                    <td>Latitude</td>
-                    <td id='latitude_5A'></td>
-                    <td id='latitude_5B'></td>
-                    <td id='latitude_g12'></td>
-                </tr>
-                <tr>
-                    <td>Longitude</td>  
-                    <td id='longitude_5A'></td>
-                    <td id='longitude_5B'></td>
-                    <td id='longitude_g12'></td>                              
-                </tr>
-                <tr>
-                   <td>Altitude</td>
-                   <td id='altitude_5A'></td>
-                   <td id='altitude_5B'></td>
-                   <td id='altitude_g12'></td>
-               </tr>
-
-               <tr>
-                <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-            </tr>
-
-
-            <tr>
-                <td>Pitch</td>
-                <td id='pitch_5A'></td>
-                <td id='pitch_5B'></td>
-            </tr>
-            <tr>                                
-                <td>Roll</td> 
-                <td id='roll_5A'></td>
-                <td id='roll_5B'></td>
-            </tr>
-
-            <tr>
-                <td>Heading</td>      
-                <td id='heading_5A'></td>
-                <td id='heading_5B'></td>
-            </tr>
-
-            <tr>
-                <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-            </tr>
-
-            <tr>
-                <td>Current GPS:</td>
-                <td id='vtg_gpstype'></td>
-            </tr>
-
-            <tr>                                
-                <td>knots</td>
-                <td id='vkt_5A'></td>
-                <td id='vkt_5B'></td>
-                <td id='vkt_g12'></td> 
-
-            </tr>
-
-            <tr>
-                <td>kph</td> 
-                <td id='vkph_5A'></td>
-                <td id='vkph_5B'></td>
-                <td id='vkph_g12'></td>                           
-            </tr>
-            <tr>
-                <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-            </tr>
-            <tr>
-                <td>Current GPS:</td>
-                <td id='sat_gpstype'></td>
-            </tr>
-            <tr>
-                <td># of Sats</td>
-                <td id='numsats_5A'></td>
-                <td id='numsats_5B'></td> 
-                <td id='numsats_g12'></td>                                 
-            </tr>
-        </tbody>
-    </table>
-</div>
-</div>
-</div>
-</div>
-<!-- <div id = 'chart1'></div> -->
-<div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-    <div class="modal-dialog">
-        <div class="modal-content animated bounceInRight">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-                <h3 class="modal-title">Modal title</h3>
-            </div>
-            <div class="modal-body">
-                <!-- <div id = 'chart1'></div> -->
-                <div class="form-group"><label>Reference UTC</label> <input id="reference_time" placeholder="Enter your end time" class="form-control"></div>
-                <div class="form-group"><label>Length(s)</label> <input id="length" value="100" placeholder="Enter the number of seconds" class="form-control"></div>
-            </div>
-            <div class="modal-footer">
-                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-                <button id="request" type="button" class="btn btn-primary">Request</button>
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins" id="adu5_pat">
+                <div class="ibox-title">
+                    <h5>GPS Panel</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table data-sort="false" class="footable" data-page-size="20" id='gps' style="width:100%">
+                        <tbody>
+                            <tr>
+                                <td>GPS type</td>
+                                <td id='pat_gpstype'></td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td>Time</td>
+                                <td id='time'></td>
+                            </tr>
+                            <tr>
+                                <td>Now</td>
+                                <td id='now'></td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Latitude</td>
+                                <td id='latitude'></td>
+                            </tr>
+                            <tr>
+                                <td>Longitude</td>
+                                <td id='longitude'></td>
+                            </tr>
+                            <tr>
+                                <td>Altitude</td>
+                                <td id='altitude'></td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Pitch</td>
+                                <td id='pitch'></td>
+                            </tr>
+                            <tr>
+                                <td>Roll</td>
+                                <td id='roll'></td>
+                            </tr>
+                            <tr>
+                                <td>Heading</td>
+                                <td id='heading'></td>
+                            </tr>
+                            <tr>
+                                <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>GPS type</td>
+                                <td id='vtg_gpstype'></td>
+                            </tr>
+                            <tr>
+                                <td>knots</td>
+                                <td id='vkt'></td>
+                            </tr>
+                            <tr>
+                                <td>kph</td>
+                                <td id='vkph'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
     </div>
+    <div id="dialog" class='hide'>
+        <div id='chart1'></div>
+        </br>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Reference UTC</label>
+                <input id="reference_time" placeholder="Enter your end time" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label>Length(s)</label>
+                <input id="length" value="10000" placeholder="Enter the number of seconds" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            </br>
+            <button id="request" type="button" class="btn btn-primary">Request</button>
+        </div>
+    </div>
 </div>
-
-<div id="dialog">
-    <!-- <div id="dialog" class = 'hide'> -->
-    <div class="form-group"><label>Reference UTC</label> <input id="reference_time" placeholder="Enter your end time" class="form-control"></div>
-    <div class="form-group"><label>Length(s)</label> <input id="length" value="100" placeholder="Enter the number of seconds" class="form-control"></div>
-    <button id="request" type="button" class="btn btn-primary">Request</button>
-</div>
-</div>
-</div>
-
-
-
-
-{% endblock %}
-{% block scripts %}
-{{ super() }}
+{% endblock %} {% block scripts %} {{ super() }}
 <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
 <script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
-
 <script>
-function timeConverter(UNIX_timestamp){
-  var a = new Date(UNIX_timestamp * 1000);
-  var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-  var year = a.getFullYear();
-  var month = months[a.getMonth()];
-  var date = a.getDate();
-  var hour = a.getHours();
-  var min = a.getMinutes();
-  var sec = a.getSeconds();
-  var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-  return time;
+function timeConverter(UNIX_timestamp) {
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+    return time;
 }
 
 var it_et_range_map = $.range_map({
@@ -668,367 +568,387 @@ var link_range_map = $.range_map({
     '15:50:': 'yellow',
 })
 
-function gpstype(gpstype){
-    if (gpstype == 0x10000){
+function gpstype(gpstype) {
+    if (gpstype == 0x10000) {
         return 'g12';
-    }else if(gpstype == 0x20000){
+    } else if (gpstype == 0x20000) {
         return 'adu5A';
-    }else if(gpstype == 0x40000){
+    } else if (gpstype == 0x40000) {
         return 'adu5B';
-    }else if(gpstype == 0x80000){
+    } else if (gpstype == 0x80000) {
         return 'cmd';
-    }else{
+    } else {
         return 'unknown';
     };
 }
-function update_sbst1_data($selector, new_data){
-    var array_string=$selector.attr('values');
-    array_string=new_data;
-        // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-            $selector.attr('values', array_string).sparkline('html', {
-                type: 'bar',
-                barWidth: 30,
-            // zeroAxis: false,
-            colorMap: sbst_range_map,
-            chartRangeMin:-10,
-            chartRangeMax:100
-        });
-        }
-        function update_sbst2_data($selector, new_data){
-            var array_string=$selector.attr('values');
-            array_string=new_data;
+
+function update_sbst1_data($selector, new_data) {
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: sbst_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
+        chartRangeMin: -10,
+        chartRangeMax: 100
     });
-    }
-    function update_sbst5_data($selector, new_data){
-        var array_string=$selector.attr('values');
-        array_string=new_data;
+}
+
+function update_sbst2_data($selector, new_data) {
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: sbst_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
+        chartRangeMin: -10,
+        chartRangeMax: 100
     });
-    }
-    function update_sbst6_data($selector, new_data){
-        var array_string=$selector.attr('values');
-        array_string=new_data;
+}
+
+function update_sbst5_data($selector, new_data) {
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: sbst_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
+        chartRangeMin: -10,
+        chartRangeMax: 100
     });
-    }
-    function update_core1_data($selector, new_data){
-        var array_string=$selector.attr('values');
-        array_string=new_data;
+}
+
+function update_sbst6_data($selector, new_data) {
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
+        // zeroAxis: false,
+        colorMap: sbst_range_map,
+        chartRangeMin: -10,
+        chartRangeMax: 100
+    });
+}
+
+function update_core1_data($selector, new_data) {
+    var array_string = $selector.attr('values');
+    array_string = new_data;
+    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: core_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
+        chartRangeMin: -10,
+        chartRangeMax: 100
     });
-    }
-    function update_core2_data($selector, new_data){
-        var array_string=$selector.attr('values');
-        array_string=new_data;
+}
+
+function update_core2_data($selector, new_data) {
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: core_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
+        chartRangeMin: -10,
+        chartRangeMax: 100
     });
-    }
-    function update_it_data($selector, new_data){
-        var array_string=$selector.attr('values');
-        array_string=new_data;
+}
+
+function update_it_data($selector, new_data) {
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: it_et_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
+        chartRangeMin: -10,
+        chartRangeMax: 100
     });
-    }
-    function update_et_data($selector, new_data){
-        var array_string=$selector.attr('values');
-        array_string=new_data;
+}
+
+function update_et_data($selector, new_data) {
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: it_et_range_map,
-        chartRangeMin:-10,
-        chartRangeMax:100
+        chartRangeMin: -10,
+        chartRangeMax: 100
     });
-    }
-    function update_disk0_data($selector, new_data){
+}
+
+function update_disk0_data($selector, new_data) {
     //slash temp
-    var array_string=$selector.attr('values');
-    array_string=new_data;
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: disk0_range_map,
-        chartRangeMin:0,
-        chartRangeMax:4000
+        chartRangeMin: 0,
+        chartRangeMax: 4000
     });
-    }
-    function update_disk1_data($selector, new_data){
+}
+
+function update_disk1_data($selector, new_data) {
     //var
-    var array_string=$selector.attr('values');
-    array_string=new_data;
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: disk1_range_map,
-        chartRangeMin:0,
-        chartRangeMax:1000
+        chartRangeMin: 0,
+        chartRangeMax: 1000
     });
-    }
-    function update_disk2_data($selector, new_data){
+}
+
+function update_disk2_data($selector, new_data) {
     //home
-    var array_string=$selector.attr('values');
-    array_string=new_data;
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: disk2_range_map,
-        chartRangeMin:0,
-        chartRangeMax:2500
+        chartRangeMin: 0,
+        chartRangeMax: 2500
     });
-    }
-    function update_disk3_data($selector, new_data){
+}
+
+function update_disk3_data($selector, new_data) {
     //slash
-    var array_string=$selector.attr('values');
-    array_string=new_data;
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: disk3_range_map,
-        chartRangeMin:0,
-        chartRangeMax:3000
+        chartRangeMin: 0,
+        chartRangeMax: 3000
     });
-    }
-    function update_disk45_data($selector, new_data){
+}
+
+function update_disk45_data($selector, new_data) {
     //He1 
-    var array_string=$selector.attr('values');
-    array_string=new_data;
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: disk45_range_map,
-        chartRangeMin:0,
-        chartRangeMax:6000000
+        chartRangeMin: 0,
+        chartRangeMax: 6000000
     });
-    }
-    function update_disk5_data($selector, new_data){
+}
+
+function update_disk5_data($selector, new_data) {
     // He2
-    var array_string=$selector.attr('values');
-    array_string=new_data;
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: disk5_range_map,
-        chartRangeMin:0,
-        chartRangeMax:6000000
+        chartRangeMin: 0,
+        chartRangeMax: 6000000
     });
-    }
-    function update_disk6_data($selector, new_data){
+}
+
+function update_disk6_data($selector, new_data) {
     //int
-    var array_string=$selector.attr('values');
-    array_string=new_data;
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: disk6_range_map,
-        chartRangeMin:0,
-        chartRangeMax:3000
+        chartRangeMin: 0,
+        chartRangeMax: 3000
     });
-    }
-    function update_disk7_data($selector, new_data){
+}
+
+function update_disk7_data($selector, new_data) {
     //NTU
-    var array_string=$selector.attr('values');
-    array_string=new_data;
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: disk7_range_map,
-        chartRangeMin:0,
-        chartRangeMax:250000
+        chartRangeMin: 0,
+        chartRangeMax: 250000
     });
-    }
-    function update_link_data($selector, new_data){
-//for all link stuff in queue entries
-var array_string=$selector.attr('values');
-array_string=new_data;
+}
+
+function update_link_data($selector, new_data) {
+    //for all link stuff in queue entries
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: link_range_map,
-        chartRangeMin:0,
-        chartRangeMax:100
+        chartRangeMin: 0,
+        chartRangeMax: 100
     });
-    }
-    function updatehtml_hk(hk){
-        $.getJSON('/api/' + ip_db + '/hk/'+ hk, function(data){
-            $('#power #p1_5v').html(data.hk.p1_5v);
-            $('#power #p3_3v').html(data.hk.p3_3v);
-            $('#power #p5v').html(data.hk.p5v);
-            $('#power #p5sbv').html(data.hk.p5sbv);
-            $('#power #p12v').html(data.hk.p12v);
-            $('#power #p24v').html(data.hk.p24v);
-            $('#power #ppvv').html(data.hk.ppvv);
-            $('#power #n5v').html(data.hk.n5v);
-            $('#power #n12v').html(data.hk.n12v);
-            $('#power #iprf1v').html(data.hk.iprf1v);
-            $('#power #iprf2v').html(data.hk.iprf2v);
-            $('#power #p1_5i').html(data.hk.p1_5i);
-            $('#power #p3_3i').html(data.hk.p3_3i);
-            $('#power #p5i').html(data.hk.p5i);
-            $('#power #p5sbi').html(data.hk.p5sbi);
-            $('#power #p12i').html(data.hk.p12i);
-            $('#power #p24i').html(data.hk.p24i);
-            $('#power #ppvi').html(data.hk.ppvi);
-            $('#power #n5i').html(data.hk.n5i);
-            $('#power #n12i').html(data.hk.n12i);
-            $('#power #iprf1i').html(data.hk.iprf1i);
-            $('#power #iprf2i').html(data.hk.iprf2i);
-            $('#power #bati').html(data.hk.bati);
-            $('#aux #now').html(data.hk.now + " (" + timeConverter(data.hk.now) + ")");
-            $('#aux #time').html(data.hk.time + " (" + timeConverter(data.hk.time) + ")");        
-            $('#aux #pressl').html(data.hk.pressl);
-            $('#aux #pressh').html(data.hk.pressh);
-            $('#aux #ssx_0').html(data.hk.ssx[0]);
-            $('#aux #ssx_1').html(data.hk.ssx[1]);
-            $('#aux #ssx_2').html(data.hk.ssx[2]);
-            $('#aux #ssx_3').html(data.hk.ssx[3]);
-            $('#aux #ssy_0').html(data.hk.ssy[0]);
-            $('#aux #ssy_1').html(data.hk.ssy[1]);
-            $('#aux #ssy_2').html(data.hk.ssy[2]);
-            $('#aux #ssy_3').html(data.hk.ssy[3]);
-            $('#aux #ssi_0').html(data.hk.ssi[0]);
-            $('#aux #ssi_1').html(data.hk.ssi[1]);
-            $('#aux #ssi_2').html(data.hk.ssi[2]);
-            $('#aux #ssi_3').html(data.hk.ssi[3]);
-            $('#aux #ssflag_0').html(data.hk.ssflag[0]);
-            $('#aux #ssflag_1').html(data.hk.ssflag[1]);
-            $('#aux #ssflag_2').html(data.hk.ssflag[2]);
-            $('#aux #ssflag_3').html(data.hk.ssflag[3]);
-            $('#aux #ssel_0').html(data.hk.ssel[0]);
-            $('#aux #ssel_1').html(data.hk.ssel[1]);
-            $('#aux #ssel_2').html(data.hk.ssel[2]);
-            $('#aux #ssel_3').html(data.hk.ssel[3]);
-            $('#aux #ssaz_0').html(data.hk.ssaz[0]);
-            $('#aux #ssaz_1').html(data.hk.ssaz[1]);
-            $('#aux #ssaz_2').html(data.hk.ssaz[2]);
-            $('#aux #ssaz_3').html(data.hk.ssaz[3]);
-            $('#aux #sst_0').html(data.hk.sst[0]);
-            $('#aux #sst_1').html(data.hk.sst[1]);
-            $('#aux #sst_2').html(data.hk.sst[2]);
-            $('#aux #sst_3').html(data.hk.sst[3]);
-            $('#aux #accx_0').html(data.hk.accx[0]);
-            $('#aux #accy_0').html(data.hk.accy[0]);
-            $('#aux #accz_0').html(data.hk.accz[0]);
-            $('#aux #accx_1').html(data.hk.accx[1]);
-            $('#aux #accy_1').html(data.hk.accy[1]);
-            $('#aux #accz_1').html(data.hk.accz[1]);
-            $('#aux #magx').html(data.hk.magx);
-            $('#aux #magy').html(data.hk.magy);
-            $('#aux #magz').html(data.hk.magz);        
-            var sbst1_name;
-            sbst1_name = '#sbst1';
-            update_sbst1_data($(sbst1_name), parseInt(data.hk.sbst1));
-            var sbst2_name;
-            sbst2_name = '#sbst2';
-            update_sbst2_data($(sbst2_name), parseInt(data.hk.sbst2));
-            
-            var sbst5_name;
-            sbst5_name = '#sbst5';
-            update_sbst5_data($(sbst5_name), parseInt(data.hk.sbst5));
-            var sbst6_name;
-            sbst6_name = '#sbst6';
-            update_sbst6_data($(sbst6_name), parseInt(data.hk.sbst6));
-            var core1_name;
-            core1_name = '#core1';
-            update_core1_data($(core1_name), parseInt(data.hk.core1));
-            var core2_name;
-            core2_name = '#core2';
-            update_core2_data($(core2_name), parseInt(data.hk.core2));
-            var it_name;
-            for (i = 0; i < 15; i++) {
-                it_name = '#it_' + i;
-                update_it_data($(it_name), parseInt(data.hk.it  [i]));
-            }
-            var et_name;
-            for (i = 0; i < 15; i++) {
-                et_name = '#et_' + i;
-                update_et_data($(et_name), parseInt(data.hk.et  [i]));
-            }
-        });
+}
+
+function updatehtml_hk(hk) {
+    $.getJSON('/api/' + ip_db + '/hk/' + hk, function(data) {
+        $('#power #p1_5v').html(data.hk.p1_5v);
+        $('#power #p3_3v').html(data.hk.p3_3v);
+        $('#power #p5v').html(data.hk.p5v);
+        $('#power #p5sbv').html(data.hk.p5sbv);
+        $('#power #p12v').html(data.hk.p12v);
+        $('#power #p24v').html(data.hk.p24v);
+        $('#power #ppvv').html(data.hk.ppvv);
+        $('#power #n5v').html(data.hk.n5v);
+        $('#power #n12v').html(data.hk.n12v);
+        $('#power #iprf1v').html(data.hk.iprf1v);
+        $('#power #iprf2v').html(data.hk.iprf2v);
+        $('#power #p1_5i').html(data.hk.p1_5i);
+        $('#power #p3_3i').html(data.hk.p3_3i);
+        $('#power #p5i').html(data.hk.p5i);
+        $('#power #p5sbi').html(data.hk.p5sbi);
+        $('#power #p12i').html(data.hk.p12i);
+        $('#power #p24i').html(data.hk.p24i);
+        $('#power #ppvi').html(data.hk.ppvi);
+        $('#power #n5i').html(data.hk.n5i);
+        $('#power #n12i').html(data.hk.n12i);
+        $('#power #iprf1i').html(data.hk.iprf1i);
+        $('#power #iprf2i').html(data.hk.iprf2i);
+        $('#power #bati').html(data.hk.bati);
+        $('#aux #now').html(data.hk.now + " (" + timeConverter(data.hk.now) + ")");
+        $('#aux #time').html(data.hk.time + " (" + timeConverter(data.hk.time) + ")");
+        $('#aux #pressl').html(data.hk.pressl);
+        $('#aux #pressh').html(data.hk.pressh);
+        $('#aux #ssx-0').html(data.hk.ssx[0]);
+        $('#aux #ssx-1').html(data.hk.ssx[1]);
+        $('#aux #ssx-2').html(data.hk.ssx[2]);
+        $('#aux #ssx-3').html(data.hk.ssx[3]);
+        $('#aux #ssy-0').html(data.hk.ssy[0]);
+        $('#aux #ssy-1').html(data.hk.ssy[1]);
+        $('#aux #ssy-2').html(data.hk.ssy[2]);
+        $('#aux #ssy-3').html(data.hk.ssy[3]);
+        $('#aux #ssi-0').html(data.hk.ssi[0]);
+        $('#aux #ssi-1').html(data.hk.ssi[1]);
+        $('#aux #ssi-2').html(data.hk.ssi[2]);
+        $('#aux #ssi-3').html(data.hk.ssi[3]);
+        $('#aux #ssflag-0').html(data.hk.ssflag[0]);
+        $('#aux #ssflag-1').html(data.hk.ssflag[1]);
+        $('#aux #ssflag-2').html(data.hk.ssflag[2]);
+        $('#aux #ssflag-3').html(data.hk.ssflag[3]);
+        $('#aux #ssel-0').html(data.hk.ssel[0]);
+        $('#aux #ssel-1').html(data.hk.ssel[1]);
+        $('#aux #ssel-2').html(data.hk.ssel[2]);
+        $('#aux #ssel-3').html(data.hk.ssel[3]);
+        $('#aux #ssaz-0').html(data.hk.ssaz[0]);
+        $('#aux #ssaz-1').html(data.hk.ssaz[1]);
+        $('#aux #ssaz-2').html(data.hk.ssaz[2]);
+        $('#aux #ssaz-3').html(data.hk.ssaz[3]);
+        $('#aux #sst-0').html(data.hk.sst[0]);
+        $('#aux #sst-1').html(data.hk.sst[1]);
+        $('#aux #sst-2').html(data.hk.sst[2]);
+        $('#aux #sst-3').html(data.hk.sst[3]);
+        $('#aux #accx-0').html(data.hk.accx[0]);
+        $('#aux #accy-0').html(data.hk.accy[0]);
+        $('#aux #accz-0').html(data.hk.accz[0]);
+        $('#aux #accx-1').html(data.hk.accx[1]);
+        $('#aux #accy-1').html(data.hk.accy[1]);
+        $('#aux #accz-1').html(data.hk.accz[1]);
+        $('#aux #magx').html(data.hk.magx);
+        $('#aux #magy').html(data.hk.magy);
+        $('#aux #magz').html(data.hk.magz);
+        var sbst1_name;
+        sbst1_name = '#sbst1';
+        update_sbst1_data($(sbst1_name), parseInt(data.hk.sbst1));
+        var sbst2_name;
+        sbst2_name = '#sbst2';
+        update_sbst2_data($(sbst2_name), parseInt(data.hk.sbst2));
+
+        var sbst5_name;
+        sbst5_name = '#sbst5';
+        update_sbst5_data($(sbst5_name), parseInt(data.hk.sbst5));
+        var sbst6_name;
+        sbst6_name = '#sbst6';
+        update_sbst6_data($(sbst6_name), parseInt(data.hk.sbst6));
+        var core1_name;
+        core1_name = '#core1';
+        update_core1_data($(core1_name), parseInt(data.hk.core1));
+        var core2_name;
+        core2_name = '#core2';
+        update_core2_data($(core2_name), parseInt(data.hk.core2));
+        var it_name;
+        for (i = 0; i < 15; i++) {
+            it_name = '#it-' + i;
+            update_it_data($(it_name), parseInt(data.hk.it[i]));
+        }
+        var et_name;
+        for (i = 0; i < 15; i++) {
+            et_name = '#et-' + i;
+            update_et_data($(et_name), parseInt(data.hk.et[i]));
+        }
+    });
 
 }
-function updatehtml_sshk(sshk){
+
+function updatehtml_sshk(sshk) {
     if (!sshk) return;
-    $.getJSON('/api/' + ip_db + '/sshk/'+ sshk, function(data){      
-        $('#aux #ssflag_5').html(data.sshk.ssflag[0]);
-        $('#aux #ssflag_6').html(data.sshk.ssflag[1]);
-        $('#aux #ssflag_7').html(data.sshk.ssflag[2]);
-        $('#aux #ssflag_8').html(data.sshk.ssflag[3]);
-        $('#aux #ssel_5').html(data.sshk.ssel[0]);
-        $('#aux #ssel_6').html(data.sshk.ssel[1]);
-        $('#aux #ssel_7').html(data.sshk.ssel[2]);
-        $('#aux #ssel_8').html(data.sshk.ssel[3]);
-        $('#aux #ssaz_5').html(data.sshk.ssaz[0]);
-        $('#aux #ssaz_6').html(data.sshk.ssaz[1]);
-        $('#aux #ssaz_7').html(data.sshk.ssaz[2]);
-        $('#aux #ssaz_8').html(data.sshk.ssaz[3]);
+    $.getJSON('/api/' + ip_db + '/sshk/' + sshk, function(data) {
+        $('#aux #ssflag-4').html(data.sshk.ssflag[0]);
+        $('#aux #ssflag-5').html(data.sshk.ssflag[1]);
+        $('#aux #ssflag-6').html(data.sshk.ssflag[2]);
+        $('#aux #ssflag-7').html(data.sshk.ssflag[3]);
+        $('#aux #ssel-4').html(data.sshk.ssel[0]);
+        $('#aux #ssel-5').html(data.sshk.ssel[1]);
+        $('#aux #ssel-6').html(data.sshk.ssel[2]);
+        $('#aux #ssel-7').html(data.sshk.ssel[3]);
+        $('#aux #ssaz-4').html(data.sshk.ssaz[0]);
+        $('#aux #ssaz-5').html(data.sshk.ssaz[1]);
+        $('#aux #ssaz-6').html(data.sshk.ssaz[2]);
+        $('#aux #ssaz-7').html(data.sshk.ssaz[3]);
     });
 }
-function updatehtml_mon(mon){
+
+function updatehtml_mon(mon) {
     if (!mon) return;
-    $.getJSON('/api/' + ip_db + '/mon/' + mon, function(data){
+    $.getJSON('/api/' + ip_db + '/mon/' + mon, function(data) {
         $('#montimes #now').html(data.mon.now + " (" + timeConverter(data.mon.now) + ")");
         $('#montimes #time').html(data.mon.time + " (" + timeConverter(data.mon.time) + ")");
 
@@ -1061,440 +981,319 @@ function updatehtml_mon(mon){
         update_link_data($(linkped_name), parseInt(data.mon.linkped));
         var linkev_name;
         for (i = 0; i < 10; i++) {
-            linkev_name = '#linkev_' + i;
-            update_link_data($(linkev_name), parseInt(data.mon.linkev  [i]));
+            linkev_name = '#linkev-' + i;
+            update_link_data($(linkev_name), parseInt(data.mon.linkev[i]));
         }
         var disk_name;
-        disk_name = '#disk_0';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk  [0]));
+        disk_name = '#disk-0';
+        update_disk0_data($(disk_name), parseInt(data.mon.disk[0]));
         var disk_name;
-        disk_name = '#disk_1';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk  [1]));
+        disk_name = '#disk-1';
+        update_disk0_data($(disk_name), parseInt(data.mon.disk[1]));
         var disk_name;
-        disk_name = '#disk_2';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk  [2]));
+        disk_name = '#disk-2';
+        update_disk0_data($(disk_name), parseInt(data.mon.disk[2]));
         var disk_name;
-        disk_name = '#disk_3';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk  [3]));
+        disk_name = '#disk-3';
+        update_disk0_data($(disk_name), parseInt(data.mon.disk[3]));
         var disk_name;
-        disk_name = '#disk_4';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk  [4]));
+        disk_name = '#disk-4';
+        update_disk0_data($(disk_name), parseInt(data.mon.disk[4]));
         var disk_name;
-        disk_name = '#disk_5';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk  [5]));
+        disk_name = '#disk-5';
+        update_disk0_data($(disk_name), parseInt(data.mon.disk[5]));
         var disk_name;
-        disk_name = '#disk_6';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk  [6]));        
+        disk_name = '#disk-6';
+        update_disk0_data($(disk_name), parseInt(data.mon.disk[6]));
         var disk_name;
-        disk_name = '#disk_7';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk  [7]));
+        disk_name = '#disk-7';
+        update_disk0_data($(disk_name), parseInt(data.mon.disk[7]));
     });
 }
 
-function updatehtml_adu5_pat(adu5_pat){
+function updatehtml_adu5_pat(adu5_pat) {
     if (!adu5_pat) return;
-    $.getJSON('/api/' + ip_db + '/adu5_pat/' + adu5_pat, function(data){
+    $.getJSON('/api/' + ip_db + '/adu5_pat/' + adu5_pat, function(data) {
         $('#gps #pat_gpstype').html(gpstype(data.pat.gpstype));
-        if (gpstype(data.pat.gpstype) == 'adu5A'){        
-        $('#gps #now_5A').html(data.pat.now);
-        $('#gps #time_5A').html(data.pat.time);
-        $('#gps #fullnow_5A').html(timeConverter(data.pat.now));
-        $('#gps #fulltime_5A').html(timeConverter(data.pat.time));
-        $('#gps #heading_5A').html(data.pat.heading);
-        $('#gps #latitude_5A').html(data.pat.latitude);
-        $('#gps #longitude_5A').html(data.pat.longitude);
-        $('#gps #pitch_5A').html(data.pat.pitch);
-        $('#gps #roll_5A').html(data.pat.roll);
-        $('#gps #altitude_5A').html(data.pat.altitude);        
-    }
-    else if (gpstype(data.pat.gpstype) == 'adu5B'){
-        $('#gps #now_5B').html(data.pat.now);
-        $('#gps #time_5B').html(data.pat.time);
-        $('#gps #fullnow_5B').html(timeConverter(data.pat.now));
-        $('#gps #fulltime_5B').html(timeConverter(data.pat.time));
-        $('#gps #heading_5B').html(data.pat.heading);
-        $('#gps #latitude_5B').html(data.pat.latitude);
-        $('#gps #longitude_5B').html(data.pat.longitude);
-        $('#gps #pitch_5B').html(data.pat.pitch);
-        $('#gps #roll_5B').html(data.pat.roll);
-        $('#gps #altitude_5B').html(data.pat.altitude);
-        $('#gps #numsats_5B').html(data.pat.numsats);
-    }
-});
+        $('#gps #now').html(data.pat.now + " (" + timeConverter(data.pat.now) + ")");
+        $('#gps #time').html(data.pat.time + " (" + timeConverter(data.pat.time) + ")");
+        $('#gps #heading').html(data.pat.heading);
+        $('#gps #latitude').html(data.pat.latitude);
+        $('#gps #longitude').html(data.pat.longitude);
+        $('#gps #pitch').html(data.pat.pitch);
+        $('#gps #roll').html(data.pat.roll);
+        $('#gps #altitude').html(data.pat.altitude);
+    });
 }
 
-function updatehtml_adu5_vtg(adu5_vtg){
+function updatehtml_adu5_vtg(adu5_vtg) {
     if (!adu5_vtg) return;
-    $.getJSON('/api/' + ip_db + '/adu5_vtg/' + adu5_vtg, function(data){
+    $.getJSON('/api/' + ip_db + '/adu5_vtg/' + adu5_vtg, function(data) {
         $('#gps #vtg_gpstype').html(gpstype(data.vtg.gpstype));
-        if (gpstype(data.vtg.gpstype) == 'adu5A'){
-            $('#gps #vkph_5A').html(data.vtg.vkph);
-            $('#gps #vkt_5A').html(data.vtg.vkt);
-        }
-        else if (gpstype(data.vtg.gpstype) == 'adu5B'){
-            $('#gps #vkph_5B').html(data.vtg.vkph);
-            $('#gps #vkt_5B').html(data.vtg.vkt);
-        }
+        $('#gps #vkph').html(data.vtg.vkph);
+        $('#gps #vkt').html(data.vtg.vkt);
     });
 }
 
-function updatehtml_adu5_sat(adu5_sat){
+function updatehtml_adu5_sat(adu5_sat) {
     if (!adu5_sat) return;
-    $.getJSON('/api/' + ip_db + '/adu5_sat/' + adu5_sat, function(data){
-        $('#gps #sat_gpstype').html(gpstype(data.sat.gpstype));
-        if (gpstype(data.sat.gpstype) == 'adu5A'){
-        $('#gps #numsats_5A').html(data.sat.numsats[0]+', '+data.sat.numsats[1]+', '+data.sat.numsats[2]+', '+data.sat.numsats[3]);
-    }
-    else if (gpstype(data.sat.gpstype) == 'adu5B'){
-        $('#gps #numsats_5B').html(data.sat.numsats[0]+', '+data.sat.numsats[1]+', '+data.sat.numsats[2]+', '+data.sat.numsats[3]);
-    }
-    });
-}
-function updatehtml_g12_pos(g12_pos){
-    if (!g12_pos) return;
-    $.getJSON('/api/' + ip_db + '/g12_pos/' + g12_pos, function(data){
-        $('#gps #now_g12').html(data.pos.now);
-        $('#gps #time_g12').html(data.pos.time);
-        $('#gps #fullnow_g12').html(timeConverter(data.pos.now));
-        $('#gps #fulltime_g12').html(timeConverter(data.pos.time));
-        $('#gps #latitude_g12').html(data.pos.latitude);
-        $('#gps #longitude_g12').html(data.pos.longitude);
-        $('#gps #altitude_g12').html(data.pos.altitude);        
-    });
-}
-function updatehtml_g12_sat(g12_sat){
-    if (!g12_sat) return;
-    $.getJSON('/api/' + ip_db + '/g12_sat/' + g12_sat, function(data){
-        $('#gps #sat_gpstype').html(gpstype(data.sat.gpstype));        
-        $('#gps #numsats_g12').html(data.sat.numsats); 
-    });
+    $.getJSON('/api/' + ip_db + '/adu5_sat/' + adu5_sat, function(data) {});
 }
 
-$(document).ready(function () {
-    // $( "#dialog" ).dialog();
+$(document).ready(function() {
     $('#navbar_hk').parent().addClass("active");
 
-    $( "td[id]" ).click(function() {
+    $.jqplot.config.enablePlugins = true;
+    $("td[id]").click(function() {
         var column_name = $(this).attr('id');
         var table_name = $(this).closest('.ibox').attr('id');
         var name = table_name + '_' + column_name;
-        
+
         console.log($(this).attr('id'));
         console.log($(this).closest('.ibox').attr('id'));
-
-        var $newDialog = $('#dialog').clone();
-        $newDialog.removeClass('hide');
-        $newDialog.attr('title', name);
-        $newDialog.prepend('<div id="'+ "plot_" +name+'"></div>');
-        $newDialog.find('input[id="reference_time"]').val(hk_times[i]);
-         // var line1=[['2008-09-30', 4], ['2008-10-30', 6.5], ['2008-11-30', 5.7], ['2008-12-30', 9], 
-         //        ['2009-01-30', 8.2], ['2009-02-28', 7.6], ['2009-03-30', 11.4], ['2009-04-30', 16.2], 
-         //        ['2009-05-30', 21.8], ['2009-06-30', 19.3], ['2009-07-30', 29.7], ['2009-08-30', 36.7], 
-         //        ['2009-09-30', 38.7], ['2009-10-30', 33.7], ['2009-11-30', 49.7], ['2009-12-30', 62.7]];
-         //        var plot1 = $.jqplot('chart1', [line1], {
-         //            title:'Rotated Axis Text',
-         //            axes:{
-         //                xaxis:{
-         //                    renderer:$.jqplot.DateAxisRenderer, 
-         //                    rendererOptions:{
-         //                        tickRenderer:$.jqplot.CanvasAxisTickRenderer
-         //                    },
-         //                    tickOptions:{ 
-         //                        fontSize:'10pt', 
-         //                        fontFamily:'Tahoma', 
-         //                        angle:-40
-         //                    }
-         //                },
-         //                yaxis:{
-         //                    rendererOptions:{
-         //                        tickRenderer:$.jqplot.CanvasAxisTickRenderer},
-         //                        tickOptions:{
-         //                            fontSize:'10pt', 
-         //                            fontFamily:'Tahoma', 
-         //                            angle:30
-         //                        }
-         //                }
-         //            },
-         //            series:[{ lineWidth:4, markerOptions:{ style:'square' } }],
-         //            cursor:{
-         //                zoom:true,
-         //                looseZoom: true
-         //            }
-         //        });
-console.log($('#' + 'plot_'+ name));
-$('#' + 'plot_'+ name).jqplot([[3,7,9,1,5,3,8,2,5]]);      
-$newDialog.dialog();
-
-$newDialog.find('button[id="request"]').click(function(){
-    var end_time =  $newDialog.find('input[id="reference_time"]').val();
-    var length = $newDialog.find('input[id="length"]').val();
-    console.log(end_time);
-    console.log(end_time - length);
-    $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time,  function(data){
-        console.log(data);
-        console.log("here");
-
-        $.jqplot.config.enablePlugins = true;
-        var line1=[['2008-09-30', 4], ['2008-10-30', 6.5], ['2008-11-30', 5.7], ['2008-12-30', 9], 
-        ['2009-01-30', 8.2], ['2009-02-28', 7.6], ['2009-03-30', 11.4], ['2009-04-30', 16.2], 
-        ['2009-05-30', 21.8], ['2009-06-30', 19.3], ['2009-07-30', 29.7], ['2009-08-30', 36.7], 
-        ['2009-09-30', 38.7], ['2009-10-30', 33.7], ['2009-11-30', 49.7], ['2009-12-30', 62.7]];
-        var plot1 = $.jqplot('chart1', [line1], {
-            title:'Rotated Axis Text',
-            axes:{
-                xaxis:{
-                    renderer:$.jqplot.DateAxisRenderer, 
-                    rendererOptions:{
-                        tickRenderer:$.jqplot.CanvasAxisTickRenderer
+        if ($("#dialog_" + name).length) {
+            $("#dialog_" + name).dialog('open');
+            $("#dialog_" + name).find('input[id="reference_time"]').val(hk_times[i]);
+        } else {
+            var $newDialog = $('#dialog').clone();
+            $newDialog.attr('id', 'dialog_' + name);
+            $newDialog.removeClass('hide');
+            $newDialog.attr('title', name);
+            $newDialog.prepend('<div id="' + "plot_" + name + '"></div>');
+            $newDialog.find('input[id="reference_time"]').val(hk_times[i]);
+            $newDialog.dialog({
+                width: 600,
+                height: 500,
+            });
+            var line1 = [
+                ['2008-09-30', 14]
+            ];
+            var plot1 = $.jqplot('plot_' + name, [line1], {
+                title: 'double click to reset the zoom',
+                axes: {
+                    xaxis: {
+                        renderer: $.jqplot.DateAxisRenderer,
+                        rendererOptions: {
+                            tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                        },
+                        tickOptions: {
+                            // formatString: '%M:%S%#N ',
+                            fontSize: '10pt',
+                            fontFamily: 'Tahoma',
+                        }
                     },
-                    tickOptions:{ 
-                        fontSize:'10pt', 
-                        fontFamily:'Tahoma', 
-                        angle:-40
-                    }
-                },
-                yaxis:{
-                    rendererOptions:{
-                        tickRenderer:$.jqplot.CanvasAxisTickRenderer},
-                        tickOptions:{
-                            fontSize:'10pt', 
-                            fontFamily:'Tahoma', 
-                            angle:30
+                    yaxis: {
+                        rendererOptions: {
+                            tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                        },
+                        tickOptions: {
+                            fontSize: '10pt',
+                            fontFamily: 'Tahoma',
                         }
                     }
                 },
-                series:[{ lineWidth:4, markerOptions:{ style:'square' } }],
-                cursor:{
-                    zoom:true,
-                    looseZoom: true
+                series: [{
+                    lineWidth: 2
+                }],
+                cursor: {
+                    zoom: true,
+                    looseZoom: true,
+                    // showTooltip:true, 
+                    followMouse: true,
+                    showTooltipOutsideZoom: true,
+                    constrainOutsideZoom: false
                 }
-            });      
-});
-});
-
-
-        // var $newModal = $('#myModal').clone();
-        // $newModal.modal({
-        //     backdrop: false
-        // }).draggable();
-        // $newModal.find('.modal-content').resizable();
-        // $newModal.attr('name', name);
-        // $newModal.find('input[id="reference_time"]').val(hk_times[i])
-        // $newModal.on('shown', function (e) {
-        //     console.log('hi');
-        // });
-
-        // $newModal.find('button[id="request"]').click(function(){
-        //     var end_time =  $newModal.find('input[id="reference_time"]').val();
-        //     var length = $newModal.find('input[id="length"]').val();
-        //     console.log(end_time);
-        //     console.log(end_time - length);
-        //     $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time,  function(data){
-        //         console.log(data);
-        //         console.log("here");
-
-        //         $.jqplot.config.enablePlugins = true;
-        //         var line1=[['2008-09-30', 4], ['2008-10-30', 6.5], ['2008-11-30', 5.7], ['2008-12-30', 9], 
-        //         ['2009-01-30', 8.2], ['2009-02-28', 7.6], ['2009-03-30', 11.4], ['2009-04-30', 16.2], 
-        //         ['2009-05-30', 21.8], ['2009-06-30', 19.3], ['2009-07-30', 29.7], ['2009-08-30', 36.7], 
-        //         ['2009-09-30', 38.7], ['2009-10-30', 33.7], ['2009-11-30', 49.7], ['2009-12-30', 62.7]];
-        //         $('#myModal[name="hk_p5i"]').find('chart1').text("hhihihih");                
-        //     });
-        // });
-});
-
-$('.footable').footable();
-
-var hk_nbufs=[];
-var hk_nows=[];
-var hk_times=[];
-var sshk_nbufs=[];
-var sshk_nows=[];
-var sshk_times=[];
-var mon_nbufs=[];
-var mon_nows=[];
-var mon_times=[];
-var adu5_pat_nbufs=[];
-var adu5_pat_nows=[];
-var adu5_pat_times=[];
-var adu5_vtg_nbufs=[];
-var adu5_vtg_nows=[];
-var adu5_vtg_times=[];
-var adu5_sat_nbufs=[];
-var adu5_sat_nows=[];
-var adu5_sat_times=[];
-var g12_pos_nbufs=[];
-var g12_pos_nows=[];
-var g12_pos_times=[];
-var g12_sat_nbufs=[];
-var g12_sat_nows=[];
-var g12_sat_times=[];
-var i=0;
-var j=0;
-var k=0;
-var l=0;
-var m=0;
-var n=0;
-var o=0;
-var p=0;
-var connected = false;
-    var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
-
-
-
-    function autoload(start_time){
-        $.getJSON('/api/' + ip_db + '/hk/nbufs/' + start_time, function(data){
-            new_length=data.hk_nbufs.length
-            hk_nbufs=hk_nbufs.concat(data.hk_nbufs);
-            hk_nows=hk_nows.concat(data.hk_nows);
-            hk_times=hk_times.concat(data.hk_times);
-            start_time=Math.max.apply(null, hk_times);
-            $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
-            $('#connect').html('Disconnect');
-            $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
-                // switchery.enable();
-                connected = true;
-                connect.ladda('stop');
-            }).done(function(){
-                setTimeout(function(){
-                    if (new_length){
-                        sleep_interval = 2000;
-                    }else{
-                        sleep_interval = Math.min(sleep_interval * 1.2, 60000);
-                    }
-                    if (connected == true){
-                        autoload(start_time);
-                    }
-                }, sleep_interval);
             });
 
-            $.getJSON('/api/' + ip_db + '/sshk/nbufs/' + start_time, function(data){
-                new_length=data.sshk_nbufs.length
-                sshk_nbufs=sshk_nbufs.concat(data.sshk_nbufs);
-                sshk_nows=sshk_nows.concat(data.sshk_nows);
-                sshk_times=sshk_times.concat(data.sshk_times);
-            });
-            $.getJSON('/api/' + ip_db + '/mon/nbufs/' + start_time, function(data){
-                new_length=data.mon_nbufs.length
-                mon_nbufs=mon_nbufs.concat(data.mon_nbufs);
-                mon_nows=mon_nows.concat(data.mon_nows);
-                mon_times=mon_times.concat(data.mon_times);
-            });
-            $.getJSON('/api/' + ip_db + '/adu5_pat/nbufs/' + start_time, function(data){
-                new_length=data.adu5_pat_nbufs.length
-                adu5_pat_nbufs=adu5_pat_nbufs.concat(data.adu5_pat_nbufs);
-                adu5_pat_nows=adu5_pat_nows.concat(data.adu5_pat_nows);
-                adu5_pat_times=adu5_pat_times.concat(data.adu5_pat_times); 
-            });
-            $.getJSON('/api/' + ip_db + '/adu5_vtg/nbufs/' + start_time, function(data){
-                new_length=data.adu5_vtg_nbufs.length
-                adu5_vtg_nbufs=adu5_vtg_nbufs.concat(data.adu5_vtg_nbufs);
-                adu5_vtg_nows=adu5_vtg_nows.concat(data.adu5_vtg_nows);
-                adu5_vtg_times=adu5_vtg_times.concat(data.adu5_vtg_times);
-            });
-            $.getJSON('/api/' + ip_db + '/adu5_sat/nbufs/' + start_time, function(data){
-                new_length=data.adu5_sat_nbufs.length
-                adu5_sat_nbufs=adu5_sat_nbufs.concat(data.adu5_sat_nbufs);
-                adu5_sat_nows=adu5_sat_nows.concat(data.adu5_sat_nows);
-                adu5_sat_times=adu5_sat_times.concat(data.adu5_sat_times);
-            });
-            $.getJSON('/api/' + ip_db + '/g12_pos/nbufs/' + start_time, function(data){
-                new_length=data.g12_pos_nbufs.length
-                g12_pos_nbufs=g12_pos_nbufs.concat(data.g12_pos_nbufs);
-                g12_pos_nows=g12_pos_nows.concat(data.g12_pos_nows);
-                g12_pos_times=g12_pos_times.concat(data.g12_pos_times);
-            });
-            $.getJSON('/api/' + ip_db + '/g12_sat/nbufs/' + start_time, function(data){
-                new_length=data.g12_sat_nbufs.length
-                g12_sat_nbufs=g12_sat_nbufs.concat(data.g12_sat_nbufs);
-                g12_sat_nows=g12_sat_nows.concat(data.g12_sat_nows);
-                g12_sat_times=g12_sat_times.concat(data.g12_sat_times);                
+            $newDialog.dialog({
+                resize: function(event, ui) {
+                    $("#plot_" + name).height(Math.max(100, $newDialog.height() - 120));
+                    plot1.replot({
+                        resetAxes: true,
+                    });
+                }
             });
         }
 
-        var connect = $( '.ladda-button' ).ladda();
-        $('#connect').click(function() {
-            if ( $(this).hasClass('connect')){
-                hk_nbufs=[];
-                hk_nows=[];
-                hk_times=[];
-                sshk_nbufs=[];
-                sshk_nows=[];
-                sshk_times=[];
-                mon_nbufs=[];
-                mon_nows=[];
-                mon_times=[];
-                adu5_pat_nbufs=[];
-                adu5_pat_nows=[];
-                adu5_pat_times=[];
-                adu5_vtg_nbufs=[];
-                adu5_vtg_nows=[];
-                adu5_vtg_times=[];
-                adu5_sat_nbufs=[];
-                adu5_sat_nows=[];
-                adu5_sat_times=[];
-                g12_pos_nbufs=[];
-                g12_pos_nows=[];
-                g12_pos_times=[];
-                g12_sat_nbufs=[];
-                g12_sat_nows=[];
-                g12_sat_times=[];
-                i=0;
-                j=0;
-                k=0;
-                l=0;
-                m=0;
-                n=0;
-                o=0;
-                p=0;
-                connect.ladda( 'start' );
-                $.ajax({
-                    url: '/api/connect/'+ ip + '/' + db
-                }).done(function(response) {
-                    if (response == 'success'){
-                        autoload(0);
-                        setTimeout(function(){
-                            $('#first').click();
-                        },3000);
-                        
-                    }else{
-                        connect.ladda('stop');
-                        swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
-                    }          
+        $("#dialog_" + name).find('button[id="request"]').click(function() {
+            console.log('click');
+            var end_time = $newDialog.find('input[id="reference_time"]').val();
+            var length = $newDialog.find('input[id="length"]').val();
+            console.log(end_time);
+            console.log(end_time - length);
+            $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
+                console.log(data.data);
+                plot1.replot({
+                    data: [data.data]
                 });
-            }else{
-               hk_nbufs=[];
-               hk_nows=[];
-               hk_times=[];
-               sshk_nbufs=[];
-               sshk_nows=[];
-               sshk_times=[];
-               mon_nbufs=[];
-               mon_nows=[];
-               mon_times=[];
-               adu5_pat_nbufs=[];
-               adu5_pat_nows=[];
-               adu5_pat_times=[];
-               adu5_vtg_nbufs=[];
-               adu5_vtg_nows=[];
-               adu5_vtg_times=[];
-               adu5_sat_nbufs=[];
-               adu5_sat_nows=[];
-               adu5_sat_times=[];             
-               g12_pos_nbufs=[];
-               g12_pos_nows=[];
-               g12_pos_times=[];
-               g12_sat_nbufs=[];
-               g12_sat_nows=[];
-               g12_sat_times=[];
-               i=0;
-               j=0;
-               k=0;
-               l=0;
-               m=0;
-               n=0;
-               o=0;
-               p=0;
+            });
+        });
+
+        $("#dialog_" + name).find('button[id="request"]').trigger("click");
+    });
+
+
+
+    $('.footable').footable();
+
+    var hk_nbufs = [];
+    var hk_nows = [];
+    var hk_times = [];
+    var sshk_nbufs = [];
+    var sshk_nows = [];
+    var sshk_times = [];
+    var mon_nbufs = [];
+    var mon_nows = [];
+    var mon_times = [];
+    var adu5_pat_nbufs = [];
+    var adu5_pat_nows = [];
+    var adu5_pat_times = [];
+    var adu5_vtg_nbufs = [];
+    var adu5_vtg_nows = [];
+    var adu5_vtg_times = [];
+    var adu5_sat_nbufs = [];
+    var adu5_sat_nows = [];
+    var adu5_sat_times = [];
+    var i = 0;
+    var j = 0;
+    var k = 0;
+    var l = 0;
+    var m = 0;
+    var n = 0;
+    var connected = false;
+    var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
+
+
+
+    function autoload(start_time) {
+        $.getJSON('/api/' + ip_db + '/hk/nbufs/' + start_time, function(data) {
+            new_length = data.hk_nbufs.length
+            hk_nbufs = hk_nbufs.concat(data.hk_nbufs);
+            hk_nows = hk_nows.concat(data.hk_nows);
+            hk_times = hk_times.concat(data.hk_times);
+            start_time = Math.max.apply(null, hk_times);
+            $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
+            $('#connect').html('Disconnect');
+            $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
+            // switchery.enable();
+            connected = true;
+            connect.ladda('stop');
+        }).done(function() {
+            setTimeout(function() {
+                if (new_length) {
+                    sleep_interval = 2000;
+                } else {
+                    sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+                }
+                if (connected == true) {
+                    autoload(start_time);
+                }
+            }, sleep_interval);
+        });
+
+        $.getJSON('/api/' + ip_db + '/sshk/nbufs/' + start_time, function(data) {
+            new_length = data.sshk_nbufs.length
+            sshk_nbufs = sshk_nbufs.concat(data.sshk_nbufs);
+            sshk_nows = sshk_nows.concat(data.sshk_nows);
+            sshk_times = sshk_times.concat(data.sshk_times);
+            console.log(sshk_nbufs);
+            console.log(sshk_nows);
+            console.log(sshk_times);
+        });
+        $.getJSON('/api/' + ip_db + '/mon/nbufs/' + start_time, function(data) {
+            new_length = data.mon_nbufs.length
+            mon_nbufs = mon_nbufs.concat(data.mon_nbufs);
+            mon_nows = mon_nows.concat(data.mon_nows);
+            mon_times = mon_times.concat(data.mon_times);
+        });
+        $.getJSON('/api/' + ip_db + '/adu5_pat/nbufs/' + start_time, function(data) {
+            new_length = data.adu5_pat_nbufs.length
+            adu5_pat_nbufs = adu5_pat_nbufs.concat(data.adu5_pat_nbufs);
+            adu5_pat_nows = adu5_pat_nows.concat(data.adu5_pat_nows);
+            adu5_pat_times = adu5_pat_times.concat(data.adu5_pat_times);
+        });
+        $.getJSON('/api/' + ip_db + '/adu5_vtg/nbufs/' + start_time, function(data) {
+            new_length = data.adu5_vtg_nbufs.length
+            adu5_vtg_nbufs = adu5_vtg_nbufs.concat(data.adu5_vtg_nbufs);
+            adu5_vtg_nows = adu5_vtg_nows.concat(data.adu5_vtg_nows);
+            adu5_vtg_times = adu5_vtg_times.concat(data.adu5_vtg_times);
+        });
+        $.getJSON('/api/' + ip_db + '/adu5_sat/nbufs/' + start_time, function(data) {
+            new_length = data.adu5_sat_nbufs.length
+            adu5_sat_nbufs = adu5_sat_nbufs.concat(data.adu5_sat_nbufs);
+            adu5_sat_nows = adu5_sat_nows.concat(data.adu5_sat_nows);
+            adu5_sat_times = adu5_sat_times.concat(data.adu5_sat_times);
+        });
+    }
+
+    var connect = $('.ladda-button').ladda();
+    $('#connect').click(function() {
+        if ($(this).hasClass('connect')) {
+            hk_nbufs = [];
+            hk_nows = [];
+            hk_times = [];
+            sshk_nbufs = [];
+            sshk_nows = [];
+            sshk_times = [];
+            mon_nbufs = [];
+            mon_nows = [];
+            mon_times = [];
+            adu5_pat_nbufs = [];
+            adu5_pat_nows = [];
+            adu5_pat_times = [];
+            adu5_vtg_nbufs = [];
+            adu5_vtg_nows = [];
+            adu5_vtg_times = [];
+            adu5_sat_nbufs = [];
+            adu5_sat_nows = [];
+            adu5_sat_times = [];
+            i = 0;
+            j = 0;
+            k = 0;
+            l = 0;
+            m = 0;
+            n = 0;
+            connect.ladda('start');
+            $.ajax({
+                url: '/api/connect/' + ip + '/' + db
+            }).done(function(response) {
+                if (response == 'success') {
+                    autoload(0);
+                } else {
+                    connect.ladda('stop');
+                    swal({
+                        title: 'Database not found!',
+                        type: "warning",
+                        timer: 3000,
+                        showConfirmButton: true
+                    });
+                }
+            });
+        } else {
+            hk_nbufs = [];
+            hk_nows = [];
+            hk_times = [];
+            sshk_nbufs = [];
+            sshk_nows = [];
+            sshk_times = [];
+            mon_nbufs = [];
+            mon_nows = [];
+            mon_times = [];
+            adu5_pat_nbufs = [];
+            adu5_pat_nows = [];
+            adu5_pat_times = [];
+            adu5_vtg_nbufs = [];
+            adu5_vtg_nows = [];
+            adu5_vtg_times = [];
+            adu5_sat_nbufs = [];
+            adu5_sat_nows = [];
+            adu5_sat_times = [];
+            i = 0;
+            j = 0;
+            k = 0;
+            l = 0;
+            m = 0;
+            n = 0;
             //otherwise, stop all the requests.
             $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
             $('#connect').html('Connect');
@@ -1507,141 +1306,123 @@ var connected = false;
         }
     });
 
-$('#next').click( function(){
-    if (i<hk_nbufs.length-1) {
-        i=i+1;
+    $('#next').click(function() {
+        if (i < hk_nbufs.length - 1) {
+            i = i + 1;
+            updatehtml_hk(hk_nbufs[i]);
+            j = mon_nows.indexOf(hk_nows[i]);
+            if (j != -1) updatehtml_mon(mon_nbufs[j]);
+            k = adu5_pat_nows.indexOf(hk_nows[i]);
+            if (k != -1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+            l = adu5_vtg_nows.indexOf(hk_nows[i]);
+            if (l != -1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+            m = adu5_sat_nows.indexOf(hk_nows[i]);
+            if (m != -1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+            n = sshk_nows.indexOf(hk_nows[i]);
+            console.log(n);
+            if (n != -1) updatehtml_sshk(sshk_nbufs[n]);
+        };
+    });
+    $('#prev').click(function() {
+        if (i > 0) {
+            i = i - 1;
+            updatehtml_hk(hk_nbufs[i]);
+            j = mon_nows.indexOf(hk_nows[i]);
+            if (j != -1) updatehtml_mon(mon_nbufs[j]);
+            k = adu5_pat_nows.indexOf(hk_nows[i]);
+            if (k != -1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+            l = adu5_vtg_nows.indexOf(hk_nows[i]);
+            if (l != -1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+            m = adu5_sat_nows.indexOf(hk_nows[i]);
+            if (m != -1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+            n = sshk_nows.indexOf(hk_nows[i]);
+            if (n != -1) updatehtml_sshk(sshk_nbufs[n]);
+        };
+    });
+    $('#first').click(function() {
+        i = 0
         updatehtml_hk(hk_nbufs[i]);
-        j=mon_nows.indexOf(hk_nows[i]);
-        if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-        k=adu5_pat_nows.indexOf(hk_nows[i]);
-        if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-        l=adu5_vtg_nows.indexOf(hk_nows[i]);
-        if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-        m=adu5_sat_nows.indexOf(hk_nows[i]);
-        if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-        n=sshk_nows.indexOf(hk_nows[i]);
-        if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-        o=g12_pos_nows.indexOf(hk_nows[i]);
-        if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-        p=g12_sat_nows.indexOf(hk_nows[i]);
-        if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-    };
-});
-$('#prev').click( function(){
-    if (i>0) {
-        i=i-1;
+        j = mon_nows.indexOf(hk_nows[i]);
+        if (j != -1) updatehtml_mon(mon_nbufs[j]);
+        k = adu5_pat_nows.indexOf(hk_nows[i]);
+        if (k != -1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+        l = adu5_vtg_nows.indexOf(hk_nows[i]);
+        if (l != -1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+        m = adu5_sat_nows.indexOf(hk_nows[i]);
+        if (m != -1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+        n = sshk_nows.indexOf(hk_nows[i]);
+        if (n != -1) updatehtml_sshk(sshk_nbufs[n]);
+    });
+    $('#last').click(function() {
+        i = hk_nbufs.length - 1
         updatehtml_hk(hk_nbufs[i]);
-        j=mon_nows.indexOf(hk_nows[i]);
-        if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-        k=adu5_pat_nows.indexOf(hk_nows[i]);
-        if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-        l=adu5_vtg_nows.indexOf(hk_nows[i]);
-        if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-        m=adu5_sat_nows.indexOf(hk_nows[i]);
-        if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-        n=sshk_nows.indexOf(hk_nows[i]);
-        if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-        o=g12_pos_nows.indexOf(hk_nows[i]);
-        if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-        p=g12_sat_nows.indexOf(hk_nows[i]);
-        if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-    };
-});
-$('#first').click( function(){
-    i=0
-    updatehtml_hk(hk_nbufs[i]);
-    j=mon_nows.indexOf(hk_nows[i]);
-    if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-    k=adu5_pat_nows.indexOf(hk_nows[i]);
-    if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-    l=adu5_vtg_nows.indexOf(hk_nows[i]);
-    if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-    m=adu5_sat_nows.indexOf(hk_nows[i]);
-    if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-    n=sshk_nows.indexOf(hk_nows[i]);
-    if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-    o=g12_pos_nows.indexOf(hk_nows[i]);
-    if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-    p=g12_sat_nows.indexOf(hk_nows[i]);
-    if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-});
-$('#last').click( function(){
-    i=hk_nbufs.length-1
-    updatehtml_hk(hk_nbufs[i]);
-    j=mon_nows.indexOf(hk_nows[i]);
-    if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-    k=adu5_pat_nows.indexOf(hk_nows[i]);
-    if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-    l=adu5_vtg_nows.indexOf(hk_nows[i]);
-    if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-    m=adu5_sat_nows.indexOf(hk_nows[i]);
-    if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-    n=sshk_nows.indexOf(hk_nows[i]);
-    if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-    o=g12_pos_nows.indexOf(hk_nows[i]);
-    if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-    p=g12_sat_nows.indexOf(hk_nows[i]);
-    if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-});
-var elem = document.querySelector('.js-switch');
-var switchery = new Switchery(elem, { color: '#1AB394' });
+        j = mon_nows.indexOf(hk_nows[i]);
+        if (j != -1) updatehtml_mon(mon_nbufs[j]);
+        k = adu5_pat_nows.indexOf(hk_nows[i]);
+        if (k != -1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+        l = adu5_vtg_nows.indexOf(hk_nows[i]);
+        if (l != -1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+        m = adu5_sat_nows.indexOf(hk_nows[i]);
+        if (m != -1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+        n = sshk_nows.indexOf(hk_nows[i]);
+        if (n != -1) updatehtml_sshk(sshk_nbufs[n]);
+    });
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, {
+        color: '#1AB394'
+    });
     // switchery.disable();
     var myInterval;
     elem.onchange = function() {
-        if (elem.checked){
-            myInterval=setInterval(function(){
-                if (i<hk_nbufs.length-1) {  
-                    i=i+1;
+        if (elem.checked) {
+            myInterval = setInterval(function() {
+                if (i < hk_nbufs.length - 1) {
+                    i = i + 1;
                     updatehtml_hk(hk_nbufs[i]);
-                    j=mon_nows.indexOf(hk_nows[i]);
-                    if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-                    k=adu5_pat_nows.indexOf(hk_nows[i]);
-                    if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-                    l=adu5_vtg_nows.indexOf(hk_nows[i]);
-                    if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-                    m=adu5_sat_nows.indexOf(hk_nows[i]);
-                    if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-                    n=sshk_nows.indexOf(hk_nows[i]);
-                    if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-                    o=g12_pos_nows.indexOf(hk_nows[i]);
-                    if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-                    p=g12_sat_nows.indexOf(hk_nows[i]);
-                    if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);    
+                    j = mon_nows.indexOf(hk_nows[i]);
+                    if (j != -1) updatehtml_mon(mon_nbufs[j]);
+                    k = adu5_pat_nows.indexOf(hk_nows[i]);
+                    if (k != -1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+                    l = adu5_vtg_nows.indexOf(hk_nows[i]);
+                    if (l != -1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+                    m = adu5_sat_nows.indexOf(hk_nows[i]);
+                    if (m != -1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+                    n = sshk_nows.indexOf(hk_nows[i]);
+                    if (n != -1) updatehtml_sshk(sshk_nbufs[n]);
                 };
             }, 1000);
-}else{
-    clearInterval(myInterval);
-};
-};
-$('#goto').click( function(){
-    var keywords=parseInt($('#keywords').val());
-    console.log(keywords);
-    var index=hk_times.indexOf(keywords);
-    if (index!=-1 && keywords){
-        i=index;
-        console.log(i);
-        updatehtml_hk(hk_nbufs[i]);
-        j=mon_nows.indexOf(hk_times[i]);
-        if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-        k=adu5_pat_nows.indexOf(hk_times[i]);
-        if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-        l=adu5_vtg_nows.indexOf(hk_times[i]);
-        if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-        m=adu5_sat_nows.indexOf(hk_times[i]);
-        if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-        n=sshk_nows.indexOf(hk_nows[i]);
-        if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-        o=g12_pos_nows.indexOf(hk_nows[i]);
-        if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-        p=g12_sat_nows.indexOf(hk_nows[i]);
-        if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-    }else{
-       swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
-   }
+        } else {
+            clearInterval(myInterval);
+        };
+    };
+    $('#goto').click(function() {
+        var keywords = parseInt($('#keywords').val());
+        console.log(keywords);
+        var index = hk_times.indexOf(keywords);
+        if (index != -1 && keywords) {
+            i = index;
+            console.log(i);
+            updatehtml_hk(hk_nbufs[i]);
+            j = mon_nows.indexOf(hk_times[i]);
+            if (j != -1) updatehtml_mon(mon_nbufs[j]);
+            k = adu5_pat_nows.indexOf(hk_times[i]);
+            if (k != -1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+            l = adu5_vtg_nows.indexOf(hk_times[i]);
+            if (l != -1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+            m = adu5_sat_nows.indexOf(hk_times[i]);
+            if (m != -1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+            n = sshk_nows.indexOf(hk_nows[i]);
+            if (n != -1) updatehtml_sshk(sshk_nbufs[n]);
+        } else {
+            swal({
+                title: 'Data not found!',
+                type: "warning",
+                timer: 3000,
+                showConfirmButton: true
+            });
+        }
 
+    });
 });
-});
-
-
 </script>
 {% endblock %}

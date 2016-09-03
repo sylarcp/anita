@@ -1,1667 +1,1662 @@
-{% extends "base.html" %}
-{% block head %}
-{{ super() }}
-<link href="{{ url_for('static', filename='inspinia/css/plugins/footable/footable.core.css') }}" rel="stylesheet">
-{% endblock %}
-{% block page_content %}
+{% extends "base.html" %} {% block head %} {{ super() }}
+<link href="{{ url_for('static', filename='inspinia/css/plugins/footable/footable.core.css') }}" rel="stylesheet"> {% endblock %} {% block page_content %}
 <div class="wrapper wrapper-content">
-	<div classs='row'>
-		<div class="col-lg-4">
-			<div class="ibox float-e-margins">
-				<div class="ibox-title">
-					<h5>TURF Monitor</h5>
-					<div class="ibox-tools">
-						<a class="collapse-link">
-							<i class="fa fa-chevron-up"></i>
-						</a>
-					</div>
-				</div>
-				<div class="ibox-content" >
-					<table data-sort="false" class="footable" data-page-size="20" id='turf' style="width:100%">
-						<tbody>
-							<tr>
-								<td data-hide="xs">nbuf:</td>
-								<td id='nbuf'></td>
-							</tr>
-							<tr>
-								<td>Now:</td>
-								<td id='now'></td> 
-							</tr>
-							<tr>
-								<td>Time:</td>
-								<td id='time'></td>
-							</tr>
-							<tr>
-								<td>Deadtime:</td>
-								<td id='deadtime'></td> 
-							</tr>
-							<tr>
-								<td>l1TrigMask:</td>
-								<td id='l1trigmask'></td>
-							</tr>
-							<tr>
-								<td>l1TrigMaskH:</td>
-								<td id='l1trigmaskh'></td> 
-							</tr>
-							<tr>
-								<td>PhiTrigMask:</td>
-								<td id='phitrigmask'></td>
-							</tr>
-							<tr>
-								<td>PhiTrigMaskH:</td>
-								<td id='phitrigmaskh'></td> 
-							</tr>
-						</tbody>
-					</table>
-				</div>
-				<div class="ibox-content" >
-					<table data-sort="false" class="footable" data-page-size="56" id='lrates' style="width:100%">
-						<h5>Rates [Hz}</h5>
-						<tbody>
-							<tr>
-								<td></td>
-								<td id='l1_0'></td>
-								<td id='l1_1'></td>
-								<td id='l1_2'></td>
-								<td id='l1_3'></td>
-								<td id='l1_4'></td>
-								<td id='l1_5'></td>
-								<td id='l1_6'></td>
-								<td id='l1_7'></td>
-							</tr>
-							<th>
-								<td>L1 1</td>
-								<td>L1 2</td>
-								<td>L1 3</td>
-								<td>L1 4</td>
-								<td>L1 5</td>
-								<td>L1 6</td>
-								<td>L1 7</td>
-								<td>L1 8</td>
-							</th>
-							<tr>
-								<td></td>
-								<td id='l1_8'></td>
-								<td id='l1_9'></td>
-								<td id='l1_10'></td>
-								<td id='l1_11'></td>
-								<td id='l1_12'></td>
-								<td id='l1_13'></td>
-								<td id='l1_14'></td>
-								<td id='l1_15'></td>
-							</tr>
-
-							<th>
-								<td>L1 9</td>
-								<td>L1 10</td>
-								<td>L1 11</td> 
-								<td>L1 12</td> 
-								<td>L1 13</td> 
-								<td>L1 14</td> 
-								<td>L1 15</td> 
-								<td>L1 16</td>                                   
-							</th>
-							<tr>
-								<td></td>
-								<td id='l1h_0'></td>
-								<td id='l1h_1'></td>
-								<td id='l1h_2'></td>
-								<td id='l1h_3'></td>
-								<td id='l1h_4'></td>
-								<td id='l1h_5'></td>
-								<td id='l1h_6'></td>
-								<td id='l1h_7'></td>
-							</tr>
-							<th>
-								<td>L1h 1</td>
-								<td>L1h 2</td>
-								<td>L1h 3</td>
-								<td>L1h 4</td>
-								<td>L1h 5</td>
-								<td>L1h 6</td>
-								<td>L1h 7</td>
-								<td>L1h 8</td>
-							</th>
-							<tr>
-								<td></td>
-								<td id='l1h_8'></td>
-								<td id='l1h_9'></td>
-								<td id='l1h_10'></td>
-								<td id='l1h_11'></td>
-								<td id='l1h_12'></td>
-								<td id='l1h_13'></td>
-								<td id='l1h_14'></td>
-								<td id='l1h_15'></td>
-							</tr>
-
-							<th>
-								<td>L1h 9</td>
-								<td>L1h 10</td>
-								<td>L1h 11</td> 
-								<td>L1h 12</td> 
-								<td>L1h 13</td> 
-								<td>L1h 14</td> 
-								<td>L1h 15</td> 
-								<td>L1h 16</td>                                   
-							</th>
-							<tr>
-								<td></td>
-								<td id='l3_0'></td>
-								<td id='l3_1'></td>
-								<td id='l3_2'></td>
-								<td id='l3_3'></td>
-								<td id='l3_4'></td>
-								<td id='l3_5'></td>
-								<td id='l3_6'></td>
-								<td id='l3_7'></td>
-							</tr>
-							<th>
-								<td>L3 1</td>
-								<td>L3 2</td>
-								<td>L3 3</td>
-								<td>L3 4</td>
-								<td>L3 5</td>
-								<td>L3 6</td>
-								<td>L3 7</td>
-								<td>L3 8</td>
-							</th>
-							<tr>
-								<td></td>
-								<td id='l3_8'></td>
-								<td id='l3_9'></td>
-								<td id='l3_10'></td>
-								<td id='l3_11'></td>
-								<td id='l3_12'></td>
-								<td id='l3_13'></td>
-								<td id='l3_14'></td>
-								<td id='l3_15'></td>
-							</tr>
-
-							<th>
-								<td>L3 9</td>
-								<td>L3 10</td>
-								<td>L3 11</td> 
-								<td>L3 12</td> 
-								<td>L3 13</td> 
-								<td>L3 14</td> 
-								<td>L3 15</td> 
-								<td>L3 16</td>                                   
-							</th>
-							<tr>
-								<td></td>
-								<td id='l3h_0'></td>
-								<td id='l3h_1'></td>
-								<td id='l3h_2'></td>
-								<td id='l3h_3'></td>
-								<td id='l3h_4'></td>
-								<td id='l3h_5'></td>
-								<td id='l3h_6'></td>
-								<td id='l3h_7'></td>
-							</tr>
-							<th>
-								<td>L3h 1</td>
-								<td>L3h 2</td>
-								<td>L3h 3</td>
-								<td>L3h 4</td>
-								<td>L3h 5</td>
-								<td>L3h 6</td>
-								<td>L3h 7</td>
-								<td>L3h 8</td>
-							</th>
-							<tr>
-								<td></td>
-								<td id='l3h_8'></td>
-								<td id='l3h_9'></td>
-								<td id='l3h_10'></td>
-								<td id='l3h_11'></td>
-								<td id='l3h_12'></td>
-								<td id='l3h_13'></td>
-								<td id='l3h_14'></td>
-								<td id='l3h_15'></td>
-							</tr>
-
-							<th>
-								<td>L3h 9</td>
-								<td>L3h 10</td>
-								<td>L3h 11</td> 
-								<td>L3h 12</td> 
-								<td>L3h 13</td> 
-								<td>L3h 14</td> 
-								<td>L3h 15</td> 
-								<td>L3h 16</td>                                   
-							</th>
-						</tbody>                    
-					</table>
-				</div>
-			</div>
-		</div>
-
-		<div class="col-lg-8">
-			<div class="ibox float-e-margins">
-				<div class="ibox-title">
-					<h5>SURF Monitor</h5>
-					<div class="ibox-tools">
-						<a class="collapse-link">
-							<i class="fa fa-chevron-up"></i>
-						</a>
-					</div>
-					<ul class="nav nav-tabs">
-						<li class="active"><a data-toggle="tab" href="#tab-1"> RF Power</a></li>
-						<li class=""><a data-toggle="tab" href="#tab-2">Scalers</a></li>
-						<li class=""><a data-toggle="tab" href="#tab-3">Thresholds</a></li>
-					</ul>
-
-					<div class="tab-content">
-						<div id="tab-1" class="tab-pane active">
-							<div class="panel-body">
-
-								<div class="ibox-content" >
-									<table data-sort="false" class="footable" data-page-size="20" id='rfpower' style="width:100%">
-										<tbody>
-											<tr>
-												<td data-hide="xs">nbuf:</td>
-												<td id='nbuf'></td>
-												<td>Now:</td>
-												<td id='now'></td> 
-											</tr>
-											<tr>
-												<td>Time:</td>
-												<td id='time'></td>
-												<td>us:</td>
-												<td id='us'></td> 
-											</tr>
-											<tr>
-												<td>Global threshold:</td>
-												<td id='global'></td>
-												<td>Error flag:</td>
-												<td id='error'></td> 
-											</tr>
-											<tr>
-												<td>Upper Word 1:</td>
-												<td id='upper_0'></td>
-												<td>Upper Word 2:</td>
-												<td id='upper_1'></td> 
-											</tr>
-											<tr>
-												<td>Upper Word 3:</td>
-												<td id='upper_2'></td>
-												<td>Upper Word 4:</td>
-												<td id='upper_3'></td> 
-											</tr>
-											<tr>
-												<td>Upper Word 5:</td>
-												<td id='upper_4'></td>
-												<td>Upper Word 6:</td>
-												<td id='upper_5'></td> 
-											</tr>
-											<tr>
-												<td>Upper Word 7:</td>
-												<td id='upper_6'></td>
-												<td>Upper Word 8:</td>
-												<td id='upper_7'></td> 
-											</tr>
-											<tr>
-												<td>Upper Word 9:</td>
-												<td id='upper_8'></td>
-												<td>Upper Word 10:</td>
-												<td id='upper_9'></td> 
-											</tr>
-											<tr>
-												<td>Upper Word 11:</td>
-												<td id='upper_10'></td>
-												<td>Upper Word 12:</td>
-												<td id='upper_11'></td> 
-											</tr>
-										</tbody>
-									</table>
-								</div>
-								<div class="ibox-content" >
-									<table data-sort="false" class="footable" data-page-size="56" id='rfpow' style="width:100%">
-										<h5>RF Power Surf 1-12</h5>
-										<tbody>
-											<tr>
-												<td></td>
-												<td id='rfpow_0_0'></td>
-												<td id='rfpow_0_1'></td>
-												<td id='rfpow_0_2'></td>
-												<td id='rfpow_0_3'></td>
-												<td id='rfpow_0_4'></td>
-												<td id='rfpow_0_5'></td>
-												<td id='rfpow_0_6'></td>
-												<td id='rfpow_0_7'></td>
-											</tr>
-											<th>
-												<td>10 BV</td>
-												<td>2 BV</td>
-												<td>16 BV</td>
-												<td>8 BV</td>
-												<td>10 BH</td>
-												<td>2 BH</td>
-												<td>16 BH</td>
-												<td>8 BH</td>
-
-											</th>
-											<tr>
-												<td></td>
-												<td id='rfpow_1_0'></td>
-												<td id='rfpow_1_1'></td>
-												<td id='rfpow_1_2'></td>
-												<td id='rfpow_1_3'></td>
-												<td id='rfpow_1_4'></td>
-												<td id='rfpow_1_5'></td>
-												<td id='rfpow_1_6'></td>
-												<td id='rfpow_1_7'></td>
-											</tr>
-											<th>
-												<td>12 BV</td>
-												<td>4 BV</td>
-												<td>14 BV</td>
-												<td>6 BV</td>
-												<td>12 BH</td>
-												<td>4 BH</td>
-												<td>14 BH</td>
-												<td>6 BH</td>                                  
-											</th>
-											<tr>
-												<td></td>
-												<td id='rfpow_2_0'></td>
-												<td id='rfpow_2_1'></td>
-												<td id='rfpow_2_2'></td>
-												<td id='rfpow_2_3'></td>
-												<td id='rfpow_2_4'></td>
-												<td id='rfpow_2_5'></td>
-												<td id='rfpow_2_6'></td>
-												<td id='rfpow_2_7'></td>
-											</tr>
-											<th>
-												<td>16 MV</td>
-												<td>8 MV</td>
-												<td>12 MV</td>
-												<td>4 MV</td>
-												<td>16 MH</td>
-												<td>8 MH</td>
-												<td>12 MH</td>
-												<td>4 MH</td>                                   
-											</th>
-											<tr>
-												<td></td>
-												<td id='rfpow_3_0'></td>
-												<td id='rfpow_3_1'></td>
-												<td id='rfpow_3_2'></td>
-												<td id='rfpow_3_3'></td>
-												<td id='rfpow_3_4'></td>
-												<td id='rfpow_3_5'></td>
-												<td id='rfpow_3_6'></td>
-												<td id='rfpow_3_7'></td>
-											</tr>
-											<th>
-												<td>14 MV</td>
-												<td>6 MV</td>
-												<td>10 MV</td>
-												<td>2 MV</td>
-												<td>14 MH</td>
-												<td>6 MH</td>
-												<td>10 MH</td>
-												<td>2 MH</td> 
-											</th>
-											<tr>
-												<td></td>
-												<td id='rfpow_4_0'></td>
-												<td id='rfpow_4_1'></td>
-												<td id='rfpow_4_2'></td>
-												<td id='rfpow_4_3'></td>
-												<td id='rfpow_4_4'></td>
-												<td id='rfpow_4_5'></td>
-												<td id='rfpow_4_6'></td>
-												<td id='rfpow_4_7'></td>
-											</tr>
-											<th>
-												<td>12 TV</td>
-												<td>4 TV</td>
-												<td>14 TV</td>
-												<td>6 TV</td>
-												<td>12 TH</td>
-												<td>4 TH</td>
-												<td>14 TH</td>
-												<td>6 TH</td>
-
-											</th>
-											<tr>
-												<td></td>
-												<td id='rfpow_5_0'></td>
-												<td id='rfpow_5_1'></td>
-												<td id='rfpow_5_2'></td>
-												<td id='rfpow_5_3'></td>
-												<td id='rfpow_5_4'></td>
-												<td id='rfpow_5_5'></td>
-												<td id='rfpow_5_6'></td>
-												<td id='rfpow_5_7'></td>
-											</tr>
-											<th>
-												<td>10 TV</td>
-												<td>2 TV</td>
-												<td>16 TV</td>
-												<td>8 TV</td>
-												<td>10 TH</td>
-												<td>2 TH</td>
-												<td>16 TH</td>
-												<td>8 TH</td>                                  
-											</th>
-											<tr>
-												<td></td>
-												<td id='rfpow_6_0'></td>
-												<td id='rfpow_6_1'></td>
-												<td id='rfpow_6_2'></td>
-												<td id='rfpow_6_3'></td>
-												<td id='rfpow_6_4'></td>
-												<td id='rfpow_6_5'></td>
-												<td id='rfpow_6_6'></td>
-												<td id='rfpow_6_7'></td>
-											</tr>
-											<th>
-												<td>13 BV</td>
-												<td>5 BV</td>
-												<td>9 BV</td>
-												<td>1 BV</td>
-												<td>13 BH</td>
-												<td>5 BH</td>
-												<td>9 BH</td>
-												<td>1 BH</td>                                   
-											</th>
-											<tr>
-												<td></td>
-												<td id='rfpow_7_0'></td>
-												<td id='rfpow_7_1'></td>
-												<td id='rfpow_7_2'></td>
-												<td id='rfpow_7_3'></td>
-												<td id='rfpow_7_4'></td>
-												<td id='rfpow_7_5'></td>
-												<td id='rfpow_7_6'></td>
-												<td id='rfpow_7_7'></td>
-											</tr>
-											<th>
-												<td>15 BV</td>
-												<td>7 BV</td>
-												<td>11 BV</td>
-												<td>3 BV</td>
-												<td>15 BH</td>
-												<td>7 BH</td>
-												<td>11 BH</td>
-												<td>3 BH</td> 
-											</th>
-											<tr>
-												<td></td>
-												<td id='rfpow_8_0'></td>
-												<td id='rfpow_8_1'></td>
-												<td id='rfpow_8_2'></td>
-												<td id='rfpow_8_3'></td>
-												<td id='rfpow_8_4'></td>
-												<td id='rfpow_8_5'></td>
-												<td id='rfpow_8_6'></td>
-												<td id='rfpow_8_7'></td>
-											</tr>
-											<th>
-												<td>11 MV</td>
-												<td>3 MV</td>
-												<td>13 MV</td>
-												<td>5 MV</td>
-												<td>11 MH</td>
-												<td>3 MH</td>
-												<td>13 MH</td>
-												<td>5 MH</td>
-
-											</th>
-											<tr>
-												<td></td>
-												<td id='rfpow_9_0'></td>
-												<td id='rfpow_9_1'></td>
-												<td id='rfpow_9_2'></td>
-												<td id='rfpow_9_3'></td>
-												<td id='rfpow_9_4'></td>
-												<td id='rfpow_9_5'></td>
-												<td id='rfpow_9_6'></td>
-												<td id='rfpow_9_7'></td>
-											</tr>
-											<th>
-												<td>9 MV</td>
-												<td>1 MV</td>
-												<td>15 MV</td>
-												<td>7 MV</td>
-												<td>9 MH</td>
-												<td>1 MH</td>
-												<td>15 MH</td>
-												<td>7 MH</td>
-
-											</th>
-											<tr>
-												<td></td>
-												<td id='rfpow_10_0'></td>
-												<td id='rfpow_10_1'></td>
-												<td id='rfpow_10_2'></td>
-												<td id='rfpow_10_3'></td>
-												<td id='rfpow_10_4'></td>
-												<td id='rfpow_10_5'></td>
-												<td id='rfpow_10_6'></td>
-												<td id='rfpow_10_7'></td>
-											</tr>
-											<th>
-												<td>15 TV</td>
-												<td>7 TV</td>
-												<td>11 TV</td>
-												<td>3 TV</td>
-												<td>15 TH</td>
-												<td>7 TH</td>
-												<td>11 TH</td>
-												<td>3 TH</td>
-
-											</th>
-											<tr>
-												<td></td>
-												<td id='rfpow_11_0'></td>
-												<td id='rfpow_11_1'></td>
-												<td id='rfpow_11_2'></td>
-												<td id='rfpow_11_3'></td>
-												<td id='rfpow_11_4'></td>
-												<td id='rfpow_11_5'></td>
-												<td id='rfpow_11_6'></td>
-												<td id='rfpow_11_7'></td>
-											</tr>
-											<th>
-												<td>13 TV</td>
-												<td>5 TV</td>
-												<td>9 TV</td>
-												<td>1 TV</td>
-												<td>13 TH</td>
-												<td>5 TH</td>
-												<td>9 TH</td>
-												<td>1 TH</td>
-
-											</th>
-										</tbody>                    
-									</table>
-								</div>
-							</div>
-						</div>
-						<div id="tab-2" class="tab-pane">
-							<div class="panel-body">
-								<div class="ibox-content" >
-									<table data-sort="false" class="footable" data-page-size="56" id='scaler' style="width:100%">
-										<h5>Scalers 1-12 [Hz]</h5>
-										<tbody>
-											<tr>
-												<td></td>
-												<td id='scaler_0_0' class='scaler'></td>
-												<td id='scaler_0_1' class='scaler'></td>
-												<td id='scaler_0_2' class='scaler'></td>
-												<td id='scaler_0_3' class='scaler'></td>
-												<td id='scaler_0_4' class='scaler'></td>
-												<td id='scaler_0_5' class='scaler'></td>
-												<td id='scaler_0_6' class='scaler'></td>
-												<td id='scaler_0_7' class='scaler'></td>
-												<td id='scaler_0_8' class='scaler'></td>
-												<td id='scaler_0_9' class='scaler'></td>
-												<td id='scaler_0_10' class='scaler'></td>
-												<td id='scaler_0_11' class='scaler'></td>
-											</tr>
-											<th>
-												<td>nu 01</td>
-												<td>nu 02</td>
-												<td>nu 03</td>
-												<td>nu 04</td>
-												<td>nu 05</td>
-												<td>nu 06</td>
-												<td>nu 07</td>
-												<td>nu 08</td>
-												<td>nu 09</td>
-												<td>nu 10</td>
-												<td>nu 11</td>
-												<td>nu 12</td>
-											</th>
-											<tr>
-												<td></td>
-												<td id='scaler_1_0'></td>
-												<td id='scaler_1_1'></td>
-												<td id='scaler_1_2'></td>
-												<td id='scaler_1_3'></td>
-												<td id='scaler_1_4'></td>
-												<td id='scaler_1_5'></td>
-												<td id='scaler_1_6'></td>
-												<td id='scaler_1_7'></td>
-												<td id='scaler_1_8'></td>
-												<td id='scaler_1_9'></td>
-												<td id='scaler_1_10'></td>
-												<td id='scaler_1_11'></td>
-											</tr>
-											<th>
-												<td>nu 13</td>
-												<td>nu 14</td>
-												<td>nu 15</td>
-												<td>nu 16</td>
-												<td>nu 17</td>
-												<td>nu 18</td>
-												<td>nu 19</td>
-												<td>nu 20</td>
-												<td>nu 21</td>
-												<td>nu 22</td>
-												<td>nu 23</td>
-												<td>nu 24</td>                                  
-											</th>
-											<tr>
-												<td></td>
-												<td id='scaler_2_0'></td>
-												<td id='scaler_2_1'></td>
-												<td id='scaler_2_2'></td>
-												<td id='scaler_2_3'></td>
-												<td id='scaler_2_4'></td>
-												<td id='scaler_2_5'></td>
-												<td id='scaler_2_6'></td>
-												<td id='scaler_2_7'></td>
-												<td id='scaler_2_8'></td>
-												<td id='scaler_2_9'></td>
-												<td id='scaler_2_10'></td>
-												<td id='scaler_2_11'></td>
-											</tr>
-											<th>
-												<td>1TV</td>
-												<td>1TH</td>
-												<td>1MV</td>
-												<td>1MH</td>
-												<td>1BV</td>
-												<td>1BH</td>
-												<td>5TV</td>
-												<td>5TH</td>
-												<td>5MV</td>
-												<td>5MH</td>
-												<td>5BV</td>
-												<td>5BH</td>                                   
-											</th>
-											<tr>
-												<td></td>
-												<td id='scaler_3_0'></td>
-												<td id='scaler_3_1'></td>
-												<td id='scaler_3_2'></td>
-												<td id='scaler_3_3'></td>
-												<td id='scaler_3_4'></td>
-												<td id='scaler_3_5'></td>
-												<td id='scaler_3_6'></td>
-												<td id='scaler_3_7'></td>
-												<td id='scaler_3_8'></td>
-												<td id='scaler_3_9'></td>
-												<td id='scaler_3_10'></td>
-												<td id='scaler_3_11'></td>
-											</tr>
-											<th>
-												<td>3TV</td>
-												<td>3TH</td>
-												<td>3MV</td>
-												<td>3MH</td>
-												<td>3BV</td>
-												<td>3BH</td>
-												<td>7TV</td>
-												<td>7TH</td>
-												<td>7MV</td>
-												<td>7MH</td>
-												<td>7BV</td>
-												<td>7BH</td>  
-											</th>
-											<tr>
-												<td></td>
-												<td id='scaler_4_0'></td>
-												<td id='scaler_4_1'></td>
-												<td id='scaler_4_2'></td>
-												<td id='scaler_4_3'></td>
-												<td id='scaler_4_4'></td>
-												<td id='scaler_4_5'></td>
-												<td id='scaler_4_6'></td>
-												<td id='scaler_4_7'></td>
-												<td id='scaler_4_8'></td>
-												<td id='scaler_4_9'></td>
-												<td id='scaler_4_10'></td>
-												<td id='scaler_4_11'></td>
-											</tr>
-											<th>
-												<td>2TV</td>
-												<td>2TH</td>
-												<td>2MV</td>
-												<td>2MH</td>
-												<td>2BV</td>
-												<td>2BH</td>
-												<td>6TV</td>
-												<td>6TH</td>
-												<td>6MV</td>
-												<td>6MH</td>
-												<td>6BV</td>
-												<td>6BH</td> 
-
-											</th>
-											<tr>
-												<td></td>
-												<td id='scaler_5_0'></td>
-												<td id='scaler_5_1'></td>
-												<td id='scaler_5_2'></td>
-												<td id='scaler_5_3'></td>
-												<td id='scaler_5_4'></td>
-												<td id='scaler_5_5'></td>
-												<td id='scaler_5_6'></td>
-												<td id='scaler_5_7'></td>
-												<td id='scaler_5_8'></td>
-												<td id='scaler_5_9'></td>
-												<td id='scaler_5_10'></td>
-												<td id='scaler_5_11'></td>
-											</tr>
-											<th>
-												<td>4TV</td>
-												<td>4TH</td>
-												<td>4MV</td>
-												<td>4MH</td>
-												<td>4BV</td>
-												<td>4BH</td>
-												<td>8TV</td>
-												<td>8TH</td>
-												<td>8MV</td>
-												<td>8MH</td>
-												<td>8BV</td>
-												<td>8BH</td>                                  
-											</th>
-											<tr>
-												<td></td>
-												<td id='scaler_6_0'></td>
-												<td id='scaler_6_1'></td>
-												<td id='scaler_6_2'></td>
-												<td id='scaler_6_3'></td>
-												<td id='scaler_6_4'></td>
-												<td id='scaler_6_5'></td>
-												<td id='scaler_6_6'></td>
-												<td id='scaler_6_7'></td>
-												<td id='scaler_6_8'></td>
-												<td id='scaler_6_9'></td>
-												<td id='scaler_6_10'></td>
-												<td id='scaler_6_11'></td>
-											</tr>
-											<th>
-												<td>16TV</td>
-												<td>16TH</td>
-												<td>16MV</td>
-												<td>16MH</td>
-												<td>16BV</td>
-												<td>16BH</td>
-												<td>12TV</td>
-												<td>12TH</td>
-												<td>12MV</td>
-												<td>12MH</td>
-												<td>12BV</td>
-												<td>12BH</td> 
-
-											</th>
-											<tr>
-												<td></td>
-												<td id='scaler_7_0'></td>
-												<td id='scaler_7_1'></td>
-												<td id='scaler_7_2'></td>
-												<td id='scaler_7_3'></td>
-												<td id='scaler_7_4'></td>
-												<td id='scaler_7_5'></td>
-												<td id='scaler_7_6'></td>
-												<td id='scaler_7_7'></td>
-												<td id='scaler_7_8'></td>
-												<td id='scaler_7_9'></td>
-												<td id='scaler_7_10'></td>
-												<td id='scaler_7_11'></td>
-											</tr>
-											<th>
-												<td>14TV</td>
-												<td>14TH</td>
-												<td>14MV</td>
-												<td>14MH</td>
-												<td>14BV</td>
-												<td>14BH</td>
-												<td>10TV</td>
-												<td>10TH</td>
-												<td>10MV</td>
-												<td>10MH</td>
-												<td>10BV</td>
-												<td>10BH</td> 
-											</th>
-											<tr>
-												<td></td>
-												<td id='scaler_8_0'></td>
-												<td id='scaler_8_1'></td>
-												<td id='scaler_8_2'></td>
-												<td id='scaler_8_3'></td>
-												<td id='scaler_8_4'></td>
-												<td id='scaler_8_5'></td>
-												<td id='scaler_8_6'></td>
-												<td id='scaler_8_7'></td>
-												<td id='scaler_8_8'></td>
-												<td id='scaler_8_9'></td>
-												<td id='scaler_8_10'></td>
-												<td id='scaler_8_11'></td>
-											</tr>
-											<th>
-												<td>15TV</td>
-												<td>15TH</td>
-												<td>15MV</td>
-												<td>15MH</td>
-												<td>15BV</td>
-												<td>15BH</td>
-												<td>11TV</td>
-												<td>11TH</td>
-												<td>11MV</td>
-												<td>11MH</td>
-												<td>11BV</td>
-												<td>11BH</td> 
-											</th>
-											<tr>
-												<td></td>
-												<td id='scaler_9_0'></td>
-												<td id='scaler_9_1'></td>
-												<td id='scaler_9_2'></td>
-												<td id='scaler_9_3'></td>
-												<td id='scaler_9_4'></td>
-												<td id='scaler_9_5'></td>
-												<td id='scaler_9_6'></td>
-												<td id='scaler_9_7'></td>
-												<td id='scaler_9_8'></td>
-												<td id='scaler_9_9'></td>
-												<td id='scaler_9_10'></td>
-												<td id='scaler_9_11'></td>
-											</tr>
-											<th>
-												<td>13TV</td>
-												<td>13TH</td>
-												<td>13MV</td>
-												<td>13MH</td>
-												<td>13BV</td>
-												<td>13BH</td>
-												<td>9TV</td>
-												<td>9TH</td>
-												<td>9MV</td>
-												<td>9MH</td>
-												<td>9BV</td>
-												<td>9BH</td> 
-											</th>
-											<tr>
-												<td></td>
-												<td id='scaler_10_0'></td>
-												<td id='scaler_10_1'></td>
-												<td id='scaler_10_2'></td>
-												<td id='scaler_10_3'></td>
-												<td id='scaler_10_4'></td>
-												<td id='scaler_10_5'></td>
-												<td id='scaler_10_6'></td>
-												<td id='scaler_10_7'></td>
-												<td id='scaler_10_8'></td>
-												<td id='scaler_10_9'></td>
-												<td id='scaler_10_10'></td>
-												<td id='scaler_10_11'></td>
-											</tr>
-											<th>
-												<td>nu 25</td>
-												<td>nu 26</td>
-												<td>nu 27</td>
-												<td>nu 28</td>
-												<td>nu 29</td>
-												<td>nu 30</td>
-												<td>nu 31</td>
-												<td>nu 32</td>
-												<td>nu 33</td>
-												<td>nu 34</td>
-												<td>nu 35</td>
-												<td>nu 36</td>
-											</th>
-											<tr>
-												<td></td>
-												<td id='scaler_11_0'></td>
-												<td id='scaler_11_1'></td>
-												<td id='scaler_11_2'></td>
-												<td id='scaler_11_3'></td>
-												<td id='scaler_11_4'></td>
-												<td id='scaler_11_5'></td>
-												<td id='scaler_11_6'></td>
-												<td id='scaler_11_7'></td>
-												<td id='scaler_11_8'></td>
-												<td id='scaler_11_9'></td>
-												<td id='scaler_11_10'></td>
-												<td id='scaler_11_11'></td>
-											</tr>
-											<th>
-												<td>nu 37</td>
-												<td>nu 38</td>
-												<td>nu 39</td>
-												<td>nu 40</td>
-												<td>nu 41</td>
-												<td>nu 42</td>
-												<td>nu 43</td>
-												<td>nu 44</td>
-												<td>nu 45</td>
-												<td>nu 46</td>
-												<td>nu 47</td>
-												<td>nu 48</td>
-											</th>
-										</tbody>                    
-									</table>
-								</div>
-							</div>
-						</div>
-
-						<div id="tab-3" class="tab-pane">
-							<div class="panel-body">
-								<div class="ibox-content" >
-									<table data-sort="false" class="footable" data-page-size="56" id='thresh' style="width:100%">
-										<h5>Thresholds SURF 1-12 [DAC]</h5>
-										<tbody>
-											<tr>
-												<td></td>
-												<td id='thresh_0_0'></td>
-												<td id='thresh_0_1'></td>
-												<td id='thresh_0_2'></td>
-												<td id='thresh_0_3'></td>
-												<td id='thresh_0_4'></td>
-												<td id='thresh_0_5'></td>
-												<td id='thresh_0_6'></td>
-												<td id='thresh_0_7'></td>
-												<td id='thresh_0_8'></td>
-												<td id='thresh_0_9'></td>
-												<td id='thresh_0_10'></td>
-												<td id='thresh_0_11'></td>
-											</tr>
-											<th>
-												<td>nu 01</td>
-												<td>nu 02</td>
-												<td>nu 03</td>
-												<td>nu 04</td>
-												<td>nu 05</td>
-												<td>nu 06</td>
-												<td>nu 07</td>
-												<td>nu 08</td>
-												<td>nu 09</td>
-												<td>nu 10</td>
-												<td>nu 11</td>
-												<td>nu 12</td>
-											</th>
-											<tr>
-												<td></td>
-												<td id='thresh_1_0'></td>
-												<td id='thresh_1_1'></td>
-												<td id='thresh_1_2'></td>
-												<td id='thresh_1_3'></td>
-												<td id='thresh_1_4'></td>
-												<td id='thresh_1_5'></td>
-												<td id='thresh_1_6'></td>
-												<td id='thresh_1_7'></td>
-												<td id='thresh_1_8'></td>
-												<td id='thresh_1_9'></td>
-												<td id='thresh_1_10'></td>
-												<td id='thresh_1_11'></td>
-											</tr>
-											<th>
-												<td>nu 13</td>
-												<td>nu 14</td>
-												<td>nu 15</td>
-												<td>nu 16</td>
-												<td>nu 17</td>
-												<td>nu 18</td>
-												<td>nu 19</td>
-												<td>nu 20</td>
-												<td>nu 21</td>
-												<td>nu 22</td>
-												<td>nu 23</td>
-												<td>nu 24</td>                                  
-											</th>
-											<tr>
-												<td></td>
-												<td id='thresh_2_0'></td>
-												<td id='thresh_2_1'></td>
-												<td id='thresh_2_2'></td>
-												<td id='thresh_2_3'></td>
-												<td id='thresh_2_4'></td>
-												<td id='thresh_2_5'></td>
-												<td id='thresh_2_6'></td>
-												<td id='thresh_2_7'></td>
-												<td id='thresh_2_8'></td>
-												<td id='thresh_2_9'></td>
-												<td id='thresh_2_10'></td>
-												<td id='thresh_2_11'></td>
-											</tr>
-											<th>
-												<td>1TV</td>
-												<td>1TH</td>
-												<td>1MV</td>
-												<td>1MH</td>
-												<td>1BV</td>
-												<td>1BH</td>
-												<td>5TV</td>
-												<td>5TH</td>
-												<td>5MV</td>
-												<td>5MH</td>
-												<td>5BV</td>
-												<td>5BH</td>                                   
-											</th>
-											<tr>
-												<td></td>
-												<td id='thresh_3_0'></td>
-												<td id='thresh_3_1'></td>
-												<td id='thresh_3_2'></td>
-												<td id='thresh_3_3'></td>
-												<td id='thresh_3_4'></td>
-												<td id='thresh_3_5'></td>
-												<td id='thresh_3_6'></td>
-												<td id='thresh_3_7'></td>
-												<td id='thresh_3_8'></td>
-												<td id='thresh_3_9'></td>
-												<td id='thresh_3_10'></td>
-												<td id='thresh_3_11'></td>
-											</tr>
-											<th>
-												<td>3TV</td>
-												<td>3TH</td>
-												<td>3MV</td>
-												<td>3MH</td>
-												<td>3BV</td>
-												<td>3BH</td>
-												<td>7TV</td>
-												<td>7TH</td>
-												<td>7MV</td>
-												<td>7MH</td>
-												<td>7BV</td>
-												<td>7BH</td>  
-											</th>
-											<tr>
-												<td></td>
-												<td id='thresh_4_0'></td>
-												<td id='thresh_4_1'></td>
-												<td id='thresh_4_2'></td>
-												<td id='thresh_4_3'></td>
-												<td id='thresh_4_4'></td>
-												<td id='thresh_4_5'></td>
-												<td id='thresh_4_6'></td>
-												<td id='thresh_4_7'></td>
-												<td id='thresh_4_8'></td>
-												<td id='thresh_4_9'></td>
-												<td id='thresh_4_10'></td>
-												<td id='thresh_4_11'></td>
-											</tr>
-											<th>
-												<td>2TV</td>
-												<td>2TH</td>
-												<td>2MV</td>
-												<td>2MH</td>
-												<td>2BV</td>
-												<td>2BH</td>
-												<td>6TV</td>
-												<td>6TH</td>
-												<td>6MV</td>
-												<td>6MH</td>
-												<td>6BV</td>
-												<td>6BH</td> 
-
-											</th>
-											<tr>
-												<td></td>
-												<td id='thresh_5_0'></td>
-												<td id='thresh_5_1'></td>
-												<td id='thresh_5_2'></td>
-												<td id='thresh_5_3'></td>
-												<td id='thresh_5_4'></td>
-												<td id='thresh_5_5'></td>
-												<td id='thresh_5_6'></td>
-												<td id='thresh_5_7'></td>
-												<td id='thresh_5_8'></td>
-												<td id='thresh_5_9'></td>
-												<td id='thresh_5_10'></td>
-												<td id='thresh_5_11'></td>
-											</tr>
-											<th>
-												<td>4TV</td>
-												<td>4TH</td>
-												<td>4MV</td>
-												<td>4MH</td>
-												<td>4BV</td>
-												<td>4BH</td>
-												<td>8TV</td>
-												<td>8TH</td>
-												<td>8MV</td>
-												<td>8MH</td>
-												<td>8BV</td>
-												<td>8BH</td>                                  
-											</th>
-											<tr>
-												<td></td>
-												<td id='thresh_6_0'></td>
-												<td id='thresh_6_1'></td>
-												<td id='thresh_6_2'></td>
-												<td id='thresh_6_3'></td>
-												<td id='thresh_6_4'></td>
-												<td id='thresh_6_5'></td>
-												<td id='thresh_6_6'></td>
-												<td id='thresh_6_7'></td>
-												<td id='thresh_6_8'></td>
-												<td id='thresh_6_9'></td>
-												<td id='thresh_6_10'></td>
-												<td id='thresh_6_11'></td>
-											</tr>
-											<th>
-												<td>16TV</td>
-												<td>16TH</td>
-												<td>16MV</td>
-												<td>16MH</td>
-												<td>16BV</td>
-												<td>16BH</td>
-												<td>12TV</td>
-												<td>12TH</td>
-												<td>12MV</td>
-												<td>12MH</td>
-												<td>12BV</td>
-												<td>12BH</td> 
-
-											</th>
-											<tr>
-												<td></td>
-												<td id='thresh_7_0'></td>
-												<td id='thresh_7_1'></td>
-												<td id='thresh_7_2'></td>
-												<td id='thresh_7_3'></td>
-												<td id='thresh_7_4'></td>
-												<td id='thresh_7_5'></td>
-												<td id='thresh_7_6'></td>
-												<td id='thresh_7_7'></td>
-												<td id='thresh_7_8'></td>
-												<td id='thresh_7_9'></td>
-												<td id='thresh_7_10'></td>
-												<td id='thresh_7_11'></td>
-											</tr>
-											<th>
-												<td>14TV</td>
-												<td>14TH</td>
-												<td>14MV</td>
-												<td>14MH</td>
-												<td>14BV</td>
-												<td>14BH</td>
-												<td>10TV</td>
-												<td>10TH</td>
-												<td>10MV</td>
-												<td>10MH</td>
-												<td>10BV</td>
-												<td>10BH</td> 
-											</th>
-											<tr>
-												<td></td>
-												<td id='thresh_8_0'></td>
-												<td id='thresh_8_1'></td>
-												<td id='thresh_8_2'></td>
-												<td id='thresh_8_3'></td>
-												<td id='thresh_8_4'></td>
-												<td id='thresh_8_5'></td>
-												<td id='thresh_8_6'></td>
-												<td id='thresh_8_7'></td>
-												<td id='thresh_8_8'></td>
-												<td id='thresh_8_9'></td>
-												<td id='thresh_8_10'></td>
-												<td id='thresh_8_11'></td>
-											</tr>
-											<th>
-												<td>15TV</td>
-												<td>15TH</td>
-												<td>15MV</td>
-												<td>15MH</td>
-												<td>15BV</td>
-												<td>15BH</td>
-												<td>11TV</td>
-												<td>11TH</td>
-												<td>11MV</td>
-												<td>11MH</td>
-												<td>11BV</td>
-												<td>11BH</td> 
-											</th>
-											<tr>
-												<td></td>
-												<td id='thresh_9_0'></td>
-												<td id='thresh_9_1'></td>
-												<td id='thresh_9_2'></td>
-												<td id='thresh_9_3'></td>
-												<td id='thresh_9_4'></td>
-												<td id='thresh_9_5'></td>
-												<td id='thresh_9_6'></td>
-												<td id='thresh_9_7'></td>
-												<td id='thresh_9_8'></td>
-												<td id='thresh_9_9'></td>
-												<td id='thresh_9_10'></td>
-												<td id='thresh_9_11'></td>
-											</tr>
-											<th>
-												<td>13TV</td>
-												<td>13TH</td>
-												<td>13MV</td>
-												<td>13MH</td>
-												<td>13BV</td>
-												<td>13BH</td>
-												<td>9TV</td>
-												<td>9TH</td>
-												<td>9MV</td>
-												<td>9MH</td>
-												<td>9BV</td>
-												<td>9BH</td> 
-											</th>
-											<tr>
-												<td></td>
-												<td id='thresh_10_0'></td>
-												<td id='thresh_10_1'></td>
-												<td id='thresh_10_2'></td>
-												<td id='thresh_10_3'></td>
-												<td id='thresh_10_4'></td>
-												<td id='thresh_10_5'></td>
-												<td id='thresh_10_6'></td>
-												<td id='thresh_10_7'></td>
-												<td id='thresh_10_8'></td>
-												<td id='thresh_10_9'></td>
-												<td id='thresh_10_10'></td>
-												<td id='thresh_10_11'></td>
-											</tr>
-											<th>
-												<td>nu 25</td>
-												<td>nu 26</td>
-												<td>nu 27</td>
-												<td>nu 28</td>
-												<td>nu 29</td>
-												<td>nu 30</td>
-												<td>nu 31</td>
-												<td>nu 32</td>
-												<td>nu 33</td>
-												<td>nu 34</td>
-												<td>nu 35</td>
-												<td>nu 36</td>
-											</th>
-											<tr>
-												<td></td>
-												<td id='thresh_11_0'></td>
-												<td id='thresh_11_1'></td>
-												<td id='thresh_11_2'></td>
-												<td id='thresh_11_3'></td>
-												<td id='thresh_11_4'></td>
-												<td id='thresh_11_5'></td>
-												<td id='thresh_11_6'></td>
-												<td id='thresh_11_7'></td>
-												<td id='thresh_11_8'></td>
-												<td id='thresh_11_9'></td>
-												<td id='thresh_11_10'></td>
-												<td id='thresh_11_11'></td>
-											</tr>
-											<th>
-												<td>nu 37</td>
-												<td>nu 38</td>
-												<td>nu 39</td>
-												<td>nu 40</td>
-												<td>nu 41</td>
-												<td>nu 42</td>
-												<td>nu 43</td>
-												<td>nu 44</td>
-												<td>nu 45</td>
-												<td>nu 46</td>
-												<td>nu 47</td>
-												<td>nu 48</td>
-											</th>
-										</tbody>                    
-									</table>
-								</div>
-							</div>
-						</div>
-					</div>							
-				</div>
-			</div>
-		</div>
-	</div>
+    <div classs='row'>
+        <div class="col-lg-4">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>TURF Monitor</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table data-sort="false" class="footable" data-page-size="20" id='turf' style="width:100%">
+                        <tbody>
+                            <tr>
+                                <td data-hide="xs">nbuf:</td>
+                                <td id='nbuf'></td>
+                            </tr>
+                            <tr>
+                                <td>Now:</td>
+                                <td id='now'></td>
+                            </tr>
+                            <tr>
+                                <td>Time:</td>
+                                <td id='time'></td>
+                            </tr>
+                            <tr>
+                                <td>Deadtime:</td>
+                                <td id='deadtime'></td>
+                            </tr>
+                            <tr>
+                                <td>l1TrigMask:</td>
+                                <td id='l1trigmask'></td>
+                            </tr>
+                            <tr>
+                                <td>l1TrigMaskH:</td>
+                                <td id='l1trigmaskh'></td>
+                            </tr>
+                            <tr>
+                                <td>PhiTrigMask:</td>
+                                <td id='phitrigmask'></td>
+                            </tr>
+                            <tr>
+                                <td>PhiTrigMaskH:</td>
+                                <td id='phitrigmaskh'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="ibox-content">
+                    <table data-sort="false" class="footable" data-page-size="56" id='lrates' style="width:100%">
+                        <h5>Rates [Hz}</h5>
+                        <tbody>
+                            <tr>
+                                <td></td>
+                                <td id='l1_0'></td>
+                                <td id='l1_1'></td>
+                                <td id='l1_2'></td>
+                                <td id='l1_3'></td>
+                                <td id='l1_4'></td>
+                                <td id='l1_5'></td>
+                                <td id='l1_6'></td>
+                                <td id='l1_7'></td>
+                            </tr>
+                            <th>
+                                <td>L1 1</td>
+                                <td>L1 2</td>
+                                <td>L1 3</td>
+                                <td>L1 4</td>
+                                <td>L1 5</td>
+                                <td>L1 6</td>
+                                <td>L1 7</td>
+                                <td>L1 8</td>
+                            </th>
+                            <tr>
+                                <td></td>
+                                <td id='l1_8'></td>
+                                <td id='l1_9'></td>
+                                <td id='l1_10'></td>
+                                <td id='l1_11'></td>
+                                <td id='l1_12'></td>
+                                <td id='l1_13'></td>
+                                <td id='l1_14'></td>
+                                <td id='l1_15'></td>
+                            </tr>
+                            <th>
+                                <td>L1 9</td>
+                                <td>L1 10</td>
+                                <td>L1 11</td>
+                                <td>L1 12</td>
+                                <td>L1 13</td>
+                                <td>L1 14</td>
+                                <td>L1 15</td>
+                                <td>L1 16</td>
+                            </th>
+                            <tr>
+                                <td></td>
+                                <td id='l1h_0'></td>
+                                <td id='l1h_1'></td>
+                                <td id='l1h_2'></td>
+                                <td id='l1h_3'></td>
+                                <td id='l1h_4'></td>
+                                <td id='l1h_5'></td>
+                                <td id='l1h_6'></td>
+                                <td id='l1h_7'></td>
+                            </tr>
+                            <th>
+                                <td>L1h 1</td>
+                                <td>L1h 2</td>
+                                <td>L1h 3</td>
+                                <td>L1h 4</td>
+                                <td>L1h 5</td>
+                                <td>L1h 6</td>
+                                <td>L1h 7</td>
+                                <td>L1h 8</td>
+                            </th>
+                            <tr>
+                                <td></td>
+                                <td id='l1h_8'></td>
+                                <td id='l1h_9'></td>
+                                <td id='l1h_10'></td>
+                                <td id='l1h_11'></td>
+                                <td id='l1h_12'></td>
+                                <td id='l1h_13'></td>
+                                <td id='l1h_14'></td>
+                                <td id='l1h_15'></td>
+                            </tr>
+                            <th>
+                                <td>L1h 9</td>
+                                <td>L1h 10</td>
+                                <td>L1h 11</td>
+                                <td>L1h 12</td>
+                                <td>L1h 13</td>
+                                <td>L1h 14</td>
+                                <td>L1h 15</td>
+                                <td>L1h 16</td>
+                            </th>
+                            <tr>
+                                <td></td>
+                                <td id='l3_0'></td>
+                                <td id='l3_1'></td>
+                                <td id='l3_2'></td>
+                                <td id='l3_3'></td>
+                                <td id='l3_4'></td>
+                                <td id='l3_5'></td>
+                                <td id='l3_6'></td>
+                                <td id='l3_7'></td>
+                            </tr>
+                            <th>
+                                <td>L3 1</td>
+                                <td>L3 2</td>
+                                <td>L3 3</td>
+                                <td>L3 4</td>
+                                <td>L3 5</td>
+                                <td>L3 6</td>
+                                <td>L3 7</td>
+                                <td>L3 8</td>
+                            </th>
+                            <tr>
+                                <td></td>
+                                <td id='l3_8'></td>
+                                <td id='l3_9'></td>
+                                <td id='l3_10'></td>
+                                <td id='l3_11'></td>
+                                <td id='l3_12'></td>
+                                <td id='l3_13'></td>
+                                <td id='l3_14'></td>
+                                <td id='l3_15'></td>
+                            </tr>
+                            <th>
+                                <td>L3 9</td>
+                                <td>L3 10</td>
+                                <td>L3 11</td>
+                                <td>L3 12</td>
+                                <td>L3 13</td>
+                                <td>L3 14</td>
+                                <td>L3 15</td>
+                                <td>L3 16</td>
+                            </th>
+                            <tr>
+                                <td></td>
+                                <td id='l3h_0'></td>
+                                <td id='l3h_1'></td>
+                                <td id='l3h_2'></td>
+                                <td id='l3h_3'></td>
+                                <td id='l3h_4'></td>
+                                <td id='l3h_5'></td>
+                                <td id='l3h_6'></td>
+                                <td id='l3h_7'></td>
+                            </tr>
+                            <th>
+                                <td>L3h 1</td>
+                                <td>L3h 2</td>
+                                <td>L3h 3</td>
+                                <td>L3h 4</td>
+                                <td>L3h 5</td>
+                                <td>L3h 6</td>
+                                <td>L3h 7</td>
+                                <td>L3h 8</td>
+                            </th>
+                            <tr>
+                                <td></td>
+                                <td id='l3h_8'></td>
+                                <td id='l3h_9'></td>
+                                <td id='l3h_10'></td>
+                                <td id='l3h_11'></td>
+                                <td id='l3h_12'></td>
+                                <td id='l3h_13'></td>
+                                <td id='l3h_14'></td>
+                                <td id='l3h_15'></td>
+                            </tr>
+                            <th>
+                                <td>L3h 9</td>
+                                <td>L3h 10</td>
+                                <td>L3h 11</td>
+                                <td>L3h 12</td>
+                                <td>L3h 13</td>
+                                <td>L3h 14</td>
+                                <td>L3h 15</td>
+                                <td>L3h 16</td>
+                            </th>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>SURF Monitor</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a data-toggle="tab" href="#tab-1"> RF Power</a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-2">Scalers</a></li>
+                        <li class=""><a data-toggle="tab" href="#tab-3">Thresholds</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div id="tab-1" class="tab-pane active">
+                            <div class="panel-body">
+                                <div class="ibox-content">
+                                    <table data-sort="false" class="footable" data-page-size="20" id='rfpower' style="width:100%">
+                                        <tbody>
+                                            <tr>
+                                                <td data-hide="xs">nbuf:</td>
+                                                <td id='nbuf'></td>
+                                                <td>Now:</td>
+                                                <td id='now'></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Time:</td>
+                                                <td id='time'></td>
+                                                <td>us:</td>
+                                                <td id='us'></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Global threshold:</td>
+                                                <td id='global'></td>
+                                                <td>Error flag:</td>
+                                                <td id='error'></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Upper Word 1:</td>
+                                                <td id='upper_0'></td>
+                                                <td>Upper Word 2:</td>
+                                                <td id='upper_1'></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Upper Word 3:</td>
+                                                <td id='upper_2'></td>
+                                                <td>Upper Word 4:</td>
+                                                <td id='upper_3'></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Upper Word 5:</td>
+                                                <td id='upper_4'></td>
+                                                <td>Upper Word 6:</td>
+                                                <td id='upper_5'></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Upper Word 7:</td>
+                                                <td id='upper_6'></td>
+                                                <td>Upper Word 8:</td>
+                                                <td id='upper_7'></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Upper Word 9:</td>
+                                                <td id='upper_8'></td>
+                                                <td>Upper Word 10:</td>
+                                                <td id='upper_9'></td>
+                                            </tr>
+                                            <tr>
+                                                <td>Upper Word 11:</td>
+                                                <td id='upper_10'></td>
+                                                <td>Upper Word 12:</td>
+                                                <td id='upper_11'></td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                                <div class="ibox-content">
+                                    <table data-sort="false" class="footable" data-page-size="56" id='rfpow' style="width:100%">
+                                        <h5>RF Power Surf 1-12</h5>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td id='rfpow_0_0'></td>
+                                                <td id='rfpow_0_1'></td>
+                                                <td id='rfpow_0_2'></td>
+                                                <td id='rfpow_0_3'></td>
+                                                <td id='rfpow_0_4'></td>
+                                                <td id='rfpow_0_5'></td>
+                                                <td id='rfpow_0_6'></td>
+                                                <td id='rfpow_0_7'></td>
+                                            </tr>
+                                            <th>
+                                                <td>10 BV</td>
+                                                <td>2 BV</td>
+                                                <td>16 BV</td>
+                                                <td>8 BV</td>
+                                                <td>10 BH</td>
+                                                <td>2 BH</td>
+                                                <td>16 BH</td>
+                                                <td>8 BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='rfpow_1_0'></td>
+                                                <td id='rfpow_1_1'></td>
+                                                <td id='rfpow_1_2'></td>
+                                                <td id='rfpow_1_3'></td>
+                                                <td id='rfpow_1_4'></td>
+                                                <td id='rfpow_1_5'></td>
+                                                <td id='rfpow_1_6'></td>
+                                                <td id='rfpow_1_7'></td>
+                                            </tr>
+                                            <th>
+                                                <td>12 BV</td>
+                                                <td>4 BV</td>
+                                                <td>14 BV</td>
+                                                <td>6 BV</td>
+                                                <td>12 BH</td>
+                                                <td>4 BH</td>
+                                                <td>14 BH</td>
+                                                <td>6 BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='rfpow_2_0'></td>
+                                                <td id='rfpow_2_1'></td>
+                                                <td id='rfpow_2_2'></td>
+                                                <td id='rfpow_2_3'></td>
+                                                <td id='rfpow_2_4'></td>
+                                                <td id='rfpow_2_5'></td>
+                                                <td id='rfpow_2_6'></td>
+                                                <td id='rfpow_2_7'></td>
+                                            </tr>
+                                            <th>
+                                                <td>16 MV</td>
+                                                <td>8 MV</td>
+                                                <td>12 MV</td>
+                                                <td>4 MV</td>
+                                                <td>16 MH</td>
+                                                <td>8 MH</td>
+                                                <td>12 MH</td>
+                                                <td>4 MH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='rfpow_3_0'></td>
+                                                <td id='rfpow_3_1'></td>
+                                                <td id='rfpow_3_2'></td>
+                                                <td id='rfpow_3_3'></td>
+                                                <td id='rfpow_3_4'></td>
+                                                <td id='rfpow_3_5'></td>
+                                                <td id='rfpow_3_6'></td>
+                                                <td id='rfpow_3_7'></td>
+                                            </tr>
+                                            <th>
+                                                <td>14 MV</td>
+                                                <td>6 MV</td>
+                                                <td>10 MV</td>
+                                                <td>2 MV</td>
+                                                <td>14 MH</td>
+                                                <td>6 MH</td>
+                                                <td>10 MH</td>
+                                                <td>2 MH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='rfpow_4_0'></td>
+                                                <td id='rfpow_4_1'></td>
+                                                <td id='rfpow_4_2'></td>
+                                                <td id='rfpow_4_3'></td>
+                                                <td id='rfpow_4_4'></td>
+                                                <td id='rfpow_4_5'></td>
+                                                <td id='rfpow_4_6'></td>
+                                                <td id='rfpow_4_7'></td>
+                                            </tr>
+                                            <th>
+                                                <td>12 TV</td>
+                                                <td>4 TV</td>
+                                                <td>14 TV</td>
+                                                <td>6 TV</td>
+                                                <td>12 TH</td>
+                                                <td>4 TH</td>
+                                                <td>14 TH</td>
+                                                <td>6 TH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='rfpow_5_0'></td>
+                                                <td id='rfpow_5_1'></td>
+                                                <td id='rfpow_5_2'></td>
+                                                <td id='rfpow_5_3'></td>
+                                                <td id='rfpow_5_4'></td>
+                                                <td id='rfpow_5_5'></td>
+                                                <td id='rfpow_5_6'></td>
+                                                <td id='rfpow_5_7'></td>
+                                            </tr>
+                                            <th>
+                                                <td>10 TV</td>
+                                                <td>2 TV</td>
+                                                <td>16 TV</td>
+                                                <td>8 TV</td>
+                                                <td>10 TH</td>
+                                                <td>2 TH</td>
+                                                <td>16 TH</td>
+                                                <td>8 TH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='rfpow_6_0'></td>
+                                                <td id='rfpow_6_1'></td>
+                                                <td id='rfpow_6_2'></td>
+                                                <td id='rfpow_6_3'></td>
+                                                <td id='rfpow_6_4'></td>
+                                                <td id='rfpow_6_5'></td>
+                                                <td id='rfpow_6_6'></td>
+                                                <td id='rfpow_6_7'></td>
+                                            </tr>
+                                            <th>
+                                                <td>13 BV</td>
+                                                <td>5 BV</td>
+                                                <td>9 BV</td>
+                                                <td>1 BV</td>
+                                                <td>13 BH</td>
+                                                <td>5 BH</td>
+                                                <td>9 BH</td>
+                                                <td>1 BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='rfpow_7_0'></td>
+                                                <td id='rfpow_7_1'></td>
+                                                <td id='rfpow_7_2'></td>
+                                                <td id='rfpow_7_3'></td>
+                                                <td id='rfpow_7_4'></td>
+                                                <td id='rfpow_7_5'></td>
+                                                <td id='rfpow_7_6'></td>
+                                                <td id='rfpow_7_7'></td>
+                                            </tr>
+                                            <th>
+                                                <td>15 BV</td>
+                                                <td>7 BV</td>
+                                                <td>11 BV</td>
+                                                <td>3 BV</td>
+                                                <td>15 BH</td>
+                                                <td>7 BH</td>
+                                                <td>11 BH</td>
+                                                <td>3 BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='rfpow_8_0'></td>
+                                                <td id='rfpow_8_1'></td>
+                                                <td id='rfpow_8_2'></td>
+                                                <td id='rfpow_8_3'></td>
+                                                <td id='rfpow_8_4'></td>
+                                                <td id='rfpow_8_5'></td>
+                                                <td id='rfpow_8_6'></td>
+                                                <td id='rfpow_8_7'></td>
+                                            </tr>
+                                            <th>
+                                                <td>11 MV</td>
+                                                <td>3 MV</td>
+                                                <td>13 MV</td>
+                                                <td>5 MV</td>
+                                                <td>11 MH</td>
+                                                <td>3 MH</td>
+                                                <td>13 MH</td>
+                                                <td>5 MH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='rfpow_9_0'></td>
+                                                <td id='rfpow_9_1'></td>
+                                                <td id='rfpow_9_2'></td>
+                                                <td id='rfpow_9_3'></td>
+                                                <td id='rfpow_9_4'></td>
+                                                <td id='rfpow_9_5'></td>
+                                                <td id='rfpow_9_6'></td>
+                                                <td id='rfpow_9_7'></td>
+                                            </tr>
+                                            <th>
+                                                <td>9 MV</td>
+                                                <td>1 MV</td>
+                                                <td>15 MV</td>
+                                                <td>7 MV</td>
+                                                <td>9 MH</td>
+                                                <td>1 MH</td>
+                                                <td>15 MH</td>
+                                                <td>7 MH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='rfpow_10_0'></td>
+                                                <td id='rfpow_10_1'></td>
+                                                <td id='rfpow_10_2'></td>
+                                                <td id='rfpow_10_3'></td>
+                                                <td id='rfpow_10_4'></td>
+                                                <td id='rfpow_10_5'></td>
+                                                <td id='rfpow_10_6'></td>
+                                                <td id='rfpow_10_7'></td>
+                                            </tr>
+                                            <th>
+                                                <td>15 TV</td>
+                                                <td>7 TV</td>
+                                                <td>11 TV</td>
+                                                <td>3 TV</td>
+                                                <td>15 TH</td>
+                                                <td>7 TH</td>
+                                                <td>11 TH</td>
+                                                <td>3 TH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='rfpow_11_0'></td>
+                                                <td id='rfpow_11_1'></td>
+                                                <td id='rfpow_11_2'></td>
+                                                <td id='rfpow_11_3'></td>
+                                                <td id='rfpow_11_4'></td>
+                                                <td id='rfpow_11_5'></td>
+                                                <td id='rfpow_11_6'></td>
+                                                <td id='rfpow_11_7'></td>
+                                            </tr>
+                                            <th>
+                                                <td>13 TV</td>
+                                                <td>5 TV</td>
+                                                <td>9 TV</td>
+                                                <td>1 TV</td>
+                                                <td>13 TH</td>
+                                                <td>5 TH</td>
+                                                <td>9 TH</td>
+                                                <td>1 TH</td>
+                                            </th>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-2" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="ibox-content">
+                                    <table data-sort="false" class="footable" data-page-size="56" id='scaler' style="width:100%">
+                                        <h5>Scalers 1-12 [Hz]</h5>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td id='scaler_0_0' class='scaler'></td>
+                                                <td id='scaler_0_1' class='scaler'></td>
+                                                <td id='scaler_0_2' class='scaler'></td>
+                                                <td id='scaler_0_3' class='scaler'></td>
+                                                <td id='scaler_0_4' class='scaler'></td>
+                                                <td id='scaler_0_5' class='scaler'></td>
+                                                <td id='scaler_0_6' class='scaler'></td>
+                                                <td id='scaler_0_7' class='scaler'></td>
+                                                <td id='scaler_0_8' class='scaler'></td>
+                                                <td id='scaler_0_9' class='scaler'></td>
+                                                <td id='scaler_0_10' class='scaler'></td>
+                                                <td id='scaler_0_11' class='scaler'></td>
+                                            </tr>
+                                            <th>
+                                                <td>nu 01</td>
+                                                <td>nu 02</td>
+                                                <td>nu 03</td>
+                                                <td>nu 04</td>
+                                                <td>nu 05</td>
+                                                <td>nu 06</td>
+                                                <td>nu 07</td>
+                                                <td>nu 08</td>
+                                                <td>nu 09</td>
+                                                <td>nu 10</td>
+                                                <td>nu 11</td>
+                                                <td>nu 12</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='scaler_1_0'></td>
+                                                <td id='scaler_1_1'></td>
+                                                <td id='scaler_1_2'></td>
+                                                <td id='scaler_1_3'></td>
+                                                <td id='scaler_1_4'></td>
+                                                <td id='scaler_1_5'></td>
+                                                <td id='scaler_1_6'></td>
+                                                <td id='scaler_1_7'></td>
+                                                <td id='scaler_1_8'></td>
+                                                <td id='scaler_1_9'></td>
+                                                <td id='scaler_1_10'></td>
+                                                <td id='scaler_1_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>nu 13</td>
+                                                <td>nu 14</td>
+                                                <td>nu 15</td>
+                                                <td>nu 16</td>
+                                                <td>nu 17</td>
+                                                <td>nu 18</td>
+                                                <td>nu 19</td>
+                                                <td>nu 20</td>
+                                                <td>nu 21</td>
+                                                <td>nu 22</td>
+                                                <td>nu 23</td>
+                                                <td>nu 24</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='scaler_2_0'></td>
+                                                <td id='scaler_2_1'></td>
+                                                <td id='scaler_2_2'></td>
+                                                <td id='scaler_2_3'></td>
+                                                <td id='scaler_2_4'></td>
+                                                <td id='scaler_2_5'></td>
+                                                <td id='scaler_2_6'></td>
+                                                <td id='scaler_2_7'></td>
+                                                <td id='scaler_2_8'></td>
+                                                <td id='scaler_2_9'></td>
+                                                <td id='scaler_2_10'></td>
+                                                <td id='scaler_2_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>1TV</td>
+                                                <td>1TH</td>
+                                                <td>1MV</td>
+                                                <td>1MH</td>
+                                                <td>1BV</td>
+                                                <td>1BH</td>
+                                                <td>5TV</td>
+                                                <td>5TH</td>
+                                                <td>5MV</td>
+                                                <td>5MH</td>
+                                                <td>5BV</td>
+                                                <td>5BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='scaler_3_0'></td>
+                                                <td id='scaler_3_1'></td>
+                                                <td id='scaler_3_2'></td>
+                                                <td id='scaler_3_3'></td>
+                                                <td id='scaler_3_4'></td>
+                                                <td id='scaler_3_5'></td>
+                                                <td id='scaler_3_6'></td>
+                                                <td id='scaler_3_7'></td>
+                                                <td id='scaler_3_8'></td>
+                                                <td id='scaler_3_9'></td>
+                                                <td id='scaler_3_10'></td>
+                                                <td id='scaler_3_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>3TV</td>
+                                                <td>3TH</td>
+                                                <td>3MV</td>
+                                                <td>3MH</td>
+                                                <td>3BV</td>
+                                                <td>3BH</td>
+                                                <td>7TV</td>
+                                                <td>7TH</td>
+                                                <td>7MV</td>
+                                                <td>7MH</td>
+                                                <td>7BV</td>
+                                                <td>7BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='scaler_4_0'></td>
+                                                <td id='scaler_4_1'></td>
+                                                <td id='scaler_4_2'></td>
+                                                <td id='scaler_4_3'></td>
+                                                <td id='scaler_4_4'></td>
+                                                <td id='scaler_4_5'></td>
+                                                <td id='scaler_4_6'></td>
+                                                <td id='scaler_4_7'></td>
+                                                <td id='scaler_4_8'></td>
+                                                <td id='scaler_4_9'></td>
+                                                <td id='scaler_4_10'></td>
+                                                <td id='scaler_4_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>2TV</td>
+                                                <td>2TH</td>
+                                                <td>2MV</td>
+                                                <td>2MH</td>
+                                                <td>2BV</td>
+                                                <td>2BH</td>
+                                                <td>6TV</td>
+                                                <td>6TH</td>
+                                                <td>6MV</td>
+                                                <td>6MH</td>
+                                                <td>6BV</td>
+                                                <td>6BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='scaler_5_0'></td>
+                                                <td id='scaler_5_1'></td>
+                                                <td id='scaler_5_2'></td>
+                                                <td id='scaler_5_3'></td>
+                                                <td id='scaler_5_4'></td>
+                                                <td id='scaler_5_5'></td>
+                                                <td id='scaler_5_6'></td>
+                                                <td id='scaler_5_7'></td>
+                                                <td id='scaler_5_8'></td>
+                                                <td id='scaler_5_9'></td>
+                                                <td id='scaler_5_10'></td>
+                                                <td id='scaler_5_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>4TV</td>
+                                                <td>4TH</td>
+                                                <td>4MV</td>
+                                                <td>4MH</td>
+                                                <td>4BV</td>
+                                                <td>4BH</td>
+                                                <td>8TV</td>
+                                                <td>8TH</td>
+                                                <td>8MV</td>
+                                                <td>8MH</td>
+                                                <td>8BV</td>
+                                                <td>8BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='scaler_6_0'></td>
+                                                <td id='scaler_6_1'></td>
+                                                <td id='scaler_6_2'></td>
+                                                <td id='scaler_6_3'></td>
+                                                <td id='scaler_6_4'></td>
+                                                <td id='scaler_6_5'></td>
+                                                <td id='scaler_6_6'></td>
+                                                <td id='scaler_6_7'></td>
+                                                <td id='scaler_6_8'></td>
+                                                <td id='scaler_6_9'></td>
+                                                <td id='scaler_6_10'></td>
+                                                <td id='scaler_6_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>16TV</td>
+                                                <td>16TH</td>
+                                                <td>16MV</td>
+                                                <td>16MH</td>
+                                                <td>16BV</td>
+                                                <td>16BH</td>
+                                                <td>12TV</td>
+                                                <td>12TH</td>
+                                                <td>12MV</td>
+                                                <td>12MH</td>
+                                                <td>12BV</td>
+                                                <td>12BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='scaler_7_0'></td>
+                                                <td id='scaler_7_1'></td>
+                                                <td id='scaler_7_2'></td>
+                                                <td id='scaler_7_3'></td>
+                                                <td id='scaler_7_4'></td>
+                                                <td id='scaler_7_5'></td>
+                                                <td id='scaler_7_6'></td>
+                                                <td id='scaler_7_7'></td>
+                                                <td id='scaler_7_8'></td>
+                                                <td id='scaler_7_9'></td>
+                                                <td id='scaler_7_10'></td>
+                                                <td id='scaler_7_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>14TV</td>
+                                                <td>14TH</td>
+                                                <td>14MV</td>
+                                                <td>14MH</td>
+                                                <td>14BV</td>
+                                                <td>14BH</td>
+                                                <td>10TV</td>
+                                                <td>10TH</td>
+                                                <td>10MV</td>
+                                                <td>10MH</td>
+                                                <td>10BV</td>
+                                                <td>10BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='scaler_8_0'></td>
+                                                <td id='scaler_8_1'></td>
+                                                <td id='scaler_8_2'></td>
+                                                <td id='scaler_8_3'></td>
+                                                <td id='scaler_8_4'></td>
+                                                <td id='scaler_8_5'></td>
+                                                <td id='scaler_8_6'></td>
+                                                <td id='scaler_8_7'></td>
+                                                <td id='scaler_8_8'></td>
+                                                <td id='scaler_8_9'></td>
+                                                <td id='scaler_8_10'></td>
+                                                <td id='scaler_8_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>15TV</td>
+                                                <td>15TH</td>
+                                                <td>15MV</td>
+                                                <td>15MH</td>
+                                                <td>15BV</td>
+                                                <td>15BH</td>
+                                                <td>11TV</td>
+                                                <td>11TH</td>
+                                                <td>11MV</td>
+                                                <td>11MH</td>
+                                                <td>11BV</td>
+                                                <td>11BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='scaler_9_0'></td>
+                                                <td id='scaler_9_1'></td>
+                                                <td id='scaler_9_2'></td>
+                                                <td id='scaler_9_3'></td>
+                                                <td id='scaler_9_4'></td>
+                                                <td id='scaler_9_5'></td>
+                                                <td id='scaler_9_6'></td>
+                                                <td id='scaler_9_7'></td>
+                                                <td id='scaler_9_8'></td>
+                                                <td id='scaler_9_9'></td>
+                                                <td id='scaler_9_10'></td>
+                                                <td id='scaler_9_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>13TV</td>
+                                                <td>13TH</td>
+                                                <td>13MV</td>
+                                                <td>13MH</td>
+                                                <td>13BV</td>
+                                                <td>13BH</td>
+                                                <td>9TV</td>
+                                                <td>9TH</td>
+                                                <td>9MV</td>
+                                                <td>9MH</td>
+                                                <td>9BV</td>
+                                                <td>9BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='scaler_10_0'></td>
+                                                <td id='scaler_10_1'></td>
+                                                <td id='scaler_10_2'></td>
+                                                <td id='scaler_10_3'></td>
+                                                <td id='scaler_10_4'></td>
+                                                <td id='scaler_10_5'></td>
+                                                <td id='scaler_10_6'></td>
+                                                <td id='scaler_10_7'></td>
+                                                <td id='scaler_10_8'></td>
+                                                <td id='scaler_10_9'></td>
+                                                <td id='scaler_10_10'></td>
+                                                <td id='scaler_10_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>nu 25</td>
+                                                <td>nu 26</td>
+                                                <td>nu 27</td>
+                                                <td>nu 28</td>
+                                                <td>nu 29</td>
+                                                <td>nu 30</td>
+                                                <td>nu 31</td>
+                                                <td>nu 32</td>
+                                                <td>nu 33</td>
+                                                <td>nu 34</td>
+                                                <td>nu 35</td>
+                                                <td>nu 36</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='scaler_11_0'></td>
+                                                <td id='scaler_11_1'></td>
+                                                <td id='scaler_11_2'></td>
+                                                <td id='scaler_11_3'></td>
+                                                <td id='scaler_11_4'></td>
+                                                <td id='scaler_11_5'></td>
+                                                <td id='scaler_11_6'></td>
+                                                <td id='scaler_11_7'></td>
+                                                <td id='scaler_11_8'></td>
+                                                <td id='scaler_11_9'></td>
+                                                <td id='scaler_11_10'></td>
+                                                <td id='scaler_11_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>nu 37</td>
+                                                <td>nu 38</td>
+                                                <td>nu 39</td>
+                                                <td>nu 40</td>
+                                                <td>nu 41</td>
+                                                <td>nu 42</td>
+                                                <td>nu 43</td>
+                                                <td>nu 44</td>
+                                                <td>nu 45</td>
+                                                <td>nu 46</td>
+                                                <td>nu 47</td>
+                                                <td>nu 48</td>
+                                            </th>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="tab-3" class="tab-pane">
+                            <div class="panel-body">
+                                <div class="ibox-content">
+                                    <table data-sort="false" class="footable" data-page-size="56" id='thresh' style="width:100%">
+                                        <h5>Thresholds SURF 1-12 [DAC]</h5>
+                                        <tbody>
+                                            <tr>
+                                                <td></td>
+                                                <td id='thresh_0_0'></td>
+                                                <td id='thresh_0_1'></td>
+                                                <td id='thresh_0_2'></td>
+                                                <td id='thresh_0_3'></td>
+                                                <td id='thresh_0_4'></td>
+                                                <td id='thresh_0_5'></td>
+                                                <td id='thresh_0_6'></td>
+                                                <td id='thresh_0_7'></td>
+                                                <td id='thresh_0_8'></td>
+                                                <td id='thresh_0_9'></td>
+                                                <td id='thresh_0_10'></td>
+                                                <td id='thresh_0_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>nu 01</td>
+                                                <td>nu 02</td>
+                                                <td>nu 03</td>
+                                                <td>nu 04</td>
+                                                <td>nu 05</td>
+                                                <td>nu 06</td>
+                                                <td>nu 07</td>
+                                                <td>nu 08</td>
+                                                <td>nu 09</td>
+                                                <td>nu 10</td>
+                                                <td>nu 11</td>
+                                                <td>nu 12</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='thresh_1_0'></td>
+                                                <td id='thresh_1_1'></td>
+                                                <td id='thresh_1_2'></td>
+                                                <td id='thresh_1_3'></td>
+                                                <td id='thresh_1_4'></td>
+                                                <td id='thresh_1_5'></td>
+                                                <td id='thresh_1_6'></td>
+                                                <td id='thresh_1_7'></td>
+                                                <td id='thresh_1_8'></td>
+                                                <td id='thresh_1_9'></td>
+                                                <td id='thresh_1_10'></td>
+                                                <td id='thresh_1_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>nu 13</td>
+                                                <td>nu 14</td>
+                                                <td>nu 15</td>
+                                                <td>nu 16</td>
+                                                <td>nu 17</td>
+                                                <td>nu 18</td>
+                                                <td>nu 19</td>
+                                                <td>nu 20</td>
+                                                <td>nu 21</td>
+                                                <td>nu 22</td>
+                                                <td>nu 23</td>
+                                                <td>nu 24</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='thresh_2_0'></td>
+                                                <td id='thresh_2_1'></td>
+                                                <td id='thresh_2_2'></td>
+                                                <td id='thresh_2_3'></td>
+                                                <td id='thresh_2_4'></td>
+                                                <td id='thresh_2_5'></td>
+                                                <td id='thresh_2_6'></td>
+                                                <td id='thresh_2_7'></td>
+                                                <td id='thresh_2_8'></td>
+                                                <td id='thresh_2_9'></td>
+                                                <td id='thresh_2_10'></td>
+                                                <td id='thresh_2_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>1TV</td>
+                                                <td>1TH</td>
+                                                <td>1MV</td>
+                                                <td>1MH</td>
+                                                <td>1BV</td>
+                                                <td>1BH</td>
+                                                <td>5TV</td>
+                                                <td>5TH</td>
+                                                <td>5MV</td>
+                                                <td>5MH</td>
+                                                <td>5BV</td>
+                                                <td>5BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='thresh_3_0'></td>
+                                                <td id='thresh_3_1'></td>
+                                                <td id='thresh_3_2'></td>
+                                                <td id='thresh_3_3'></td>
+                                                <td id='thresh_3_4'></td>
+                                                <td id='thresh_3_5'></td>
+                                                <td id='thresh_3_6'></td>
+                                                <td id='thresh_3_7'></td>
+                                                <td id='thresh_3_8'></td>
+                                                <td id='thresh_3_9'></td>
+                                                <td id='thresh_3_10'></td>
+                                                <td id='thresh_3_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>3TV</td>
+                                                <td>3TH</td>
+                                                <td>3MV</td>
+                                                <td>3MH</td>
+                                                <td>3BV</td>
+                                                <td>3BH</td>
+                                                <td>7TV</td>
+                                                <td>7TH</td>
+                                                <td>7MV</td>
+                                                <td>7MH</td>
+                                                <td>7BV</td>
+                                                <td>7BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='thresh_4_0'></td>
+                                                <td id='thresh_4_1'></td>
+                                                <td id='thresh_4_2'></td>
+                                                <td id='thresh_4_3'></td>
+                                                <td id='thresh_4_4'></td>
+                                                <td id='thresh_4_5'></td>
+                                                <td id='thresh_4_6'></td>
+                                                <td id='thresh_4_7'></td>
+                                                <td id='thresh_4_8'></td>
+                                                <td id='thresh_4_9'></td>
+                                                <td id='thresh_4_10'></td>
+                                                <td id='thresh_4_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>2TV</td>
+                                                <td>2TH</td>
+                                                <td>2MV</td>
+                                                <td>2MH</td>
+                                                <td>2BV</td>
+                                                <td>2BH</td>
+                                                <td>6TV</td>
+                                                <td>6TH</td>
+                                                <td>6MV</td>
+                                                <td>6MH</td>
+                                                <td>6BV</td>
+                                                <td>6BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='thresh_5_0'></td>
+                                                <td id='thresh_5_1'></td>
+                                                <td id='thresh_5_2'></td>
+                                                <td id='thresh_5_3'></td>
+                                                <td id='thresh_5_4'></td>
+                                                <td id='thresh_5_5'></td>
+                                                <td id='thresh_5_6'></td>
+                                                <td id='thresh_5_7'></td>
+                                                <td id='thresh_5_8'></td>
+                                                <td id='thresh_5_9'></td>
+                                                <td id='thresh_5_10'></td>
+                                                <td id='thresh_5_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>4TV</td>
+                                                <td>4TH</td>
+                                                <td>4MV</td>
+                                                <td>4MH</td>
+                                                <td>4BV</td>
+                                                <td>4BH</td>
+                                                <td>8TV</td>
+                                                <td>8TH</td>
+                                                <td>8MV</td>
+                                                <td>8MH</td>
+                                                <td>8BV</td>
+                                                <td>8BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='thresh_6_0'></td>
+                                                <td id='thresh_6_1'></td>
+                                                <td id='thresh_6_2'></td>
+                                                <td id='thresh_6_3'></td>
+                                                <td id='thresh_6_4'></td>
+                                                <td id='thresh_6_5'></td>
+                                                <td id='thresh_6_6'></td>
+                                                <td id='thresh_6_7'></td>
+                                                <td id='thresh_6_8'></td>
+                                                <td id='thresh_6_9'></td>
+                                                <td id='thresh_6_10'></td>
+                                                <td id='thresh_6_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>16TV</td>
+                                                <td>16TH</td>
+                                                <td>16MV</td>
+                                                <td>16MH</td>
+                                                <td>16BV</td>
+                                                <td>16BH</td>
+                                                <td>12TV</td>
+                                                <td>12TH</td>
+                                                <td>12MV</td>
+                                                <td>12MH</td>
+                                                <td>12BV</td>
+                                                <td>12BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='thresh_7_0'></td>
+                                                <td id='thresh_7_1'></td>
+                                                <td id='thresh_7_2'></td>
+                                                <td id='thresh_7_3'></td>
+                                                <td id='thresh_7_4'></td>
+                                                <td id='thresh_7_5'></td>
+                                                <td id='thresh_7_6'></td>
+                                                <td id='thresh_7_7'></td>
+                                                <td id='thresh_7_8'></td>
+                                                <td id='thresh_7_9'></td>
+                                                <td id='thresh_7_10'></td>
+                                                <td id='thresh_7_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>14TV</td>
+                                                <td>14TH</td>
+                                                <td>14MV</td>
+                                                <td>14MH</td>
+                                                <td>14BV</td>
+                                                <td>14BH</td>
+                                                <td>10TV</td>
+                                                <td>10TH</td>
+                                                <td>10MV</td>
+                                                <td>10MH</td>
+                                                <td>10BV</td>
+                                                <td>10BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='thresh_8_0'></td>
+                                                <td id='thresh_8_1'></td>
+                                                <td id='thresh_8_2'></td>
+                                                <td id='thresh_8_3'></td>
+                                                <td id='thresh_8_4'></td>
+                                                <td id='thresh_8_5'></td>
+                                                <td id='thresh_8_6'></td>
+                                                <td id='thresh_8_7'></td>
+                                                <td id='thresh_8_8'></td>
+                                                <td id='thresh_8_9'></td>
+                                                <td id='thresh_8_10'></td>
+                                                <td id='thresh_8_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>15TV</td>
+                                                <td>15TH</td>
+                                                <td>15MV</td>
+                                                <td>15MH</td>
+                                                <td>15BV</td>
+                                                <td>15BH</td>
+                                                <td>11TV</td>
+                                                <td>11TH</td>
+                                                <td>11MV</td>
+                                                <td>11MH</td>
+                                                <td>11BV</td>
+                                                <td>11BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='thresh_9_0'></td>
+                                                <td id='thresh_9_1'></td>
+                                                <td id='thresh_9_2'></td>
+                                                <td id='thresh_9_3'></td>
+                                                <td id='thresh_9_4'></td>
+                                                <td id='thresh_9_5'></td>
+                                                <td id='thresh_9_6'></td>
+                                                <td id='thresh_9_7'></td>
+                                                <td id='thresh_9_8'></td>
+                                                <td id='thresh_9_9'></td>
+                                                <td id='thresh_9_10'></td>
+                                                <td id='thresh_9_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>13TV</td>
+                                                <td>13TH</td>
+                                                <td>13MV</td>
+                                                <td>13MH</td>
+                                                <td>13BV</td>
+                                                <td>13BH</td>
+                                                <td>9TV</td>
+                                                <td>9TH</td>
+                                                <td>9MV</td>
+                                                <td>9MH</td>
+                                                <td>9BV</td>
+                                                <td>9BH</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='thresh_10_0'></td>
+                                                <td id='thresh_10_1'></td>
+                                                <td id='thresh_10_2'></td>
+                                                <td id='thresh_10_3'></td>
+                                                <td id='thresh_10_4'></td>
+                                                <td id='thresh_10_5'></td>
+                                                <td id='thresh_10_6'></td>
+                                                <td id='thresh_10_7'></td>
+                                                <td id='thresh_10_8'></td>
+                                                <td id='thresh_10_9'></td>
+                                                <td id='thresh_10_10'></td>
+                                                <td id='thresh_10_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>nu 25</td>
+                                                <td>nu 26</td>
+                                                <td>nu 27</td>
+                                                <td>nu 28</td>
+                                                <td>nu 29</td>
+                                                <td>nu 30</td>
+                                                <td>nu 31</td>
+                                                <td>nu 32</td>
+                                                <td>nu 33</td>
+                                                <td>nu 34</td>
+                                                <td>nu 35</td>
+                                                <td>nu 36</td>
+                                            </th>
+                                            <tr>
+                                                <td></td>
+                                                <td id='thresh_11_0'></td>
+                                                <td id='thresh_11_1'></td>
+                                                <td id='thresh_11_2'></td>
+                                                <td id='thresh_11_3'></td>
+                                                <td id='thresh_11_4'></td>
+                                                <td id='thresh_11_5'></td>
+                                                <td id='thresh_11_6'></td>
+                                                <td id='thresh_11_7'></td>
+                                                <td id='thresh_11_8'></td>
+                                                <td id='thresh_11_9'></td>
+                                                <td id='thresh_11_10'></td>
+                                                <td id='thresh_11_11'></td>
+                                            </tr>
+                                            <th>
+                                                <td>nu 37</td>
+                                                <td>nu 38</td>
+                                                <td>nu 39</td>
+                                                <td>nu 40</td>
+                                                <td>nu 41</td>
+                                                <td>nu 42</td>
+                                                <td>nu 43</td>
+                                                <td>nu 44</td>
+                                                <td>nu 45</td>
+                                                <td>nu 46</td>
+                                                <td>nu 47</td>
+                                                <td>nu 48</td>
+                                            </th>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
-
-
-
-
 <div class="modal inmodal" id="myModal" tabindex="-1" role="dialog" aria-hidden="true">
-	<div class="modal-dialog">
-		<div class="modal-content animated bounceInRight">
-			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
-				<h3 class="modal-title">Modal title</h3>
-			</div>
-			<div class="modal-body">
-				<div id = 'chart1'></div>
-				<div class="form-group"><label>Reference UTC</label> <input id="reference_time" placeholder="Enter your end time" class="form-control"></div>
-				<div class="form-group"><label>Length(s)</label> <input id="length" value="100" placeholder="Enter the number of seconds" class="form-control"></div>
-			</div>
-			<div class="modal-footer">
-				<button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
-				<button id="request" type="button" class="btn btn-primary">Request</button>
-			</div>
-		</div>
-	</div>
+    <div class="modal-dialog">
+        <div class="modal-content animated bounceInRight">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                <h3 class="modal-title">Modal title</h3>
+            </div>
+            <div class="modal-body">
+                <div id='chart1'></div>
+                <div class="form-group">
+                    <label>Reference UTC</label>
+                    <input id="reference_time" placeholder="Enter your end time" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label>Length(s)</label>
+                    <input id="length" value="100" placeholder="Enter the number of seconds" class="form-control">
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-white" data-dismiss="modal">Close</button>
+                <button id="request" type="button" class="btn btn-primary">Request</button>
+            </div>
+        </div>
+    </div>
 </div>
 </div>
 </div>
-
-
-
-
-{% endblock %}
-{% block scripts %}
-{{ super() }}
+{% endblock %} {% block scripts %} {{ super() }}
 <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
 <script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
-
 <script>
-	function timeConverter(UNIX_timestamp){
-		var a = new Date(UNIX_timestamp * 1000);
-		var months = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
-		var year = a.getFullYear();
-		var month = months[a.getMonth()];
-		var date = a.getDate();
-		var hour = a.getHours();
-		var min = a.getMinutes();
-		var sec = a.getSeconds();
-		var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec ;
-		return time;
-	}
-	var l1_range_map = $.range_map({
-		'2000:5000': 'yellow',
-		'5000:30000:': 'green',
-		'30000:50000:':'yellow'
-	})
-	var l3_range_map = $.range_map({
-		'2:4': 'yellow',
-		'4:125:': 'green',
-		'125:170:':'yellow'
-	})
-	var scaler_range_map = $.range_map({
-		'4:5': 'yellow',
-		'5:6.5:': 'green',
-		'6.5:7.5:':'yellow'
-	})
-	var rfpow_range_map = $.range_map({
-		'0:400': 'blue',
-		'400:800:': 'green',
-		'800:1200:':'yellow'
-	})
-	var thresh_range_map = $.range_map({
-		'.5:1': 'yellow',
-		'1:2:': 'green',
-		'2:2.4:':'yellow'
-	})
-	function update_l1_data($selector, new_data){
-		var array_string=$selector.attr('values');
-		array_string=new_data;
+function timeConverter(UNIX_timestamp) {
+    var a = new Date(UNIX_timestamp * 1000);
+    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    var year = a.getFullYear();
+    var month = months[a.getMonth()];
+    var date = a.getDate();
+    var hour = a.getHours();
+    var min = a.getMinutes();
+    var sec = a.getSeconds();
+    var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+    return time;
+}
+var l1_range_map = $.range_map({
+    '2000:5000': 'yellow',
+    '5000:30000:': 'green',
+    '30000:50000:': 'yellow'
+})
+var l3_range_map = $.range_map({
+    '2:4': 'yellow',
+    '4:125:': 'green',
+    '125:170:': 'yellow'
+})
+var scaler_range_map = $.range_map({
+    '4:5': 'yellow',
+    '5:6.5:': 'green',
+    '6.5:7.5:': 'yellow'
+})
+var rfpow_range_map = $.range_map({
+    '0:400': 'blue',
+    '400:800:': 'green',
+    '800:1200:': 'yellow'
+})
+var thresh_range_map = $.range_map({
+    '.5:1': 'yellow',
+    '1:2:': 'green',
+    '2:2.4:': 'yellow'
+})
+
+function update_l1_data($selector, new_data) {
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    	$selector.attr('values', array_string).sparkline('html', {
-    		type: 'bar',
-    		barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: l1_range_map,
-        chartRangeMin:0,
-        chartRangeMax:65535
+        chartRangeMin: 0,
+        chartRangeMax: 65535
     });
-    }
-    function update_l3_data($selector, new_data){
-    	var array_string=$selector.attr('values');
-    	array_string=new_data;
+}
+
+function update_l3_data($selector, new_data) {
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    	$selector.attr('values', array_string).sparkline('html', {
-    		type: 'bar',
-    		barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: l3_range_map,
-        chartRangeMin:0,
-        chartRangeMax:255
+        chartRangeMin: 0,
+        chartRangeMax: 255
     });
-    }
-    function update_scaler_data($selector, new_data){
-    	var array_string=$selector.attr('values');
-    	array_string=new_data;
+}
+
+function update_scaler_data($selector, new_data) {
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    	$selector.attr('values', array_string).sparkline('html', {
-    		type: 'bar',
-    		barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: scaler_range_map,
-        chartRangeMin:0,
-        chartRangeMax:8
+        chartRangeMin: 0,
+        chartRangeMax: 8
     });
-    }
-    function update_rfpow_data($selector, new_data){
-    	var array_string=$selector.attr('values');
-    	array_string=new_data;
+}
+
+function update_rfpow_data($selector, new_data) {
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    	$selector.attr('values', array_string).sparkline('html', {
-    		type: 'bar',
-    		barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: rfpow_range_map,
-        chartRangeMin:-100,
-        chartRangeMax:1200
+        chartRangeMin: -100,
+        chartRangeMax: 1200
     });
-    }
+}
 
-    function update_thresh_data($selector, new_data){
-    	var array_string=$selector.attr('values');
-    	array_string=new_data;
+function update_thresh_data($selector, new_data) {
+    var array_string = $selector.attr('values');
+    array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-    	$selector.attr('values', array_string).sparkline('html', {
-    		type: 'bar',
-    		barWidth: 30,
+    $selector.attr('values', array_string).sparkline('html', {
+        type: 'bar',
+        barWidth: 30,
         // zeroAxis: false,
         colorMap: thresh_range_map,
-        chartRangeMin:0,
-        chartRangeMax:4096
+        chartRangeMin: 0,
+        chartRangeMax: 4096
     });
-    }
-    function updatehtml_turf(turf){
-    	$.getJSON('/api/' + ip_db + '/turf/'+ turf, function(data){
-    		$('#turf #nbuf').html(data.turf.nbuf);
-    		$('#turf #now').html(data.turf.now + " (" + timeConverter(data.turf.now) + ")");
-    		$('#turf #time').html(data.turf.time + " (" + timeConverter(data.turf.time) + ")");
-    		$('#turf #deadtime').html(data.turf.deadtime);
-    		$('#turf #l1trigmask').html(data.turf.l1trigmask);
-    		$('#turf #l1trigmaskh').html(data.turf.l1trigmaskh);
-    		$('#turf #phitrigmask').html(data.turf.phitrigmask);
-    		$('#turf #phitrigmaskh').html(data.turf.phitrigmaskh);
+}
 
-    		var l1_name;
-    		for (i = 0; i < 16; i++) {
-    			l1_name = '#l1_' + i;
-    			update_l1_data($(l1_name), parseInt(data.turf.l1  [i]));
-    		}
-    		var l1h_name;
-    		for (i = 0; i < 16; i++) {
-    			l1h_name = '#l1h_' + i;
-    			update_l1_data($(l1h_name), parseInt(data.turf.l1h  [i]));
-    		}
-    		var l3_name;
-    		for (i = 0; i < 16; i++) {
-    			l3_name = '#l3_' + i;
-    			update_l3_data($(l3_name), parseInt(data.turf.l3  [i]));
-    		}
-    		var l3h_name;
-    		for (i = 0; i < 16; i++) {
-    			l3h_name = '#l3h_' + i;
-    			update_l3_data($(l3h_name), parseInt(data.turf.l3h  [i]));
-    		}
-    	});
+function updatehtml_turf(turf) {
+    $.getJSON('/api/' + ip_db + '/turf/' + turf, function(data) {
+        $('#turf #nbuf').html(data.turf.nbuf);
+        $('#turf #now').html(data.turf.now + " (" + timeConverter(data.turf.now) + ")");
+        $('#turf #time').html(data.turf.time + " (" + timeConverter(data.turf.time) + ")");
+        $('#turf #deadtime').html(data.turf.deadtime);
+        $('#turf #l1trigmask').html(data.turf.l1trigmask);
+        $('#turf #l1trigmaskh').html(data.turf.l1trigmaskh);
+        $('#turf #phitrigmask').html(data.turf.phitrigmask);
+        $('#turf #phitrigmaskh').html(data.turf.phitrigmaskh);
 
-    }
-
-    function updatehtml_hk_surf(hk_surf){
-    	if (!hk_surf) return;
-    	$.getJSON('/api/' + ip_db + '/hk_surf/' + hk_surf, function(data){
-    		$('#rfpower #nbuf').html(data.hk_surf.nbuf);
-    		console.log(data.hk_surf.nbuf);
-    		$('#rfpower #now').html(data.hk_surf.now + " (" + timeConverter(data.hk_surf.now) + ")");
-    		$('#rfpower #time').html(data.hk_surf.time + " (" + timeConverter(data.hk_surf.time) + ")");
-    		$('#rfpower #us').html(data.hk_surf.us);
-    		$('#rfpower #global').html(data.hk_surf.global);
-    		$('#rfpower #error').html(data.hk_surf.error);
-    		$('#rfpower #upper_0').html(data.hk_surf.upper[0]);
-    		$('#rfpower #upper_1').html(data.hk_surf.upper[1]);
-    		$('#rfpower #upper_2').html(data.hk_surf.upper[2]);
-    		$('#rfpower #upper_3').html(data.hk_surf.upper[3]);
-    		$('#rfpower #upper_4').html(data.hk_surf.upper[4]);
-    		$('#rfpower #upper_5').html(data.hk_surf.upper[5]);
-    		$('#rfpower #upper_6').html(data.hk_surf.upper[6]);
-    		$('#rfpower #upper_7').html(data.hk_surf.upper[7]);
-    		$('#rfpower #upper_8').html(data.hk_surf.upper[8]);
-    		$('#rfpower #upper_9').html(data.hk_surf.upper[9]);
-    		$('#rfpower #upper_10').html(data.hk_surf.upper[10]);
-    		$('#rfpower #upper_11').html(data.hk_surf.upper[11]);
-
-    		var rfpow_name;
-    		for (i = 0; i < 12; i++) { 
-    			for (j = 0; j < 8; j++) { 
-    				rfpow_name='#rfpow_'+ i +'_'+ j ;
-    				update_rfpow_data($(rfpow_name),  parseInt(data.hk_surf.rfpow[i][j]));
-    			}
-    		}
-    		var scaler_name;
-    		for (i = 0; i < 12; i++) { 
-    			for (j = 0; j < 12; j++) { 
-    				scaler_name='#scaler_'+ i +'_'+ j ;
-    				update_scaler_data($(scaler_name),  parseInt(data.hk_surf.scaler[i][j]));
-    			}
-    		}
-    		var thresh_name;
-    		for (i = 0; i < 12; i++) { 
-    			for (j = 0; j < 12; j++) { 
-    				thresh_name='#thresh_'+ i +'_'+ j ;
-    				update_thresh_data($(thresh_name),  parseInt(data.hk_surf.thresh[i][j]));
-    			}
-    		}
-    	});
-
-    }
-
-
-
-    $(document).ready(function () {
-    	$('#navbar_trig').parent().addClass("active");
-    	
-    	$( "td[id]" ).click(function() {
-    		var column_name = $(this).attr('id');
-    		var table_name = $(this).closest('.ibox').attr('id');
-    		var name = table_name + '_' + column_name;
-
-    		console.log($(this).attr('id'));
-    		console.log($(this).closest('.ibox').attr('id'));
-
-    		var $newModal = $('#myModal').clone();
-    		$newModal.modal({
-    			backdrop: false
-    		}).draggable();
-    		$newModal.find('.modal-content').resizable();
-    		$newModal.attr('name', name);
-    		$newModal.find('input[id="reference_time"]').val(hk_times[i])
-    		$newModal.on('shown', function (e) {
-    			console.log('hi');
-
-    		});
-
-    		$newModal.find('button[id="request"]').click(function(){
-    			var end_time =  $newModal.find('input[id="reference_time"]').val();
-    			var length = $newModal.find('input[id="length"]').val();
-    			console.log(end_time);
-    			console.log(end_time - length);
-    			$.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time,  function(data){
-    				console.log(data);
-    				console.log("here");
-
-    				$.jqplot.config.enablePlugins = true;
-    				var line1=[['2008-09-30', 4], ['2008-10-30', 6.5], ['2008-11-30', 5.7], ['2008-12-30', 9], 
-    				['2009-01-30', 8.2], ['2009-02-28', 7.6], ['2009-03-30', 11.4], ['2009-04-30', 16.2], 
-    				['2009-05-30', 21.8], ['2009-06-30', 19.3], ['2009-07-30', 29.7], ['2009-08-30', 36.7], 
-    				['2009-09-30', 38.7], ['2009-10-30', 33.7], ['2009-11-30', 49.7], ['2009-12-30', 62.7]];
-    				$('#myModal[name="hk_p5i"]').find('chart1').text("hhihihih");                
-    			});
-    		});
-    	});
-    	$('.footable').footable();
-    	var turf_nbufs=[];
-    	var turf_nows=[];
-    	var turf_times=[];
-    	var hk_surf_nbufs=[];
-    	var hk_surf_nows=[];
-    	var hk_surf_times=[];
-    	var i=0;
-    	var j=0;
-    	var connected = false;
-        var sleep_interval=2000   //by default, re-access the database every 2seconds to see if there are any new data comes in.
-
-        $.getJSON('/api/' + ip_db + '/hk_surf/nbufs', function(data){
-        	turf_nbufs=data.turf_nbufs;
-        	turf_nows=data.turf_nows;
-        });   
-        function autoload(start_time){
-        	$.getJSON('/api/' + ip_db + '/turf/nbufs/' + start_time, function(data){
-        		new_length=data.turf_nbufs.length
-        		turf_nbufs=turf_nbufs.concat(data.turf_nbufs);
-        		turf_nows=turf_nows.concat(data.turf_nows);
-        		turf_times=turf_times.concat(data.turf_times);
-        		start_time=Math.max.apply(null, turf_times);
-        		$('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
-        		$('#connect').html('Disconnect');
-        		$('.chosen-select').attr("disabled", true).trigger("chosen:updated");
-                // switchery.enable();
-                connected = true;
-                connect.ladda('stop');
-                console.log(start_time);
-                console.log(turf_times.length);
-            }).done(function(){
-            	setTimeout(function(){
-            		if (new_length){
-            			sleep_interval = 2000;
-            		}else{
-            			sleep_interval = Math.min(sleep_interval * 1.2, 60000);
-            		}
-            		if (connected == true){
-            			autoload(start_time);
-            		}
-            	}, sleep_interval);
-
-            });
-            $.getJSON('/api/' + ip_db + '/hk_surf/nbufs/' + start_time, function(data){
-            	new_length=data.hk_surf_nbufs.length
-            	hk_surf_nbufs=hk_surf_nbufs.concat(data.hk_surf_nbufs);
-            	hk_surf_nows=hk_surf_nows.concat(data.hk_surf_nows);
-            	hk_surf_times=hk_surf_times.concat(data.hk_surf_times);
-            });
+        var l1_name;
+        for (i = 0; i < 16; i++) {
+            l1_name = '#l1_' + i;
+            update_l1_data($(l1_name), parseInt(data.turf.l1[i]));
         }
+        var l1h_name;
+        for (i = 0; i < 16; i++) {
+            l1h_name = '#l1h_' + i;
+            update_l1_data($(l1h_name), parseInt(data.turf.l1h[i]));
+        }
+        var l3_name;
+        for (i = 0; i < 16; i++) {
+            l3_name = '#l3_' + i;
+            update_l3_data($(l3_name), parseInt(data.turf.l3[i]));
+        }
+        var l3h_name;
+        for (i = 0; i < 16; i++) {
+            l3h_name = '#l3h_' + i;
+            update_l3_data($(l3h_name), parseInt(data.turf.l3h[i]));
+        }
+    });
 
-        var connect = $( '.ladda-button' ).ladda();
-        $('#connect').click(function() {
-        	if ( $(this).hasClass('connect')){
-        		turf_nbufs=[];
-        		turf_nows=[];
-        		turf_times=[];
-        		hk_surf_nbufs=[];
-        		hk_surf_nows=[];
-        		hk_surf_times=[];
-        		i=0;
-        		j=0;
-        		connect.ladda( 'start' );
-        		$.ajax({
-        			url: '/api/connect/'+ ip + '/' + db
-        		}).done(function(response) {
-        			if (response == 'success'){
-        				autoload(0);
-        				setTimeout(function(){
-        					$('#first').click();
-        				},1000);
-        			}else{
-        				connect.ladda('stop');
-        				swal({  title: 'Database not found!', type: "warning", timer: 3000, showConfirmButton: true});   
-        			}          
-        		});
-        	}else{
-        		turf_nbufs=[];
-        		turf_nows=[];
-        		turf_times=[];
-        		hk_surf_nbufs=[];
-        		hk_surf_nows=[];
-        		hk_surf_times=[];
-        		i=0;
-        		j=0;
+}
+
+function updatehtml_hk_surf(hk_surf) {
+    if (!hk_surf) return;
+    $.getJSON('/api/' + ip_db + '/hk_surf/' + hk_surf, function(data) {
+        $('#rfpower #nbuf').html(data.hk_surf.nbuf);
+        console.log(data.hk_surf.nbuf);
+        $('#rfpower #now').html(data.hk_surf.now + " (" + timeConverter(data.hk_surf.now) + ")");
+        $('#rfpower #time').html(data.hk_surf.time + " (" + timeConverter(data.hk_surf.time) + ")");
+        $('#rfpower #us').html(data.hk_surf.us);
+        $('#rfpower #global').html(data.hk_surf.global);
+        $('#rfpower #error').html(data.hk_surf.error);
+        $('#rfpower #upper_0').html(data.hk_surf.upper[0]);
+        $('#rfpower #upper_1').html(data.hk_surf.upper[1]);
+        $('#rfpower #upper_2').html(data.hk_surf.upper[2]);
+        $('#rfpower #upper_3').html(data.hk_surf.upper[3]);
+        $('#rfpower #upper_4').html(data.hk_surf.upper[4]);
+        $('#rfpower #upper_5').html(data.hk_surf.upper[5]);
+        $('#rfpower #upper_6').html(data.hk_surf.upper[6]);
+        $('#rfpower #upper_7').html(data.hk_surf.upper[7]);
+        $('#rfpower #upper_8').html(data.hk_surf.upper[8]);
+        $('#rfpower #upper_9').html(data.hk_surf.upper[9]);
+        $('#rfpower #upper_10').html(data.hk_surf.upper[10]);
+        $('#rfpower #upper_11').html(data.hk_surf.upper[11]);
+
+        var rfpow_name;
+        for (i = 0; i < 8; i++) {
+            for (j = 0; j < 12; j++) {
+                rfpow_name = '#rfpow_' + i + '_' + j;
+                update_rfpow_data($(rfpow_name), parseInt(data.hk_surf.rfpow[i][j]));
+            }
+        }
+        var scaler_name;
+        for (i = 0; i < 12; i++) {
+            for (j = 0; j < 12; j++) {
+                scaler_name = '#scaler_' + i + '_' + j;
+                update_scaler_data($(scaler_name), parseInt(data.hk_surf.scaler[i][j]));
+            }
+        }
+        var thresh_name;
+        for (i = 0; i < 12; i++) {
+            for (j = 0; j < 12; j++) {
+                thresh_name = '#thresh_' + i + '_' + j;
+                update_thresh_data($(thresh_name), parseInt(data.hk_surf.thresh[i][j]));
+            }
+        }
+    });
+
+}
+
+
+
+$(document).ready(function() {
+    $('#navbar_trig').parent().addClass("active");
+
+    $("td[id]").click(function() {
+        var column_name = $(this).attr('id');
+        var table_name = $(this).closest('.ibox').attr('id');
+        var name = table_name + '_' + column_name;
+
+        console.log($(this).attr('id'));
+        console.log($(this).closest('.ibox').attr('id'));
+
+        var $newModal = $('#myModal').clone();
+        $newModal.modal({
+            backdrop: false
+        }).draggable();
+        $newModal.find('.modal-content').resizable();
+        $newModal.attr('name', name);
+        $newModal.find('input[id="reference_time"]').val(hk_times[i])
+        $newModal.on('shown', function(e) {
+            console.log('hi');
+
+        });
+
+        $newModal.find('button[id="request"]').click(function() {
+            var end_time = $newModal.find('input[id="reference_time"]').val();
+            var length = $newModal.find('input[id="length"]').val();
+            console.log(end_time);
+            console.log(end_time - length);
+            $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
+                console.log(data);
+                console.log("here");
+
+                $.jqplot.config.enablePlugins = true;
+                var line1 = [
+                    ['2008-09-30', 4],
+                    ['2008-10-30', 6.5],
+                    ['2008-11-30', 5.7],
+                    ['2008-12-30', 9],
+                    ['2009-01-30', 8.2],
+                    ['2009-02-28', 7.6],
+                    ['2009-03-30', 11.4],
+                    ['2009-04-30', 16.2],
+                    ['2009-05-30', 21.8],
+                    ['2009-06-30', 19.3],
+                    ['2009-07-30', 29.7],
+                    ['2009-08-30', 36.7],
+                    ['2009-09-30', 38.7],
+                    ['2009-10-30', 33.7],
+                    ['2009-11-30', 49.7],
+                    ['2009-12-30', 62.7]
+                ];
+                $('#myModal[name="hk_p5i"]').find('chart1').text("hhihihih");
+            });
+        });
+    });
+    $('.footable').footable();
+    var turf_nbufs = [];
+    var turf_nows = [];
+    var turf_times = [];
+    var hk_surf_nbufs = [];
+    var hk_surf_nows = [];
+    var hk_surf_times = [];
+    var i = 0;
+    var j = 0;
+    var connected = false;
+    var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
+
+    $.getJSON('/api/' + ip_db + '/hk_surf/nbufs', function(data) {
+        turf_nbufs = data.turf_nbufs;
+        turf_nows = data.turf_nows;
+    });
+
+    function autoload(start_time) {
+        $.getJSON('/api/' + ip_db + '/turf/nbufs/' + start_time, function(data) {
+            new_length = data.turf_nbufs.length
+            turf_nbufs = turf_nbufs.concat(data.turf_nbufs);
+            turf_nows = turf_nows.concat(data.turf_nows);
+            turf_times = turf_times.concat(data.turf_times);
+            start_time = Math.max.apply(null, turf_times);
+            $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
+            $('#connect').html('Disconnect');
+            $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
+            // switchery.enable();
+            connected = true;
+            connect.ladda('stop');
+            console.log(start_time);
+            console.log(turf_times.length);
+        }).done(function() {
+            setTimeout(function() {
+                if (new_length) {
+                    sleep_interval = 2000;
+                } else {
+                    sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+                }
+                if (connected == true) {
+                    autoload(start_time);
+                }
+            }, sleep_interval);
+
+        });
+        $.getJSON('/api/' + ip_db + '/hk_surf/nbufs/' + start_time, function(data) {
+            new_length = data.hk_surf_nbufs.length
+            hk_surf_nbufs = hk_surf_nbufs.concat(data.hk_surf_nbufs);
+            hk_surf_nows = hk_surf_nows.concat(data.hk_surf_nows);
+            hk_surf_times = hk_surf_times.concat(data.hk_surf_times);
+        });
+    }
+
+    var connect = $('.ladda-button').ladda();
+    $('#connect').click(function() {
+        if ($(this).hasClass('connect')) {
+            turf_nbufs = [];
+            turf_nows = [];
+            turf_times = [];
+            hk_surf_nbufs = [];
+            hk_surf_nows = [];
+            hk_surf_times = [];
+            i = 0;
+            j = 0;
+            connect.ladda('start');
+            $.ajax({
+                url: '/api/connect/' + ip + '/' + db
+            }).done(function(response) {
+                if (response == 'success') {
+                    autoload(0);
+                } else {
+                    connect.ladda('stop');
+                    swal({
+                        title: 'Database not found!',
+                        type: "warning",
+                        timer: 3000,
+                        showConfirmButton: true
+                    });
+                }
+            });
+        } else {
+            turf_nbufs = [];
+            turf_nows = [];
+            turf_times = [];
+            hk_surf_nbufs = [];
+            hk_surf_nows = [];
+            hk_surf_times = [];
+            i = 0;
+            j = 0;
             //otherwise, stop all the requests.
             $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
             $('#connect').html('Connect');
@@ -1674,79 +1669,83 @@
         }
     });
 
-        $('#next').click( function(){
-        	if (i<turf_nbufs.length-1) {
-        		i=i+1;
-        		updatehtml_turf(turf_nbufs[i]);
-        		j=hk_surf_nows.indexOf(turf_nows[i]);
-        		if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
-        	};
-        });
-        $('#prev').click( function(){
-        	if (i>0) {
-        		i=i-1;
-        		updatehtml_turf(turf_nbufs[i]);
-        		j=hk_surf_nows.indexOf(turf_nows[i]);
-        		if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
-        	};
-        });
-        $('#first').click( function(){
-        	i=0
-        	updatehtml_turf(turf_nbufs[i]);
-        	j=hk_surf_nows.indexOf(turf_nows[i]);
-        	if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
-        });
-        $('#last').click( function(){
-        	i=turf_nbufs.length-1
-        	updatehtml_turf(turf_nbufs[i]);
-        	j=hk_surf_nows.indexOf(turf_nows[i]);
-        	if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
-        });
-        var elem = document.querySelector('.js-switch');
-        var switchery = new Switchery(elem, { color: '#1AB394' });
-        var myInterval;
-        elem.onchange = function() {
-        	if (elem.checked){
-        		myInterval=setInterval(function(){
-        			if (i<turf_nbufs.length-1) {  
-        				i=i+1;
-        				updatehtml_turf(turf_nbufs[i]);
-        				j=hk_surf_nows.indexOf(turf_nows[i]);
-        				if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
-        			};
-        		}, 1000);
-        	}else{
-        		clearInterval(myInterval);
-        	};
+    $('#next').click(function() {
+        if (i < turf_nbufs.length - 1) {
+            i = i + 1;
+            updatehtml_turf(turf_nbufs[i]);
+            j = hk_surf_nows.indexOf(turf_nows[i]);
+            if (j != -1) updatehtml_hk_surf(hk_surf_nbufs[j]);
         };
-        $('#goto').click( function(){
-        	var keywords=parseInt($('#keywords').val());
-        	console.log(keywords);
-        	var index=turf_times.indexOf(keywords);
-        	if (index!=-1 && keywords){
-        		i=index;
-        		console.log(i);
-        		updatehtml_turf(turf_nbufs[i]);
-        		j=hk_surf_nows.indexOf(turf_nows[i]);
-        		if (j!=-1) updatehtml_hk_surf(hk_surf_nbufs[j]);
-        	}else{
-        		swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
-        	}
+    });
+    $('#prev').click(function() {
+        if (i > 0) {
+            i = i - 1;
+            updatehtml_turf(turf_nbufs[i]);
+            j = hk_surf_nows.indexOf(turf_nows[i]);
+            if (j != -1) updatehtml_hk_surf(hk_surf_nbufs[j]);
+        };
+    });
+    $('#first').click(function() {
+        i = 0
+        updatehtml_turf(turf_nbufs[i]);
+        j = hk_surf_nows.indexOf(turf_nows[i]);
+        if (j != -1) updatehtml_hk_surf(hk_surf_nbufs[j]);
+    });
+    $('#last').click(function() {
+        i = turf_nbufs.length - 1
+        updatehtml_turf(turf_nbufs[i]);
+        j = hk_surf_nows.indexOf(turf_nows[i]);
+        if (j != -1) updatehtml_hk_surf(hk_surf_nbufs[j]);
+    });
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, {
+        color: '#1AB394'
+    });
+    var myInterval;
+    elem.onchange = function() {
+        if (elem.checked) {
+            myInterval = setInterval(function() {
+                if (i < turf_nbufs.length - 1) {
+                    i = i + 1;
+                    updatehtml_turf(turf_nbufs[i]);
+                    j = hk_surf_nows.indexOf(turf_nows[i]);
+                    if (j != -1) updatehtml_hk_surf(hk_surf_nbufs[j]);
+                };
+            }, 1000);
+        } else {
+            clearInterval(myInterval);
+        };
+    };
+    $('#goto').click(function() {
+        var keywords = parseInt($('#keywords').val());
+        console.log(keywords);
+        var index = turf_times.indexOf(keywords);
+        if (index != -1 && keywords) {
+            i = index;
+            console.log(i);
+            updatehtml_turf(turf_nbufs[i]);
+            j = hk_surf_nows.indexOf(turf_nows[i]);
+            if (j != -1) updatehtml_hk_surf(hk_surf_nbufs[j]);
+        } else {
+            swal({
+                title: 'Data not found!',
+                type: "warning",
+                timer: 3000,
+                showConfirmButton: true
+            });
+        }
 
-        });
-
-        $(".nav-tabs a[href='#tab-1']").on('shown.bs.tab', function () {
-            updatehtml_hk_surf(hk_surf_nbufs[j]);
-        });
-        $(".nav-tabs a[href='#tab-2']").on('shown.bs.tab', function () {
-            updatehtml_hk_surf(hk_surf_nbufs[j]);
-        });
-        $(".nav-tabs a[href='#tab-3']").on('shown.bs.tab', function () {
-            updatehtml_hk_surf(hk_surf_nbufs[j]);
-        });
     });
 
-
-
+    $(".nav-tabs a[href='#tab-1']").on('shown.bs.tab', function() {
+        updatehtml_hk_surf(hk_surf_nbufs[j]);
+    });
+    $(".nav-tabs a[href='#tab-2']").on('shown.bs.tab', function() {
+        updatehtml_hk_surf(hk_surf_nbufs[j]);
+    });
+    $(".nav-tabs a[href='#tab-3']").on('shown.bs.tab', function() {
+        updatehtml_hk_surf(hk_surf_nbufs[j]);
+    });
+});
 </script>
 {% endblock %}
