@@ -1487,8 +1487,8 @@ function updatehtml_hk_surf(hk_surf) {
         $('#rfpower #upper_11').html(data.hk_surf.upper[11]);
 
         var rfpow_name;
-        for (i = 0; i < 8; i++) {
-            for (j = 0; j < 12; j++) {
+        for (i = 0; i < 12; i++) {
+            for (j = 0; j < 8; j++) {
                 rfpow_name = '#rfpow_' + i + '_' + j;
                 update_rfpow_data($(rfpow_name), parseInt(data.hk_surf.rfpow[i][j]));
             }
@@ -1638,6 +1638,9 @@ $(document).ready(function() {
             }).done(function(response) {
                 if (response == 'success') {
                     autoload(0);
+                    setTimeout(function(){
+                        $('#first').click();
+                    },1000);
                 } else {
                     connect.ladda('stop');
                     swal({
