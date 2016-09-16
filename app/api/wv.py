@@ -15,7 +15,7 @@ def get_wv_evnum_ids(ip_db):
         return jsonify({})
 
 #get the length of wv list
-@api.route('/<ip_db>/wv/count')
+@api.route('/<ip_db>/wv/count') 
 def get_wv_count(ip_db):
     try:
         #Todo how to make it count fast?
@@ -28,7 +28,7 @@ def get_wv_count(ip_db):
 
 #get wv table content for evnum and id
 @api.route('/<ip_db>/wv/<int:evnum>/<int:id>')
-@cache.cached(timeout=3600)
+# @cache.cached(timeout=3600)
 def get_wv(ip_db, evnum, id):
     try:
         wv =getattr(Wv,ip_db).filter_by(evnum=evnum, id=id).first()
@@ -39,7 +39,7 @@ def get_wv(ip_db, evnum, id):
 
 #get 40 waveforms for a evnum
 @api.route('/<ip_db>/wv/<int:evnum>')
-# @cache.cached(timeout=3600)
+@cache.cached(timeout=3600)
 def get_wvs(ip_db, evnum):
     try:
         json_comment={}
