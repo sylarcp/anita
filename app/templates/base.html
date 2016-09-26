@@ -23,77 +23,77 @@
 <link href="{{ url_for('static', filename='anita/css/magicbox.css') }}" rel="stylesheet">
 
 
- <style>    
-        button, .select2-container{
-            margin: 7px 2px;
-        }
-        input, .switchery{
-            margin: 7px 2px;
-        }
-        /* the modal should be in the same z-index not overlay each other*/
-        /*.modal{z-index: 1060 !important;}*/
-        /* the modal content should not overflow if you resize it */
-        .modal-content.ui-resizable {
-            overflow-y: scroll;
-            overflow-x: hidden;
-        }
+<style>    
+    button, .select2-container{
+        margin: 7px 2px;
+    }
+    input, .switchery{
+        margin: 7px 2px;
+    }
+    /* the modal should be in the same z-index not overlay each other*/
+    /*.modal{z-index: 1060 !important;}*/
+    /* the modal content should not overflow if you resize it */
+    .modal-content.ui-resizable {
+        overflow-y: scroll;
+        overflow-x: hidden;
+    }
        /* ul{
           list-style: none;
         }
 
         li{
           display: inline;
-        }*/
-    </style>
-{% endblock %}
+      }*/
+  </style>
+  {% endblock %}
 
-{% block navbar %}
-<div class="navbar navbar-inverse " role="navigation">
+  {% block navbar %}
+  <div class="navbar navbar-inverse " role="navigation">
     <div class="container-fluid">
         <!-- <div class="navbar-header"> -->
-            
-            <a class="navbar-brand">ANITA IV</a>
+
+        <a class="navbar-brand">ANITA IV</a>
        <!--  </div>
-        <div class="navbar"> -->
-            <ul class="nav navbar-nav navbar-inverse">
-                <li><a id='navbar_aview' href="{{ url_for('main.index') }}">Anita Viewer</a></li>
-                <li><a id='navbar_hk' href="{{ url_for('main.hk') }}">HK Viewer</a></li>
-                <li><a id='navbar_trig' href="{{ url_for('main.trigmon') }}">Trigger Monitor</a></li>
-                <li><a id='navbar_slow' href="{{ url_for('main.slowmo') }}">Slow Monitor</a></li>
-                <li><a id='navbar_contact'href="{{ url_for('main.contactus') }}">Contact Us</a></li>
-            </ul>
+       <div class="navbar"> -->
+        <ul class="nav navbar-nav navbar-inverse">
+            <li><a id='navbar_aview' href="{{ url_for('main.index') }}">Anita Viewer</a></li>
+            <li><a id='navbar_hk' href="{{ url_for('main.hk') }}">HK Viewer</a></li>
+            <li><a id='navbar_trig' href="{{ url_for('main.trigmon') }}">Trigger Monitor</a></li>
+            <li><a id='navbar_slow' href="{{ url_for('main.slowmo') }}">Slow Monitor</a></li>
+            <li><a id='navbar_contact'href="{{ url_for('main.contactus') }}">Contact Us</a></li>
+        </ul>
                <!--  {% if current_user.is_authenticated %}
                 <li><a href="{{ url_for('main.index') }}">Sign Out</a></li> 
                 {% else %}
                 <li><a href="{{ url_for('main.index') }}">Sign In</a></li>  
                 {% endif %}-->
-            <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav">
 
-                <li>
-                    <select id="ip" class='chosen-select' style="width:150px" data-placeholder="Choose an IP..">
-                        <option selected>gse2.bartol.udel.edu</option>
-                        <option>128.175.112.58</option>
-                        <option>128.175.112.80</option>
-                        <option>128.175.112.125</option>
-                        <!-- <option>192.168.20.222</option> -->
+                    <li>
+                        <select id="ip" class='chosen-select' style="width:150px" data-placeholder="Choose an IP..">
+                            <option selected>gse2.bartol.udel.edu</option>
+                            <option>128.175.112.58</option>
+                            <option>128.175.112.80</option>
+                            <option>128.175.112.125</option>
+                            <!-- <option>192.168.20.222</option> -->
                <!--          <option selected>67.239.76.218</option>
-                        <option>192.168.20.221</option> -->
-                        <!-- <option ="67_239_76_219">67.239.76.219</option> -->
-                    </select>
-                </li>
-                <li>
-                    <select id="db" class='chosen-select' style="width:150px" data-placeholder="Choose a DB..">
-                        <option selected>anita_0730c</option>
-                        <option>anita_0102a</option>
-                        <option>anita_0102b</option>
-                        <option>anita_0102c</option>
-                        <option>anita_0102d</option>
-                        <option>anita_0104d</option>
-                        <option>anita_0105d</option>
-                        <option>anita_0106d</option>
-                        <option>anita_0107d</option>
-                        <option>anita_0622d</option>
-                        <option>anita_0710a</option>
+               <option>192.168.20.221</option> -->
+               <!-- <option ="67_239_76_219">67.239.76.219</option> -->
+           </select>
+       </li>
+       <li>
+        <select id="db" class='chosen-select' style="width:150px" data-placeholder="Choose a DB..">
+            <option selected>anita_0730c</option>
+            <option>anita_0102a</option>
+            <option>anita_0102b</option>
+            <option>anita_0102c</option>
+            <option>anita_0102d</option>
+            <option>anita_0104d</option>
+            <option>anita_0105d</option>
+            <option>anita_0106d</option>
+            <option>anita_0107d</option>
+            <option>anita_0622d</option>
+            <option>anita_0710a</option>
                        <!--  <option value="anita_0725d">anita_0725d</option>
                         <option value="anita_0726a">anita_0726a</option>
                         <option value="anita_0726b">anita_0726b</option>
@@ -108,41 +108,41 @@
                     </select>
                 </li>
                 <li>
-                     <button type="button" id="connect" class="ladda-button btn btn-primary connect"  data-style="zoom-in">Connect</button>
+                 <button type="button" id="connect" class="ladda-button btn btn-primary connect"  data-style="zoom-in">Connect</button>
+             </li>
+             <button type="button" id="gse_monitor" class="btn btn-primary">GSE Monitor</button>
+             <ul class="nav navbar-nav pull-right">
+
+                <li><button type="button" id='goto' class="btn btn-primary">GoTo</button> </li>
+                <li class="col-lg-4 col-md-4 col-sm-10">
+                    <input type="text" placeholder="evnum or time" id="keywords" class="form-control" value="{{keywords}}">
                 </li>
+                <li><button type="button" id='next' class="btn btn-primary">Next</button> </li>
+                <li><button type="button" id='prev' class="btn btn-primary">Prev</button> </li>
+                <li><button type="button" id='first' class="btn btn-primary">First</button> </li>
+                <li><button type="button" id='last' class="btn btn-primary">Last</button> </li>
+                <li class="col-lg-1 col-md-1 col-sm-1"><input id='checkbox' type="checkbox" class="js-switch" />  </li>
             </ul>
-            <ul class="nav navbar-nav pull-right">
-                
-                    <li><button type="button" id='goto' class="btn btn-primary">GoTo</button> </li>
-                    <li class="col-lg-4 col-md-4 col-sm-10">
-                            <input type="text" placeholder="evnum or time" id="keywords" class="form-control" value="{{keywords}}">
-                    </li>
-                    <li><button type="button" id='next' class="btn btn-primary">Next</button> </li>
-                    <li><button type="button" id='prev' class="btn btn-primary">Prev</button> </li>
-                    <li><button type="button" id='first' class="btn btn-primary">First</button> </li>
-                    <li><button type="button" id='last' class="btn btn-primary">Last</button> </li>
-                    <li class="col-lg-1 col-md-1 col-sm-1"><input id='checkbox' type="checkbox" class="js-switch" />  </li>
-            </ul>
-        <!-- </div> -->
-       
+            <!-- </div> -->
+
+        </div>
     </div>
-</div>
-{% endblock %}
+    {% endblock %}
 
-{% block content %}
-<div>
-    {% for message in get_flashed_messages() %}
-    <div class="alert alert-warning">
-        <button type="button" class="close" data-dismiss="alert">&times;</button>
-        {{ message }}
+    {% block content %}
+    <div>
+        {% for message in get_flashed_messages() %}
+        <div class="alert alert-warning">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            {{ message }}
+        </div>
+        {% endfor %}
+
+        {% block page_content %}{% endblock %}
     </div>
-    {% endfor %}
+    {% endblock %}
 
-    {% block page_content %}{% endblock %}
-</div>
-{% endblock %}
-
-{% block scripts %}
+    {% block scripts %}
     <script src="{{ url_for('static', filename='inspinia/js/jquery-2.1.1.js') }}"></script>
     <script src="{{ url_for('static', filename='anita/js/select2.full.min.js') }}"></script>
 
@@ -182,5 +182,8 @@
             $('.chosen-select').select2({tags: true});
             $('.chosen-select').trigger('change');
         });
-        </script>
-{% endblock %}
+        $('#gse_monitor').click( function(){
+            window.open(ip + '/anita', '_blank');
+         });
+ </script>
+ {% endblock %}
