@@ -169,12 +169,14 @@
     <script src="{{ url_for('static', filename='anita/js/magicbox.js') }}"></script>
     <script>
         var ip;
+        var oip
         var db;
         var ip_db;
         // On changing the ip in the <select>, we want
         $('.chosen-select').change(function() {
             // var ip=$('#ip').val().replace(/./gi, '_');
             ip=$('#ip option:selected').text().replace(/\./gi, '_');
+            oip=$('#ip option:selected').text();
             db=$('#db option:selected').text();
             ip_db= "query_"+ ip + "_" + db;
         });
@@ -183,7 +185,7 @@
             $('.chosen-select').trigger('change');
         });
         $('#gse_monitor').click( function(){
-            window.open(ip + '/anita', '_blank');
+            window.open('http://' + oip + '/anita', '_blank');
          });
  </script>
  {% endblock %}
