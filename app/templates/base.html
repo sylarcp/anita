@@ -67,11 +67,8 @@
                 {% else %}
                 <li><a href="{{ url_for('main.index') }}">Sign In</a></li>  
                 {% endif %}-->
-<<<<<<< HEAD
             <ul class="nav navbar-nav">
-                {{ip_selected}}
-                {{db_selected}}
-
+             
                 <li>
                     <select id="ip" class='chosen-select' style="width:150px" data-placeholder="Choose an IP..">
                         {% set new_one = 1 %}
@@ -175,9 +172,7 @@
             $.getJSON(/set_cookie/+ ip + '/' + db, function(data) {
                 ;
             });
-            ip = ip.replace(/\./gi, '_')
-            
-            ip_db= "query_"+ ip + "_" + db;
+            ip_db= "query_"+ ip.replace(/\./gi, '_') + "_" + db;
         });
         $(document).ready(function () {
             $('.chosen-select').select2({tags: true});
