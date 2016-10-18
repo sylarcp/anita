@@ -395,6 +395,38 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins" id="cmd">
+                <div class="ibox-title">
+                    <h5>Command</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table data-sort="false" class="footable" data-page-size="56" style="width:100%">
+                        <tbody>
+                            <tr>
+                                <td>Time:</td>
+                                <td id='time'></td>
+                                <td> Now:</td>
+                                <td id='now'></td>
+                            </tr>
+                            <tr>
+                                <td>Last comamnds:</td>
+                                <td id = 'last_command'></td>
+                                <td>Antennas off:</td>
+                                <td id = 'antennas_off'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     <div class="col-lg-6">
        <div class="ibox float-e-margins" id="adu5_pat">
            <div class="ibox-title">
@@ -1061,6 +1093,43 @@ function updatehtml_mon(mon) {
     });
 }
 
+function updatehtml_cmd(cmd) {
+    if (!cmd) return;
+    $.getJSON('/api/' + ip_db + '/cmd/' + cmd, function(data) {
+        console.log('cmd');
+        console.log(data.cmd);
+        console.log(data.cmd.bytes);
+        $('#cmd #now').html(data.cmd.now + " (" + timeConverter(data.cmd.now) + ")");
+        $('#cmd #time').html(data.cmd.time + " (" + timeConverter(data.cmd.time) + ")");
+        var length = data.cmd.bytes;
+        var array = data.cmd.cmd;
+        var last_command='';
+        var antennas_off='';
+        console.log(length);
+        if (length >= 1){
+            last_command += array[0].toString() + ' ';
+        }
+
+        if (length < 7){
+           for (i = 1; i < length; i++) { 
+                last_command += '0x' + array[i].toString(16) + ' ';
+            } 
+        }else{
+             for (i = 1; i < 6; i++) { 
+                last_command += '0x' + array[i].toString(16) + ' ';
+            }
+            for (i = 6; i < length; i++) { 
+                antennas_off += '0x' + array[i].toString(16) + ' ';
+            }
+        }
+
+       
+        $('#cmd #last_command').html(last_command);
+        $('#cmd #antennas_off').html(antennas_off);
+
+    });
+}
+
 function updatehtml_adu5_pat(adu5_pat) {
     if (!adu5_pat) return;
     $.getJSON('/api/' + ip_db + '/adu5_pat/' + adu5_pat, function(data) {
@@ -1151,8 +1220,8 @@ $(document).ready(function() {
         var table_name = $(this).closest('.ibox').attr('id');
         var name = table_name + '_' + column_name;
 
-        console.log($(this).attr('id'));
-        console.log($(this).closest('.ibox').attr('id'));
+        // console.log($(this).attr('id'));
+        // console.log($(this).closest('.ibox').attr('id'));
         if ($("#dialog_" + name).length) {
             $("#dialog_" + name).dialog('open');
             $("#dialog_" + name).find('input[id="reference_time"]').val(hk_times[i]);
@@ -1221,10 +1290,10 @@ $("#dialog_" + name).find('button[id="request"]').click(function() {
     console.log('click');
     var end_time = $newDialog.find('input[id="reference_time"]').val();
     var length = $newDialog.find('input[id="length"]').val();
-    console.log(end_time);
-    console.log(end_time - length);
+    // console.log(end_time);
+    // console.log(end_time - length);
     $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
-        console.log(data.data);
+        // console.log(data.data);
         plot1.replot({
             data: [data.data]
         });
@@ -1247,6 +1316,9 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
  var mon_nbufs=[];
  var mon_nows=[];
  var mon_times=[];
+ var cmd_nbufs=[];
+ var cmd_nows=[];
+ var cmd_times=[];
  var adu5_pat_nbufs=[];
  var adu5_pat_nows=[];
  var adu5_pat_times=[];
@@ -1296,25 +1368,39 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
                     sleep_interval = Math.min(sleep_interval * 1.2, 60000);
                 }
                 if (connected == true) {
+
+
                     autoload(start_time);
                 }
             }, sleep_interval);
         });
-
+console.log(start_time);
         $.getJSON('/api/' + ip_db + '/sshk/nbufs/' + start_time, function(data) {
+            console.log(data);
+
             new_length = data.sshk_nbufs.length
             sshk_nbufs = sshk_nbufs.concat(data.sshk_nbufs);
             sshk_nows = sshk_nows.concat(data.sshk_nows);
             sshk_times = sshk_times.concat(data.sshk_times);
-            console.log(sshk_nbufs);
-            console.log(sshk_nows);
-            console.log(sshk_times);
+            // console.log(sshk_nbufs);
+            // console.log(sshk_nows);
+            // console.log(sshk_times);
         });
         $.getJSON('/api/' + ip_db + '/mon/nbufs/' + start_time, function(data) {
+            
             new_length = data.mon_nbufs.length
             mon_nbufs = mon_nbufs.concat(data.mon_nbufs);
             mon_nows = mon_nows.concat(data.mon_nows);
             mon_times = mon_times.concat(data.mon_times);
+        });
+        $.getJSON('/api/' + ip_db + '/cmd/nbufs/' + start_time, function(data) {
+            new_length = data.cmd_nbufs.length
+            cmd_nbufs = cmd_nbufs.concat(data.cmd_nbufs);
+            cmd_nows = cmd_nows.concat(data.cmd_nows);
+            cmd_times = cmd_times.concat(data.cmd_times);
+            // console.log(cmd_nbufs);
+            // console.log(cmd_nows);
+            // console.log(cmd_times);
         });
         $.getJSON('/api/' + ip_db + '/adu5_pat/nbufs/' + start_time, function(data) {
             new_length = data.adu5_pat_nbufs.length
@@ -1360,6 +1446,9 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
             mon_nbufs = [];
             mon_nows = [];
             mon_times = [];
+            cmd_nbufs = [];
+            cmd_nows = [];
+            cmd_times = [];
             adu5_pat_nbufs = [];
             adu5_pat_nows = [];
             adu5_pat_times = [];
@@ -1412,6 +1501,9 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
             mon_nbufs=[];
             mon_nows=[];
             mon_times=[];
+            cmd_nbufs = [];
+            cmd_nows = [];
+            cmd_times = [];
             adu5_pat_nbufs=[];
             adu5_pat_nows=[];
             adu5_pat_times=[];
@@ -1465,6 +1557,8 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
        if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
        p=g12_sat_nows.indexOf(hk_nows[i]);
        if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
+       q=cmd_nows.indexOf(hk_nows[i]);
+       if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);
    };
 });
  $('#prev').click( function(){
@@ -1485,6 +1579,8 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
        if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
        p=g12_sat_nows.indexOf(hk_nows[i]);
        if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
+       q=cmd_nows.indexOf(hk_nows[i]);
+       if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);
    };
 });
  $('#first').click( function(){
@@ -1504,6 +1600,8 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
    if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
    p=g12_sat_nows.indexOf(hk_nows[i]);
    if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
+   q=cmd_nows.indexOf(hk_nows[i]);
+       if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);
 });
  $('#last').click( function(){
    i=hk_nbufs.length-1
@@ -1522,6 +1620,8 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
    if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
    p=g12_sat_nows.indexOf(hk_nows[i]);
    if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
+   q=cmd_nows.indexOf(hk_nows[i]);
+       if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);
 });
  var elem = document.querySelector('.js-switch');
  var switchery = new Switchery(elem, { color: '#1AB394' });
@@ -1547,6 +1647,8 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
                     if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
                     p=g12_sat_nows.indexOf(hk_nows[i]);
                     if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
+                    q=cmd_nows.indexOf(hk_nows[i]);
+                    if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);
                 };
             }, 1000);
 } else {
@@ -1555,11 +1657,11 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
 };
 $('#goto').click( function(){
    var keywords=parseInt($('#keywords').val());
-   console.log(keywords);
+   // console.log(keywords);
    var index=hk_times.indexOf(keywords);
    if (index!=-1 && keywords){
        i=index;
-       console.log(i);
+       // console.log(i);
        updatehtml_hk(hk_nbufs[i]);
        j=mon_nows.indexOf(hk_times[i]);
        if (j!=-1) updatehtml_mon(mon_nbufs[j]);
@@ -1575,6 +1677,8 @@ $('#goto').click( function(){
        if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
        p=g12_sat_nows.indexOf(hk_nows[i]);
        if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
+       q=cmd_nows.indexOf(hk_nows[i]);
+       if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);
    }else{
     swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
 }

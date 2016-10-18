@@ -9,7 +9,7 @@ from app.models import Hk_surf
 @api.route('/<ip_db>/hk_surf/nbufs/<start_time>')
 def get_hk_surf_nbufs(ip_db, start_time):
     try:
-        hk_surfs =getattr(Hk_surf,ip_db).with_entities(Hk_surf.nbuf, Hk_surf.now, Hk_surf.time).filter(Hk_surf.time>start_time).order_by(Hk_surf.now).limit(200).all()
+        hk_surfs =getattr(Hk_surf,ip_db).with_entities(Hk_surf.nbuf, Hk_surf.now, Hk_surf.time).filter(Hk_surf.time>start_time).order_by(Hk_surf.now).all()
         return jsonify({'hk_surf_nbufs': [item.nbuf for item in hk_surfs], 'hk_surf_nows': [item.now for item in hk_surfs], 'hk_surf_times': [item.time for item in hk_surfs]})
     except BaseException as error:
         print('Invalid request: {}',format(error))
