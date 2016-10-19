@@ -580,6 +580,7 @@
 <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
 <script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 <script>
+var sync_on = false;
 function timeConverter(UNIX_timestamp) {
     var a = new Date(UNIX_timestamp * 1000);
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -1342,6 +1343,7 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
  var n=0;
  var o=0;
  var p=0;
+ var q=0;
  var connected = false;
     var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
@@ -1472,6 +1474,7 @@ console.log(start_time);
             n = 0;
             o=0;
             p=0;
+            q=0;
             connect.ladda('start');
             $.ajax({
                 url: '/api/connect/' + ip + '/' + db
@@ -1538,151 +1541,165 @@ console.log(start_time);
             connected = false;
         }
     });
+ //update all html with hk index i;
+function updatehtml_all (i) {
+        updatehtml_hk(hk_nbufs[i]);
+        j=mon_nows.indexOf(hk_nows[i]);
+        if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+        k=adu5_pat_nows.indexOf(hk_nows[i]);
+        if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+        l=adu5_vtg_nows.indexOf(hk_nows[i]);
+        if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+        m=adu5_sat_nows.indexOf(hk_nows[i]);
+        if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+        n=sshk_nows.indexOf(hk_nows[i]);
+        if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
+        o=g12_pos_nows.indexOf(hk_nows[i]);
+        if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
+        p=g12_sat_nows.indexOf(hk_nows[i]);
+        if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
+        q=cmd_nows.indexOf(hk_nows[i]);
+        if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);    
+}
 
  $('#next').click( function(){
-   if (i<hk_nbufs.length-1) {
-       i=i+1;
-       updatehtml_hk(hk_nbufs[i]);
-       j=mon_nows.indexOf(hk_nows[i]);
-       if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-       k=adu5_pat_nows.indexOf(hk_nows[i]);
-       if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-       l=adu5_vtg_nows.indexOf(hk_nows[i]);
-       if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-       m=adu5_sat_nows.indexOf(hk_nows[i]);
-       if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-       n=sshk_nows.indexOf(hk_nows[i]);
-       if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-       o=g12_pos_nows.indexOf(hk_nows[i]);
-       if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-       p=g12_sat_nows.indexOf(hk_nows[i]);
-       if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-       q=cmd_nows.indexOf(hk_nows[i]);
-       if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);
-   };
+    if (sync_on){
+       if (i<hk_nbufs.length-1) {
+           i=i+1;
+           updatehtml_all(i);
+       };
+    }else{
+        if (i<hk_nbufs.length-1)        {i=i+1; updatehtml_hk(hk_nbufs[i]);}
+        if (j<mon_nbufs.length-1)       {j=j+1; updatehtml_mon(mon_nbufs[j]);}
+        if (k<adu5_pat_nbufs.length-1)  {k=k+1; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+        if (l<adu5_vtg_nbufs.length-1)  {l=l+1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
+        if (m<adu5_sat_nbufs.length-1)  {m=m+1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+        if (n<sshk_nbufs.length-1)      {n=n+1; updatehtml_sshk(sshk_nbufs[n]);}
+        if (o<g12_pos_nbufs.length-1)   {o=o+1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
+        if (p<g12_sat_nbufs.length-1)   {p=p+1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
+        if (q<cmd_nbufs.length-1)       {q=q+1; updatehtml_cmd(cmd_nbufs[q]);}
+    }
 });
  $('#prev').click( function(){
-   if (i>0) {
-       i=i-1;
-       updatehtml_hk(hk_nbufs[i]);
-       j=mon_nows.indexOf(hk_nows[i]);
-       if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-       k=adu5_pat_nows.indexOf(hk_nows[i]);
-       if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-       l=adu5_vtg_nows.indexOf(hk_nows[i]);
-       if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-       m=adu5_sat_nows.indexOf(hk_nows[i]);
-       if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-       n=sshk_nows.indexOf(hk_nows[i]);
-       if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-       o=g12_pos_nows.indexOf(hk_nows[i]);
-       if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-       p=g12_sat_nows.indexOf(hk_nows[i]);
-       if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-       q=cmd_nows.indexOf(hk_nows[i]);
-       if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);
-   };
+    if (sync_on){
+       if (i>0) {
+           i=i+1;
+           updatehtml_all(i);
+       };
+    }else{
+        if (i>0)  {i=i-1; updatehtml_hk(hk_nbufs[i]);}
+        if (j>0)  {j=j-1; updatehtml_mon(mon_nbufs[j]);}
+        if (k>0)  {k=k-1; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+        if (l>0)  {l=l-1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
+        if (m>0)  {m=m-1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+        if (n>0)  {n=n-1; updatehtml_sshk(sshk_nbufs[n]);}
+        if (o>0)  {o=o-1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
+        if (p>0)  {p=p-1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
+        if (q>0)  {q=q-1; updatehtml_cmd(cmd_nbufs[q]);}
+    }
 });
  $('#first').click( function(){
-   i=0
-   updatehtml_hk(hk_nbufs[i]);
-   j=mon_nows.indexOf(hk_nows[i]);
-   if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-   k=adu5_pat_nows.indexOf(hk_nows[i]);
-   if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-   l=adu5_vtg_nows.indexOf(hk_nows[i]);
-   if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-   m=adu5_sat_nows.indexOf(hk_nows[i]);
-   if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-   n=sshk_nows.indexOf(hk_nows[i]);
-   if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-   o=g12_pos_nows.indexOf(hk_nows[i]);
-   if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-   p=g12_sat_nows.indexOf(hk_nows[i]);
-   if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-   q=cmd_nows.indexOf(hk_nows[i]);
-       if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);
+    if (sync_on){
+        i=0;
+        updatehtml_all(i);
+    }else{
+        {i=0; updatehtml_hk(hk_nbufs[i]);}
+        {j=0; updatehtml_mon(mon_nbufs[j]);}
+        {k=0; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+        {l=0; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
+        {m=0; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+        {n=0; updatehtml_sshk(sshk_nbufs[n]);}
+        {o=0; updatehtml_g12_pos(g12_pos_nbufs[o]);}
+        {p=0; updatehtml_g12_sat(g12_sat_nbufs[p]);}
+        {q=0; updatehtml_cmd(cmd_nbufs[q]);}
+    }
 });
  $('#last').click( function(){
-   i=hk_nbufs.length-1
-   updatehtml_hk(hk_nbufs[i]);
-   j=mon_nows.indexOf(hk_nows[i]);
-   if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-   k=adu5_pat_nows.indexOf(hk_nows[i]);
-   if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-   l=adu5_vtg_nows.indexOf(hk_nows[i]);
-   if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-   m=adu5_sat_nows.indexOf(hk_nows[i]);
-   if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-   n=sshk_nows.indexOf(hk_nows[i]);
-   if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-   o=g12_pos_nows.indexOf(hk_nows[i]);
-   if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-   p=g12_sat_nows.indexOf(hk_nows[i]);
-   if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-   q=cmd_nows.indexOf(hk_nows[i]);
-       if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);
+    if (sync_on){
+        i=hk_nbufs.length-1;
+        updatehtml_all(i);
+    }else{
+        {i=hk_nbufs.length-1; updatehtml_hk(hk_nbufs[i]);}
+        {j=mon_nbufs.length-1; updatehtml_mon(mon_nbufs[j]);}
+        {k=adu5_pat_nbufs.length-1; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+        {l=adu5_vtg_nbufs.length-1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
+        {m=adu5_sat_nbufs.length-1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+        {n=sshk_nbufs.length-1; updatehtml_sshk(sshk_nbufs[n]);}
+        {o=g12_pos_nbufs.length-1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
+        {p=g12_sat_nbufs.length-1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
+        {q=cmd_nbufs.length-1; updatehtml_cmd(cmd_nbufs[q]);}
+    }
 });
- var elem = document.querySelector('.js-switch');
- var switchery = new Switchery(elem, { color: '#1AB394' });
+ var sync_checkbox = $('#sync_checkbox')[0];
+ var switchery_sync = new Switchery(sync_checkbox, { color: '#1AB394' });
+    sync_checkbox.onchange = function() {
+        if (sync_checkbox.checked) {
+            sync_on = true;
+           
+        } else {
+            sync_on = false;
+        };
+    };
+ var auto_checkbox = $('#auto_checkbox')[0];
+ var switchery_auto = new Switchery(auto_checkbox, { color: '#1AB394' });
+  console.log(auto_checkbox);
+
     // switchery.disable();
     var myInterval;
-    elem.onchange = function() {
-        if (elem.checked) {
+    auto_checkbox.onchange = function() {
+        if (auto_checkbox.checked) {
             myInterval = setInterval(function() {
-                if (i < hk_nbufs.length - 1) {
-                    i = i + 1;
-                    updatehtml_hk(hk_nbufs[i]);
-                    j = mon_nows.indexOf(hk_nows[i]);
-                    if (j != -1) updatehtml_mon(mon_nbufs[j]);
-                    k = adu5_pat_nows.indexOf(hk_nows[i]);
-                    if (k != -1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-                    l = adu5_vtg_nows.indexOf(hk_nows[i]);
-                    if (l != -1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-                    m = adu5_sat_nows.indexOf(hk_nows[i]);
-                    if (m != -1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-                    n = sshk_nows.indexOf(hk_nows[i]);
-                    if (n != -1) updatehtml_sshk(sshk_nbufs[n]);
-                    o=g12_pos_nows.indexOf(hk_nows[i]);
-                    if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-                    p=g12_sat_nows.indexOf(hk_nows[i]);
-                    if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-                    q=cmd_nows.indexOf(hk_nows[i]);
-                    if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);
-                };
+                if (sync_on){
+                   if (i<hk_nbufs.length-1) {
+                       i=i+1;
+                       updatehtml_all(i);
+                   };
+                }else{
+                    if (i<hk_nbufs.length-1)        {i=i+1; updatehtml_hk(hk_nbufs[i]);}
+                    if (j<mon_nbufs.length-1)       {j=j+1; updatehtml_mon(mon_nbufs[j]);}
+                    if (k<adu5_pat_nbufs.length-1)  {k=k+1; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+                    if (l<adu5_vtg_nbufs.length-1)  {l=l+1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
+                    if (m<adu5_sat_nbufs.length-1)  {m=m+1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+                    if (n<sshk_nbufs.length-1)      {n=n+1; updatehtml_sshk(sshk_nbufs[n]);}
+                    if (o<g12_pos_nbufs.length-1)   {o=o+1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
+                    if (p<g12_sat_nbufs.length-1)   {p=p+1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
+                    if (q<cmd_nbufs.length-1)       {q=q+1; updatehtml_cmd(cmd_nbufs[q]);}
+                }
             }, 1000);
-} else {
-    clearInterval(myInterval);
+    } else {
+        clearInterval(myInterval);
+    };
 };
-};
+
 $('#goto').click( function(){
    var keywords=parseInt($('#keywords').val());
    // console.log(keywords);
-   var index=hk_times.indexOf(keywords);
-   if (index!=-1 && keywords){
-       i=index;
-       // console.log(i);
-       updatehtml_hk(hk_nbufs[i]);
-       j=mon_nows.indexOf(hk_times[i]);
-       if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-       k=adu5_pat_nows.indexOf(hk_times[i]);
-       if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-       l=adu5_vtg_nows.indexOf(hk_times[i]);
-       if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-       m=adu5_sat_nows.indexOf(hk_times[i]);
-       if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-       n=sshk_nows.indexOf(hk_nows[i]);
-       if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-       o=g12_pos_nows.indexOf(hk_nows[i]);
-       if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-       p=g12_sat_nows.indexOf(hk_nows[i]);
-       if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-       q=cmd_nows.indexOf(hk_nows[i]);
-       if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);
+   if (sync_on){
+        var index=hk_times.indexOf(keywords);
+        if (index!=-1 && keywords){
+           i=index;
+           updatehtml_all(i);
+        }else{
+            swal({  title: 'HK Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
+        }
    }else{
-    swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
-}
+        var message = '';
+        var index=hk_times.indexOf(keywords);       if(index!=-1 && keywords) { i=index; updatehtml_hk(hk_nbufs[i]); message += 'HK ';}
+        var index=mon_times.indexOf(keywords);      if(index!=-1 && keywords) { j=index; updatehtml_mon(mon_nbufs[j]); message += 'MON ';}
+        var index=adu5_pat_times.indexOf(keywords); if(index!=-1 && keywords) { k=index; updatehtml_adu5_pat(adu5_pat_nbufs[k]); message += 'ADU5_PAT ';}
+        var index=adu5_vtg_times.indexOf(keywords); if(index!=-1 && keywords) { l=index; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]); message += 'ADU5_VTG ';}
+        var index=adu5_sat_times.indexOf(keywords); if(index!=-1 && keywords) { m=index; updatehtml_adu5_sat(adu5_sat_nbufs[m]); message += 'ADU5_SAT ';}
+        var index=sshk_times.indexOf(keywords);     if(index!=-1 && keywords) { n=index; updatehtml_sshk(sshk_nbufs[n]); message += 'SSHK ';}
+        var index=g12_pos_times.indexOf(keywords);  if(index!=-1 && keywords) { o=index; updatehtml_g12_pos(g12_pos_nbufs[o]); message += 'G12_POS ';}
+        var index=g12_sat_times.indexOf(keywords);  if(index!=-1 && keywords) { p=index; updatehtml_g12_sat(g12_sat_nbufs[p]); message += 'G12_SAT ';}
+        var index=cmd_times.indexOf(keywords);      if(index!=-1 && keywords) { q=index; updatehtml_cmd(cmd_nbufs[q]); message += 'CMD ';}
+        if (message == ''){
+            swal({  title: 'No matched time found!', type: "warning", timer: 3000, showConfirmButton: true});
+        }else{
+            swal({  title: 'Matched '+message + 'time are found!', type: "success", timer: 3000, showConfirmButton: true});
+        }
 
+   }
 });
 });
  </script>
