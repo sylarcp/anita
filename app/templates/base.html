@@ -76,7 +76,7 @@
     <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-             <select id="ip" class='chosen-select' style="width:150px" data-placeholder="Choose an IP..">
+             <select id="ip" class='chosen-select' style="width:140px" data-placeholder="Choose an IP..">
                 {% set new_one = 1 %}
                 {% for ip in ip_list %}
                     {% if ip|string() == ip_selected|string() %}
@@ -90,7 +90,7 @@
                 <option selected>{{ip_selected}}</option>
                 {% endif %}
             </select>
-            <select id="db" class='chosen-select' style="width:150px" data-placeholder="Choose a DB..">
+            <select id="db" class='chosen-select' style="width:110px" data-placeholder="Choose a DB..">
                 {% set new_one = 1 %}
                 {% for db in db_list %}
                     {% if db|string() ==db_selected|string() %}
