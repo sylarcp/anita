@@ -23,7 +23,8 @@
 <link href="{{ url_for('static', filename='anita/css/magicbox.css') }}" rel="stylesheet">
 
 
-<style>    
+<style>   
+    .ui-dialog { z-index: 1000 !important ;} 
     button, .select2-container{
         margin: 7px 2px;
     }
@@ -114,7 +115,7 @@
                 <li><button type="button" id='last' class="btn btn-primary">Last</button> </li>
                 <li> Auto </li>
                 <li><input id='auto_checkbox' type="checkbox" class="js-switch" /></li>
-                <li> Sync </li>
+                <li id="label_sync_checkbox"> Sync </li>
                 <li> <input id='sync_checkbox' type="checkbox" class="js-switch" /> </li>
             </ul>
         </div>

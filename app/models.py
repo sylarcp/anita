@@ -6,10 +6,8 @@ from sqlalchemy import Table, Integer, Column, PrimaryKeyConstraint
 # Base.metadata.bind=engine
 
 class Hd(Base):
-    __tablename__ = 'rf'
-    __table_args__ = (Column('nbuf', Integer, primary_key=True), {'autoload':True})
-    # __tablename__ = 'hd'
-    # __table_args__ = {'autoload':True}
+    __tablename__ = 'hd'
+    __table_args__ = {'autoload':True}
     def to_json(self):
         json_comment = {'nbuf': self.nbuf,
                         'crc': self.crc,
@@ -40,7 +38,39 @@ class Hd(Base):
                         'l3trigpath': self.l3trigpath
                         }
         return json_comment
-        
+class Rf(Base):
+    __tablename__ = 'rf'
+    __table_args__ = (Column('nbuf', Integer, primary_key=True), {'autoload':True})
+    def to_json(self):
+        json_comment = {'nbuf': self.nbuf,
+                        'crc': self.crc,
+                        'now': self.now,
+                        'time': self.time,
+                        'us': self.us,
+                        'ns': self.ns,
+                        'evid': self.evid,
+                        'evnum': self.evnum,
+                        'surfmask': self.surfmask,
+                        'calib': self.calib,
+                        'priority': self.priority,
+                        'turfword': self.turfword,
+                        'l1mask': self.l1mask,
+                        'l1maskh': self.l1maskh,
+                        'peakthetabin': self.peakthetabin,
+                        'imagepeak': self.imagepeak,
+                        'coherentsumpeak': self.coherentsumpeak,
+                        'prioritizerstuff': self.prioritizerstuff,
+                        'trigtype': self.trigtype,
+                        'trignum': self.trignum,
+                        'l3cnt': self.l3cnt,
+                        'pps': self.pps,
+                        'trigtime': self.trigtime,
+                        'c3po': self.c3po,
+                        'deadtime': self.deadtime,
+                        'l3trigpat': self.l3trigpat,
+                        'l3trigpath': self.l3trigpath
+                        }
+        return json_comment    
 class Hk(Base):
     __tablename__ = 'hk'
     __table_args__ = {'autoload':True}
