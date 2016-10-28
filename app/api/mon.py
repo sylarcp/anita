@@ -8,7 +8,7 @@ from app.models import Mon
 @api.route('/<ip_db>/mon/nbufs/<start_time>')
 def get_mon_nbufs(ip_db, start_time):
     try:
-        mons =getattr(Mon,ip_db).with_entities(Mon.nbuf, Mon.now, Mon.time).filter(Mon.time>start_time).order_by(Mon.now).limit(200).all()
+        mons =getattr(Mon,ip_db).with_entities(Mon.nbuf, Mon.now, Mon.time).filter(Mon.time>start_time).order_by(Mon.now).all()
         return jsonify({'mon_nbufs': [item.nbuf for item in mons], 'mon_nows': [item.now for item in mons], 'mon_times': [item.time for item in mons]})
     except BaseException as error:
         print('Invalid request: {}', format(error))

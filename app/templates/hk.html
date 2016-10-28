@@ -395,159 +395,192 @@
                 </div>
             </div>
         </div>
+
+        <div class="col-lg-6">
+            <div class="ibox float-e-margins" id="cmd">
+                <div class="ibox-title">
+                    <h5>Command</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <table data-sort="false" class="footable" data-page-size="56" style="width:100%">
+                        <tbody>
+                            <tr>
+                                <td>Time:</td>
+                                <td id='time'></td>
+                                <td> Now:</td>
+                                <td id='now'></td>
+                            </tr>
+                            <tr>
+                                <td>Last comamnds:</td>
+                                <td id = 'last_command'></td>
+                                <td>Antennas off:</td>
+                                <td id = 'antennas_off'></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
     <div class="col-lg-6">
-       <div class="ibox float-e-margins" id="adu5_pat">
-           <div class="ibox-title">
+        <div class="ibox float-e-margins" id="adu5_pat">
+            <div class="ibox-title">
                <h5>GPS Panel</h5>
                <div class="ibox-tools">
                    <a class="collapse-link">
                       <i class="fa fa-chevron-up"></i>
-                  </a>
-              </div>
-          </div>
-          <div class="ibox-content" >
-             <table data-sort="false" class="footable" data-page-size="26" id='gps' style="width:100%">
-                 <tbody>
-                    <tr>
-                     <td>Curret GPS:</td>                        
-                     <td id='pat_gpstype'></td>
-                 </tr>
-                 <tr>
-                     <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-                 </tr>
-                 <tr>
-                     <td>GPS:</td>
-                     <td>adu5A</td>
-                     <td>adu5B</td>
-                     <td>g12</td>
-                 </tr>
-                 <tr>
-                     <td>Full Time</td>
-                     <td id='fulltime_5A'></td>
-                     <td id='fulltime_5B'></td>
-                     <td id='fulltime_g12'></td>
-                 </tr>
-                 <tr>
-                     <td>Time</td>
-                     <td id='time_5A'></td>
-                     <td id='time_5B'></td>
-                     <td id='time_g12'></td>
-                 </tr>
-                 <tr>
-                     <td>Full Now</td>
-                     <td id='fullnow_5A'></td>
-                     <td id='fullnow_5B'></td>
-                     <td id='fullnow_g12'></td>                                
-                 </tr>
-                 <tr>
-                     <td>Now</td>
-                     <td id='now_5A'></td>
-                     <td id='now_5B'></td> 
-                     <td id='now_g12'></td>                                 
-                 </tr>
-                 <tr>
-                     <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-                 </tr>
-                 <tr>
-                     <td>Latitude</td>
-                     <td id='latitude_5A'></td>
-                     <td id='latitude_5B'></td>
-                     <td id='latitude_g12'></td>
-                 </tr>
-                 <tr>
-                     <td>Longitude</td>  
-                     <td id='longitude_5A'></td>
-                     <td id='longitude_5B'></td>
-                     <td id='longitude_g12'></td>                              
-                 </tr>
-                 <tr>
-                    <td>Altitude</td>
-                    <td id='altitude_5A'></td>
-                    <td id='altitude_5B'></td>
-                    <td id='altitude_g12'></td>
-                </tr>
-                <tr>
-                    <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-                </tr>
-                <tr>
-                 <td>Pitch</td>
-                 <td id='pitch_5A'></td>
-                 <td id='pitch_5B'></td>
-             </tr>
-             <tr>                                
-                 <td>Roll</td> 
-                 <td id='roll_5A'></td>
-                 <td id='roll_5B'></td>
-             </tr>
-             <tr>
-               <td>Heading</td>      
-               <td id='heading_5A'></td>
-               <td id='heading_5B'></td>
-           </tr>
-           <tr>
-               <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-           </tr>
-           <tr>
-               <td>Current GPS:</td>
-               <td id='vtg_gpstype'></td>
-           </tr>
-           <tr>                                
-             <td>knots</td>
-             <td id='vkt_5A'></td>
-             <td id='vkt_5B'></td>
-             <td id='vkt_g12'></td> 
-         </tr>
+                    </a>
+                </div>
+            </div>
+            <div class="ibox-content" >
+                <table data-sort="false" class="footable" data-page-size="26" id='gps' style="width:100%">
+                    <tbody>
+                        <tr>
+                            <td>Curret GPS:</td>                        
+                            <td id='pat_gpstype'></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>GPS:</td>
+                            <td>adu5A</td>
+                            <td>adu5B</td>
+                            <td>g12</td>
+                        </tr>
+                        <tr>
+                            <td>Full Time</td>
+                            <td id='fulltime_5A'></td>
+                            <td id='fulltime_5B'></td>
+                            <td id='fulltime_g12'></td>
+                        </tr>
+                        <tr>
+                            <td>Time</td>
+                            <td id='time_5A'></td>
+                            <td id='time_5B'></td>
+                            <td id='time_g12'></td>
+                        </tr>
+                        <tr>
+                            <td>Full Now</td>
+                            <td id='fullnow_5A'></td>
+                            <td id='fullnow_5B'></td>
+                            <td id='fullnow_g12'></td>                                
+                        </tr>
+                        <tr>
+                            <td>Now</td>
+                            <td id='now_5A'></td>
+                            <td id='now_5B'></td> 
+                            <td id='now_g12'></td>                                 
+                        </tr>
+                        <tr>
+                            <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Latitude</td>
+                            <td id='latitude_5A'></td>
+                            <td id='latitude_5B'></td>
+                            <td id='latitude_g12'></td>
+                        </tr>
+                        <tr>
+                            <td>Longitude</td>  
+                            <td id='longitude_5A'></td>
+                            <td id='longitude_5B'></td>
+                            <td id='longitude_g12'></td>                              
+                        </tr>
+                        <tr>
+                            <td>Altitude</td>
+                            <td id='altitude_5A'></td>
+                            <td id='altitude_5B'></td>
+                            <td id='altitude_g12'></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Pitch</td>
+                            <td id='pitch_5A'></td>
+                            <td id='pitch_5B'></td>
+                        </tr>
+                        <tr>                                
+                            <td>Roll</td> 
+                            <td id='roll_5A'></td>
+                            <td id='roll_5B'></td>
+                        </tr>
+                        <tr>
+                            <td>Heading</td>      
+                            <td id='heading_5A'></td>
+                            <td id='heading_5B'></td>
+                        </tr>
+                        <tr>
+                            <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Current GPS:</td>
+                            <td id='vtg_gpstype'></td>
+                        </tr>
+                        <tr>                                
+                            <td>knots</td>
+                            <td id='vkt_5A'></td>
+                            <td id='vkt_5B'></td>
+                            <td id='vkt_g12'></td> 
+                        </tr>
 
-         <tr>
-             <td>kph</td> 
-             <td id='vkph_5A'></td>
-             <td id='vkph_5B'></td>
-             <td id='vkph_g12'></td>                           
-         </tr>
-         <tr>
-             <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-         </tr>
-         <tr>
-             <td>Current GPS:</td>
-             <td id='sat_gpstype'></td>
-         </tr>
-         <tr>
-             <td># of Sats</td>
-             <td id='numsats_5A'></td>
-             <td id='numsats_5B'></td> 
-             <td id='numsats_g12'></td>                                 
-         </tr>
-     </tbody>
- </table>
-</div>
-</div>
-</div>
+                        <tr>
+                            <td>kph</td> 
+                            <td id='vkph_5A'></td>
+                            <td id='vkph_5B'></td>
+                            <td id='vkph_g12'></td>                           
+                        </tr>
+                        <tr>
+                            <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Current GPS:</td>
+                            <td id='sat_gpstype'></td>
+                        </tr>
+                        <tr>
+                            <td># of Sats</td>
+                            <td id='numsats_5A'></td>
+                            <td id='numsats_5B'></td> 
+                            <td id='numsats_g12'></td>                                 
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 </div>
 <div id="dialog" class='hide'>
     <div id='chart1'></div>
-</br>
-<div class="col-sm-6">
-    <div class="form-group">
-        <label>Reference UTC</label>
-        <input id="reference_time" placeholder="Enter your end time" class="form-control">
+        </br>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Reference UTC</label>
+                <input id="reference_time" placeholder="Enter your end time" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label>Length(s)</label>
+                <input id="length" value="10000" placeholder="Enter the number of seconds" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            </br>
+            <button id="request" type="button" class="btn btn-primary">Request</button>
+        </div>
     </div>
-</div>
-<div class="col-sm-3">
-    <div class="form-group">
-        <label>Length(s)</label>
-        <input id="length" value="10000" placeholder="Enter the number of seconds" class="form-control">
-    </div>
-</div>
-<div class="col-sm-3">
-</br>
-<button id="request" type="button" class="btn btn-primary">Request</button>
-</div>
-</div>
 </div>
 {% endblock %} {% block scripts %} {{ super() }}
 <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
 <script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 <script>
+var sync_on = false;
 function timeConverter(UNIX_timestamp) {
     var a = new Date(UNIX_timestamp * 1000);
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -1061,6 +1094,43 @@ function updatehtml_mon(mon) {
     });
 }
 
+function updatehtml_cmd(cmd) {
+    if (!cmd) return;
+    $.getJSON('/api/' + ip_db + '/cmd/' + cmd, function(data) {
+        console.log('cmd');
+        console.log(data.cmd);
+        console.log(data.cmd.bytes);
+        $('#cmd #now').html(data.cmd.now + " (" + timeConverter(data.cmd.now) + ")");
+        $('#cmd #time').html(data.cmd.time + " (" + timeConverter(data.cmd.time) + ")");
+        var length = data.cmd.bytes;
+        var array = data.cmd.cmd;
+        var last_command='';
+        var antennas_off='';
+        console.log(length);
+        if (length >= 1){
+            last_command += array[0].toString() + ' ';
+        }
+
+        if (length < 7){
+           for (i = 1; i < length; i++) { 
+                last_command += '0x' + array[i].toString(16) + ' ';
+            } 
+        }else{
+             for (i = 1; i < 6; i++) { 
+                last_command += '0x' + array[i].toString(16) + ' ';
+            }
+            for (i = 6; i < length; i++) { 
+                antennas_off += '0x' + array[i].toString(16) + ' ';
+            }
+        }
+
+       
+        $('#cmd #last_command').html(last_command);
+        $('#cmd #antennas_off').html(antennas_off);
+
+    });
+}
+
 function updatehtml_adu5_pat(adu5_pat) {
     if (!adu5_pat) return;
     $.getJSON('/api/' + ip_db + '/adu5_pat/' + adu5_pat, function(data) {
@@ -1151,8 +1221,8 @@ $(document).ready(function() {
         var table_name = $(this).closest('.ibox').attr('id');
         var name = table_name + '_' + column_name;
 
-        console.log($(this).attr('id'));
-        console.log($(this).closest('.ibox').attr('id'));
+        // console.log($(this).attr('id'));
+        // console.log($(this).closest('.ibox').attr('id'));
         if ($("#dialog_" + name).length) {
             $("#dialog_" + name).dialog('open');
             $("#dialog_" + name).find('input[id="reference_time"]').val(hk_times[i]);
@@ -1221,10 +1291,10 @@ $("#dialog_" + name).find('button[id="request"]').click(function() {
     console.log('click');
     var end_time = $newDialog.find('input[id="reference_time"]').val();
     var length = $newDialog.find('input[id="length"]').val();
-    console.log(end_time);
-    console.log(end_time - length);
+    // console.log(end_time);
+    // console.log(end_time - length);
     $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
-        console.log(data.data);
+        // console.log(data.data);
         plot1.replot({
             data: [data.data]
         });
@@ -1247,6 +1317,9 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
  var mon_nbufs=[];
  var mon_nows=[];
  var mon_times=[];
+ var cmd_nbufs=[];
+ var cmd_nows=[];
+ var cmd_times=[];
  var adu5_pat_nbufs=[];
  var adu5_pat_nows=[];
  var adu5_pat_times=[];
@@ -1270,6 +1343,7 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
  var n=0;
  var o=0;
  var p=0;
+ var q=0;
  var connected = false;
     var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
@@ -1296,25 +1370,39 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
                     sleep_interval = Math.min(sleep_interval * 1.2, 60000);
                 }
                 if (connected == true) {
+
+
                     autoload(start_time);
                 }
             }, sleep_interval);
         });
-
+console.log(start_time);
         $.getJSON('/api/' + ip_db + '/sshk/nbufs/' + start_time, function(data) {
+            console.log(data);
+
             new_length = data.sshk_nbufs.length
             sshk_nbufs = sshk_nbufs.concat(data.sshk_nbufs);
             sshk_nows = sshk_nows.concat(data.sshk_nows);
             sshk_times = sshk_times.concat(data.sshk_times);
-            console.log(sshk_nbufs);
-            console.log(sshk_nows);
-            console.log(sshk_times);
+            // console.log(sshk_nbufs);
+            // console.log(sshk_nows);
+            // console.log(sshk_times);
         });
         $.getJSON('/api/' + ip_db + '/mon/nbufs/' + start_time, function(data) {
+            
             new_length = data.mon_nbufs.length
             mon_nbufs = mon_nbufs.concat(data.mon_nbufs);
             mon_nows = mon_nows.concat(data.mon_nows);
             mon_times = mon_times.concat(data.mon_times);
+        });
+        $.getJSON('/api/' + ip_db + '/cmd/nbufs/' + start_time, function(data) {
+            new_length = data.cmd_nbufs.length
+            cmd_nbufs = cmd_nbufs.concat(data.cmd_nbufs);
+            cmd_nows = cmd_nows.concat(data.cmd_nows);
+            cmd_times = cmd_times.concat(data.cmd_times);
+            // console.log(cmd_nbufs);
+            // console.log(cmd_nows);
+            // console.log(cmd_times);
         });
         $.getJSON('/api/' + ip_db + '/adu5_pat/nbufs/' + start_time, function(data) {
             new_length = data.adu5_pat_nbufs.length
@@ -1360,6 +1448,9 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
             mon_nbufs = [];
             mon_nows = [];
             mon_times = [];
+            cmd_nbufs = [];
+            cmd_nows = [];
+            cmd_times = [];
             adu5_pat_nbufs = [];
             adu5_pat_nows = [];
             adu5_pat_times = [];
@@ -1383,6 +1474,7 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
             n = 0;
             o=0;
             p=0;
+            q=0;
             connect.ladda('start');
             $.ajax({
                 url: '/api/connect/' + ip + '/' + db
@@ -1412,6 +1504,9 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
             mon_nbufs=[];
             mon_nows=[];
             mon_times=[];
+            cmd_nbufs = [];
+            cmd_nows = [];
+            cmd_times = [];
             adu5_pat_nbufs=[];
             adu5_pat_nows=[];
             adu5_pat_times=[];
@@ -1446,139 +1541,165 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
             connected = false;
         }
     });
-
- $('#next').click( function(){
-   if (i<hk_nbufs.length-1) {
-       i=i+1;
-       updatehtml_hk(hk_nbufs[i]);
-       j=mon_nows.indexOf(hk_nows[i]);
-       if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-       k=adu5_pat_nows.indexOf(hk_nows[i]);
-       if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-       l=adu5_vtg_nows.indexOf(hk_nows[i]);
-       if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-       m=adu5_sat_nows.indexOf(hk_nows[i]);
-       if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-       n=sshk_nows.indexOf(hk_nows[i]);
-       if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-       o=g12_pos_nows.indexOf(hk_nows[i]);
-       if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-       p=g12_sat_nows.indexOf(hk_nows[i]);
-       if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-   };
-});
- $('#prev').click( function(){
-   if (i>0) {
-       i=i-1;
-       updatehtml_hk(hk_nbufs[i]);
-       j=mon_nows.indexOf(hk_nows[i]);
-       if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-       k=adu5_pat_nows.indexOf(hk_nows[i]);
-       if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-       l=adu5_vtg_nows.indexOf(hk_nows[i]);
-       if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-       m=adu5_sat_nows.indexOf(hk_nows[i]);
-       if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-       n=sshk_nows.indexOf(hk_nows[i]);
-       if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-       o=g12_pos_nows.indexOf(hk_nows[i]);
-       if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-       p=g12_sat_nows.indexOf(hk_nows[i]);
-       if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-   };
-});
- $('#first').click( function(){
-   i=0
-   updatehtml_hk(hk_nbufs[i]);
-   j=mon_nows.indexOf(hk_nows[i]);
-   if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-   k=adu5_pat_nows.indexOf(hk_nows[i]);
-   if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-   l=adu5_vtg_nows.indexOf(hk_nows[i]);
-   if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-   m=adu5_sat_nows.indexOf(hk_nows[i]);
-   if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-   n=sshk_nows.indexOf(hk_nows[i]);
-   if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-   o=g12_pos_nows.indexOf(hk_nows[i]);
-   if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-   p=g12_sat_nows.indexOf(hk_nows[i]);
-   if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-});
- $('#last').click( function(){
-   i=hk_nbufs.length-1
-   updatehtml_hk(hk_nbufs[i]);
-   j=mon_nows.indexOf(hk_nows[i]);
-   if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-   k=adu5_pat_nows.indexOf(hk_nows[i]);
-   if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-   l=adu5_vtg_nows.indexOf(hk_nows[i]);
-   if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-   m=adu5_sat_nows.indexOf(hk_nows[i]);
-   if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-   n=sshk_nows.indexOf(hk_nows[i]);
-   if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-   o=g12_pos_nows.indexOf(hk_nows[i]);
-   if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-   p=g12_sat_nows.indexOf(hk_nows[i]);
-   if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-});
- var elem = document.querySelector('.js-switch');
- var switchery = new Switchery(elem, { color: '#1AB394' });
-    // switchery.disable();
-    var myInterval;
-    elem.onchange = function() {
-        if (elem.checked) {
-            myInterval = setInterval(function() {
-                if (i < hk_nbufs.length - 1) {
-                    i = i + 1;
-                    updatehtml_hk(hk_nbufs[i]);
-                    j = mon_nows.indexOf(hk_nows[i]);
-                    if (j != -1) updatehtml_mon(mon_nbufs[j]);
-                    k = adu5_pat_nows.indexOf(hk_nows[i]);
-                    if (k != -1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-                    l = adu5_vtg_nows.indexOf(hk_nows[i]);
-                    if (l != -1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-                    m = adu5_sat_nows.indexOf(hk_nows[i]);
-                    if (m != -1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-                    n = sshk_nows.indexOf(hk_nows[i]);
-                    if (n != -1) updatehtml_sshk(sshk_nbufs[n]);
-                    o=g12_pos_nows.indexOf(hk_nows[i]);
-                    if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-                    p=g12_sat_nows.indexOf(hk_nows[i]);
-                    if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-                };
-            }, 1000);
-} else {
-    clearInterval(myInterval);
-};
-};
-$('#goto').click( function(){
-   var keywords=parseInt($('#keywords').val());
-   console.log(keywords);
-   var index=hk_times.indexOf(keywords);
-   if (index!=-1 && keywords){
-       i=index;
-       console.log(i);
-       updatehtml_hk(hk_nbufs[i]);
-       j=mon_nows.indexOf(hk_times[i]);
-       if (j!=-1) updatehtml_mon(mon_nbufs[j]);
-       k=adu5_pat_nows.indexOf(hk_times[i]);
-       if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
-       l=adu5_vtg_nows.indexOf(hk_times[i]);
-       if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
-       m=adu5_sat_nows.indexOf(hk_times[i]);
-       if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
-       n=sshk_nows.indexOf(hk_nows[i]);
-       if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
-       o=g12_pos_nows.indexOf(hk_nows[i]);
-       if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
-       p=g12_sat_nows.indexOf(hk_nows[i]);
-       if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
-   }else{
-    swal({  title: 'Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
+ //update all html with hk index i;
+function updatehtml_all (i) {
+        updatehtml_hk(hk_nbufs[i]);
+        j=mon_nows.indexOf(hk_nows[i]);
+        if (j!=-1) updatehtml_mon(mon_nbufs[j]);
+        k=adu5_pat_nows.indexOf(hk_nows[i]);
+        if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+        l=adu5_vtg_nows.indexOf(hk_nows[i]);
+        if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+        m=adu5_sat_nows.indexOf(hk_nows[i]);
+        if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+        n=sshk_nows.indexOf(hk_nows[i]);
+        if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
+        o=g12_pos_nows.indexOf(hk_nows[i]);
+        if (o!=-1) updatehtml_g12_pos(g12_pos_nbufs[o]);
+        p=g12_sat_nows.indexOf(hk_nows[i]);
+        if (p!=-1) updatehtml_g12_sat(g12_sat_nbufs[p]);
+        q=cmd_nows.indexOf(hk_nows[i]);
+        if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);    
 }
 
+ $('#next').click( function(){
+    if (sync_on){
+       if (i<hk_nbufs.length-1) {
+           i=i+1;
+           updatehtml_all(i);
+       };
+    }else{
+        if (i<hk_nbufs.length-1)        {i=i+1; updatehtml_hk(hk_nbufs[i]);}
+        if (j<mon_nbufs.length-1)       {j=j+1; updatehtml_mon(mon_nbufs[j]);}
+        if (k<adu5_pat_nbufs.length-1)  {k=k+1; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+        if (l<adu5_vtg_nbufs.length-1)  {l=l+1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
+        if (m<adu5_sat_nbufs.length-1)  {m=m+1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+        if (n<sshk_nbufs.length-1)      {n=n+1; updatehtml_sshk(sshk_nbufs[n]);}
+        if (o<g12_pos_nbufs.length-1)   {o=o+1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
+        if (p<g12_sat_nbufs.length-1)   {p=p+1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
+        if (q<cmd_nbufs.length-1)       {q=q+1; updatehtml_cmd(cmd_nbufs[q]);}
+    }
+});
+ $('#prev').click( function(){
+    if (sync_on){
+       if (i>0) {
+           i=i+1;
+           updatehtml_all(i);
+       };
+    }else{
+        if (i>0)  {i=i-1; updatehtml_hk(hk_nbufs[i]);}
+        if (j>0)  {j=j-1; updatehtml_mon(mon_nbufs[j]);}
+        if (k>0)  {k=k-1; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+        if (l>0)  {l=l-1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
+        if (m>0)  {m=m-1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+        if (n>0)  {n=n-1; updatehtml_sshk(sshk_nbufs[n]);}
+        if (o>0)  {o=o-1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
+        if (p>0)  {p=p-1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
+        if (q>0)  {q=q-1; updatehtml_cmd(cmd_nbufs[q]);}
+    }
+});
+ $('#first').click( function(){
+    if (sync_on){
+        i=0;
+        updatehtml_all(i);
+    }else{
+        {i=0; updatehtml_hk(hk_nbufs[i]);}
+        {j=0; updatehtml_mon(mon_nbufs[j]);}
+        {k=0; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+        {l=0; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
+        {m=0; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+        {n=0; updatehtml_sshk(sshk_nbufs[n]);}
+        {o=0; updatehtml_g12_pos(g12_pos_nbufs[o]);}
+        {p=0; updatehtml_g12_sat(g12_sat_nbufs[p]);}
+        {q=0; updatehtml_cmd(cmd_nbufs[q]);}
+    }
+});
+ $('#last').click( function(){
+    if (sync_on){
+        i=hk_nbufs.length-1;
+        updatehtml_all(i);
+    }else{
+        {i=hk_nbufs.length-1; updatehtml_hk(hk_nbufs[i]);}
+        {j=mon_nbufs.length-1; updatehtml_mon(mon_nbufs[j]);}
+        {k=adu5_pat_nbufs.length-1; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+        {l=adu5_vtg_nbufs.length-1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
+        {m=adu5_sat_nbufs.length-1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+        {n=sshk_nbufs.length-1; updatehtml_sshk(sshk_nbufs[n]);}
+        {o=g12_pos_nbufs.length-1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
+        {p=g12_sat_nbufs.length-1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
+        {q=cmd_nbufs.length-1; updatehtml_cmd(cmd_nbufs[q]);}
+    }
+});
+ var sync_checkbox = $('#sync_checkbox')[0];
+ var switchery_sync = new Switchery(sync_checkbox, { color: '#1AB394' });
+    sync_checkbox.onchange = function() {
+        if (sync_checkbox.checked) {
+            sync_on = true;
+           
+        } else {
+            sync_on = false;
+        };
+    };
+ var auto_checkbox = $('#auto_checkbox')[0];
+ var switchery_auto = new Switchery(auto_checkbox, { color: '#1AB394' });
+  console.log(auto_checkbox);
+
+    // switchery.disable();
+    var myInterval;
+    auto_checkbox.onchange = function() {
+        if (auto_checkbox.checked) {
+            myInterval = setInterval(function() {
+                if (sync_on){
+                   if (i<hk_nbufs.length-1) {
+                       i=i+1;
+                       updatehtml_all(i);
+                   };
+                }else{
+                    if (i<hk_nbufs.length-1)        {i=i+1; updatehtml_hk(hk_nbufs[i]);}
+                    if (j<mon_nbufs.length-1)       {j=j+1; updatehtml_mon(mon_nbufs[j]);}
+                    if (k<adu5_pat_nbufs.length-1)  {k=k+1; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+                    if (l<adu5_vtg_nbufs.length-1)  {l=l+1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
+                    if (m<adu5_sat_nbufs.length-1)  {m=m+1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+                    if (n<sshk_nbufs.length-1)      {n=n+1; updatehtml_sshk(sshk_nbufs[n]);}
+                    if (o<g12_pos_nbufs.length-1)   {o=o+1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
+                    if (p<g12_sat_nbufs.length-1)   {p=p+1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
+                    if (q<cmd_nbufs.length-1)       {q=q+1; updatehtml_cmd(cmd_nbufs[q]);}
+                }
+            }, 1000);
+    } else {
+        clearInterval(myInterval);
+    };
+};
+
+$('#goto').click( function(){
+   var keywords=parseInt($('#keywords').val());
+   // console.log(keywords);
+   if (sync_on){
+        var index=hk_times.indexOf(keywords);
+        if (index!=-1 && keywords){
+           i=index;
+           updatehtml_all(i);
+        }else{
+            swal({  title: 'HK Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
+        }
+   }else{
+        var message = '';
+        var index=hk_times.indexOf(keywords);       if(index!=-1 && keywords) { i=index; updatehtml_hk(hk_nbufs[i]); message += 'HK ';}
+        var index=mon_times.indexOf(keywords);      if(index!=-1 && keywords) { j=index; updatehtml_mon(mon_nbufs[j]); message += 'MON ';}
+        var index=adu5_pat_times.indexOf(keywords); if(index!=-1 && keywords) { k=index; updatehtml_adu5_pat(adu5_pat_nbufs[k]); message += 'ADU5_PAT ';}
+        var index=adu5_vtg_times.indexOf(keywords); if(index!=-1 && keywords) { l=index; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]); message += 'ADU5_VTG ';}
+        var index=adu5_sat_times.indexOf(keywords); if(index!=-1 && keywords) { m=index; updatehtml_adu5_sat(adu5_sat_nbufs[m]); message += 'ADU5_SAT ';}
+        var index=sshk_times.indexOf(keywords);     if(index!=-1 && keywords) { n=index; updatehtml_sshk(sshk_nbufs[n]); message += 'SSHK ';}
+        var index=g12_pos_times.indexOf(keywords);  if(index!=-1 && keywords) { o=index; updatehtml_g12_pos(g12_pos_nbufs[o]); message += 'G12_POS ';}
+        var index=g12_sat_times.indexOf(keywords);  if(index!=-1 && keywords) { p=index; updatehtml_g12_sat(g12_sat_nbufs[p]); message += 'G12_SAT ';}
+        var index=cmd_times.indexOf(keywords);      if(index!=-1 && keywords) { q=index; updatehtml_cmd(cmd_nbufs[q]); message += 'CMD ';}
+        if (message == ''){
+            swal({  title: 'No matched time found!', type: "warning", timer: 3000, showConfirmButton: true});
+        }else{
+            swal({  title: 'Matched '+message + 'time are found!', type: "success", timer: 3000, showConfirmButton: true});
+        }
+
+   }
 });
 });
  </script>

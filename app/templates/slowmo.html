@@ -654,6 +654,9 @@
 
         $(document).ready(function() {
             $('#navbar_slow').parent().addClass("active");
+            
+            $('#label_sync_checkbox').attr('style', 'display:none');
+            $('#sync_checkbox').attr('style', 'display:none');
             $('.footable').footable();
             var slow_nbufs = [];
             var slow_nows = [];

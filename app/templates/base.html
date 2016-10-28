@@ -23,7 +23,8 @@
 <link href="{{ url_for('static', filename='anita/css/magicbox.css') }}" rel="stylesheet">
 
 
-<style>    
+<style>   
+    .ui-dialog { z-index: 1000 !important ;} 
     button, .select2-container{
         margin: 7px 2px;
     }
@@ -48,13 +49,103 @@
   {% endblock %}
 
   {% block navbar %}
+<div id="wrapper">
+<nav class="navbar navbar-inverse navbar-static-side" role="navigation">
+    <div class="sidebar-collapse">
+        <ul class="nav metismenu" id="side-menu">
+            <li class="nav-header">
+                <div class="dropdown profile-element"> <span>
+                            <img alt="image" class="img-circle" src="static/anita/img/payload.jpg" />
+                             </span>
+                            <span class="clear"> <span class="block m-t-xs"> <strong class="font-bold">ANITA IV</strong>
+                </div>
+                <div class="logo-element">
+                    ANITA IV
+                </div>
+            </li>
+            <li><a id='navbar_aview' href="{{ url_for('main.index') }}"> <i class="fa fa-th-large"></i>  <span class="nav-label">Anita Viewer</span></a></li>
+            <li><a id='navbar_hk' href="{{ url_for('main.hk') }}"><i class="fa fa-th-list"></i>  <span class="nav-label">HK Viewer</span></a></li>
+            <li><a id='navbar_trig' href="{{ url_for('main.trigmon') }}"><i class="fa fa-bolt"></i>  <span class="nav-label">Trigger Monitor</span></a></li>
+            <li><a id='navbar_slow' href="{{ url_for('main.slowmo') }}"><i class="fa fa-ambulance"></i>  <span class="nav-label">Slow Monitor</span></a></li>
+            <li><a id='navbar_contact'href="{{ url_for('main.contactus') }}"><i class="fa fa-question"></i>  <span class="nav-label">Contact Us</span></a></li>
+        </ul>
+
+    </div>
+</nav>
+<div id="page-wrapper" class="gray-bg">
+<div class="row border-bottom">
+    <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
+        <div class="navbar-header">
+            <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
+             <select id="ip" class='chosen-select' style="width:140px" data-placeholder="Choose an IP..">
+                {% set new_one = 1 %}
+                {% for ip in ip_list %}
+                    {% if ip|string() == ip_selected|string() %}
+                    <option selected>{{ip}}</option>
+                    {% set new_one = 0 %}
+                    {% else %}
+                    <option>{{ip}}</option>
+                    {% endif %}
+                {% endfor %}
+                {% if new_one == 1 %}
+                <option selected>{{ip_selected}}</option>
+                {% endif %}
+            </select>
+            <select id="db" class='chosen-select' style="width:110px" data-placeholder="Choose a DB..">
+                {% set new_one = 1 %}
+                {% for db in db_list %}
+                    {% if db|string() ==db_selected|string() %}
+                    <option selected>{{db}}</option>
+                    {% set new_one = 0 %}
+                    {% else %}
+                    <option>{{db}}</option>
+                    {% endif %}
+                {% endfor %}
+                {% if new_one == 1 %}
+                <option selected>{{db_selected}}</option>
+                {% endif %}
+            </select>
+            <button type="button" id="connect" class="ladda-button btn btn-primary connect"  data-style="zoom-in">Connect</button>
+            <button type="button" id="gse_monitor" class="btn btn-primary">GSE Monitor</button>
+            
+            <ul class="nav navbar-top-links navbar-right">
+                <li><button type="button" id='next' class="btn btn-primary">Next</button> </li>
+                <li><button type="button" id='prev' class="btn btn-primary">Prev</button> </li>
+                <li><button type="button" id='first' class="btn btn-primary">First</button> </li>
+                <li><button type="button" id='last' class="btn btn-primary">Last</button> </li>
+                <li> Auto </li>
+                <li><input id='auto_checkbox' type="checkbox" class="js-switch" /></li>
+                <li id="label_sync_checkbox"> Sync </li>
+                <li> <input id='sync_checkbox' type="checkbox" class="js-switch" /> </li>
+            </ul>
+        </div>
+       
+        <div class="input-group">
+          <input type="text" class="form-control" id = "keywords" placeholder="time or nbuf">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" id = 'goto' type="button">Go!</button>
+          </span>
+        </div>
+        <!-- <div>
+            <ul class="nav navbar-top-links">             
+                <li class="col-lg-1 col-md-1 col-sm-1"> auto <input id='auto_checkbox' type="checkbox" class="js-switch" />  </li>
+                <li class="col-lg-1 col-md-1 col-sm-1"> sync <input id='sync_checkbox' type="checkbox" class="js-switch" />  </li>
+            </ul>
+        </div> -->
+        <!-- <ul class="nav navbar-top-links navbar-right">
+            <li> Auto   </li>
+            <li><input id='auto_checkbox' type="checkbox" class="js-switch" /></li>
+            <li> Sync </li>
+            <li> <input id='sync_checkbox' type="checkbox" class="js-switch" />  </li>
+        </ul> -->
+    </nav>
+</div>
+
+
+<!-- 
   <div class="navbar navbar-inverse " role="navigation">
     <div class="container-fluid">
-        <!-- <div class="navbar-header"> -->
-
         <a class="navbar-brand">ANITA IV</a>
-       <!--  </div>
-       <div class="navbar"> -->
         <ul class="nav navbar-nav navbar-inverse">
             <li><a id='navbar_aview' href="{{ url_for('main.index') }}">Anita Viewer</a></li>
             <li><a id='navbar_hk' href="{{ url_for('main.hk') }}">HK Viewer</a></li>
@@ -62,11 +153,6 @@
             <li><a id='navbar_slow' href="{{ url_for('main.slowmo') }}">Slow Monitor</a></li>
             <li><a id='navbar_contact'href="{{ url_for('main.contactus') }}">Contact Us</a></li>
         </ul>
-               <!--  {% if current_user.is_authenticated %}
-                <li><a href="{{ url_for('main.index') }}">Sign Out</a></li> 
-                {% else %}
-                <li><a href="{{ url_for('main.index') }}">Sign In</a></li>  
-                {% endif %}-->
             <ul class="nav navbar-nav">
              
                 <li>
@@ -115,12 +201,11 @@
                 <li><button type="button" id='prev' class="btn btn-primary">Prev</button> </li>
                 <li><button type="button" id='first' class="btn btn-primary">First</button> </li>
                 <li><button type="button" id='last' class="btn btn-primary">Last</button> </li>
-                <li class="col-lg-1 col-md-1 col-sm-1"><input id='checkbox' type="checkbox" class="js-switch" />  </li>
+                <li class="col-lg-1 col-md-1 col-sm-1"> auto <input id='auto_checkbox' type="checkbox" class="js-switch" />  </li>
+                <li class="col-lg-1 col-md-1 col-sm-1"> sync <input id='sync_checkbox' type="checkbox" class="js-switch" />  </li>
             </ul>
-            <!-- </div> -->
-
         </div>
-    </div>
+    </div> -->
     {% endblock %}
 
     {% block content %}
@@ -131,8 +216,10 @@
             {{ message }}
         </div>
         {% endfor %}
+        <div class="wrapper wrapper-content animated fadeInRight">
 
         {% block page_content %}{% endblock %}
+        </div>
     </div>
     {% endblock %}
 
