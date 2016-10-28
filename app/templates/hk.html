@@ -441,13 +441,6 @@
                 <table data-sort="false" class="footable" data-page-size="26" id='gps' style="width:100%">
                     <tbody>
                         <tr>
-                            <td>Curret GPS:</td>                        
-                            <td id='pat_gpstype'></td>
-                        </tr>
-                        <tr>
-                            <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-                        </tr>
-                        <tr>
                             <td>GPS:</td>
                             <td>adu5A</td>
                             <td>adu5B</td>
@@ -519,10 +512,6 @@
                         <tr>
                             <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
                         </tr>
-                        <tr>
-                            <td>Current GPS:</td>
-                            <td id='vtg_gpstype'></td>
-                        </tr>
                         <tr>                                
                             <td>knots</td>
                             <td id='vkt_5A'></td>
@@ -538,10 +527,6 @@
                         </tr>
                         <tr>
                             <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>Current GPS:</td>
-                            <td id='sat_gpstype'></td>
                         </tr>
                         <tr>
                             <td># of Sats</td>
@@ -1134,32 +1119,29 @@ function updatehtml_cmd(cmd) {
 function updatehtml_adu5_pat(adu5_pat) {
     if (!adu5_pat) return;
     $.getJSON('/api/' + ip_db + '/adu5_pat/' + adu5_pat, function(data) {
-        $('#gps #pat_gpstype').html(gpstype(data.pat.gpstype));
-        if (gpstype(data.pat.gpstype) == 'adu5A'){        
-           $('#gps #now_5A').html(data.pat.now);
-           $('#gps #time_5A').html(data.pat.time);
-           $('#gps #fullnow_5A').html(timeConverter(data.pat.now));
-           $('#gps #fulltime_5A').html(timeConverter(data.pat.time));
-           $('#gps #heading_5A').html(data.pat.heading);
-           $('#gps #latitude_5A').html(data.pat.latitude);
-           $('#gps #longitude_5A').html(data.pat.longitude);
-           $('#gps #pitch_5A').html(data.pat.pitch);
-           $('#gps #roll_5A').html(data.pat.roll);
-           $('#gps #altitude_5A').html(data.pat.altitude);        
-       }
-       else if (gpstype(data.pat.gpstype) == 'adu5B'){
-           $('#gps #now_5B').html(data.pat.now);
-           $('#gps #time_5B').html(data.pat.time);
-           $('#gps #fullnow_5B').html(timeConverter(data.pat.now));
-           $('#gps #fulltime_5B').html(timeConverter(data.pat.time));
-           $('#gps #heading_5B').html(data.pat.heading);
-           $('#gps #latitude_5B').html(data.pat.latitude);
-           $('#gps #longitude_5B').html(data.pat.longitude);
-           $('#gps #pitch_5B').html(data.pat.pitch);
-           $('#gps #roll_5B').html(data.pat.roll);
-           $('#gps #altitude_5B').html(data.pat.altitude);
-           $('#gps #numsats_5B').html(data.pat.numsats);
-       }
+     
+        $('#gps #now_5A').html(data.pat_a.now);
+        $('#gps #time_5A').html(data.pat_a.time);
+        $('#gps #fullnow_5A').html(timeConverter(data.pat_a.now));
+        $('#gps #fulltime_5A').html(timeConverter(data.pat_a.time));
+        $('#gps #heading_5A').html(data.pat_a.heading);
+        $('#gps #latitude_5A').html(data.pat_a.latitude);
+        $('#gps #longitude_5A').html(data.pat_a.longitude);
+        $('#gps #pitch_5A').html(data.pat_a.pitch);
+        $('#gps #roll_5A').html(data.pat_a.roll);
+        $('#gps #altitude_5A').html(data.pat_a.altitude);        
+       
+        $('#gps #now_5B').html(data.pat_b.now);
+        $('#gps #time_5B').html(data.pat_b.time);
+        $('#gps #fullnow_5B').html(timeConverter(data.pat_b.now));
+        $('#gps #fulltime_5B').html(timeConverter(data.pat_b.time));
+        $('#gps #heading_5B').html(data.pat_b.heading);
+        $('#gps #latitude_5B').html(data.pat_b.latitude);
+        $('#gps #longitude_5B').html(data.pat_b.longitude);
+        $('#gps #pitch_5B').html(data.pat_b.pitch);
+        $('#gps #roll_5B').html(data.pat_b.roll);
+        $('#gps #altitude_5B').html(data.pat_b.altitude);
+        $('#gps #numsats_5B').html(data.pat_b.numsats);
    });
 }
 
@@ -1547,7 +1529,7 @@ function updatehtml_all (i) {
         j=mon_nows.indexOf(hk_nows[i]);
         if (j!=-1) updatehtml_mon(mon_nbufs[j]);
         k=adu5_pat_nows.indexOf(hk_nows[i]);
-        if (k!=-1) updatehtml_adu5_pat(adu5_pat_nbufs[k]);
+        if (k!=-1) updatehtml_adu5_pat(adu5_pat_times[k]);
         l=adu5_vtg_nows.indexOf(hk_nows[i]);
         if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
         m=adu5_sat_nows.indexOf(hk_nows[i]);
@@ -1571,7 +1553,7 @@ function updatehtml_all (i) {
     }else{
         if (i<hk_nbufs.length-1)        {i=i+1; updatehtml_hk(hk_nbufs[i]);}
         if (j<mon_nbufs.length-1)       {j=j+1; updatehtml_mon(mon_nbufs[j]);}
-        if (k<adu5_pat_nbufs.length-1)  {k=k+1; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+        if (k<adu5_pat_times.length-1)  {k=k+1; updatehtml_adu5_pat(adu5_pat_times[k]);}
         if (l<adu5_vtg_nbufs.length-1)  {l=l+1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
         if (m<adu5_sat_nbufs.length-1)  {m=m+1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
         if (n<sshk_nbufs.length-1)      {n=n+1; updatehtml_sshk(sshk_nbufs[n]);}
@@ -1589,7 +1571,7 @@ function updatehtml_all (i) {
     }else{
         if (i>0)  {i=i-1; updatehtml_hk(hk_nbufs[i]);}
         if (j>0)  {j=j-1; updatehtml_mon(mon_nbufs[j]);}
-        if (k>0)  {k=k-1; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+        if (k>0)  {k=k-1; updatehtml_adu5_pat(adu5_pat_times[k]);}
         if (l>0)  {l=l-1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
         if (m>0)  {m=m-1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
         if (n>0)  {n=n-1; updatehtml_sshk(sshk_nbufs[n]);}
@@ -1605,7 +1587,7 @@ function updatehtml_all (i) {
     }else{
         {i=0; updatehtml_hk(hk_nbufs[i]);}
         {j=0; updatehtml_mon(mon_nbufs[j]);}
-        {k=0; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+        {k=0; updatehtml_adu5_pat(adu5_pat_times[k]);}
         {l=0; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
         {m=0; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
         {n=0; updatehtml_sshk(sshk_nbufs[n]);}
@@ -1621,7 +1603,7 @@ function updatehtml_all (i) {
     }else{
         {i=hk_nbufs.length-1; updatehtml_hk(hk_nbufs[i]);}
         {j=mon_nbufs.length-1; updatehtml_mon(mon_nbufs[j]);}
-        {k=adu5_pat_nbufs.length-1; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+        {k=adu5_pat_times.length-1; updatehtml_adu5_pat(adu5_pat_times[k]);}
         {l=adu5_vtg_nbufs.length-1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
         {m=adu5_sat_nbufs.length-1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
         {n=sshk_nbufs.length-1; updatehtml_sshk(sshk_nbufs[n]);}
@@ -1657,7 +1639,7 @@ function updatehtml_all (i) {
                 }else{
                     if (i<hk_nbufs.length-1)        {i=i+1; updatehtml_hk(hk_nbufs[i]);}
                     if (j<mon_nbufs.length-1)       {j=j+1; updatehtml_mon(mon_nbufs[j]);}
-                    if (k<adu5_pat_nbufs.length-1)  {k=k+1; updatehtml_adu5_pat(adu5_pat_nbufs[k]);}
+                    if (k<adu5_pat_times.length-1)  {k=k+1; updatehtml_adu5_pat(adu5_pat_times[k]);}
                     if (l<adu5_vtg_nbufs.length-1)  {l=l+1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
                     if (m<adu5_sat_nbufs.length-1)  {m=m+1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
                     if (n<sshk_nbufs.length-1)      {n=n+1; updatehtml_sshk(sshk_nbufs[n]);}
@@ -1686,7 +1668,7 @@ $('#goto').click( function(){
         var message = '';
         var index=hk_times.indexOf(keywords);       if(index!=-1 && keywords) { i=index; updatehtml_hk(hk_nbufs[i]); message += 'HK ';}
         var index=mon_times.indexOf(keywords);      if(index!=-1 && keywords) { j=index; updatehtml_mon(mon_nbufs[j]); message += 'MON ';}
-        var index=adu5_pat_times.indexOf(keywords); if(index!=-1 && keywords) { k=index; updatehtml_adu5_pat(adu5_pat_nbufs[k]); message += 'ADU5_PAT ';}
+        var index=adu5_pat_times.indexOf(keywords); if(index!=-1 && keywords) { k=index; updatehtml_adu5_pat(adu5_pat_times[k]); message += 'ADU5_PAT ';}
         var index=adu5_vtg_times.indexOf(keywords); if(index!=-1 && keywords) { l=index; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]); message += 'ADU5_VTG ';}
         var index=adu5_sat_times.indexOf(keywords); if(index!=-1 && keywords) { m=index; updatehtml_adu5_sat(adu5_sat_nbufs[m]); message += 'ADU5_SAT ';}
         var index=sshk_times.indexOf(keywords);     if(index!=-1 && keywords) { n=index; updatehtml_sshk(sshk_nbufs[n]); message += 'SSHK ';}
