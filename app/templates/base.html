@@ -24,7 +24,7 @@
 
 
 <style>   
-    .ui-dialog { z-index: 1000 !important ;} 
+    .ui-dialog { z-index: 9000 !important ;} 
     button, .select2-container{
         margin: 7px 2px;
     }
@@ -267,7 +267,7 @@
             $('.chosen-select').trigger('change');
         });
         $('#gse_monitor').click( function(){
-            window.open('http://' + ip + '/anita', '_blank');
+            window.open('http://' + ip.replace(/\_/gi, '.') + '/anita', '_blank');
          });
  </script>
  {% endblock %}

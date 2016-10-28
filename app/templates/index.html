@@ -606,6 +606,9 @@
                 spotColor: false,
                 chartRangeMin: $('#wv_min_range').val(),
                 chartRangeMax: $('#wv_max_range').val(),
+                // normalRangeMin: $('#wv_min_range').val(),
+                // normalRangeMax: $('#wv_max_range').val(),
+                // drawNormalOnTop: true
             });
         } else if (datatype == 'FFT') {
             var fftdata = new complex_array.ComplexArray(260);
@@ -1013,7 +1016,7 @@
         var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
         $('.wv_range').change(function() {
-            updatehtml(hd_nbufs[i]);
+            updatehtml_rf(hd_nbufs[i]);
         });
 
 
@@ -1123,7 +1126,7 @@
                     document.getElementById("wv").style.display = "none";
                 }
             }
-            updatehtml(hd_nbufs[i]);
+            updatehtml_rf(hd_nbufs[i]);
         });
 
         $('#next').click(function() {
