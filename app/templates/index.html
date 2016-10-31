@@ -1016,7 +1016,7 @@
         var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
         $('.wv_range').change(function() {
-            updatehtml_rf(hd_nbufs[i]);
+            updatehtml_rf(rf_nbufs[i]);
         });
 
 
@@ -1126,7 +1126,7 @@
                     document.getElementById("wv").style.display = "none";
                 }
             }
-            updatehtml_rf(hd_nbufs[i]);
+            updatehtml_rf(rf_nbufs[i]);
         });
 
         $('#next').click(function() {
