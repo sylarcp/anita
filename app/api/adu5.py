@@ -3,6 +3,7 @@ from flask.ext.login import LoginManager, current_user
 from . import api
 from .. import cache
 from app.models import Adu5_pat, Adu5_vtg, Adu5_sat
+#from ..sql import and_
 
 @api.route('/<ip_db>/adu5_pat/nbufs/<start_time>')
 def get_adu5_pat_nbufs(ip_db, start_time):
@@ -32,8 +33,48 @@ def get_adu5_sat_nbufs(ip_db, start_time):
 @cache.cached(timeout=3600)
 def get_adu5_pat(ip_db, nbuf):
     try:
-        adu5_pat =getattr(Adu5_pat,ip_db).filter_by(nbuf=nbuf).first()
-        return jsonify({'pat': adu5_pat.to_json()})
+        adu5_pat_a =getattr(Adu5_pat,ip_db).filter_by(nbuf=nbuf).filter_by(gpstype=131072).first()
+        #adu5_pat_a =getattr(Adu5_pat,ip_db).filter(and_(Adu5_pat.ip_db.nbuf == nbuf, Adu5_pat.ip_db.gpstype=131072)).first()
+        # print ''
+        # print '****'
+        # print getattr(Adu5_pat,ip_db).filter_by(nbuf=nbuf).filter_by(gpstype=131072).first()
+        # print ''
+        # print ''
+        # print '---'
+        # print getattr(Adu5_pat,ip_db).filter_by(nbuf=nbuf).filter_by(gpstype=262144).first()
+        adu5_pat_b =getattr(Adu5_pat,ip_db).filter_by(nbuf=nbuf).filter_by(gpstype=262144).first()
+        #adu5_pat_a =getattr(Adu5_pat,ip_db).filter(and_(Adu5_pat.ip_db.nbuf==nbuf, Adu5_pat.ip_db.gpstype=262144)).first()
+        if adu5_pat_a != None:
+        	print 'hello adu5_pat_a filled'
+        else:
+        	print 'HERRORLLO adu5_pat_a not filled'
+
+        if adu5_pat_b != None:
+        	print'hello adu5_pat_b filled'
+        else:
+        	print 'HERRORLLO adu5_pat_b not filled'
+
+        if adu5_pat_b != None and adu5_pat_a != None:
+        	print 'SUCESS BOTH BULLSHITS FILLED'
+        elif adu5_pat_b == None and adu5_pat_a == None:
+        	print 'THAT"S A FUCKIN SHAME; NEITHER ARE FILLED'
+        else:
+        	print 'FUCK YOU FOR FOUCKING ME YOU FUCKING TWAT! btw only one is (not)filled'
+
+        if adu5_pat_b != None or adu5_pat_a != None:
+        	print 'ONE OF THEM IS FILLED'
+        elif adu5_pat_b ==None or adu5_pat_b == None:
+        	print 'ONE OF THEM IS NOT FILLED'
+        else:
+        	print 'BOTH ARE FILLED OR NOT FILLED'
+        
+        if adu5_pat_a == None:
+            return jsonify({'pat_b': adu5_pat_b.to_json()})
+        elif adu5_pat_b == None:
+            return jsonify({'pat_a': adu5_pat_a.to_json()})
+        else:
+            return jsonify({'pat_a': adu5_pat_a.to_json(), 'pat_b': adu5_pat_b.to_json()}) 
+
     except BaseException as error:
         print('Invalid request: {}', format(error))
         return jsonify({})

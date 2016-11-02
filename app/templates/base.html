@@ -250,11 +250,13 @@
     <script src="{{ url_for('static', filename='anita/js/magicbox.js') }}"></script>
     <script>
         var ip;
+        var oip;
         var db;
         var ip_db;
         // On changing the ip in the <select>, we want
         $('.chosen-select').change(function() {
             ip=$('#ip option:selected').text();
+            oip=$('#ip option:selected').text(); //original ip address for use with the gse button
             db=$('#db option:selected').text();
             $.getJSON(/set_cookie/+ ip + '/' + db, function(data) {
                 ;
@@ -267,7 +269,7 @@
             $('.chosen-select').trigger('change');
         });
         $('#gse_monitor').click( function(){
-            window.open('http://' + ip.replace(/\_/gi, '.') + '/anita', '_blank');
+            window.open('http://' + oip + '/anita', '_blank');
          });
  </script>
  {% endblock %}
