@@ -30,3 +30,4 @@ def connect(ip,db):
     except Exception as error:
         print error
         return 'fail'
+
