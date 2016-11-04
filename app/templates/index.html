@@ -501,7 +501,7 @@
             </div>
         </div>
     </div>
-    <div id="dialog" class='hide'>
+    <div id="dialog" class='dialog_wv hide'>
     </div>
 </div>
     {% endblock %} {% block scripts %} {{ super() }}
@@ -703,10 +703,7 @@
                             } else {
                                 displayDataNone(wv_name);
                             };
-
-
                         }
-                        resizeWindow();
                     }
                 } else if (datatype == 'FFT' && dataview == 'Surf') {
                     //console.log(datatype);            
@@ -724,7 +721,6 @@
                         }
 
                     }
-                    resizeWindow();
                 } else if (datatype == 'Power' && dataview == 'Surf') {
                     //console.log(datatype);
                     for (var surf = 0; surf < 12; surf++) {
@@ -740,10 +736,7 @@
                         }
 
                     }
-                    resizeWindow();
-                }
-
-                if (datatype == 'mV' && dataview == 'Phi') {
+                }else if (datatype == 'mV' && dataview == 'Phi') {
                     var phi_h_name;
                     var phi_v_name;
                     var philoc;
@@ -781,10 +774,7 @@
                         };
 
                     }
-                    resizeWindow();
-                }
-
-                if (datatype == 'FFT' && dataview == 'Phi') {
+                }else if (datatype == 'FFT' && dataview == 'Phi') {
                     for (var arrpos = 0; arrpos < 48; arrpos++) {
                         if (arrpos >= 0 && arrpos <= 15) {
                             philoc = 0;
@@ -817,12 +807,8 @@
                         } else {
                             displayDataNone(phi_v_name);
                         };
-
                     }
-                    resizeWindow();
-                }
-
-                if (datatype == 'Power' && dataview == 'Phi') {
+                }else if (datatype == 'Power' && dataview == 'Phi') {
                     //console.log(datatype);      
                     for (var arrpos = 0; arrpos < 48; arrpos++) {
                         if (arrpos >= 0 && arrpos <= 15) {
@@ -879,6 +865,7 @@
 
         $.jqplot.config.enablePlugins = true;
         $("td[id]").click(function() {
+            console.log($(this));
             var waveform_name = $(this).attr('id').split('_');
             if(waveform_name[0]=='wv'){
                 surf=parseInt(waveform_name[1]);
@@ -897,6 +884,9 @@
                 }
             }
             var name=datatype+'_'+surf + '_' + chan;
+            if ($("#dialog_" + name)){
+                $("#dialog_" + name).remove();
+            }
             
             var id = chan + 9 * surf;
    
@@ -914,7 +904,11 @@
                     width: 1000,
                     height: 370,
                 });
-                var waveform = currentData[id.toString()];
+                //  get a copy of data
+                console.log(currentData[id.toString()]);
+                // var waveform = {cal: [1,2,3,4,5], evnum: 69451483, id: 45, nbuf: -2143125086, now: 1420394514};
+                // var waveform = currentData[id.toString()];
+                var waveform = jQuery.extend(true, {}, currentData[id.toString()]);
                 if (datatype == 'mV'){
                     var line1=waveform.cal;
                 } else if (datatype == 'FFT') {
@@ -986,6 +980,7 @@
                         constrainOutsideZoom: false
                     }
                 });
+                
 
                 $newDialog.dialog({
                     resize: function(event, ui) {
@@ -994,6 +989,12 @@
                             resetAxes: true,
                         });
                     }
+                });
+
+                $('#next').click(function() {
+                    plot1.replot({
+                            resetAxes: true,
+                        });
                 });
             }
 

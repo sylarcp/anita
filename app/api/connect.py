@@ -30,4 +30,18 @@ def connect(ip,db):
     except Exception as error:
         print error
         return 'fail'
-
+@api.route('/getDBnames/<ip>')
+def getDBnames(ip):
+    engine = create_engine('postgresql://gui:AniTa08@' + ip.replace('_','.') + '/template1', convert_unicode=True)
+    conn = engine.connect()
+    # rows = conn.execute("SELECT pg_database.datname, pg_database_size(pg_database.datname), pg_size_pretty(pg_database_size(pg_database.datname)) FROM pg_database ORDER BY pg_database_size DESC;")
+    rows = conn.execute("SELECT pg_database.datname FROM pg_database order by datname DESC;")
+    dbnames_prev = []
+    dbnames = []
+    for row in rows:
+        if row["datname"][:7] == 'anita_1':
+            dbnames_prev.append(row["datname"])
+        elif row["datname"][:7] == 'anita_0':
+            dbnames.append(row["datname"])
+    dbnames += dbnames_prev
+    return dbnames

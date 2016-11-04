@@ -2,7 +2,7 @@ from flask import render_template, session, redirect, url_for, current_app, make
 # from ..models import User
 from . import main
 
-ip_list=['gse2.bartol.udel.edu', '128.175.112.58', '128.175.112.80' ,'128.175.112.125','pengcao']
+ip_list=['gse2.bartol.udel.edu', '128.175.112.58', '128.175.112.80' ,'128.175.112.125']
 db_list=['anita_0730c', 'anita_0102a', 'anita_0102b', 'anita_0102c', 'anita_0102d', 'anita_0104d', 'anita_0105d', 'anita_0106d', 'anita_0107d', 'anita_0622d', 'anita_0710a']
     
 @main.route('/', methods=['GET'])

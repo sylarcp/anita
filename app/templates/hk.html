@@ -595,7 +595,7 @@ function timeConverter(UNIX_timestamp) {
     }
     if (parseInt(sec) < 10){
         sec = '0' + sec;
-    }
+        }
     var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
     return time;
 }
@@ -608,17 +608,17 @@ var it_et_range_map = $.range_map({
 var sbst_range_map = $.range_map({
     '0:20': 'blue',
     '20:45:': 'green',
-    '4  5:55:': 'yellow'
+    '45:55:': 'yellow'
 })
 var core_range_map = $.range_map({
     '0:30': 'blue',
     '30:60:': 'green',
-    '6  0:80:': 'yellow'
+    '60:80:': 'yellow'
 })
 var stemp_range_map = $.range_map({
     '0:4000': 'blue',
     '30:60:': 'green',
-    '6  0:80:': 'yellow'
+    '60:80:': 'yellow'
 })
 var disk0_range_map = $.range_map({
     '400:5000': 'green',
