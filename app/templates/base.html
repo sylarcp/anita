@@ -249,9 +249,11 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <script src="{{ url_for('static', filename='anita/js/magicbox.js') }}"></script>
     <script>
-        var ip;
-        var db;
-        var ip_db;
+        var ip = $('#ip option:selected').text();
+        var db = $('#db option:selected').text();
+        ip = ip.replace(/\./gi, '_');
+        var ip_db= "query_"+ ip + "_" + db;
+
         // On changing the ip in the <select>, we want
         $('.chosen-select').change(function() {
             ip=$('#ip option:selected').text();
@@ -261,10 +263,13 @@
             });
             ip = ip.replace(/\./gi, '_');
             ip_db= "query_"+ ip + "_" + db;
+            window.location.reload(false); 
+            
+            
         });
         $(document).ready(function () {
             $('.chosen-select').select2({tags: true});
-            $('.chosen-select').trigger('change');
+            // $('.chosen-select').trigger('change');
         });
         $('#gse_monitor').click( function(){
             window.open('http://' + ip.replace(/\_/gi, '.') + '/anita', '_blank');
