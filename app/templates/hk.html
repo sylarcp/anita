@@ -1589,7 +1589,7 @@ function updatehtml_all (i) {
  $('#prev').click( function(){
     if (sync_on){
        if (i>0) {
-           i=i+1;
+           i=i-1;
            updatehtml_all(i);
        };
     }else{
