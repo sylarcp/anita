@@ -36,7 +36,6 @@ def get_sshk(ip_db, nbuf):
     try:
         print 'hello'
         sshk =getattr(Sshk,ip_db).filter_by(nbuf=nbuf).first()
-        print sshk.to_json()
         return jsonify({'sshk': sshk.to_json()})
     except BaseException as error:
         print('Invalid request: {}', format(error))

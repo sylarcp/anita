@@ -369,7 +369,7 @@ class G12_pos(Base):
                         'latitude': self.latitude,
                         'longitude': self.longitude,
                         'altitude': self.altitude,
-                        'course': self.cource,
+                        'course': self.course,
                         'upv': self.upv,
                         'vkt': self.vkt,
                         'pdop': self.pdop,

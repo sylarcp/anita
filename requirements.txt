@@ -21,3 +21,4 @@ flask-debugtoolbar
 Flask-Cache
 gunicorn
 greenlet
+gevent
