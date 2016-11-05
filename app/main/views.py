@@ -8,7 +8,6 @@ db_list=['anita_0730c', 'anita_0102a', 'anita_0102b', 'anita_0102c', 'anita_0102
 # @main.route('/setDBlist/<ip>', methods=['GET'])
 def getDBlist(ip):
     try:
-        print 'seting db list ####################'
         engine = create_engine('postgresql://gui:AniTa08@' + ip.replace('_','.') + '/template1', convert_unicode=True)
         conn = engine.connect()
         # rows = conn.execute("SELECT pg_database.datname, pg_database_size(pg_database.datname), pg_size_pretty(pg_database_size(pg_database.datname)) FROM pg_database ORDER BY pg_database_size DESC;")
@@ -25,6 +24,8 @@ def getDBlist(ip):
     except Exception as error:
         print error
         return None
+
+    
    
 @main.route('/', methods=['GET'])
 def index():

@@ -255,7 +255,7 @@
         var ip_db= "query_"+ ip + "_" + db;
 
         // On changing the ip in the <select>, we want
-        $('.chosen-select').change(function() {
+        $('#ip').change(function() {
             ip=$('#ip option:selected').text();
             db=$('#db option:selected').text();
             $.getJSON(/set_cookie/+ ip + '/' + db, function(data) {
@@ -263,9 +263,16 @@
             });
             ip = ip.replace(/\./gi, '_');
             ip_db= "query_"+ ip + "_" + db;
-            window.location.reload(false); 
-            
-            
+            window.location.reload(false);             
+        });
+         $('#db').change(function() {
+            ip=$('#ip option:selected').text();
+            db=$('#db option:selected').text();
+            $.getJSON(/set_cookie/+ ip + '/' + db, function(data) {
+                ;
+            });
+            ip = ip.replace(/\./gi, '_');
+            ip_db= "query_"+ ip + "_" + db;
         });
         $(document).ready(function () {
             $('.chosen-select').select2({tags: true});
