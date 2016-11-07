@@ -34,14 +34,15 @@ def connect(ip,db):
 def getDBnames(ip):
     engine = create_engine('postgresql://gui:AniTa08@' + ip.replace('_','.') + '/template1', convert_unicode=True)
     conn = engine.connect()
+    print 'get db names'
     # rows = conn.execute("SELECT pg_database.datname, pg_database_size(pg_database.datname), pg_size_pretty(pg_database_size(pg_database.datname)) FROM pg_database ORDER BY pg_database_size DESC;")
-    rows = conn.execute("SELECT pg_database.datname FROM pg_database order by datname DESC;")
+    rows = conn.execute("SELECT pg_database.datname FROM pg_database order by datname;")
     dbnames_prev = []
     dbnames = []
     for row in rows:
         if row["datname"][:7] == 'anita_1':
             dbnames_prev.append(row["datname"])
-        elif row["datname"][:7] == 'anita_0':
+        elif row["datname"][:8] == 'anita_01':
             dbnames.append(row["datname"])
-    dbnames += dbnames_prev
-    return dbnames
+    dbnames = dbnames_prev + dbnames
+    return jsonify({'dbnames':dbnames})
