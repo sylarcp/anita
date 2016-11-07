@@ -26,7 +26,7 @@ def timeout(max_timeout):
         return func_wrapper
     return timeout_decorator
 
-@timeout(3)
+@timeout(5)
 def __connect(engine):
     return engine.connect()
 
