@@ -9,24 +9,24 @@ import psycopg2
 import psycopg2.extensions
 import select
 
-import multiprocessing.pool
-import functools
+# import multiprocessing.pool
+# import functools
 
-def timeout(max_timeout):
-    """Timeout decorator, parameter in seconds."""
-    def timeout_decorator(item):
-        """Wrap the original function."""
-        @functools.wraps(item)
-        def func_wrapper(*args, **kwargs):
-            """Closure for function."""
-            pool = multiprocessing.pool.ThreadPool(processes=1)
-            async_result = pool.apply_async(item, args, kwargs)
-            # raises a TimeoutError if execution exceeds max_timeout
-            return async_result.get(max_timeout)
-        return func_wrapper
-    return timeout_decorator
+# def timeout(max_timeout):
+#     """Timeout decorator, parameter in seconds."""
+#     def timeout_decorator(item):
+#         """Wrap the original function."""
+#         @functools.wraps(item)
+#         def func_wrapper(*args, **kwargs):
+#             """Closure for function."""
+#             pool = multiprocessing.pool.ThreadPool(processes=1)
+#             async_result = pool.apply_async(item, args, kwargs)
+#             # raises a TimeoutError if execution exceeds max_timeout
+#             return async_result.get(max_timeout)
+#         return func_wrapper
+#     return timeout_decorator
 
-@timeout(10)
+# @timeout(10)
 def __connect(engine):
     return engine.connect()
 

@@ -3,22 +3,22 @@ from flask import render_template, session, redirect, url_for, current_app, make
 from sqlalchemy import create_engine
 from . import main
 
-import multiprocessing.pool
-import functools
+# import multiprocessing.pool
+# import functools
 
-def timeout(max_timeout):
-    """Timeout decorator, parameter in seconds."""
-    def timeout_decorator(item):
-        """Wrap the original function."""
-        @functools.wraps(item)
-        def func_wrapper(*args, **kwargs):
-            """Closure for function."""
-            pool = multiprocessing.pool.ThreadPool(processes=1)
-            async_result = pool.apply_async(item, args, kwargs)
-            # raises a TimeoutError if execution exceeds max_timeout
-            return async_result.get(max_timeout)
-        return func_wrapper
-    return timeout_decorator
+# def timeout(max_timeout):
+#     """Timeout decorator, parameter in seconds."""
+#     def timeout_decorator(item):
+#         """Wrap the original function."""
+#         @functools.wraps(item)
+#         def func_wrapper(*args, **kwargs):
+#             """Closure for function."""
+#             pool = multiprocessing.pool.ThreadPool(processes=1)
+#             async_result = pool.apply_async(item, args, kwargs)
+#             # raises a TimeoutError if execution exceeds max_timeout
+#             return async_result.get(max_timeout)
+#         return func_wrapper
+#     return timeout_decorator
 
 ip_list=['gse1.bartol.udel.edu', '128.175.112.58', '128.175.112.80']
 db_list=['anita_0730c', 'anita_0102a', 'anita_0102b', 'anita_0102c', 'anita_0102d', 'anita_0104d', 'anita_0105d', 'anita_0106d', 'anita_0107d', 'anita_0622d', 'anita_0710a']
