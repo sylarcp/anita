@@ -44,6 +44,8 @@ def cookie_insertion(ip_selected, db_selected):
     response = current_app.make_response(redirect_to_index )  
     response.set_cookie('ip_selected',ip_selected.replace('_','.'))
     response.set_cookie('db_selected',db_selected)
+    print '!!!' + ip_selected
+    print '!!!' + db_selected
     return response
 
 @main.route('/trigmon', methods=['GET'])

@@ -77,12 +77,11 @@
     <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-                <select id="ip" class='chosen-select' style="width:140px" data-placeholder="Choose an IP..">
+                <select id="ip" class='chosen-select' style="width:160px" data-placeholder="Choose an IP..">
                     
                 </select>
-                <select id="db" class='chosen-select' style="width:110px" data-placeholder="Choose a DB..">
-                    <option selected>{{db_selected}}</option>
-                    <option>anita_0104d</option>
+                <select id="db" class='chosen-select' style="width:160px" data-placeholder="Choose a DB..">
+                    <option selected> {{db_selected}} </option>
                 </select>
             <button type="button" id="connect" class="ladda-button btn btn-primary connect"  data-style="zoom-in">Connect</button>
             <button type="button" id="gse_monitor" class="btn btn-primary">GSE Monitor</button>
@@ -164,15 +163,14 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <script src="{{ url_for('static', filename='anita/js/magicbox.js') }}"></script>
     <script>
-        var ip = $('#ip option:selected').text();
-        var db = $('#db option:selected').text();
-        ip = ip.replace(/\./gi, '_');
-        var ip_db= "query_"+ ip + "_" + db;
+        var ip, db, ip_db;
+        
 
         // On changing the ip in the <select>, we want
         $('#ip').change(function() {
             ip=$('#ip option:selected').text();
-            db=$('#db option:selected').text();
+            db=$('#db option:selected').text().replace(/\s/gi, '');
+
             ip = ip.replace(/\./gi, '_');
             ip_db= "query_"+ ip + "_" + db;
             $.getJSON('/set_cookie/'+ ip + '/' + db, function(data) {
@@ -197,14 +195,12 @@
         });
          $('#db').change(function() {
             ip=$('#ip option:selected').text();
-            db=$('#db option:selected').text();
+            db=$('#db option:selected').text().replace(/\s/gi, '');
             ip = ip.replace(/\./gi, '_');
             ip_db= "query_"+ ip + "_" + db;
             $.getJSON(/set_cookie/+ ip + '/' + db, function(data) {
                 ;
             });
-            
-            
         });
         $(document).ready(function () {
             $('#ip').empty();
@@ -224,6 +220,12 @@
                 $('#ip').append(newOption);
             }    
             $('.chosen-select').select2({tags: true});
+            ip = $('#ip option:selected').text();
+            db = $('#db option:selected').text().replace(/\s/gi, '');
+            ip_db= "query_"+ ip + "_" + db;
+            console.log(ip);
+            console.log(db);
+            
             // $('.chosen-select').trigger('change');
         });
         $('#gse_monitor').click( function(){

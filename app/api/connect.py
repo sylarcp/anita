@@ -1,4 +1,4 @@
-from flask import jsonify, request, g, abort, url_for, current_app, session, flash
+from flask import jsonify, request, g, abort, url_for, current_app, session
 from flask.ext.login import LoginManager, current_user
 from . import api
 
@@ -34,7 +34,6 @@ def connect(ip,db):
 def getDBnames(ip):
     engine = create_engine('postgresql://gui:AniTa08@' + ip.replace('_','.') + '/template1', convert_unicode=True)
     conn = engine.connect()
-    print 'get db names'
     # rows = conn.execute("SELECT pg_database.datname, pg_database_size(pg_database.datname), pg_size_pretty(pg_database_size(pg_database.datname)) FROM pg_database ORDER BY pg_database_size DESC;")
     rows = conn.execute("SELECT pg_database.datname FROM pg_database order by datname;")
     dbnames_prev = []
