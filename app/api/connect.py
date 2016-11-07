@@ -27,7 +27,7 @@ import select
 #     return timeout_decorator
 
 # @timeout(10)
-def __connect(engine):
+def _connect(engine):
     return engine.connect()
 
 @api.route('/connect/<ip>/<db>')
@@ -35,7 +35,7 @@ def connect(ip,db):
     try:
         engine = create_engine('postgresql://gui:AniTa08@' + ip.replace('_','.') +'/' + db, convert_unicode=True)
         print 'before conn'
-        conn=__connect(engine)
+        conn=_connect(engine)
         print 'conn'
         # db_session = scoped_session(sessionmaker(autocommit=False,autoflush=False,bind=engine))
         db_session = scoped_session(sessionmaker(autocommit=False,autoflush=False,bind=conn))
