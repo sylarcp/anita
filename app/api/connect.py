@@ -9,33 +9,15 @@ import psycopg2
 import psycopg2.extensions
 import select
 
-# import multiprocessing.pool
-# import functools
 
-# def timeout(max_timeout):
-#     """Timeout decorator, parameter in seconds."""
-#     def timeout_decorator(item):
-#         """Wrap the original function."""
-#         @functools.wraps(item)
-#         def func_wrapper(*args, **kwargs):
-#             """Closure for function."""
-#             pool = multiprocessing.pool.ThreadPool(processes=1)
-#             async_result = pool.apply_async(item, args, kwargs)
-#             # raises a TimeoutError if execution exceeds max_timeout
-#             return async_result.get(max_timeout)
-#         return func_wrapper
-#     return timeout_decorator
 
-# @timeout(10)
-def _connect(engine):
-    return engine.connect()
 
 @api.route('/connect/<ip>/<db>')
 def connect(ip,db):
     try:
         engine = create_engine('postgresql://gui:AniTa08@' + ip.replace('_','.') +'/' + db, convert_unicode=True)
         print 'before conn'
-        conn=_connect(engine)
+        conn=engine.connect()
         print 'conn'
         # db_session = scoped_session(sessionmaker(autocommit=False,autoflush=False,bind=engine))
         db_session = scoped_session(sessionmaker(autocommit=False,autoflush=False,bind=conn))
@@ -48,4 +30,18 @@ def connect(ip,db):
     except Exception as error:
         print error
         return 'fail'
-
+@api.route('/getDBnames/<ip>')
+def getDBnames(ip):
+    engine = create_engine('postgresql://gui:AniTa08@' + ip.replace('_','.') + '/template1', convert_unicode=True)
+    conn = engine.connect()
+    # rows = conn.execute("SELECT pg_database.datname, pg_database_size(pg_database.datname), pg_size_pretty(pg_database_size(pg_database.datname)) FROM pg_database ORDER BY pg_database_size DESC;")
+    rows = conn.execute("SELECT pg_database.datname FROM pg_database order by datname DESC;")
+    dbnames_prev = []
+    dbnames = []
+    for row in rows:
+        if row["datname"][:7] == 'anita_1':
+            dbnames_prev.append(row["datname"])
+        elif row["datname"][:7] == 'anita_0':
+            dbnames.append(row["datname"])
+    dbnames += dbnames_prev
+    return dbnames
