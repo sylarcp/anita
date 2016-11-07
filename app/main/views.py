@@ -23,7 +23,7 @@ def timeout(max_timeout):
 ip_list=['gse1.bartol.udel.edu', '128.175.112.58', '128.175.112.80']
 db_list=['anita_0730c', 'anita_0102a', 'anita_0102b', 'anita_0102c', 'anita_0102d', 'anita_0104d', 'anita_0105d', 'anita_0106d', 'anita_0107d', 'anita_0622d', 'anita_0710a']
 # @main.route('/setDBlist/<ip>', methods=['GET'])
-@timeout(5)
+# @timeout(5)
 def getDBlist(ip):
     try:
         engine = create_engine('postgresql://gui:AniTa08@' + ip.replace('_','.') + '/template1', convert_unicode=True)
