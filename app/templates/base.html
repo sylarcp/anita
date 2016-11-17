@@ -90,7 +90,7 @@
                 <select id="ip" class='chosen-select' style="width:160px" data-placeholder="Choose an IP..">
                     
                 </select>
-                <select id="db" class='chosen-select' style="width:160px" data-placeholder="Choose a DB..">
+                <select id="db" class='chosen-select' style="width:160px" data-placeholder="Choose a DB.." >
                     <option selected> {{db_selected}} </option>
                 </select>
             <button type="button" id="connect" class="ladda-button btn btn-primary connect"  data-style="zoom-in">Connect</button>
@@ -176,42 +176,7 @@
         var ip, db, ip_db;
         
 
-        // On changing the ip in the <select>, we want
-        $('#ip').change(function() {
-            ip=$('#ip option:selected').text();
-            db=$('#db option:selected').text().replace(/\s/gi, '');
 
-            ip = ip.replace(/\./gi, '_');
-            ip_db= "query_"+ ip + "_" + db;
-            $.getJSON('/set_cookie/'+ ip + '/' + db, function(data) {
-                ;
-            });
-            $.getJSON('/api/getDBnames/'+ ip, function(data) {
-                dbnames = data['dbnames']
-                $('#db').empty(); //remove all child nodes
-                for (i = 0; i < dbnames.length; i++){
-                    if (i < dbnames.length - 1){
-                        newOption = $('<option>' + dbnames[i] + '</option>');
-                    }else{
-                        newOption = $('<option selected>' + dbnames[i] + '</option>');
-                    }
-                    
-                    $('#db').append(newOption);
-                }               
-                // $('#db').trigger("chosen:updated");
-                $('#db').select2({tags: true});
-
-            });
-        });
-         $('#db').change(function() {
-            ip=$('#ip option:selected').text();
-            db=$('#db option:selected').text().replace(/\s/gi, '');
-            ip = ip.replace(/\./gi, '_');
-            ip_db= "query_"+ ip + "_" + db;
-            $.getJSON(/set_cookie/+ ip + '/' + db, function(data) {
-                ;
-            });
-        });
         $(document).ready(function () {
             $('#ip').empty();
             ip_list = ['128.175.112.58', '128.175.112.80', 'beauty.phys.hawaii.edu', 'charm.phys.hawaii.edu' ]
@@ -235,6 +200,44 @@
             ip_db= "query_"+ ip + "_" + db;
             console.log(ip);
             console.log(db);
+
+            // On changing the ip in the <select>, we want
+            $('#ip').on("select2:closing", function(){
+            // $('#ip').change(function() {
+                ip=$('#ip option:selected').text();
+                db=$('#db option:selected').text().replace(/\s/gi, '');
+
+                ip = ip.replace(/\./gi, '_');
+                ip_db= "query_"+ ip + "_" + db;
+                $.getJSON('/set_cookie/'+ ip + '/' + db, function(data) {
+                    ;
+                });
+                $.getJSON('/api/getDBnames/'+ ip, function(data) {
+                    dbnames = data['dbnames']
+                    $('#db').empty(); //remove all child nodes
+                    for (i = 0; i < dbnames.length; i++){
+                        if (i < dbnames.length - 1){
+                            newOption = $('<option>' + dbnames[i] + '</option>');
+                        }else{
+                            newOption = $('<option selected>' + dbnames[i] + '</option>');
+                        }
+                        
+                        $('#db').append(newOption);
+                    }               
+                    // $('#db').trigger("chosen:updated");
+                    $('#db').select2({tags: true});
+
+                });
+            });
+             $('#db').change(function() {
+                ip=$('#ip option:selected').text();
+                db=$('#db option:selected').text().replace(/\s/gi, '');
+                ip = ip.replace(/\./gi, '_');
+                ip_db= "query_"+ ip + "_" + db;
+                $.getJSON(/set_cookie/+ ip + '/' + db, function(data) {
+                    ;
+                });
+            });
             
             // $('.chosen-select').trigger('change');
         });
