@@ -671,13 +671,13 @@
             });
         } else if (datatype == 'Power') {
             for (var i = 0; i < waveform.cal.length; i++) {
-                waveform.cal[i] =waveform.cal[i]**2;
+                waveform.cal[i] = Math.pow(waveform.cal[i], 2);
             }
 
             min = Math.min.apply(null, waveform['cal']);
             max = Math.max.apply(null, waveform['cal']);
-            range_min = $('#wv_min_range').val()**2;
-            range_max = $('#wv_max_range').val()**2;
+            range_min = Math.pow($('#wv_min_range').val(), 2);
+            range_max = Math.pow($('#wv_max_range').val(), 2);
             console.log(min, max, range_min, range_max);
 
             $(name).attr('values', waveform['cal']).sparkline('html', {
