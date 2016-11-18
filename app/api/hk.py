@@ -4,12 +4,11 @@ from . import api
 from .. import cache
 from app.models import Hk
 
-# Primary key list: get the hk now list
 
 @api.route('/<ip_db>/hk/nbufs/<start_time>')
 def get_hk_nbufs(ip_db, start_time):
     try:
-        hks =getattr(Hk,ip_db).with_entities(Hk.nbuf, Hk.now, Hk.time).filter(Hk.time>start_time).order_by(Hk.now, Hk.time).all()
+        hks =getattr(Hk,ip_db).with_entities(Hk.nbuf, Hk.now, Hk.time).filter(Hk.now>start_time).order_by(Hk.now, Hk.time).all()
         return jsonify({'hk_nbufs': [item.nbuf for item in hks], 'hk_nows': [item.now for item in hks], 'hk_times': [item.time for item in hks]})
     except BaseException as error:
         print('Invalid request: {}', format(error))

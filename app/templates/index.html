@@ -161,6 +161,8 @@
                         <table data-sort="false" class="footable" data-page-size="56" id='rf' style="width:100%">
                             <tbody>
                                 <th>
+                                    <td>Index:</td>
+                                    <td id = 'index'></td>
                                     <td>Time:</td>
                                     <td id='time'></td>
                                     <td> Now:</td>
@@ -525,9 +527,11 @@
     var hd_nbufs = [];
     var hd_evnums = [];
     var hd_times = [];
+    var hd_nows = [];
     var rf_nbufs = [];
     var rf_evnums = [];
     var rf_times = [];
+    var rf_nows = [];
     var i = 0;
     var j = 0;
     var currentData=null;
@@ -596,7 +600,7 @@
     function byteString(n) {
       if (n < 0 || n > 65535 || n % 1 !== 0) {
           throw new Error(n + " does not fit in a byte");
-      }
+      } 
       return ("000000000000000000" + n.toString(2)).substr(-16);
     }
 
@@ -706,7 +710,7 @@
 
     function updatehtml_hd (nbuf) {
          $.getJSON('/api/' + ip_db + '/hd/' + nbuf, function(data) {
-            $('#hd #index').html(i + "/" + hd_nbufs.length);
+            $('#hd #index').html(j + 1 + "/" + hd_nbufs.length);
             $('#hd #nbuf').html(data.hd.nbuf);
             $('#hd #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
             $('#hd #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
@@ -746,6 +750,7 @@
 
     function updatehtml_rf(nbuf) {
         $.getJSON('/api/' + ip_db + '/hd/' + nbuf, function(data) {
+            $('#rf #index').html(i + 1 + "/" + rf_nbufs.length);
             $('#rf #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
             $('#rf #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
             $('#rf #evnum').html(data.hd.evnum);
@@ -1125,7 +1130,8 @@
                 rf_nbufs = rf_nbufs.concat(data.rf_nbufs);
                 rf_evnums = rf_evnums.concat(data.rf_evnums);
                 rf_times = rf_times.concat(data.rf_times);
-                start_time = Math.max.apply(null, data.rf_times);
+                rf_nows = rf_nows.concat(data.rf_nows);
+                start_time = Math.max.apply(null, data.rf_nows);
                 max_start_time = Math.max(start_time,max_start_time);
                 start_time = max_start_time;
                 $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
@@ -1135,7 +1141,7 @@
                 $('#connect').value = 'Disconnect'
                 connect.ladda('stop');
                 console.log(start_time);
-                console.log(rf_nbufs.length);
+                
             }).done(function() {
                 setTimeout(function() {
                     if (new_length) {
@@ -1150,9 +1156,12 @@
 
             });
             $.getJSON('/api/' + ip_db + '/hd/nbufs/' + start_time, function(data) {
+                console.log(data.hd_evnums);
                 hd_nbufs = hd_nbufs.concat(data.hd_nbufs);
                 hd_evnums = hd_evnums.concat(data.hd_evnums);
                 hd_times = hd_times.concat(data.hd_times);
+                hd_nows = hd_nows.concat(data.hd_nows);
+                console.log(hd_nbufs.length);
             });
         }
 
@@ -1163,6 +1172,7 @@
                 hd_nbufs = [];
                 hd_evnums = [];
                 hd_times = [];
+                hd_nows = [];
                 i = 0;
                 connect.ladda('start');
                 $.ajax({
@@ -1188,6 +1198,7 @@
                 hd_nbufs = [];
                 hd_evnums = [];
                 hd_times = [];
+                hd_nows = [];
                 i = 0;
                 //otherwise, stop all the requests.
                 $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');

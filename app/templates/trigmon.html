@@ -16,6 +16,10 @@
                     <table data-sort="false" class="footable" data-page-size="20" id='turf' style="width:100%">
                         <tbody>
                             <tr>
+                                <td >Index:</td>
+                                <td id='index'></td>
+                            </tr>
+                            <tr>
                                 <td data-hide="xs">nbuf:</td>
                                 <td id='nbuf'></td>
                             </tr>
@@ -247,6 +251,10 @@
                                 <div class="ibox-content">
                                     <table data-sort="false" class="footable" data-page-size="20" id='rfpower' style="width:100%">
                                         <tbody>
+                                            <tr>
+                                                <td>Index:</td>
+                                                <td id='index'></td>
+                                            </tr>
                                             <tr>
                                                 <td data-hide="xs">nbuf:</td>
                                                 <td id='nbuf'></td>
@@ -1320,6 +1328,17 @@
 <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
 <script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 <script>
+var turf_nbufs = [];
+var turf_nows = [];
+var turf_times = [];
+var hk_surf_nbufs = [];
+var hk_surf_nows = [];
+var hk_surf_times = [];
+var i = 0;
+var j = 0;
+var connected = false;
+var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
+
 var sync_on = false;
 function timeConverter(UNIX_timestamp) {
     var a = new Date(UNIX_timestamp * 1000);
@@ -1437,6 +1456,7 @@ function update_thresh_data($selector, new_data) {
 
 function updatehtml_turf(turf) {
     $.getJSON('/api/' + ip_db + '/turf/' + turf, function(data) {
+        $('#turf #index').html(i + 1 + "/" + turf_nbufs.length);
         $('#turf #nbuf').html(data.turf.nbuf);
         $('#turf #now').html(data.turf.now + " (" + timeConverter(data.turf.now) + ")");
         $('#turf #time').html(data.turf.time + " (" + timeConverter(data.turf.time) + ")");
@@ -1447,23 +1467,23 @@ function updatehtml_turf(turf) {
         $('#turf #phitrigmaskh').html(data.turf.phitrigmaskh);
 
         var l1_name;
-        for (i = 0; i < 16; i++) {
-            l1_name = '#l1_' + i;
-            update_l1_data($(l1_name), parseInt(data.turf.l1[i]));
+        for (ii = 0; ii < 16; ii++) {
+            l1_name = '#l1_' + ii;
+            update_l1_data($(l1_name), parseInt(data.turf.l1[ii]));
         }
         var l1h_name;
-        for (i = 0; i < 16; i++) {
-            l1h_name = '#l1h_' + i;
-            update_l1_data($(l1h_name), parseInt(data.turf.l1h[i]));
+        for (ii = 0; ii < 16; ii++) {
+            l1h_name = '#l1h_' + ii;
+            update_l1_data($(l1h_name), parseInt(data.turf.l1h[ii]));
         }
         var l3_name;
-        for (i = 0; i < 16; i++) {
-            l3_name = '#l3_' + i;
-            update_l3_data($(l3_name), parseInt(data.turf.l3[i]));
+        for (ii = 0; ii < 16; ii++) {
+            l3_name = '#l3_' + ii;
+            update_l3_data($(l3_name), parseInt(data.turf.l3[ii]));
         }
         var l3h_name;
-        for (i = 0; i < 16; i++) {
-            l3h_name = '#l3h_' + i;
+        for (ii = 0; ii < 16; ii++) {
+            l3h_name = '#l3h_' + ii;
             update_l3_data($(l3h_name), parseInt(data.turf.l3h[i]));
         }
     });
@@ -1473,6 +1493,7 @@ function updatehtml_turf(turf) {
 function updatehtml_hk_surf(hk_surf) {
     if (!hk_surf) return;
     $.getJSON('/api/' + ip_db + '/hk_surf/' + hk_surf, function(data) {
+        $('#rfpower #index').html(j + 1 + "/" + hk_surf_nbufs.length);
         $('#rfpower #nbuf').html(data.hk_surf.nbuf);
         console.log(data.hk_surf.nbuf);
         $('#rfpower #now').html(data.hk_surf.now + " (" + timeConverter(data.hk_surf.now) + ")");
@@ -1494,23 +1515,23 @@ function updatehtml_hk_surf(hk_surf) {
         $('#rfpower #upper_11').html(data.hk_surf.upper[11]);
 
         var rfpow_name;
-        for (i = 0; i < 12; i++) {
-            for (j = 0; j < 8; j++) {
-                rfpow_name = '#rfpow_' + i + '_' + j;
-                update_rfpow_data($(rfpow_name), parseInt(data.hk_surf.rfpow[i][j]));
+        for (ii = 0; ii < 12; ii++) {
+            for (jj = 0; jj < 8; jj++) {
+                rfpow_name = '#rfpow_' + ii + '_' + jj;
+                update_rfpow_data($(rfpow_name), parseInt(data.hk_surf.rfpow[ii][jj]));
             }
         }
         var scaler_name;
-        for (i = 0; i < 12; i++) {
-            for (j = 0; j < 12; j++) {
-                scaler_name = '#scaler_' + i + '_' + j;
-                update_scaler_data($(scaler_name), parseInt(data.hk_surf.scaler[i][j]));
+        for (ii = 0; ii < 12; ii++) {
+            for (jj = 0; jj < 12; jj++) {
+                scaler_name = '#scaler_' + ii + '_' + jj;
+                update_scaler_data($(scaler_name), parseInt(data.hk_surf.scaler[ii][jj]));
             }
         }
         var thresh_name;
-        for (i = 0; i < 12; i++) {
-            for (j = 0; j < 12; j++) {
-                thresh_name = '#thresh_' + i + '_' + j;
+        for (ii = 0; ii < 12; ii++) {
+            for (jj = 0; jj < 12; jj++) {
+                thresh_name = '#thresh_' + ii + '_' + jj;
                 update_thresh_data($(thresh_name), parseInt(data.hk_surf.thresh[i][j]));
             }
         }
@@ -1576,17 +1597,7 @@ $(document).ready(function() {
         });
     });
     $('.footable').footable();
-    var turf_nbufs = [];
-    var turf_nows = [];
-    var turf_times = [];
-    var hk_surf_nbufs = [];
-    var hk_surf_nows = [];
-    var hk_surf_times = [];
-    var i = 0;
-    var j = 0;
-    var connected = false;
-    var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
-
+    
     $.getJSON('/api/' + ip_db + '/hk_surf/nbufs', function(data) {
         turf_nbufs = data.turf_nbufs;
         turf_nows = data.turf_nows;

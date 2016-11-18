@@ -13,6 +13,22 @@
                     </div>
                 </div>
                 <div class="ibox-content">
+                    <table data-sort="false" class="footable" data-page-size="20" id='aux' style="width:100%">
+                        <tbody>
+                            <tr>
+                                <td>Index</td>
+                                <td id = 'index'></td>
+                                <td>Time</td>
+                                <td id='time'></td>
+                                <td>Now</td>
+                                <td id='now'></td>
+
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                
+                <div class="ibox-content">
                     <table data-sort="false" class="footable" data-page-size="20" id='power' style="width:100%">
                         <h5>Power</h5>
                         <tbody>
@@ -183,12 +199,6 @@
                         <h5>Auxilary Information</h5>
                         <tbody>
                             <tr>
-                                <td>Time</td>
-                                <td id='time'></td>
-                                <td>Now</td>
-                                <td id='now'></td>
-                            </tr>
-                            <tr>
                                 <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
                             </tr>
                             <tr>
@@ -278,6 +288,7 @@
                         </tbody>
                     </table>
                 </div>
+                
             </div>
         </div>
         <div class="col-lg-6">
@@ -294,6 +305,8 @@
                     <table data-sort="false" class="footable" data-page-size="56" id='montimes' style="width:100%">
                         <tbody>
                             <th>
+                                <td>Index</td>
+                                <td id = 'index'></td>
                                 <td>Time:</td>
                                 <td id='time'></td>
                                 <td> Now:</td>
@@ -418,6 +431,8 @@
                     <table data-sort="false" class="footable" data-page-size="56" style="width:100%">
                         <tbody>
                             <tr>
+                                <td>Index</td>
+                                <td id = 'index'></td>
                                 <td>Time:</td>
                                 <td id='time'></td>
                                 <td> Now:</td>
@@ -448,9 +463,13 @@
             <div class="ibox-content" >
                 <table data-sort="false" class="footable" data-page-size="26" id='gps' style="width:100%">
                     <tbody>
-                        <tr>
+                        <!-- <tr>
                             <td>Curret GPS:</td>                        
                             <td id='pat_gpstype'></td>
+                        </tr> -->
+                        <tr>
+                            <td>Index</td>
+                            <td id = 'index'></td>
                         </tr>
                         <tr>
                             <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
@@ -462,25 +481,25 @@
                             <td>g12</td>
                         </tr>
                         <tr>
-                            <td>Full Time</td>
+                            <td>Time</td>
                             <td id='fulltime_5A'></td>
                             <td id='fulltime_5B'></td>
                             <td id='fulltime_g12'></td>
                         </tr>
                         <tr>
-                            <td>Time</td>
+                            <td>LinuxTime</td>
                             <td id='time_5A'></td>
                             <td id='time_5B'></td>
                             <td id='time_g12'></td>
                         </tr>
                         <tr>
-                            <td>Full Now</td>
+                            <td>Now</td>
                             <td id='fullnow_5A'></td>
                             <td id='fullnow_5B'></td>
                             <td id='fullnow_g12'></td>                                
                         </tr>
                         <tr>
-                            <td>Now</td>
+                            <td>LinuxNow</td>
                             <td id='now_5A'></td>
                             <td id='now_5B'></td> 
                             <td id='now_g12'></td>                                 
@@ -588,6 +607,45 @@
 <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
 <script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 <script>
+var hk_nbufs=[];
+ var hk_nows=[];
+ var hk_times=[];
+ var sshk_nbufs=[];
+ var sshk_nows=[];
+ var sshk_times=[];
+ var mon_nbufs=[];
+ var mon_nows=[];
+ var mon_times=[];
+ var cmd_nbufs=[];
+ var cmd_nows=[];
+ var cmd_times=[];
+ var adu5_pat_nbufs=[];
+ var adu5_pat_nows=[];
+ var adu5_pat_times=[];
+ var adu5_vtg_nbufs=[];
+ var adu5_vtg_nows=[];
+ var adu5_vtg_times=[];
+ var adu5_sat_nbufs=[];
+ var adu5_sat_nows=[];
+ var adu5_sat_times=[];
+ var g12_pos_nbufs=[];
+ var g12_pos_nows=[];
+ var g12_pos_times=[];
+ var g12_sat_nbufs=[];
+ var g12_sat_nows=[];
+ var g12_sat_times=[];
+ var i=0;
+ var j=0;
+ var k=0;
+ var l=0;
+ var m=0;
+ var n=0;
+ var o=0;
+ var p=0;
+ var q=0;
+ var connected = false;
+ var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
+
 var sync_on = false;
 function timeConverter(UNIX_timestamp) {
     var a = new Date(UNIX_timestamp * 1000);
@@ -936,6 +994,9 @@ function update_sbst1_data($selector, new_data) {
 
     function updatehtml_hk(hk) {
         $.getJSON('/api/' + ip_db + '/hk/' + hk, function(data) {
+            $('#hk #index').html(i + 1 + "/" + hk_nbufs.length);
+            $('#hk #now').html(data.hk.now + " (" + timeConverter(data.hk.now) + ")");
+            $('#hk #time').html(data.hk.time + " (" + timeConverter(data.hk.time) + ")");
             $('#power #p1_5v').html(data.hk.p1_5v);
             $('#power #p3_3v').html(data.hk.p3_3v);
             $('#power #p5v').html(data.hk.p5v);
@@ -959,8 +1020,7 @@ function update_sbst1_data($selector, new_data) {
             $('#power #iprf1i').html(data.hk.iprf1i);
             $('#power #iprf2i').html(data.hk.iprf2i);
             $('#power #bati').html(data.hk.bati);
-            $('#aux #now').html(data.hk.now + " (" + timeConverter(data.hk.now) + ")");
-            $('#aux #time').html(data.hk.time + " (" + timeConverter(data.hk.time) + ")");
+            
             $('#aux #pressl').html(data.hk.pressl);
             $('#aux #pressh').html(data.hk.pressh);
             $('#aux #ssx-0').html(data.hk.ssx[0]);
@@ -1020,13 +1080,13 @@ function update_sbst1_data($selector, new_data) {
             core2_name = '#core2';
             update_core2_data($(core2_name), parseInt(data.hk.core2));
             var it_name;
-            for (i = 0; i < 15; i++) {
-                it_name = '#it-' + i;
-                update_it_data($(it_name), parseInt(data.hk.it[i]));
+            for (var ii = 0; ii < 15; ii++) {
+                it_name = '#it-' + ii;
+                update_it_data($(it_name), parseInt(data.hk.it[ii]));
             }
             var et_name;
-            for (i = 0; i < 15; i++) {
-                et_name = '#et-' + i;
+            for (var ii = 0; ii < 15; ii++) {
+                et_name = '#et-' + ii;
                 update_et_data($(et_name), parseInt(data.hk.et[i]));
             }
         });
@@ -1054,6 +1114,7 @@ function updatehtml_sshk(sshk) {
 function updatehtml_mon(mon) {
     if (!mon) return;
     $.getJSON('/api/' + ip_db + '/mon/' + mon, function(data) {
+        $('#montimes #index').html(j + 1 + "/" + mon_nbufs.length);
         $('#montimes #now').html(data.mon.now + " (" + timeConverter(data.mon.now) + ")");
         $('#montimes #time').html(data.mon.time + " (" + timeConverter(data.mon.time) + ")");
 
@@ -1085,7 +1146,7 @@ function updatehtml_mon(mon) {
         linkped_name = '#linkped';
         update_link_data($(linkped_name), parseInt(data.mon.linkped));
         var linkev_name;
-        for (i = 0; i < 10; i++) {
+        for (var i = 0; i < 10; i++) {
             linkev_name = '#linkev-' + i;
             update_link_data($(linkev_name), parseInt(data.mon.linkev[i]));
         }
@@ -1122,6 +1183,7 @@ function updatehtml_cmd(cmd) {
         console.log('cmd');
         console.log(data.cmd);
         console.log(data.cmd.bytes);
+        $('#cmd #index').html(q + 1 + "/" + cmd_nbufs.length);
         $('#cmd #now').html(data.cmd.now + " (" + timeConverter(data.cmd.now) + ")");
         $('#cmd #time').html(data.cmd.time + " (" + timeConverter(data.cmd.time) + ")");
         var length = data.cmd.bytes;
@@ -1134,15 +1196,15 @@ function updatehtml_cmd(cmd) {
         }
 
         if (length < 7){
-           for (i = 1; i < length; i++) { 
-                last_command += '0x' + array[i].toString(16) + ' ';
+           for (var ii = 1; ii < length; ii++) { 
+                last_command += '0x' + array[ii].toString(16) + ' ';
             } 
         }else{
-             for (i = 1; i < 6; i++) { 
-                last_command += '0x' + array[i].toString(16) + ' ';
+             for (var ii = 1; ii < 6; ii++) { 
+                last_command += '0x' + array[ii].toString(16) + ' ';
             }
-            for (i = 6; i < length; i++) { 
-                antennas_off += '0x' + array[i].toString(16) + ' ';
+            for (var ii = 6; ii < length; ii++) { 
+                antennas_off += '0x' + array[ii].toString(16) + ' ';
             }
         }
 
@@ -1156,8 +1218,9 @@ function updatehtml_cmd(cmd) {
 function updatehtml_adu5_pat(adu5_pat) {
     if (!adu5_pat) return;
     $.getJSON('/api/' + ip_db + '/adu5_pat/' + adu5_pat, function(data) {
-        $('#gps #pat_gpstype').html(gpstype(data.pat.gpstype));
-        if (gpstype(data.pat.gpstype) == 'adu5A'){        
+        $('#gps #index').html(k + 1 + "/" + adu5_pat_nbufs.length);
+        // $('#gps #pat_gpstype').html(gpstype(data.pat.gpstype));
+        if (gpstype(data.pat.gpstype) == 'adu5A'){  
            $('#gps #now_5A').html(data.pat.now);
            $('#gps #time_5A').html(data.pat.time);
            $('#gps #fullnow_5A').html(timeConverter(data.pat.now));
@@ -1330,45 +1393,7 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
 
  $('.footable').footable();
  
- var hk_nbufs=[];
- var hk_nows=[];
- var hk_times=[];
- var sshk_nbufs=[];
- var sshk_nows=[];
- var sshk_times=[];
- var mon_nbufs=[];
- var mon_nows=[];
- var mon_times=[];
- var cmd_nbufs=[];
- var cmd_nows=[];
- var cmd_times=[];
- var adu5_pat_nbufs=[];
- var adu5_pat_nows=[];
- var adu5_pat_times=[];
- var adu5_vtg_nbufs=[];
- var adu5_vtg_nows=[];
- var adu5_vtg_times=[];
- var adu5_sat_nbufs=[];
- var adu5_sat_nows=[];
- var adu5_sat_times=[];
- var g12_pos_nbufs=[];
- var g12_pos_nows=[];
- var g12_pos_times=[];
- var g12_sat_nbufs=[];
- var g12_sat_nows=[];
- var g12_sat_times=[];
- var i=0;
- var j=0;
- var k=0;
- var l=0;
- var m=0;
- var n=0;
- var o=0;
- var p=0;
- var q=0;
- var connected = false;
-    var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
-
+ 
 
 
     function autoload(start_time) {

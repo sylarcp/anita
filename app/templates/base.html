@@ -195,7 +195,7 @@
                 $('#ip').append(newOption);
             }    
             $('.chosen-select').select2({tags: true});
-            ip = $('#ip option:selected').text();
+            ip = $('#ip option:selected').text().replace(/\./gi, '_');
             db = $('#db option:selected').text().replace(/\s/gi, '');
             ip_db= "query_"+ ip + "_" + db;
             console.log(ip);
