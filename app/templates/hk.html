@@ -1402,7 +1402,7 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
             hk_nbufs = hk_nbufs.concat(data.hk_nbufs);
             hk_nows = hk_nows.concat(data.hk_nows);
             hk_times = hk_times.concat(data.hk_times);
-            start_time = Math.max.apply(null, hk_times);
+            start_time = Math.max.apply(null, hk_nows);
             $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
             $('#connect').html('Disconnect');
             $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
@@ -1417,8 +1417,6 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
                     sleep_interval = Math.min(sleep_interval * 1.2, 60000);
                 }
                 if (connected == true) {
-
-
                     autoload(start_time);
                 }
             }, sleep_interval);

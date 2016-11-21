@@ -537,6 +537,8 @@
     var currentData=null;
     var datatype = 'mV';
     var dataview = 'Surf';
+    var max_start_time = 0;
+    var sync_on = false;
     var id2phi = {106:0, 102:0,50:1, 46:1,97:2, 93:2,37:3, 41:3,104:4, 100:4,43:5, 39:5,95:6, 91:6,52:7, 48:7,105:8, 101:8,49:9, 45:9,96:10, 92:10,40:11, 36:11,103:12, 99:12,42:13, 38:13,94:14, 90:14,51:15, 47:15,86:0, 82:0,34:1, 30:1,77:2, 73:2,25:3, 21:3,79:4, 75:4,32:5, 28:5,88:6, 84:6,23:7, 19:7,85:8, 81:8,33:9, 29:9,76:10, 72:10,24:11, 20:11,78:12, 74:12,31:13, 27:13,87:14, 83:14,22:15, 18:15,61:0, 57:0,5:1, 1:1,70:2, 66:2,14:3, 10:3,59:4, 55:4,16:5, 12:5,68:6, 64:6,7:7, 3:7,60:8, 56:8,4:9, 0:9,69:10, 65:10,13:11, 9:11,58:12, 54:12,15:13, 11:13,67:14, 63:14,6:15, 2:15};
     var id2pol = {106:'h', 102:'v', 50:'h', 46:'v', 97:'h', 93:'v', 37:'h', 41:'v', 104:'h', 100:'v', 43:'h', 39:'v', 95:'h', 91:'v', 52:'h', 48:'v', 105:'h', 101:'v', 49:'h', 45:'v', 96:'h', 92:'v', 40:'h', 36:'v', 103:'h', 99:'v', 42:'h', 38:'v', 94:'h', 90:'v', 51:'h', 47:'v', 86:'h', 82:'v', 34:'h', 30:'v', 77:'h', 73:'v', 25:'h', 21:'v', 79:'h', 75:'v', 32:'h', 28:'v', 88:'h', 84:'v', 23:'h', 19:'v', 85:'h', 81:'v', 33:'h', 29:'v', 76:'h', 72:'v', 24:'h', 20:'v', 78:'h', 74:'v', 31:'h', 27:'v', 87:'h', 83:'v', 22:'h', 18:'v', 61:'h', 57:'v', 5:'h', 1:'v', 70:'h', 66:'v', 14:'h', 10:'v', 59:'h', 55:'v', 16:'h', 12:'v', 68:'h', 64:'v', 7:'h', 3:'v', 60:'h', 56:'v', 4:'h', 0:'v', 69:'h', 65:'v', 13:'h', 9:'v', 58:'h', 54:'v', 15:'h', 11:'v', 67:'h', 63:'v', 6:'h', 2:'v',};
     var surfMap = [
@@ -941,8 +943,7 @@
         $('#navbar_aview').parent().addClass("active");
 
         $(window).on('resize', resizeWindow);
-        var max_start_time = 0;
-        var sync_on = false;
+        
 
 
         $.jqplot.config.enablePlugins = true;
@@ -1125,6 +1126,7 @@
 
         function autoload(start_time) {
             $.getJSON('/api/' + ip_db + '/rf/nbufs/' + start_time, function(data) {
+                console.log('rf api');
                 console.log(data);
                 new_length = data.rf_nbufs.length
                 rf_nbufs = rf_nbufs.concat(data.rf_nbufs);
@@ -1168,12 +1170,18 @@
 
         var connect = $('.ladda-button').ladda();
         $('#connect').click(function() {
+            max_start_time = 0;
+            hd_nbufs = [];
+            hd_evnums = [];
+            hd_times = [];
+            hd_nows = [];
+            rf_nbufs = [];
+            rf_evnums = [];
+            rf_times = [];
+            rf_nows = [];
+            i = 0;
+            j = 0;
             if ($(this).hasClass('connect')) {
-                hd_nbufs = [];
-                hd_evnums = [];
-                hd_times = [];
-                hd_nows = [];
-                i = 0;
                 connect.ladda('start');
                 $.ajax({
                     url: '/api/connect/' + ip + '/' + db
@@ -1181,6 +1189,7 @@
                     if (response == 'success') {
                         console.log('succeed');
                         autoload(0);
+                        console.log('after autoload');
                         setTimeout(function(){
                             $('#first').click();
                         },1000);
@@ -1195,11 +1204,6 @@
                     }
                 });
             } else {
-                hd_nbufs = [];
-                hd_evnums = [];
-                hd_times = [];
-                hd_nows = [];
-                i = 0;
                 //otherwise, stop all the requests.
                 $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
                 $('#connect').html('Connect');

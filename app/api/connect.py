@@ -16,15 +16,13 @@ import select
 def connect(ip,db):
     try:
         engine = create_engine('postgresql://gui:AniTa08@' + ip.replace('_','.') +'/' + db, convert_unicode=True)
-        print 'before conn'
         conn=engine.connect()
-        print 'conn'
+        print 'connnected'
         # db_session = scoped_session(sessionmaker(autocommit=False,autoflush=False,bind=engine))
         db_session = scoped_session(sessionmaker(autocommit=False,autoflush=False,bind=conn))
         query_ip_db= 'query_' + ip  + '_' + db
         #  query_ip_db is a string and should be Base's attribute. setattr() is perfect for this job
         setattr(Base,query_ip_db, db_session.query_property())
-        print '------', getattr(Base,query_ip_db)
         # flash("Database connect Successful", 'success') # flash message not working, why?
         return 'success'
     except Exception as error:
