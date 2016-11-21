@@ -8,7 +8,7 @@ from app.models import Cmd
 @api.route('/<ip_db>/cmd/nbufs/<start_time>')
 def get_cmd_nbufs(ip_db, start_time):
     try:
-        cmds =getattr(Cmd,ip_db).with_entities(Cmd.nbuf, Cmd.now, Cmd.time).filter(Cmd.time>start_time).order_by(Cmd.now).all()
+        cmds =getattr(Cmd,ip_db).with_entities(Cmd.nbuf, Cmd.now, Cmd.time).filter(Cmd.now>start_time).order_by(Cmd.now).limit(200).all()
         return jsonify({'cmd_nbufs': [item.nbuf for item in cmds], 'cmd_nows': [item.now for item in cmds], 'cmd_times': [item.time for item in cmds]})
     except BaseException as error:
         print('Invalid request: {}', format(error))

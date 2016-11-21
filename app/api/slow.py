@@ -7,7 +7,7 @@ from app.models import Slow
 @api.route('/<ip_db>/slow/times/<start_time>')
 def get_slow_times(ip_db, start_time):
     try:
-        slows =getattr(Slow,ip_db).with_entities(Slow.nbuf, Slow.now, Slow.time).filter(Slow.time>start_time).order_by(Slow.now).all()
+        slows =getattr(Slow,ip_db).with_entities(Slow.nbuf, Slow.now, Slow.time).filter(Slow.now>start_time).order_by(Slow.now).limit(200).all()
         return jsonify({'slow_times': [item.time for item in slows], 'slow_nows': [item.now for item in slows], 'slow_times': [item.time for item in slows]})
     except BaseException as error:
         print('Invalid request: {}', format(error))

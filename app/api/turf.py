@@ -9,7 +9,7 @@ from app.models import Turf
 @api.route('/<ip_db>/turf/nbufs/<start_time>')
 def get_turf_nbufs(ip_db, start_time):
     try:
-        turfs =getattr(Turf,ip_db).with_entities(Turf.nbuf, Turf.now, Turf.time).filter(Turf.time>start_time).order_by(Turf.now).all()
+        turfs =getattr(Turf,ip_db).with_entities(Turf.nbuf, Turf.now, Turf.time).filter(Turf.now>start_time).order_by(Turf.now).limit(200).all()
         return jsonify({'turf_nbufs': [item.nbuf for item in turfs], 'turf_nows': [item.now for item in turfs], 'turf_times': [item.time for item in turfs]})
     except BaseException as error:
         print('Invalid request: {}',format(error))

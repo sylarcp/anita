@@ -9,7 +9,7 @@ from app.models import Sshk
 @api.route('/<ip_db>/sshk/nbufs/<start_time>')
 def get_sshk_nbufs(ip_db, start_time):
     try:
-        sshks =getattr(Sshk,ip_db).with_entities(Sshk.nbuf, Sshk.now, Sshk.time).filter(Sshk.time>start_time).order_by(Sshk.now).all()
+        sshks =getattr(Sshk,ip_db).with_entities(Sshk.nbuf, Sshk.now, Sshk.time).filter(Sshk.now>start_time).order_by(Sshk.now).limit(200).all()
         return jsonify({'sshk_nbufs': [item.nbuf for item in sshks], 'sshk_nows': [item.now for item in sshks], 'sshk_times': [item.time for item in sshks]})
     except BaseException as error:
         print('Invalid request: {}', format(error))
