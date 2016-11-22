@@ -46,6 +46,11 @@
                                 <td id='evnum'></td>
                             </tr>
                             <tr>
+                                <td>Run#</td>
+                                <td id='runnum'></td>
+                            </tr>
+                            
+                            <tr>
                                 <td>priority</td>
                                 <td id='priority'></td>
                             </tr>
@@ -714,6 +719,7 @@
             $('#hd #us').html(data.hd.us);
             $('#hd #ns').html(data.hd.ns);
             $('#hd #evnum').html(data.hd.evnum);
+            $('#hd #runnum').html((data.hd.evid&0xfff00000)>>20);
             $('#hd #priority').html(data.hd.priority);
             $('#hd #trigtype').html(data.hd.trigtype);
             $('#hd #trignum').html(data.hd.trignum);
