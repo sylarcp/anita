@@ -41,7 +41,6 @@ def get_wv(ip_db, evnum, id):
 @api.route('/<ip_db>/wv/<int:evnum>')
 # @cache.cached(timeout=3600)
 def get_wvs(ip_db, evnum):
-    print 'api wv'
     try:
         json_comment={}
         wvs =getattr(Wv,ip_db).filter_by(evnum=evnum).order_by(Wv.id).all()

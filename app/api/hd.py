@@ -8,7 +8,6 @@ from .. import cache
 # Primary key list: get the hd nbuf list
 @api.route('/<ip_db>/hd/nbufs/<offset>')
 def get_hd_nbufs(ip_db, offset):
-    print 'api hd list'
     try:
         # hds =getattr(Hd,ip_db).with_entities(Hd.nbuf, Hd.evnum, Hd.time, Hd.now).filter(Hd.now>offset).order_by(Hd.now, Hd.time).limit(100).all()
         engine_ip_db = ip_db.replace('query','session')

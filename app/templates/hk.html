@@ -13,11 +13,13 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <table data-sort="false" class="footable" data-page-size="20" id='aux' style="width:100%">
+                    <table data-sort="false" class="footable" data-page-size="20" id = 'hk_time' style="width:100%">
                         <tbody>
                             <tr>
                                 <td>Index</td>
                                 <td id = 'index'></td>
+                            </tr>
+                            <tr>
                                 <td>Time</td>
                                 <td id='time'></td>
                                 <td>Now</td>
@@ -30,7 +32,7 @@
                 
                 <div class="ibox-content">
                     <table data-sort="false" class="footable" data-page-size="20" id='power' style="width:100%">
-                        <h5>Power</h5>
+                        <h5>Voltage & Current</h5>
                         <tbody>
                             <tr>
                                 <td></td>
@@ -104,7 +106,7 @@
                     </table>
                 </div>
                 <div class="ibox-content">
-                    <table data-sort="false" class="footable" data-page-size="56" id='temp1' style="width:100%">
+                    <table data-sort="false" class="footable" data-page-size="56" id='temp' style="width:100%">
                         <h5>Temperature [C]</h5>
                         <tbody>
                             <tr>
@@ -217,6 +219,27 @@
                                 <td>Flag</td>
                             </tr>
                             <tr>
+                                <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                            </tr>
+                            <tr>
+                                <td>Accel 1 [x,y,z]</td>
+                                <td id='accx-0'></td>
+                                <td id='accy-0'></td>
+                                <td id='accz-0'></td>
+                            </tr>
+                            <tr>
+                                <td>Accel 2 [x,y,z]</td>
+                                <td id='accx-1'></td>
+                                <td id='accy-1'></td>
+                                <td id='accz-1'></td>
+                            </tr>
+                            <tr>
+                                <td>Mag [x,y,z]</td>
+                                <td id='magx'></td>
+                                <td id='magy'></td>
+                                <td id='magz'></td>
+                            </tr>
+                            <tr>
                                 <td>SunSensor 1</td>
                                 <td id='ssel-0'></td>
                                 <td id='ssaz-0'></td>
@@ -240,6 +263,33 @@
                                 <td id='ssaz-3'></td>
                                 <td id='ssflag-3'></td>
                             </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+
+                <div class="ibox-content">
+                    <table data-sort="false" class="footable" data-page-size="20" id='sshk' style="width:100%">
+                    <h5>Extra Sun Sensor</h5>
+                        <tbody>
+                            <th>
+                                <td></td>
+                                <td ></td>
+                                <td></td>
+                                <td ></td>
+                            </th>
+                            <tr>
+                                <td>Index</td>
+                                <td id = 'index'></td>
+                            </tr>
+                            <tr>
+                                <td>Time</td>
+                                <td id='time'></td>
+                                <td>Now</td>
+                                <td id='now'></td>
+                            </tr>
+                        </tbody>
+                        <tbody>
                             <tr>
                                 <td>SunSensor 5</td>
                                 <td id='ssel-4'></td>
@@ -251,7 +301,7 @@
                                 <td id='ssel-5'></td>
                                 <td id='ssaz-5'></td>
                                 <td id='ssflag-5'></td>
-                            </tr>
+                            </tr>    
                             <tr>
                                 <td>SunSensor 7</td>
                                 <td id='ssel-6'></td>
@@ -263,27 +313,6 @@
                                 <td id='ssel-7'></td>
                                 <td id='ssaz-7'></td>
                                 <td id='ssflag-7'></td>
-                            </tr>
-                            <tr>
-                                <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
-                            </tr>
-                            <tr>
-                                <td>Accel 1 [x,y,z]</td>
-                                <td id='accx-0'></td>
-                                <td id='accy-0'></td>
-                                <td id='accz-0'></td>
-                            </tr>
-                            <tr>
-                                <td>Accel 2 [x,y,z]</td>
-                                <td id='accx-1'></td>
-                                <td id='accy-1'></td>
-                                <td id='accz-1'></td>
-                            </tr>
-                            <tr>
-                                <td>Mag [x,y,z]</td>
-                                <td id='magx'></td>
-                                <td id='magy'></td>
-                                <td id='magz'></td>
                             </tr>
                         </tbody>
                     </table>
@@ -660,12 +689,12 @@ var sync_on = false;
 function timeConverter(UNIX_timestamp) {
     var a = new Date(UNIX_timestamp * 1000);
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
-    var sec = a.getSeconds();
+    var year = a.getUTCFullYear();
+    var month = months[a.getUTCMonth()];
+    var date = a.getUTCDate();
+    var hour = a.getUTCHours();
+    var min = a.getUTCMinutes();
+    var sec = a.getUTCSeconds();
     if (parseInt(min) < 10){
         min = '0' + min;
     }
@@ -1004,72 +1033,73 @@ function update_sbst1_data($selector, new_data) {
 
     function updatehtml_hk(hk) {
         $.getJSON('/api/' + ip_db + '/hk/' + hk, function(data) {
-            $('#hk #index').html(i + 1 + "/" + hk_nbufs.length);
-            $('#hk #now').html(data.hk.now + " (" + timeConverter(data.hk.now) + ")");
-            $('#hk #time').html(data.hk.time + " (" + timeConverter(data.hk.time) + ")");
-            $('#power #p1_5v').html(data.hk.p1_5v);
-            $('#power #p3_3v').html(data.hk.p3_3v);
-            $('#power #p5v').html(data.hk.p5v);
-            $('#power #p5sbv').html(data.hk.p5sbv);
-            $('#power #p12v').html(data.hk.p12v);
-            $('#power #p24v').html(data.hk.p24v);
-            $('#power #ppvv').html(data.hk.ppvv);
-            $('#power #n5v').html(data.hk.n5v);
-            $('#power #n12v').html(data.hk.n12v);
-            $('#power #iprf1v').html(data.hk.iprf1v);
-            $('#power #iprf2v').html(data.hk.iprf2v);
-            $('#power #p1_5i').html(data.hk.p1_5i);
-            $('#power #p3_3i').html(data.hk.p3_3i);
-            $('#power #p5i').html(data.hk.p5i);
-            $('#power #p5sbi').html(data.hk.p5sbi);
-            $('#power #p12i').html(data.hk.p12i);
-            $('#power #p24i').html(data.hk.p24i);
-            $('#power #ppvi').html(data.hk.ppvi);
-            $('#power #n5i').html(data.hk.n5i);
-            $('#power #n12i').html(data.hk.n12i);
-            $('#power #iprf1i').html(data.hk.iprf1i);
-            $('#power #iprf2i').html(data.hk.iprf2i);
-            $('#power #bati').html(data.hk.bati);
+            $('#hk_time #index').html(i + 1 + "/" + hk_nbufs.length);
+            $('#hk_time #now').html(data.hk.now + " (" + timeConverter(data.hk.now) + ")");
+            $('#hk_time #time').html(data.hk.time + " (" + timeConverter(data.hk.time) + ")");
+            $('#hk #p1_5v').html(data.hk.p1_5v);
+            $('#hk #p3_3v').html(data.hk.p3_3v);
+            $('#hk #p5v').html(data.hk.p5v);
+            $('#hk #p5sbv').html(data.hk.p5sbv);
+            $('#hk #p12v').html(data.hk.p12v);
+            $('#hk #p24v').html(data.hk.p24v);
+            $('#hk #ppvv').html(data.hk.ppvv);
+            $('#hk #n5v').html(data.hk.n5v);
+            $('#hk #n12v').html(data.hk.n12v);
+            $('#hk #iprf1v').html(data.hk.iprf1v);
+            $('#hk #iprf2v').html(data.hk.iprf2v);
+            $('#hk #p1_5i').html(data.hk.p1_5i);
+            $('#hk #p3_3i').html(data.hk.p3_3i);
+            $('#hk #p5i').html(data.hk.p5i);
+            $('#hk #p5sbi').html(data.hk.p5sbi);
+            $('#hk #p12i').html(data.hk.p12i);
+            $('#hk #p24i').html(data.hk.p24i);
+            $('#hk #ppvi').html(data.hk.ppvi);
+            $('#hk #n5i').html(data.hk.n5i);
+            $('#hk #n12i').html(data.hk.n12i);
+            $('#hk #iprf1i').html(data.hk.iprf1i);
+            $('#hk #iprf2i').html(data.hk.iprf2i);
+            $('#hk #bati').html(data.hk.bati);
             
-            $('#aux #pressl').html(data.hk.pressl);
-            $('#aux #pressh').html(data.hk.pressh);
-            $('#aux #ssx-0').html(data.hk.ssx[0]);
-            $('#aux #ssx-1').html(data.hk.ssx[1]);
-            $('#aux #ssx-2').html(data.hk.ssx[2]);
-            $('#aux #ssx-3').html(data.hk.ssx[3]);
-            $('#aux #ssy-0').html(data.hk.ssy[0]);
-            $('#aux #ssy-1').html(data.hk.ssy[1]);
-            $('#aux #ssy-2').html(data.hk.ssy[2]);
-            $('#aux #ssy-3').html(data.hk.ssy[3]);
-            $('#aux #ssi-0').html(data.hk.ssi[0]);
-            $('#aux #ssi-1').html(data.hk.ssi[1]);
-            $('#aux #ssi-2').html(data.hk.ssi[2]);
-            $('#aux #ssi-3').html(data.hk.ssi[3]);
-            $('#aux #ssflag-0').html(data.hk.ssflag[0]);
-            $('#aux #ssflag-1').html(data.hk.ssflag[1]);
-            $('#aux #ssflag-2').html(data.hk.ssflag[2]);
-            $('#aux #ssflag-3').html(data.hk.ssflag[3]);
-            $('#aux #ssel-0').html(data.hk.ssel[0]);
-            $('#aux #ssel-1').html(data.hk.ssel[1]);
-            $('#aux #ssel-2').html(data.hk.ssel[2]);
-            $('#aux #ssel-3').html(data.hk.ssel[3]);
-            $('#aux #ssaz-0').html(data.hk.ssaz[0]);
-            $('#aux #ssaz-1').html(data.hk.ssaz[1]);
-            $('#aux #ssaz-2').html(data.hk.ssaz[2]);
-            $('#aux #ssaz-3').html(data.hk.ssaz[3]);
-            $('#aux #sst-0').html(data.hk.sst[0]);
-            $('#aux #sst-1').html(data.hk.sst[1]);
-            $('#aux #sst-2').html(data.hk.sst[2]);
-            $('#aux #sst-3').html(data.hk.sst[3]);
-            $('#aux #accx-0').html(data.hk.accx[0]);
-            $('#aux #accy-0').html(data.hk.accy[0]);
-            $('#aux #accz-0').html(data.hk.accz[0]);
-            $('#aux #accx-1').html(data.hk.accx[1]);
-            $('#aux #accy-1').html(data.hk.accy[1]);
-            $('#aux #accz-1').html(data.hk.accz[1]);
-            $('#aux #magx').html(data.hk.magx);
-            $('#aux #magy').html(data.hk.magy);
-            $('#aux #magz').html(data.hk.magz);
+            $('#hk #pressl').html(data.hk.pressl);
+            $('#hk #pressh').html(data.hk.pressh);
+            $('#hk #ssx-0').html(data.hk.ssx[0]);
+            $('#hk #ssx-1').html(data.hk.ssx[1]);
+            $('#hk #ssx-2').html(data.hk.ssx[2]);
+            $('#hk #ssx-3').html(data.hk.ssx[3]);
+            $('#hk #ssy-0').html(data.hk.ssy[0]);
+            $('#hk #ssy-1').html(data.hk.ssy[1]);
+            $('#hk #ssy-2').html(data.hk.ssy[2]);
+            $('#hk #ssy-3').html(data.hk.ssy[3]);
+            $('#hk #ssi-0').html(data.hk.ssi[0]);
+            $('#hk #ssi-1').html(data.hk.ssi[1]);
+            $('#hk #ssi-2').html(data.hk.ssi[2]);
+            $('#hk #ssi-3').html(data.hk.ssi[3]);
+            $('#hk #ssflag-0').html(data.hk.ssflag[0]);
+            $('#hk #ssflag-1').html(data.hk.ssflag[1]);
+            $('#hk #ssflag-2').html(data.hk.ssflag[2]);
+            $('#hk #ssflag-3').html(data.hk.ssflag[3]);
+            $('#hk #ssel-0').html(data.hk.ssel[0]);
+            $('#hk #ssel-1').html(data.hk.ssel[1]);
+            $('#hk #ssel-2').html(data.hk.ssel[2]);
+            $('#hk #ssel-3').html(data.hk.ssel[3]);
+            $('#hk #ssaz-0').html(data.hk.ssaz[0]);
+            $('#hk #ssaz-1').html(data.hk.ssaz[1]);
+            $('#hk #ssaz-2').html(data.hk.ssaz[2]);
+            $('#hk #ssaz-3').html(data.hk.ssaz[3]);
+            $('#hk #sst-0').html(data.hk.sst[0]);
+            $('#hk #sst-1').html(data.hk.sst[1]);
+            $('#hk #sst-2').html(data.hk.sst[2]);
+            $('#hk #sst-3').html(data.hk.sst[3]);
+            $('#hk #accx-0').html(data.hk.accx[0]);
+            $('#hk #accy-0').html(data.hk.accy[0]);
+            $('#hk #accz-0').html(data.hk.accz[0]);
+            $('#hk #accx-1').html(data.hk.accx[1]);
+            $('#hk #accy-1').html(data.hk.accy[1]);
+            $('#hk #accz-1').html(data.hk.accz[1]);
+            $('#hk #magx').html(data.hk.magx);
+            $('#hk #magy').html(data.hk.magy);
+            $('#hk #magz').html(data.hk.magz);
+            
             var sbst1_name;
             sbst1_name = '#sbst1';
             update_sbst1_data($(sbst1_name), parseInt(data.hk.sbst1));
@@ -1106,18 +1136,21 @@ function update_sbst1_data($selector, new_data) {
 function updatehtml_sshk(sshk) {
     if (!sshk) return;
     $.getJSON('/api/' + ip_db + '/sshk/' + sshk, function(data) {
-        $('#aux #ssflag-4').html(data.sshk.ssflag[0]);
-        $('#aux #ssflag-5').html(data.sshk.ssflag[1]);
-        $('#aux #ssflag-6').html(data.sshk.ssflag[2]);
-        $('#aux #ssflag-7').html(data.sshk.ssflag[3]);
-        $('#aux #ssel-4').html(data.sshk.ssel[0]);
-        $('#aux #ssel-5').html(data.sshk.ssel[1]);
-        $('#aux #ssel-6').html(data.sshk.ssel[2]);
-        $('#aux #ssel-7').html(data.sshk.ssel[3]);
-        $('#aux #ssaz-4').html(data.sshk.ssaz[0]);
-        $('#aux #ssaz-5').html(data.sshk.ssaz[1]);
-        $('#aux #ssaz-6').html(data.sshk.ssaz[2]);
-        $('#aux #ssaz-7').html(data.sshk.ssaz[3]);
+        $('#sshk #index').html(n + 1 + "/" + sshk_nbufs.length);
+        $('#sshk #now').html(data.sshk.now + " (" + timeConverter(data.sshk.now) + ")");
+        $('#sshk #time').html(data.sshk.time + " (" + timeConverter(data.sshk.time) + ")");
+        $('#sshk #ssflag-4').html(data.sshk.ssflag[0]);
+        $('#sshk #ssflag-5').html(data.sshk.ssflag[1]);
+        $('#sshk #ssflag-6').html(data.sshk.ssflag[2]);
+        $('#sshk #ssflag-7').html(data.sshk.ssflag[3]);
+        $('#sshk #ssel-4').html(data.sshk.ssel[0]);
+        $('#sshk #ssel-5').html(data.sshk.ssel[1]);
+        $('#sshk #ssel-6').html(data.sshk.ssel[2]);
+        $('#sshk #ssel-7').html(data.sshk.ssel[3]);
+        $('#sshk #ssaz-4').html(data.sshk.ssaz[0]);
+        $('#sshk #ssaz-5').html(data.sshk.ssaz[1]);
+        $('#sshk #ssaz-6').html(data.sshk.ssaz[2]);
+        $('#sshk #ssaz-7').html(data.sshk.ssaz[3]);
     });
 }
 
@@ -1438,6 +1471,7 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
             sshk_nbufs = sshk_nbufs.concat(data.sshk_nbufs);
             sshk_nows = sshk_nows.concat(data.sshk_nows);
             sshk_times = sshk_times.concat(data.sshk_times);
+            $('#sshk #index').html(n + 1 + "/" + sshk_nbufs.length);
             
             // console.log(sshk_nbufs);
             // console.log(sshk_nows);
