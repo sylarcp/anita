@@ -4,11 +4,15 @@ from .. import cache
 from app.models import Slow
 
 #Primary key list:  get the slow time list
-@api.route('/<ip_db>/slow/times/<start_time>')
-def get_slow_times(ip_db, start_time):
+@api.route('/<ip_db>/slow/times/<offset>')
+def get_slow_times(ip_db, offset):
     try:
-        slows =getattr(Slow,ip_db).with_entities(Slow.nbuf, Slow.now, Slow.time).filter(Slow.now>start_time).order_by(Slow.now).limit(200).all()
-        return jsonify({'slow_times': [item.time for item in slows], 'slow_nows': [item.now for item in slows], 'slow_times': [item.time for item in slows]})
+        engine_ip_db = ip_db.replace('query','session')
+        engine = getattr(Slow,engine_ip_db)
+        slows = engine.execute('select nbuf, now, time from slow offset ' + offset + ' limit 2000;').fetchall()
+        return jsonify({'slow_nbufs': [item[0] for item in slows], 'slow_nows': [item[1] for item in slows], 'slow_times': [item[2] for item in slows]})
+        # slows =getattr(Slow,ip_db).with_entities(Slow.nbuf, Slow.now, Slow.time).filter(Slow.now>offset).order_by(Slow.now).limit(200).all()
+        # return jsonify({'slow_times': [item.time for item in slows], 'slow_nows': [item.now for item in slows], 'slow_times': [item.time for item in slows]})
     except BaseException as error:
         print('Invalid request: {}', format(error))
         return jsonify({})

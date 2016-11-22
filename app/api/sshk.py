@@ -6,11 +6,15 @@ from app.models import Sshk
 
 # Primary key list: get the sshk now list
 
-@api.route('/<ip_db>/sshk/nbufs/<start_time>')
-def get_sshk_nbufs(ip_db, start_time):
+@api.route('/<ip_db>/sshk/nbufs/<offset>')
+def get_sshk_nbufs(ip_db, offset):
     try:
-        sshks =getattr(Sshk,ip_db).with_entities(Sshk.nbuf, Sshk.now, Sshk.time).filter(Sshk.now>start_time).order_by(Sshk.now).limit(200).all()
-        return jsonify({'sshk_nbufs': [item.nbuf for item in sshks], 'sshk_nows': [item.now for item in sshks], 'sshk_times': [item.time for item in sshks]})
+        engine_ip_db = ip_db.replace('query','session')
+        engine = getattr(Sshk,engine_ip_db)
+        sshks = engine.execute('select nbuf, now, time from sshk offset ' + offset + ' limit 2000;').fetchall()
+        return jsonify({'sshk_nbufs': [item[0] for item in sshks], 'sshk_nows': [item[1] for item in sshks], 'sshk_times': [item[2] for item in sshks]})
+        # sshks =getattr(Sshk,ip_db).with_entities(Sshk.nbuf, Sshk.now, Sshk.time).filter(Sshk.now>offset).order_by(Sshk.now).limit(200).all()
+        # return jsonify({'sshk_nbufs': [item.nbuf for item in sshks], 'sshk_nows': [item.now for item in sshks], 'sshk_times': [item.time for item in sshks]})
     except BaseException as error:
         print('Invalid request: {}', format(error))
         return jsonify({})

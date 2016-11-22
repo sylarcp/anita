@@ -1336,6 +1336,8 @@ var hk_surf_nows = [];
 var hk_surf_times = [];
 var i = 0;
 var j = 0;
+var offset_turf = 0;
+var offset_hk_surf = 0;
 var connected = false;
 var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
@@ -1532,7 +1534,7 @@ function updatehtml_hk_surf(hk_surf) {
         for (ii = 0; ii < 12; ii++) {
             for (jj = 0; jj < 12; jj++) {
                 thresh_name = '#thresh_' + ii + '_' + jj;
-                update_thresh_data($(thresh_name), parseInt(data.hk_surf.thresh[i][j]));
+                update_thresh_data($(thresh_name), parseInt(data.hk_surf.thresh[ii][jj]));
             }
         }
     });
@@ -1603,20 +1605,21 @@ $(document).ready(function() {
         turf_nows = data.turf_nows;
     });
 
-    function autoload(start_time) {
-        $.getJSON('/api/' + ip_db + '/turf/nbufs/' + start_time, function(data) {
-            new_length = data.turf_nbufs.length
+    function autoload() {
+        $.getJSON('/api/' + ip_db + '/turf/nbufs/' + offset_turf, function(data) {
+            new_length = data.turf_nbufs.length;
+            offset_turf += new_length;
             turf_nbufs = turf_nbufs.concat(data.turf_nbufs);
             turf_nows = turf_nows.concat(data.turf_nows);
             turf_times = turf_times.concat(data.turf_times);
-            start_time = Math.max.apply(null, turf_nows);
+            
             $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
             $('#connect').html('Disconnect');
             $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
             // switchery.enable();
             connected = true;
             connect.ladda('stop');
-            console.log(start_time);
+            console.log(offset_turf);
             console.log(turf_times.length);
         }).done(function() {
             setTimeout(function() {
@@ -1626,13 +1629,14 @@ $(document).ready(function() {
                     sleep_interval = Math.min(sleep_interval * 1.2, 60000);
                 }
                 if (connected == true) {
-                    autoload(start_time);
+                    autoload();
                 }
             }, sleep_interval);
 
         });
-        $.getJSON('/api/' + ip_db + '/hk_surf/nbufs/' + start_time, function(data) {
-            new_length = data.hk_surf_nbufs.length
+        $.getJSON('/api/' + ip_db + '/hk_surf/nbufs/' + offset_hk_surf, function(data) {
+            new_length = data.hk_surf_nbufs.length;
+            offset_hk_surf += new_length
             hk_surf_nbufs = hk_surf_nbufs.concat(data.hk_surf_nbufs);
             hk_surf_nows = hk_surf_nows.concat(data.hk_surf_nows);
             hk_surf_times = hk_surf_times.concat(data.hk_surf_times);
@@ -1650,12 +1654,14 @@ $(document).ready(function() {
             hk_surf_times = [];
             i = 0;
             j = 0;
+            offset_turf = 0;
+            offset_hk_surf = 0;
             connect.ladda('start');
             $.ajax({
                 url: '/api/connect/' + ip + '/' + db
             }).done(function(response) {
                 if (response == 'success') {
-                    autoload(0);
+                    autoload();
                     setTimeout(function(){
                         $('#first').click();
                     },1000);
@@ -1678,6 +1684,8 @@ $(document).ready(function() {
             hk_surf_times = [];
             i = 0;
             j = 0;
+            offset_turf = 0;
+            offset_hk_surf = 0;
             //otherwise, stop all the requests.
             $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
             $('#connect').html('Connect');

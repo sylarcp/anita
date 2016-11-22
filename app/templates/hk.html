@@ -643,15 +643,15 @@ var hk_nbufs=[];
  var o=0;
  var p=0;
  var q=0;
- var start_time_hk = 0;
- var start_time_sshk = 0;
- var start_time_mon = 0;
- var start_time_cmd = 0;
- var start_time_adu5_pat = 0;
- var start_time_adu5_vtg = 0;
- var start_time_adu5_sat = 0;
- var start_time_g12_pos = 0;
- var start_time_g12_sat = 0;
+ var offset_hk = 0;
+ var offset_sshk = 0;
+ var offset_mon = 0;
+ var offset_cmd = 0;
+ var offset_adu5_pat = 0;
+ var offset_adu5_vtg = 0;
+ var offset_adu5_sat = 0;
+ var offset_g12_pos = 0;
+ var offset_g12_sat = 0;
 
  var connected = false;
  var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
@@ -1407,9 +1407,9 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
 
 
     function autoload() {
-        $.getJSON('/api/' + ip_db + '/hk/nbufs/' + start_time_hk, function(data) {
+        $.getJSON('/api/' + ip_db + '/hk/nbufs/' + offset_hk, function(data) {
             new_length = data.hk_nbufs.length
-            start_time_hk = Math.max(start_time_hk, Math.max.apply(null, data.hk_nows));
+            offset_hk += new_length
             hk_nbufs = hk_nbufs.concat(data.hk_nbufs);
             hk_nows = hk_nows.concat(data.hk_nows);
             hk_times = hk_times.concat(data.hk_times);
@@ -1433,8 +1433,8 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
                 }
             }, sleep_interval);
         });
-        $.getJSON('/api/' + ip_db + '/sshk/nbufs/' + start_time_sshk, function(data) {
-            start_time_sshk = Math.max(start_time_sshk, Math.max.apply(null, data.sshk_nows));
+        $.getJSON('/api/' + ip_db + '/sshk/nbufs/' + offset_sshk, function(data) {
+            offset_sshk += data.sshk_nbufs.length;
             sshk_nbufs = sshk_nbufs.concat(data.sshk_nbufs);
             sshk_nows = sshk_nows.concat(data.sshk_nows);
             sshk_times = sshk_times.concat(data.sshk_times);
@@ -1443,52 +1443,52 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
             // console.log(sshk_nows);
             // console.log(sshk_times);
         });
-        $.getJSON('/api/' + ip_db + '/mon/nbufs/' + start_time_mon, function(data) {
-            start_time_mon = Math.max(start_time_mon, Math.max.apply(null, data.mon_nows));
+        $.getJSON('/api/' + ip_db + '/mon/nbufs/' + offset_mon, function(data) {
+            offset_mon += data.mon_nbufs.length;
             mon_nbufs = mon_nbufs.concat(data.mon_nbufs);
             mon_nows = mon_nows.concat(data.mon_nows);
             mon_times = mon_times.concat(data.mon_times);
             
             $('#montimes #index').html(j + 1 + "/" + mon_nbufs.length);
         });
-        $.getJSON('/api/' + ip_db + '/cmd/nbufs/' + start_time_cmd, function(data) {
-            start_time_cmd = Math.max(start_time_cmd, Math.max.apply(null, data.cmd_nows));
+        $.getJSON('/api/' + ip_db + '/cmd/nbufs/' + offset_cmd, function(data) {
+            offset_cmd += data.cmd_nbufs.length;
             cmd_nbufs = cmd_nbufs.concat(data.cmd_nbufs);
             cmd_nows = cmd_nows.concat(data.cmd_nows);
             cmd_times = cmd_times.concat(data.cmd_times);
             $('#cmd #index').html(q + 1 + "/" + cmd_nbufs.length);
         });
-        $.getJSON('/api/' + ip_db + '/adu5_pat/nbufs/' + start_time_adu5_pat, function(data) {
-            start_time_adu5_pat = Math.max(start_time_adu5_pat, Math.max.apply(null, data.adu5_pat_nows));
+        $.getJSON('/api/' + ip_db + '/adu5_pat/nbufs/' + offset_adu5_pat, function(data) {
+            offset_adu5_pat += data.adu5_pat_nbufs.length;
             adu5_pat_nbufs = adu5_pat_nbufs.concat(data.adu5_pat_nbufs);
             adu5_pat_nows = adu5_pat_nows.concat(data.adu5_pat_nows);
             adu5_pat_times = adu5_pat_times.concat(data.adu5_pat_times);
             
             $('#gps #index').html(k + 1 + "/" + adu5_pat_nbufs.length);
         });
-        $.getJSON('/api/' + ip_db + '/adu5_vtg/nbufs/' + start_time_adu5_vtg, function(data) {
-            start_time_adu5_vtg = Math.max(start_time_adu5_vtg, Math.max.apply(null, data.adu5_vtg_nows));
+        $.getJSON('/api/' + ip_db + '/adu5_vtg/nbufs/' + offset_adu5_vtg, function(data) {
+            offset_adu5_vtg += data.adu5_vtg_nbufs.length;
             adu5_vtg_nbufs = adu5_vtg_nbufs.concat(data.adu5_vtg_nbufs);
             adu5_vtg_nows = adu5_vtg_nows.concat(data.adu5_vtg_nows);
             adu5_vtg_times = adu5_vtg_times.concat(data.adu5_vtg_times);
             
         });
-        $.getJSON('/api/' + ip_db + '/adu5_sat/nbufs/' + start_time_adu5_sat, function(data) {
-            start_time_adu5_sat = Math.max(start_time_adu5_sat, Math.max.apply(null, data.adu5_sat_nows));
+        $.getJSON('/api/' + ip_db + '/adu5_sat/nbufs/' + offset_adu5_sat, function(data) {
+            offset_adu5_sat += data.adu5_sat_nbufs.length;
             adu5_sat_nbufs = adu5_sat_nbufs.concat(data.adu5_sat_nbufs);
             adu5_sat_nows = adu5_sat_nows.concat(data.adu5_sat_nows);
             adu5_sat_times = adu5_sat_times.concat(data.adu5_sat_times);
             
         });
-        $.getJSON('/api/' + ip_db + '/g12_pos/nbufs/' + start_time_g12_pos, function(data){
-           start_time_g12_pos = Math.max(start_time_g12_pos, Math.max.apply(null, data.g12_pos_nows));
+        $.getJSON('/api/' + ip_db + '/g12_pos/nbufs/' + offset_g12_pos, function(data){
+           offset_g12_pos += data.g12_pos_nbufs.length;
            g12_pos_nbufs=g12_pos_nbufs.concat(data.g12_pos_nbufs);
            g12_pos_nows=g12_pos_nows.concat(data.g12_pos_nows);
            g12_pos_times=g12_pos_times.concat(data.g12_pos_times);
            
        });
-        $.getJSON('/api/' + ip_db + '/g12_sat/nbufs/' + start_time_g12_sat, function(data){
-            start_time_g12_sat = Math.max(start_time_g12_sat, Math.max.apply(null, data.g12_sat_nows));         
+        $.getJSON('/api/' + ip_db + '/g12_sat/nbufs/' + offset_g12_sat, function(data){
+            offset_g12_sat += data.g12_sat_nbufs.length;      
            g12_sat_nbufs=g12_sat_nbufs.concat(data.g12_sat_nbufs);
            g12_sat_nows=g12_sat_nows.concat(data.g12_sat_nows);
            g12_sat_times=g12_sat_times.concat(data.g12_sat_times);
@@ -1534,15 +1534,15 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
         o=0;
         p=0;
         q=0;
-        start_time_hk = 0;
-        start_time_sshk = 0;
-        start_time_mon = 0;
-        start_time_cmd = 0;
-        start_time_adu5_pat = 0;
-        start_time_adu5_vtg = 0;
-        start_time_adu5_sat = 0;
-        start_time_g12_pos = 0;
-        start_time_g12_sat = 0;
+        offset_hk = 0;
+        offset_sshk = 0;
+        offset_mon = 0;
+        offset_cmd = 0;
+        offset_adu5_pat = 0;
+        offset_adu5_vtg = 0;
+        offset_adu5_sat = 0;
+        offset_g12_pos = 0;
+        offset_g12_sat = 0;
         if ($(this).hasClass('connect')) {
             
             connect.ladda('start');
@@ -1550,10 +1550,10 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
                 url: '/api/connect/' + ip + '/' + db
             }).done(function(response) {
                 if (response == 'success') {
-                    autoload(0);
+                    autoload();
                     setTimeout(function(){
                         $('#first').click();
-                    },3000);
+                    },1000);
                 } else {
                     connect.ladda('stop');
                     swal({

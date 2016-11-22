@@ -5,11 +5,15 @@ from .. import cache
 from app.models import Hk
 
 
-@api.route('/<ip_db>/hk/nbufs/<start_time>')
-def get_hk_nbufs(ip_db, start_time):
+@api.route('/<ip_db>/hk/nbufs/<offset>')
+def get_hk_nbufs(ip_db, offset):
     try:
-        hks =getattr(Hk,ip_db).with_entities(Hk.nbuf, Hk.now, Hk.time).filter(Hk.now>start_time).order_by(Hk.now, Hk.time).limit(200).all()
-        return jsonify({'hk_nbufs': [item.nbuf for item in hks], 'hk_nows': [item.now for item in hks], 'hk_times': [item.time for item in hks]})
+        engine_ip_db = ip_db.replace('query','session')
+        engine = getattr(Hk,engine_ip_db)
+        hks = engine.execute('select nbuf, now, time from hk offset ' + offset + ' limit 2000;').fetchall()
+        return jsonify({'hk_nbufs': [item[0] for item in hks], 'hk_nows': [item[1] for item in hks], 'hk_times': [item[2] for item in hks]})
+        # hks =getattr(Hk,ip_db).with_entities(Hk.nbuf, Hk.now, Hk.time).filter(Hk.now>offset).order_by(Hk.now, Hk.time).limit(200).all()
+        # return jsonify({'hk_nbufs': [item.nbuf for item in hks], 'hk_nows': [item.now for item in hks], 'hk_times': [item.time for item in hks]})
     except BaseException as error:
         print('Invalid request: {}', format(error))
         return jsonify({})
