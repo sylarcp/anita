@@ -28,6 +28,17 @@ def get_rf_nbufs(ip_db, offset):
         print('Invalid request: get_rf_nbufs()', format(error))
         return jsonify({})
 
+@api.route('/<ip_db>/eventrate/<dt>')
+def get_eventrate(ip_db, dt):
+    try:
+        engine_ip_db = ip_db.replace('query','session')
+        engine = getattr(Hd,engine_ip_db)
+        eventrate = engine.execute('select eventrate(' + dt + ');').fetchall()
+        return jsonify({'eventrate': eventrate[0][0]})
+    except BaseException as error:
+        print('Invalid request: get_eventrate()', format(error))
+        return jsonify({})
+
 # get the length of hd nbuf list
 @api.route('/<ip_db>/hd/count')
 def get_hd_count(ip_db):

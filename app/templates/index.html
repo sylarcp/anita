@@ -94,6 +94,10 @@
                                 <td>l1maskh</td>
                                 <td id='l1maskh'></td>
                             </tr>
+                            <tr>
+                                <td>event rate</td>
+                                <td id='eventrate'></td>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -1129,10 +1133,19 @@
                 }, sleep_interval);
             });
         }
+        function getEventRate() {
+            $.getJSON('/api/' + ip_db + '/eventrate/' + '30', function(data) {
+                    $('#hd #eventrate').html(data.eventrate);
+            });
+        }
+
+
+ 
 
 
         var connect = $('.ladda-button').ladda();
         $('#connect').click(function() {
+            var eventRateTimer ;
             offset = 0;
             hd_nbufs = [];
             hd_evnums = [];
@@ -1146,6 +1159,7 @@
                 }).done(function(response) {
                     if (response == 'success') {
                         console.log('succeed');
+                        eventRateTimer = setInterval(function(){ getEventRate() }, 2000);
                         autoload(0);
                         console.log('after autoload');
                         setTimeout(function(){
@@ -1163,6 +1177,7 @@
                 });
             } else {
                 //otherwise, stop all the requests.
+                clearInterval(eventRateTimer);
                 $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
                 $('#connect').html('Connect');
                 $('.chosen-select').attr("disabled", false).trigger("chosen:updated");
