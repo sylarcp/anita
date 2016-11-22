@@ -30,7 +30,7 @@ def get_hk_count(ip_db):
 
 
 @api.route('/<ip_db>/hk/<nbuf>')
-@cache.cached(timeout=3600)
+# @cache.cached(timeout=3600)
 def get_hk(ip_db, nbuf):
     try:
         hk =getattr(Hk,ip_db).filter_by(nbuf=nbuf).first()

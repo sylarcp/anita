@@ -31,7 +31,7 @@ def get_sshk_count(ip_db):
 
 
 @api.route('/<ip_db>/sshk/<nbuf>')
-@cache.cached(timeout=3600)
+# @cache.cached(timeout=3600)
 def get_sshk(ip_db, nbuf):
     try:
         print 'hello'

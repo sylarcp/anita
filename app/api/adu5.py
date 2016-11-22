@@ -29,7 +29,7 @@ def get_adu5_sat_nbufs(ip_db, start_time):
         print('Invalid request: {}', format(error))
         return jsonify({})
 @api.route('/<ip_db>/adu5_pat/<nbuf>')
-@cache.cached(timeout=3600)
+# @cache.cached(timeout=3600)
 def get_adu5_pat(ip_db, nbuf):
     try:
         adu5_pat =getattr(Adu5_pat,ip_db).filter_by(nbuf=nbuf).first()
@@ -38,7 +38,7 @@ def get_adu5_pat(ip_db, nbuf):
         print('Invalid request: {}', format(error))
         return jsonify({})
 @api.route('/<ip_db>/adu5_sat/<nbuf>')
-@cache.cached(timeout=3600)
+# @cache.cached(timeout=3600)
 def get_adu5_sat(ip_db, nbuf):
     try:
         adu5_sat =getattr(Adu5_sat,ip_db).filter_by(nbuf=nbuf).first()
@@ -47,7 +47,7 @@ def get_adu5_sat(ip_db, nbuf):
         print('Invalid request: {}', format(error))
         return jsonify({})
 @api.route('/<ip_db>/adu5_vtg/<nbuf>')
-@cache.cached(timeout=3600)
+# @cache.cached(timeout=3600)
 def get_adu5_vtg(ip_db, nbuf):
     try:
 #    print ""

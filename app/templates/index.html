@@ -158,22 +158,6 @@
                         </a>
                     </div>
                     <div class="ibox-content">
-                        <table data-sort="false" class="footable" data-page-size="56" id='rf' style="width:100%">
-                            <tbody>
-                                <th>
-                                    <td>Index:</td>
-                                    <td id = 'index'></td>
-                                    <td>Time:</td>
-                                    <td id='time'></td>
-                                    <td> Now:</td>
-                                    <td id='now'></td>
-                                    <td> evnum:</td>
-                                    <td id='evnum'></td>
-                                </th>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="ibox-content">
                         <table data-sort="false" class="footable" id='wv' style="width:100% height:100%" data-page-size="13">
                             <tbody>
                                 <th>
@@ -528,17 +512,11 @@
     var hd_evnums = [];
     var hd_times = [];
     var hd_nows = [];
-    var rf_nbufs = [];
-    var rf_evnums = [];
-    var rf_times = [];
-    var rf_nows = [];
     var i = 0;
-    var j = 0;
     var currentData=null;
     var datatype = 'mV';
     var dataview = 'Surf';
-    var max_start_time = 0;
-    var sync_on = false;
+    var offset = 0;
     var id2phi = {106:0, 102:0,50:1, 46:1,97:2, 93:2,37:3, 41:3,104:4, 100:4,43:5, 39:5,95:6, 91:6,52:7, 48:7,105:8, 101:8,49:9, 45:9,96:10, 92:10,40:11, 36:11,103:12, 99:12,42:13, 38:13,94:14, 90:14,51:15, 47:15,86:0, 82:0,34:1, 30:1,77:2, 73:2,25:3, 21:3,79:4, 75:4,32:5, 28:5,88:6, 84:6,23:7, 19:7,85:8, 81:8,33:9, 29:9,76:10, 72:10,24:11, 20:11,78:12, 74:12,31:13, 27:13,87:14, 83:14,22:15, 18:15,61:0, 57:0,5:1, 1:1,70:2, 66:2,14:3, 10:3,59:4, 55:4,16:5, 12:5,68:6, 64:6,7:7, 3:7,60:8, 56:8,4:9, 0:9,69:10, 65:10,13:11, 9:11,58:12, 54:12,15:13, 11:13,67:14, 63:14,6:15, 2:15};
     var id2pol = {106:'h', 102:'v', 50:'h', 46:'v', 97:'h', 93:'v', 37:'h', 41:'v', 104:'h', 100:'v', 43:'h', 39:'v', 95:'h', 91:'v', 52:'h', 48:'v', 105:'h', 101:'v', 49:'h', 45:'v', 96:'h', 92:'v', 40:'h', 36:'v', 103:'h', 99:'v', 42:'h', 38:'v', 94:'h', 90:'v', 51:'h', 47:'v', 86:'h', 82:'v', 34:'h', 30:'v', 77:'h', 73:'v', 25:'h', 21:'v', 79:'h', 75:'v', 32:'h', 28:'v', 88:'h', 84:'v', 23:'h', 19:'v', 85:'h', 81:'v', 33:'h', 29:'v', 76:'h', 72:'v', 24:'h', 20:'v', 78:'h', 74:'v', 31:'h', 27:'v', 87:'h', 83:'v', 22:'h', 18:'v', 61:'h', 57:'v', 5:'h', 1:'v', 70:'h', 66:'v', 14:'h', 10:'v', 59:'h', 55:'v', 16:'h', 12:'v', 68:'h', 64:'v', 7:'h', 3:'v', 60:'h', 56:'v', 4:'h', 0:'v', 69:'h', 65:'v', 13:'h', 9:'v', 58:'h', 54:'v', 15:'h', 11:'v', 67:'h', 63:'v', 6:'h', 2:'v',};
     var surfMap = [
@@ -709,29 +687,6 @@
             drawNormalOnTop: maskon?true:undefined
         });
     }
-
-    function updatehtml_hd (nbuf) {
-         $.getJSON('/api/' + ip_db + '/hd/' + nbuf, function(data) {
-            $('#hd #index').html(j + 1 + "/" + hd_nbufs.length);
-            $('#hd #nbuf').html(data.hd.nbuf);
-            $('#hd #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
-            $('#hd #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
-            $('#hd #us').html(data.hd.us);
-            $('#hd #ns').html(data.hd.ns);
-            $('#hd #evnum').html(data.hd.evnum);
-            $('#hd #priority').html(data.hd.priority);
-            $('#hd #trigtype').html(data.hd.trigtype);
-            $('#hd #trignum').html(data.hd.trignum);
-            $('#hd #trigtime').html(data.hd.trigtime);
-            $('#hd #l3cnt').html(data.hd.l3cnt);
-            $('#hd #pps').html(data.hd.pps);
-            $('#hd #deadtime').html(data.hd.deadtime);
-            $('#hd #turfword').html(data.hd.turfword);
-            $('#hd #calib').html(data.hd.calib);
-            $('#hd #l1mask').html(byteString(data.hd.l1mask));
-            $('#hd #l1maskh').html(byteString(data.hd.l1maskh));
-        });
-    }
     function get_mask(id, l1maskv, l1maskh){
         maskon = false;
         if ((id + 1) % 9 == 0){
@@ -750,12 +705,27 @@
 
     }
 
-    function updatehtml_rf(nbuf) {
+    function updatehtml_hd(nbuf) {
         $.getJSON('/api/' + ip_db + '/hd/' + nbuf, function(data) {
-            $('#rf #index').html(i + 1 + "/" + rf_nbufs.length);
-            $('#rf #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
-            $('#rf #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
-            $('#rf #evnum').html(data.hd.evnum);
+            $('#hd #index').html(i + 1 + " / " + hd_nbufs.length + "  ");
+            $('#hd #nbuf').html(data.hd.nbuf);
+            $('#hd #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
+            $('#hd #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
+            $('#hd #us').html(data.hd.us);
+            $('#hd #ns').html(data.hd.ns);
+            $('#hd #evnum').html(data.hd.evnum);
+            $('#hd #priority').html(data.hd.priority);
+            $('#hd #trigtype').html(data.hd.trigtype);
+            $('#hd #trignum').html(data.hd.trignum);
+            $('#hd #trigtime').html(data.hd.trigtime);
+            $('#hd #l3cnt').html(data.hd.l3cnt);
+            $('#hd #pps').html(data.hd.pps);
+            $('#hd #deadtime').html(data.hd.deadtime);
+            $('#hd #turfword').html(data.hd.turfword);
+            $('#hd #calib').html(data.hd.calib);
+            $('#hd #l1mask').html(byteString(data.hd.l1mask));
+            $('#hd #l1maskh').html(byteString(data.hd.l1maskh));
+
             l1maskv = data.hd.l1mask;
             l1maskh = data.hd.l1maskh;
 
@@ -932,15 +902,10 @@
             });
         });
     }
-    function updatehtml_all (i) {
-        updatehtml_rf(rf_nbufs[i]);
-        j=hd_nbufs.indexOf(rf_nbufs[i]);
-        if (j!=-1) updatehtml_hd(hd_nbufs[j]);
-    }
-
-
     $(document).ready(function() {
         $('#navbar_aview').parent().addClass("active");
+        $('#label_sync_checkbox').attr('style', 'display:none');
+        $('#sync_checkbox').attr('style', 'display:none');
 
         $(window).on('resize', resizeWindow);
         
@@ -1103,10 +1068,10 @@
 
         
         var connected = false;
-        var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
+        var sleep_interval = 100 //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
         $('.wv_range').change(function() {
-            updatehtml_rf(rf_nbufs[i]);
+            updatehtml_hd(hd_nbufs[i]);
         });
 
 
@@ -1124,63 +1089,50 @@
 
         
 
-        function autoload(start_time) {
-            $.getJSON('/api/' + ip_db + '/rf/nbufs/' + start_time, function(data) {
-                console.log('rf api');
+        function autoload(offset) {
+            $.getJSON('/api/' + ip_db + '/hd/nbufs/' + offset, function(data) {
+                console.log('hd api');
                 console.log(data);
-                new_length = data.rf_nbufs.length
-                rf_nbufs = rf_nbufs.concat(data.rf_nbufs);
-                rf_evnums = rf_evnums.concat(data.rf_evnums);
-                rf_times = rf_times.concat(data.rf_times);
-                rf_nows = rf_nows.concat(data.rf_nows);
-                start_time = Math.max.apply(null, data.rf_nows);
-                max_start_time = Math.max(start_time,max_start_time);
-                start_time = max_start_time;
+                
+                new_length = data.hd_nbufs.length;
+                offset += new_length;
+                hd_nbufs = hd_nbufs.concat(data.hd_nbufs);
+                hd_evnums = hd_evnums.concat(data.hd_evnums);
+                hd_times = hd_times.concat(data.hd_times);
+                hd_nows = hd_nows.concat(data.hd_nows);
+                // offset = Math.max(offset, Math.max.apply(null, data.hd_nows));
+                $('#hd #index').html(i + 1 + " / " + hd_nbufs.length + "  ");
                 $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
                 $('#connect').html('Disconnect');
                 $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
                 connected = true;
                 $('#connect').value = 'Disconnect'
                 connect.ladda('stop');
-                console.log(start_time);
+                console.log(offset);
                 
             }).done(function() {
                 setTimeout(function() {
                     if (new_length) {
-                        sleep_interval = 2000;
+                        sleep_interval = 100;
                     } else {
                         sleep_interval = Math.min(sleep_interval * 1.2, 60000);
                     }
                     if (connected == true) {
-                        autoload(start_time);
+                        autoload(offset);
                     }
                 }, sleep_interval);
-
-            });
-            $.getJSON('/api/' + ip_db + '/hd/nbufs/' + start_time, function(data) {
-                console.log(data.hd_evnums);
-                hd_nbufs = hd_nbufs.concat(data.hd_nbufs);
-                hd_evnums = hd_evnums.concat(data.hd_evnums);
-                hd_times = hd_times.concat(data.hd_times);
-                hd_nows = hd_nows.concat(data.hd_nows);
-                console.log(hd_nbufs.length);
             });
         }
 
 
         var connect = $('.ladda-button').ladda();
         $('#connect').click(function() {
-            max_start_time = 0;
+            offset = 0;
             hd_nbufs = [];
             hd_evnums = [];
             hd_times = [];
             hd_nows = [];
-            rf_nbufs = [];
-            rf_evnums = [];
-            rf_times = [];
-            rf_nows = [];
             i = 0;
-            j = 0;
             if ($(this).hasClass('connect')) {
                 connect.ladda('start');
                 $.ajax({
@@ -1190,9 +1142,9 @@
                         console.log('succeed');
                         autoload(0);
                         console.log('after autoload');
-                        setTimeout(function(){
-                            $('#first').click();
-                        },1000);
+                        // setTimeout(function(){
+                        //     $('#first').click();
+                        // },1000);
                     } else {
                         connect.ladda('stop');
                         swal({
@@ -1225,65 +1177,33 @@
                     document.getElementById("wv").style.display = "none";
                 }
             }
-            updatehtml_rf(rf_nbufs[i]);
+            updatehtml_hd(hd_nbufs[i]);
         });
 
         $('#next').click(function() {
-            if (sync_on){
-                if (i < rf_nbufs.length - 1) {
-                    i = i + 1;
-                    updatehtml_all(i);
-                };
-            }else{
-                if (i<rf_nbufs.length-1)       {i=i+1; updatehtml_rf(rf_nbufs[i]);}
-                if (j<hd_nbufs.length-1)       {j=j+1; updatehtml_hd(hd_nbufs[j]);}
-            }
-            sleep_interval = 2000;
+            if (i < hd_nbufs.length - 1) {
+                i = i + 1;
+                updatehtml_hd(hd_nbufs[i]);
+            }; 
+            sleep_interval = 100;
         });
         $('#prev').click(function() {
-            if (sync_on){
-                if (i > 0) {
-                    i = i - 1;
-                    updatehtml_all(i);
-                };
-            }else{
-                if (i>0)  {i=i-1; updatehtml_rf(rf_nbufs[i]);}
-                if (j>0)  {j=j-1; updatehtml_hd(hd_nbufs[j]);}
-            }
-            sleep_interval = 2000;
+            if (i > 0) {
+                i = i - 1;
+                updatehtml_hd(hd_nbufs[i]);
+            };
+            sleep_interval = 100;
         });
         $('#first').click(function() {
-            if (sync_on){
-                i = 0;
-                updatehtml_all(i);
-            }else{
-                {i=0; updatehtml_rf(rf_nbufs[i]);}
-                {j=0; updatehtml_hd(hd_nbufs[j]);}
-            }
-            sleep_interval = 2000;
+            i = 0;
+            updatehtml_hd(hd_nbufs[i]);
+            sleep_interval = 100;
         });
         $('#last').click(function() {
-            if (sync_on){
-                i = rf_nbufs.length - 1;
-                updatehtml_all(i);
-            }else{
-                {i=rf_nbufs.length-1; updatehtml_rf(rf_nbufs[i]);}
-                {j=hd_nbufs.length-1; updatehtml_hd(hd_nbufs[j]);}
-            }
-            sleep_interval = 2000;
+            i = hd_nbufs.length - 1;
+            updatehtml_hd(hd_nbufs[i]);
+            sleep_interval = 100;
         });
-
-        var sync_checkbox = $('#sync_checkbox')[0];
-        var switchery_sync = new Switchery(sync_checkbox, { color: '#1AB394' });
-        sync_checkbox.onchange = function() {
-            if (sync_checkbox.checked) {
-                sync_on = true;
-               
-            } else {
-                sync_on = false;
-            };
-        };
-        $('#sync_checkbox').trigger('click');
         var auto_checkbox = $('#auto_checkbox')[0];
         var switchery = new Switchery(auto_checkbox, {
             color: '#1AB394'
@@ -1292,14 +1212,9 @@
         auto_checkbox.onchange = function() {
             if (auto_checkbox.checked) {
                 autoNext = setInterval(function() {
-                    if (sync_on){
-                        if (i < rf_nbufs.length - 1) {
-                            i = i + 1;
-                            updatehtml_all(i);
-                        };
-                    }else{
-                        if (i<rf_nbufs.length-1)       {i=i+1; updatehtml_rf(rf_nbufs[i]);}
-                        if (j<hd_nbufs.length-1)       {j=j+1; updatehtml_hd(hd_nbufs[j]);}
+                    if (i < hd_nbufs.length - 1) {
+                        i = i + 1;
+                        updatehtml_hd(hd_nbufs[i]);
                     };
                 }, 2000);
             } else {
@@ -1311,30 +1226,19 @@
         $('#goto').click(function() {
             var keywords = parseInt($('#keywords').val());
             console.log(keywords);
-            if (sync_on){
-                var index = rf_evnums.indexOf(keywords);
-                if (index != -1 && keywords) {
-                    i = index;
-                    console.log(i);
-                    updatehtml_all(i);
-                    swal({  title: 'Matched wv and hd are found!', type: "success", timer: 3000, showConfirmButton: true});
-                } else {
-                    swal({
-                        title: 'Data not found!',
-                        type: "warning",
-                        timer: 3000,
-                        showConfirmButton: true
-                    });
-                }
-            }else{
-                var message = '';
-                var index=rf_evnums.indexOf(keywords);       if(index!=-1 && keywords) { i=index; updatehtml_rf(rf_nbufs[i]); message += 'wv ';}
-                var index=hd_evnums.indexOf(keywords);       if(index!=-1 && keywords) { i=index; updatehtml_hd(hd_nbufs[i]); message += 'hd ';}
-                if (message == ''){
-                    swal({  title: 'No matched evnum found!', type: "warning", timer: 3000, showConfirmButton: true});
-                }else{
-                    swal({  title: 'Matched '+message + 'evnum are found!', type: "success", timer: 3000, showConfirmButton: true});
-                }
+            var index = hd_evnums.indexOf(keywords);
+            if (index != -1 && keywords) {
+                i = index;
+                console.log(i);
+                updatehtml_hd(i);
+                swal({  title: 'Matched wv and hd are found!', type: "success", timer: 3000, showConfirmButton: true});
+            } else {
+                swal({
+                    title: 'Data not found!',
+                    type: "warning",
+                    timer: 3000,
+                    showConfirmButton: true
+                });
             }
         });
     });

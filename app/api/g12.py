@@ -21,7 +21,7 @@ def get_g12_sat_nbufs(ip_db, start_time):
         print('Invalid request: {}', format(error))
         return jsonify({})
 @api.route('/<ip_db>/g12_pos/<nbuf>')
-@cache.cached(timeout=3600)
+# @cache.cached(timeout=3600)
 def get_g12_pos(ip_db, nbuf):
     try:
         g12_pos =getattr(G12_pos,ip_db).filter_by(nbuf=nbuf).first()
@@ -30,7 +30,7 @@ def get_g12_pos(ip_db, nbuf):
         print('Invalid request: {}', format(error))
         return jsonify({})
 @api.route('/<ip_db>/g12_sat/<nbuf>')
-@cache.cached(timeout=3600)
+# @cache.cached(timeout=3600)
 def get_g12_sat(ip_db, nbuf):
     try:
 #    print ""

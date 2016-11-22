@@ -18,7 +18,7 @@ def get_mon_nbufs(ip_db, start_time):
 # get the length of mon now list
 
 @api.route('/<ip_db>/mon/<nbuf>')
-@cache.cached(timeout=3600)
+# @cache.cached(timeout=3600)
 def get_mon(ip_db, nbuf):
 
     ## This will print a value into the command prompt with the first nbuf value that works

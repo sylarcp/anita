@@ -14,7 +14,7 @@ def get_slow_times(ip_db, start_time):
         return jsonify({})
 #get the length of slow time list
 @api.route('/<ip_db>/slow/count')
-@cache.cached(timeout=3600)
+# @cache.cached(timeout=3600)
 def get_slow_count(ip_db):
     try:
         count = getattr(Slow,ip_db).count()
@@ -25,7 +25,7 @@ def get_slow_count(ip_db):
         return jsonify({})
 #get a tuple of slow table
 @api.route('/<ip_db>/slow/<time>')
-@cache.cached(timeout=3600)
+# @cache.cached(timeout=3600)
 def get_slow(ip_db, time):
     try:
         slow = getattr(Slow,ip_db).filter_by(time=time).first()

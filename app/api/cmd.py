@@ -18,7 +18,7 @@ def get_cmd_nbufs(ip_db, start_time):
 # get the length of cmd now list
 
 @api.route('/<ip_db>/cmd/<nbuf>')
-@cache.cached(timeout=3600)
+# @cache.cached(timeout=3600)
 def get_cmd(ip_db, nbuf):
 
     ## This will print a value into the command prompt with the first nbuf value that works
