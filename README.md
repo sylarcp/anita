@@ -11,9 +11,14 @@ install ``` python-devel ```  and ``` postgresql-devel ```
 ```
 sudo yum install python-devel postgresql-devel
 ```
-went to this link and chose your operating system then install 'pip' in your computer.  pip is a python package for installing other python packages.
-http://python-packaging-user-guide.readthedocs.io/en/latest/install_requirements_linux/#installing-pip-setuptools-wheel-with-linux-package-managers
+Install pip, which is a python package for installing many other python packages.
+Go to this link and download get-pip.py script on your computer.
+https://pip.pypa.io/en/stable/installing/
+Run it.
 
+```
+python get-pip.py
+```
 Start the virtual envirenment so any installation below here won't affect your system lib.
 ```
 cd anita
