@@ -21,8 +21,8 @@ from sqlalchemy import Table, Integer, Column, PrimaryKeyConstraint
 #                         'calib': self.calib,
 #                         'priority': self.priority,
 #                         'turfword': self.turfword,
-#                         'l1mask': self.l1mask,
-#                         'l1maskh': self.l1maskh,
+#                         'l2mask': self.l2mask,
+#                         'l2maskh': self.l2maskh,
 #                         'peakthetabin': self.peakthetabin,
 #                         'imagepeak': self.imagepeak,
 #                         'coherentsumpeak': self.coherentsumpeak,
@@ -54,8 +54,8 @@ class Hd(Base):
                         'calib': self.calib,
                         'priority': self.priority,
                         'turfword': self.turfword,
-                        'l1mask': self.l1mask,
-                        'l1maskh': self.l1maskh,
+                        'l2mask': self.l1mask,
+                        'l2maskh': self.l1maskh,
                         'peakthetabin': self.peakthetabin,
                         'imagepeak': self.imagepeak,
                         'coherentsumpeak': self.coherentsumpeak,
@@ -254,14 +254,15 @@ class Turf(Base):
                         'now': self.now,
                         'time': self.time,
                         'deadtime': self.deadtime,
-                        'l1trigmask': self.l1trigmask,
-                        'l1trigmaskh': self.l1trigmaskh,
+                        'l2trigmask': self.l2trigmask,
+                        # 'l1trigmaskh': self.l1trigmaskh,
                         'phitrigmask': self.phitrigmask,
-                        'phitrigmaskh': self.phitrigmaskh,
-                        'l1': self.l1,
-                        'l1h': self.l1h,
+                        # 'phitrigmaskh': self.phitrigmaskh,
+                        'l2': self.l2,
+                        # 'l1h': self.l1h,
                         'l3': self.l3,
-                        'l3h': self.l3h
+                        'l3gated': self.l3gated,
+                        # 'l3h': self.l3h
             }
         return json_comment
 

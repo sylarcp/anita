@@ -87,12 +87,12 @@
                                 <td id='calib'></td>
                             </tr>
                             <tr>
-                                <td>l1mask</td>
-                                <td id='l1mask'></td>
+                                <td>l2mask</td>
+                                <td id='l2mask'></td>
                             </tr>
                             <tr>
-                                <td>l1maskh</td>
-                                <td id='l1maskh'></td>
+                                <td>l2maskh</td>
+                                <td id='l2maskh'></td>
                             </tr>
                             <tr>
                                 <td>event rate</td>
@@ -696,17 +696,17 @@
             drawNormalOnTop: maskon?true:undefined
         });
     }
-    function get_mask(id, l1maskv, l1maskh){
+    function get_mask(id, l2maskv, l2maskh){
         maskon = false;
         if ((id + 1) % 9 == 0){
             return false;
         }
         if (id2pol[id] == 'v'){
-             if ((1 << id2phi[id]) & l1maskv){
+             if ((1 << id2phi[id]) & l2maskv){
                 maskon = true;
              }
         }else{
-            if ((1 << id2phi[id]) & l1maskh){
+            if ((1 << id2phi[id]) & l2maskh){
                 maskon = true;
              }
         }
@@ -733,11 +733,11 @@
             $('#hd #deadtime').html(data.hd.deadtime);
             $('#hd #turfword').html(data.hd.turfword);
             $('#hd #calib').html(data.hd.calib);
-            $('#hd #l1mask').html(byteString(data.hd.l1mask));
-            $('#hd #l1maskh').html(byteString(data.hd.l1maskh));
+            $('#hd #l2mask').html(byteString(data.hd.l2mask));
+            $('#hd #l2maskh').html(byteString(data.hd.l2maskh));
 
-            l1maskv = data.hd.l1mask;
-            l1maskh = data.hd.l1maskh;
+            l2maskv = data.hd.l2mask;
+            l2maskh = data.hd.l2maskh;
 
             $.getJSON('/api/' + ip_db + '/wv/' + data.hd.evnum, function(data) {
                 //console.log(data);
@@ -750,8 +750,8 @@
                             wv_name = '#wv_' + surf + '_' + chan;
                             var id = chan + 9 * surf;
                             var waveform = data[id.toString()];
-                            // console.log(id + ' '+get_mask(id, l1maskv, l1maskh));
-                            maskon = get_mask(id, l1maskv, l1maskh);
+                            // console.log(id + ' '+get_mask(id, l2maskv, l2maskh));
+                            maskon = get_mask(id, l2maskv, l2maskh);
                             if (waveform != undefined) {
                                 displayData('mV', wv_name, waveform, maskon);
                             } else {
@@ -767,7 +767,7 @@
                             var id = chan + 9 * surf;
                             var waveform = data[id.toString()];
                             //console.log(waveform);
-                            maskon = get_mask(id, l1maskv, l1maskh);
+                            maskon = get_mask(id, l2maskv, l2maskh);
                             if (waveform != undefined) {
                                 displayData('FFT', wv_name, waveform, maskon);
                             } else {
@@ -783,7 +783,7 @@
                             wv_name = '#wv_' + surf + '_' + chan;
                             var id = chan + 9 * surf;
                             var waveform = data[id.toString()];
-                            maskon = get_mask(id, l1maskv, l1maskh);
+                            maskon = get_mask(id, l2maskv, l2maskh);
                             if (waveform != undefined) {
                                 displayData('Power', wv_name, waveform, maskon);
                             } else {
@@ -820,13 +820,13 @@
                         var v_waveform = data[v_id.toString()];
                         // console.log(h_id + ':' + "h" + ', ');
                         // console.log(v_id + ':' + 'v' + ', ');
-                        maskon = get_mask(h_id, l1maskv, l1maskh);
+                        maskon = get_mask(h_id, l2maskv, l2maskh);
                         if (h_waveform != undefined) {
                             displayData('mV', phi_h_name, h_waveform, maskon);
                         } else {
                             displayDataNone(phi_h_name,maskon);
                         };
-                        maskon = get_mask(v_id, l1maskv, l1maskh);
+                        maskon = get_mask(v_id, l2maskv, l2maskh);
                         if (v_waveform != undefined) {
                             displayData('mV', phi_v_name, v_waveform, maskon);
                         } else {
@@ -857,13 +857,13 @@
                         var v_id = v_chan + 9 * v_surf;
                         var h_waveform = data[h_id.toString()];
                         var v_waveform = data[v_id.toString()];
-                        maskon = get_mask(h_id, l1maskv, l1maskh);
+                        maskon = get_mask(h_id, l2maskv, l2maskh);
                         if (h_waveform != undefined) {
                             displayData('FFT', phi_h_name, h_waveform, maskon);
                         } else {
                             displayDataNone(phi_h_name, maskon);
                         };
-                        maskon = get_mask(v_id, l1maskv, l1maskh);
+                        maskon = get_mask(v_id, l2maskv, l2maskh);
                         if (v_waveform != undefined) {
                             displayData('FFT', phi_v_name, v_waveform,maskon);
                         } else {
@@ -894,13 +894,13 @@
                         var v_id = v_chan + 9 * v_surf;
                         var h_waveform = data[h_id.toString()];
                         var v_waveform = data[v_id.toString()];
-                        maskon = get_mask(h_id, l1maskv, l1maskh);
+                        maskon = get_mask(h_id, l2maskv, l2maskh);
                         if (h_waveform != undefined) {
                             displayData('Power', phi_h_name, h_waveform, maskon);
                         } else {
                             displayDataNone(phi_h_name, maskon);
                         };
-                        maskon = get_mask(v_id, l1maskv, l1maskh);
+                        maskon = get_mask(v_id, l2maskv, l2maskh);
                         if (v_waveform != undefined) {
                             displayData('Power', phi_v_name, v_waveform, maskon);
                         } else {
