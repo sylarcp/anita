@@ -40,16 +40,8 @@
                                 <td id='l2trigmask'></td>
                             </tr>
                             <tr>
-                                <td>l2TrigMaskH:</td>
-                                <td id='l2trigmaskh'></td>
-                            </tr>
-                            <tr>
                                 <td>PhiTrigMask:</td>
                                 <td id='phitrigmask'></td>
-                            </tr>
-                            <tr>
-                                <td>PhiTrigMaskH:</td>
-                                <td id='phitrigmaskh'></td>
                             </tr>
                         </tbody>
                     </table>
@@ -1487,8 +1479,10 @@ function updatehtml_turf(turf) {
         var l3gated_name;
         for (ii = 0; ii < 16; ii++) {
             l3gated_name = '#l3gated_' + ii;
-            update_l3gated_data($(l3gated_name), parseInt(data.turf.l3gated[ii]));
+            update_l3_data($(l3gated_name), parseInt(data.turf.l3gated[ii]));
+            console.log(data.turf.l3gated[ii]);
         }
+
         // var l3h_name;
         // for (ii = 0; ii < 16; ii++) {
         //     l3h_name = '#l3h_' + ii;
