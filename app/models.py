@@ -5,40 +5,40 @@ from sqlalchemy import Table, Integer, Column, PrimaryKeyConstraint
 # Base.metadata.reflect(db.engine)
 # Base.metadata.bind=engine
 
+# class Hd(Base):
+#     __tablename__ = 'hd'
+#     __table_args__ = {'autoload':True}
+#     def to_json(self):
+#         json_comment = {'nbuf': self.nbuf,
+#                         'crc': self.crc,
+#                         'now': self.now,
+#                         'time': self.time,
+#                         'us': self.us,
+#                         'ns': self.ns,
+#                         'evid': self.evid,
+#                         'evnum': self.evnum,
+#                         'surfmask': self.surfmask,
+#                         'calib': self.calib,
+#                         'priority': self.priority,
+#                         'turfword': self.turfword,
+#                         'l2mask': self.l2mask,
+#                         'l2maskh': self.l2maskh,
+#                         'peakthetabin': self.peakthetabin,
+#                         'imagepeak': self.imagepeak,
+#                         'coherentsumpeak': self.coherentsumpeak,
+#                         'prioritizerstuff': self.prioritizerstuff,
+#                         'trigtype': self.trigtype,
+#                         'trignum': self.trignum,
+#                         'l3cnt': self.l3cnt,
+#                         'pps': self.pps,
+#                         'trigtime': self.trigtime,
+#                         'c3po': self.c3po,
+#                         'deadtime': self.deadtime,
+#                         'l3trigpat': self.l3trigpat,
+#                         'l3trigpath': self.l3trigpath
+#                         }
+#         return json_comment
 class Hd(Base):
-    __tablename__ = 'hd'
-    __table_args__ = {'autoload':True}
-    def to_json(self):
-        json_comment = {'nbuf': self.nbuf,
-                        'crc': self.crc,
-                        'now': self.now,
-                        'time': self.time,
-                        'us': self.us,
-                        'ns': self.ns,
-                        'evid': self.evid,
-                        'evnum': self.evnum,
-                        'surfmask': self.surfmask,
-                        'calib': self.calib,
-                        'priority': self.priority,
-                        'turfword': self.turfword,
-                        'l1mask': self.l1mask,
-                        'l1maskh': self.l1maskh,
-                        'peakthetabin': self.peakthetabin,
-                        'imagepeak': self.imagepeak,
-                        'coherentsumpeak': self.coherentsumpeak,
-                        'prioritizerstuff': self.prioritizerstuff,
-                        'trigtype': self.trigtype,
-                        'trignum': self.trignum,
-                        'l3cnt': self.l3cnt,
-                        'pps': self.pps,
-                        'trigtime': self.trigtime,
-                        'c3po': self.c3po,
-                        'deadtime': self.deadtime,
-                        'l3trigpat': self.l3trigpat,
-                        'l3trigpath': self.l3trigpath
-                        }
-        return json_comment
-class Rf(Base):
     __tablename__ = 'rf'
     __table_args__ = (Column('nbuf', Integer, primary_key=True), {'autoload':True})
     def to_json(self):
@@ -54,8 +54,8 @@ class Rf(Base):
                         'calib': self.calib,
                         'priority': self.priority,
                         'turfword': self.turfword,
-                        'l1mask': self.l1mask,
-                        'l1maskh': self.l1maskh,
+                        'l2mask': self.l1mask,
+                        'l2maskh': self.l1maskh,
                         'peakthetabin': self.peakthetabin,
                         'imagepeak': self.imagepeak,
                         'coherentsumpeak': self.coherentsumpeak,
@@ -254,14 +254,15 @@ class Turf(Base):
                         'now': self.now,
                         'time': self.time,
                         'deadtime': self.deadtime,
-                        'l1trigmask': self.l1trigmask,
-                        'l1trigmaskh': self.l1trigmaskh,
+                        'l2trigmask': self.l2trigmask,
+                        # 'l1trigmaskh': self.l1trigmaskh,
                         'phitrigmask': self.phitrigmask,
-                        'phitrigmaskh': self.phitrigmaskh,
-                        'l1': self.l1,
-                        'l1h': self.l1h,
+                        # 'phitrigmaskh': self.phitrigmaskh,
+                        'l2': self.l2,
+                        # 'l1h': self.l1h,
                         'l3': self.l3,
-                        'l3h': self.l3h
+                        'l3gated': self.l3gated,
+                        # 'l3h': self.l3h
             }
         return json_comment
 
@@ -369,7 +370,7 @@ class G12_pos(Base):
                         'latitude': self.latitude,
                         'longitude': self.longitude,
                         'altitude': self.altitude,
-                        'course': self.cource,
+                        'course': self.course,
                         'upv': self.upv,
                         'vkt': self.vkt,
                         'pdop': self.pdop,

@@ -6,11 +6,15 @@ from app.models import Hk_surf
 
 # Primary key list: get the hk_surf now list
 
-@api.route('/<ip_db>/hk_surf/nbufs/<start_time>')
-def get_hk_surf_nbufs(ip_db, start_time):
+@api.route('/<ip_db>/hk_surf/nbufs/<offset>')
+def get_hk_surf_nbufs(ip_db, offset):
     try:
-        hk_surfs =getattr(Hk_surf,ip_db).with_entities(Hk_surf.nbuf, Hk_surf.now, Hk_surf.time).filter(Hk_surf.time>start_time).order_by(Hk_surf.now).all()
-        return jsonify({'hk_surf_nbufs': [item.nbuf for item in hk_surfs], 'hk_surf_nows': [item.now for item in hk_surfs], 'hk_surf_times': [item.time for item in hk_surfs]})
+        engine_ip_db = ip_db.replace('query','session')
+        engine = getattr(Hk_surf,engine_ip_db)
+        hk_surfs = engine.execute('select nbuf, now, time from hk_surf offset ' + offset + ' limit 2000;').fetchall()
+        return jsonify({'hk_surf_nbufs': [item[0] for item in hk_surfs], 'hk_surf_nows': [item[1] for item in hk_surfs], 'hk_surf_times': [item[2] for item in hk_surfs]})
+        # hk_surfs =getattr(Hk_surf,ip_db).with_entities(Hk_surf.nbuf, Hk_surf.now, Hk_surf.time).filter(Hk_surf.now>offset).order_by(Hk_surf.now).limit(200).all()
+        # return jsonify({'hk_surf_nbufs': [item.nbuf for item in hk_surfs], 'hk_surf_nows': [item.now for item in hk_surfs], 'hk_surf_times': [item.time for item in hk_surfs]})
     except BaseException as error:
         print('Invalid request: {}',format(error))
         return jsonify({})

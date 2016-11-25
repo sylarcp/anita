@@ -5,11 +5,15 @@ from .. import cache
 from app.models import Cmd
 
 
-@api.route('/<ip_db>/cmd/nbufs/<start_time>')
-def get_cmd_nbufs(ip_db, start_time):
+@api.route('/<ip_db>/cmd/nbufs/<offset>')
+def get_cmd_nbufs(ip_db, offset):
     try:
-        cmds =getattr(Cmd,ip_db).with_entities(Cmd.nbuf, Cmd.now, Cmd.time).filter(Cmd.time>start_time).order_by(Cmd.now).all()
-        return jsonify({'cmd_nbufs': [item.nbuf for item in cmds], 'cmd_nows': [item.now for item in cmds], 'cmd_times': [item.time for item in cmds]})
+        engine_ip_db = ip_db.replace('query','session')
+        engine = getattr(Cmd,engine_ip_db)
+        cmds = engine.execute('select nbuf, now, time from cmd offset ' + offset + ' limit 2000;').fetchall()
+        return jsonify({'cmd_nbufs': [item[0] for item in cmds], 'cmd_nows': [item[1] for item in cmds], 'cmd_times': [item[2] for item in cmds]})
+        # cmds =getattr(Cmd,ip_db).with_entities(Cmd.nbuf, Cmd.now, Cmd.time).filter(Cmd.now>offset).order_by(Cmd.now).limit(200).all()
+        # return jsonify({'cmd_nbufs': [item.nbuf for item in cmds], 'cmd_nows': [item.now for item in cmds], 'cmd_times': [item.time for item in cmds]})
     except BaseException as error:
         print('Invalid request: {}', format(error))
         return jsonify({})
@@ -18,7 +22,7 @@ def get_cmd_nbufs(ip_db, start_time):
 # get the length of cmd now list
 
 @api.route('/<ip_db>/cmd/<nbuf>')
-@cache.cached(timeout=3600)
+# @cache.cached(timeout=3600)
 def get_cmd(ip_db, nbuf):
 
     ## This will print a value into the command prompt with the first nbuf value that works

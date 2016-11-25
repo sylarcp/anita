@@ -18,6 +18,10 @@
                     <table data-sort="false" class="footable" data-page-size="20" id='hd' style="width:100%">
                         <tbody>
                             <tr>
+                                <td>index</td>
+                                <td id='index'></td>
+                            </tr>
+                            <tr>
                                 <td data-hide="xs">nbuf</td>
                                 <td id='nbuf'></td>
                             </tr>
@@ -41,6 +45,11 @@
                                 <td>evnum</td>
                                 <td id='evnum'></td>
                             </tr>
+                            <tr>
+                                <td>Run#</td>
+                                <td id='runnum'></td>
+                            </tr>
+                            
                             <tr>
                                 <td>priority</td>
                                 <td id='priority'></td>
@@ -76,6 +85,18 @@
                             <tr>
                                 <td>calib</td>
                                 <td id='calib'></td>
+                            </tr>
+                            <tr>
+                                <td>l2mask</td>
+                                <td id='l2mask'></td>
+                            </tr>
+                            <tr>
+                                <td>l2maskh</td>
+                                <td id='l2maskh'></td>
+                            </tr>
+                            <tr>
+                                <td>event rate</td>
+                                <td id='eventrate'></td>
                             </tr>
                         </tbody>
                     </table>
@@ -144,20 +165,6 @@
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
-                    </div>
-                    <div class="ibox-content">
-                        <table data-sort="false" class="footable" data-page-size="56" id='rf' style="width:100%">
-                            <tbody>
-                                <th>
-                                    <td>Time:</td>
-                                    <td id='time'></td>
-                                    <td> Now:</td>
-                                    <td id='now'></td>
-                                    <td> evnum:</td>
-                                    <td id='evnum'></td>
-                                </th>
-                            </tbody>
-                        </table>
                     </div>
                     <div class="ibox-content">
                         <table data-sort="false" class="footable" id='wv' style="width:100% height:100%" data-page-size="13">
@@ -501,7 +508,7 @@
             </div>
         </div>
     </div>
-    <div id="dialog" class='hide'>
+    <div id="dialog" class='dialog_wv hide'>
     </div>
 </div>
     {% endblock %} {% block scripts %} {{ super() }}
@@ -513,14 +520,14 @@
     var hd_nbufs = [];
     var hd_evnums = [];
     var hd_times = [];
-    var rf_nbufs = [];
-    var rf_evnums = [];
-    var rf_times = [];
+    var hd_nows = [];
     var i = 0;
-    var j = 0;
     var currentData=null;
     var datatype = 'mV';
     var dataview = 'Surf';
+    var offset = 0;
+    var id2phi = {106:0, 102:0,50:1, 46:1,97:2, 93:2,37:3, 41:3,104:4, 100:4,43:5, 39:5,95:6, 91:6,52:7, 48:7,105:8, 101:8,49:9, 45:9,96:10, 92:10,40:11, 36:11,103:12, 99:12,42:13, 38:13,94:14, 90:14,51:15, 47:15,86:0, 82:0,34:1, 30:1,77:2, 73:2,25:3, 21:3,79:4, 75:4,32:5, 28:5,88:6, 84:6,23:7, 19:7,85:8, 81:8,33:9, 29:9,76:10, 72:10,24:11, 20:11,78:12, 74:12,31:13, 27:13,87:14, 83:14,22:15, 18:15,61:0, 57:0,5:1, 1:1,70:2, 66:2,14:3, 10:3,59:4, 55:4,16:5, 12:5,68:6, 64:6,7:7, 3:7,60:8, 56:8,4:9, 0:9,69:10, 65:10,13:11, 9:11,58:12, 54:12,15:13, 11:13,67:14, 63:14,6:15, 2:15};
+    var id2pol = {106:'h', 102:'v', 50:'h', 46:'v', 97:'h', 93:'v', 37:'h', 41:'v', 104:'h', 100:'v', 43:'h', 39:'v', 95:'h', 91:'v', 52:'h', 48:'v', 105:'h', 101:'v', 49:'h', 45:'v', 96:'h', 92:'v', 40:'h', 36:'v', 103:'h', 99:'v', 42:'h', 38:'v', 94:'h', 90:'v', 51:'h', 47:'v', 86:'h', 82:'v', 34:'h', 30:'v', 77:'h', 73:'v', 25:'h', 21:'v', 79:'h', 75:'v', 32:'h', 28:'v', 88:'h', 84:'v', 23:'h', 19:'v', 85:'h', 81:'v', 33:'h', 29:'v', 76:'h', 72:'v', 24:'h', 20:'v', 78:'h', 74:'v', 31:'h', 27:'v', 87:'h', 83:'v', 22:'h', 18:'v', 61:'h', 57:'v', 5:'h', 1:'v', 70:'h', 66:'v', 14:'h', 10:'v', 59:'h', 55:'v', 16:'h', 12:'v', 68:'h', 64:'v', 7:'h', 3:'v', 60:'h', 56:'v', 4:'h', 0:'v', 69:'h', 65:'v', 13:'h', 9:'v', 58:'h', 54:'v', 15:'h', 11:'v', 67:'h', 63:'v', 6:'h', 2:'v',};
     var surfMap = [
         [12, 8, 12, 4, 1],
         [6, 6, 6, 2, 2],
@@ -579,33 +586,52 @@
             $(this).attr('style', 'width: 100%');
         });
     }
+    function byteString(n) {
+      if (n < 0 || n > 65535 || n % 1 !== 0) {
+          throw new Error(n + " does not fit in a byte");
+      } 
+      return ("000000000000000000" + n.toString(2)).substr(-16);
+    }
 
     function timeConverter(UNIX_timestamp) {
         var a = new Date(UNIX_timestamp * 1000);
         var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        var year = a.getFullYear();
-        var month = months[a.getMonth()];
-        var date = a.getDate();
-        var hour = a.getHours();
-        var min = a.getMinutes();
-        var sec = a.getSeconds();
+        var year = a.getUTCFullYear();
+        var month = months[a.getUTCMonth()];
+        var date = a.getUTCDate();
+        var hour = a.getUTCHours();
+        var min = a.getUTCMinutes();
+        var sec = a.getUTCSeconds();
+        if (parseInt(min) < 10){
+            min = '0' + min;
+        }
+        if (parseInt(sec) < 10){
+            sec = '0' + sec;
+        }
         var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
         return time;
     }
 
-    function displayData(datatype, name, waveform) {
+    function displayData(datatype, name, waveform, maskon) {
         waveform['cal'] = waveform['cal'].map(function(x) {
             return x / 100;
-        });
+        });        
         if (datatype == 'mV') {
+            min = Math.min.apply(null, waveform['cal']);
+            max = Math.max.apply(null, waveform['cal']);
+            range_min = $('#wv_min_range').val()
+            range_max = $('#wv_max_range').val()
             $(name).attr('values', waveform['cal']).sparkline('html', {
                 type: 'line',
                 width: '100',
                 height: '40 ',
                 lineWidth: 0.5,
                 spotColor: false,
-                chartRangeMin: $('#wv_min_range').val(),
-                chartRangeMax: $('#wv_max_range').val(),
+                chartRangeMin: range_min,
+                chartRangeMax: range_max,
+                normalRangeMin: maskon?Math.min(min, range_min):undefined,
+                normalRangeMax: maskon?Math.max(max, range_max):undefined,
+                drawNormalOnTop: maskon?true:undefined
             });
         } else if (datatype == 'FFT') {
             var fftdata = new complex_array.ComplexArray(260);
@@ -614,8 +640,12 @@
             });
             // Array.from(), translate Float32Array into Array.  To make it compatiable with firefox.
             var fft = Array.from(fftdata.FFT().magnitude().slice(1, 130));
-            console.log(fft);
-            console.log(waveform['cal']);
+            // console.log(fft);
+            // console.log(waveform['cal']);
+            min = Math.min.apply(null, fft);
+            max = Math.max.apply(null, fft);
+            range_min = $('#fft_min_range').val();
+            range_max = $('#fft_max_range').val();
             $(name).attr('values', fft).sparkline('html', {
                 // $(name).attr('values', fftdata.FFT().magnitude().slice(1, 130)).sparkline('html', {
                 type: 'line',
@@ -623,43 +653,77 @@
                 height: '40 ',
                 lineWidth: 0.5,
                 spotColor: false,
-                chartRangeMin: $('#fft_min_range').val(),
-                chartRangeMax: $('#fft_max_range').val(),
+                chartRangeMin: range_min,
+                chartRangeMax: range_max,
+                normalRangeMin: maskon?Math.min(min, range_min):undefined,
+                normalRangeMax: maskon?Math.max(max, range_max):undefined,
             });
         } else if (datatype == 'Power') {
             for (var i = 0; i < waveform.cal.length; i++) {
                 waveform.cal[i] = Math.pow(waveform.cal[i], 2);
             }
+
+            min = Math.min.apply(null, waveform['cal']);
+            max = Math.max.apply(null, waveform['cal']);
+            range_min = Math.pow($('#wv_min_range').val(), 2);
+            range_max = Math.pow($('#wv_max_range').val(), 2);
+            console.log(min, max, range_min, range_max);
+
             $(name).attr('values', waveform['cal']).sparkline('html', {
                 type: 'line',
                 width: '100',
                 height: '40 ',
                 lineWidth: 0.5,
                 spotColor: false,
-                chartRangeMin: Math.pow($('#wv_min_range').val(), 2),
-                chartRangeMax: Math.pow($('#wv_max_range').val(), 2),
+                chartRangeMin: range_min,
+                chartRangeMax: range_max,
+                normalRangeMin: maskon?Math.min(min, range_min):undefined,
+                normalRangeMax: maskon?Math.max(max, range_max):undefined,
+
             });
         }
     }
 
-    function displayDataNone(name) {
+    function displayDataNone(name, maskon) {
         $(name).attr('values', 0).sparkline('html', {
             type: 'line',
             width: '100',
             height: '40 ',
             lineWidth: 0.5,
-            spotColor: false
+            spotColor: false,
+            normalRangeMin: maskon?-10000:undefined,
+            normalRangeMax: maskon?10000:undefined,
+            drawNormalOnTop: maskon?true:undefined
         });
     }
+    function get_mask(id, l2maskv, l2maskh){
+        maskon = false;
+        if ((id + 1) % 9 == 0){
+            return false;
+        }
+        if (id2pol[id] == 'v'){
+             if ((1 << id2phi[id]) & l2maskv){
+                maskon = true;
+             }
+        }else{
+            if ((1 << id2phi[id]) & l2maskh){
+                maskon = true;
+             }
+        }
+        return maskon
 
-    function updatehtml_hd (nbuf) {
-         $.getJSON('/api/' + ip_db + '/hd/' + nbuf, function(data) {
+    }
+
+    function updatehtml_hd(nbuf) {
+        $.getJSON('/api/' + ip_db + '/hd/' + nbuf, function(data) {
+            $('#hd #index').html(i + 1 + " / " + hd_nbufs.length + "  ");
             $('#hd #nbuf').html(data.hd.nbuf);
             $('#hd #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
             $('#hd #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
             $('#hd #us').html(data.hd.us);
             $('#hd #ns').html(data.hd.ns);
             $('#hd #evnum').html(data.hd.evnum);
+            $('#hd #runnum').html((data.hd.evid&0xfff00000)>>20);
             $('#hd #priority').html(data.hd.priority);
             $('#hd #trigtype').html(data.hd.trigtype);
             $('#hd #trignum').html(data.hd.trignum);
@@ -669,14 +733,11 @@
             $('#hd #deadtime').html(data.hd.deadtime);
             $('#hd #turfword').html(data.hd.turfword);
             $('#hd #calib').html(data.hd.calib);
-        });
-    }
+            $('#hd #l2mask').html(byteString(data.hd.l2mask));
+            $('#hd #l2maskh').html(byteString(data.hd.l2maskh));
 
-    function updatehtml_rf(nbuf) {
-        $.getJSON('/api/' + ip_db + '/hd/' + nbuf, function(data) {
-            $('#rf #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
-            $('#rf #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
-            $('#rf #evnum').html(data.hd.evnum);
+            l2maskv = data.hd.l2mask;
+            l2maskh = data.hd.l2maskh;
 
             $.getJSON('/api/' + ip_db + '/wv/' + data.hd.evnum, function(data) {
                 //console.log(data);
@@ -689,15 +750,14 @@
                             wv_name = '#wv_' + surf + '_' + chan;
                             var id = chan + 9 * surf;
                             var waveform = data[id.toString()];
+                            // console.log(id + ' '+get_mask(id, l2maskv, l2maskh));
+                            maskon = get_mask(id, l2maskv, l2maskh);
                             if (waveform != undefined) {
-                                displayData('mV', wv_name, waveform);
+                                displayData('mV', wv_name, waveform, maskon);
                             } else {
-                                displayDataNone(wv_name);
+                                displayDataNone(wv_name, maskon);
                             };
-
-
                         }
-                        resizeWindow();
                     }
                 } else if (datatype == 'FFT' && dataview == 'Surf') {
                     //console.log(datatype);            
@@ -707,15 +767,15 @@
                             var id = chan + 9 * surf;
                             var waveform = data[id.toString()];
                             //console.log(waveform);
+                            maskon = get_mask(id, l2maskv, l2maskh);
                             if (waveform != undefined) {
-                                displayData('FFT', wv_name, waveform);
+                                displayData('FFT', wv_name, waveform, maskon);
                             } else {
-                                displayDataNone(wv_name);
+                                displayDataNone(wv_name, maskon);
                             };
                         }
 
                     }
-                    resizeWindow();
                 } else if (datatype == 'Power' && dataview == 'Surf') {
                     //console.log(datatype);
                     for (var surf = 0; surf < 12; surf++) {
@@ -723,18 +783,16 @@
                             wv_name = '#wv_' + surf + '_' + chan;
                             var id = chan + 9 * surf;
                             var waveform = data[id.toString()];
+                            maskon = get_mask(id, l2maskv, l2maskh);
                             if (waveform != undefined) {
-                                displayData('Power', wv_name, waveform);
+                                displayData('Power', wv_name, waveform, maskon);
                             } else {
-                                displayDataNone(wv_name);
+                                displayDataNone(wv_name, maskon);
                             };
                         }
 
                     }
-                    resizeWindow();
-                }
-
-                if (datatype == 'mV' && dataview == 'Phi') {
+                }else if (datatype == 'mV' && dataview == 'Phi') {
                     var phi_h_name;
                     var phi_v_name;
                     var philoc;
@@ -760,22 +818,23 @@
                         var v_id = v_chan + 9 * v_surf;
                         var h_waveform = data[h_id.toString()];
                         var v_waveform = data[v_id.toString()];
+                        // console.log(h_id + ':' + "h" + ', ');
+                        // console.log(v_id + ':' + 'v' + ', ');
+                        maskon = get_mask(h_id, l2maskv, l2maskh);
                         if (h_waveform != undefined) {
-                            displayData('mV', phi_h_name, h_waveform);
+                            displayData('mV', phi_h_name, h_waveform, maskon);
                         } else {
-                            displayDataNone(phi_h_name);
+                            displayDataNone(phi_h_name,maskon);
                         };
+                        maskon = get_mask(v_id, l2maskv, l2maskh);
                         if (v_waveform != undefined) {
-                            displayData('mV', phi_v_name, v_waveform);
+                            displayData('mV', phi_v_name, v_waveform, maskon);
                         } else {
-                            displayDataNone(phi_v_name);
+                            displayDataNone(phi_v_name, maskon);
                         };
 
                     }
-                    resizeWindow();
-                }
-
-                if (datatype == 'FFT' && dataview == 'Phi') {
+                }else if (datatype == 'FFT' && dataview == 'Phi') {
                     for (var arrpos = 0; arrpos < 48; arrpos++) {
                         if (arrpos >= 0 && arrpos <= 15) {
                             philoc = 0;
@@ -798,22 +857,20 @@
                         var v_id = v_chan + 9 * v_surf;
                         var h_waveform = data[h_id.toString()];
                         var v_waveform = data[v_id.toString()];
+                        maskon = get_mask(h_id, l2maskv, l2maskh);
                         if (h_waveform != undefined) {
-                            displayData('FFT', phi_h_name, h_waveform);
+                            displayData('FFT', phi_h_name, h_waveform, maskon);
                         } else {
-                            displayDataNone(phi_h_name);
+                            displayDataNone(phi_h_name, maskon);
                         };
+                        maskon = get_mask(v_id, l2maskv, l2maskh);
                         if (v_waveform != undefined) {
-                            displayData('FFT', phi_v_name, v_waveform);
+                            displayData('FFT', phi_v_name, v_waveform,maskon);
                         } else {
-                            displayDataNone(phi_v_name);
+                            displayDataNone(phi_v_name, maskon);
                         };
-
                     }
-                    resizeWindow();
-                }
-
-                if (datatype == 'Power' && dataview == 'Phi') {
+                }else if (datatype == 'Power' && dataview == 'Phi') {
                     //console.log(datatype);      
                     for (var arrpos = 0; arrpos < 48; arrpos++) {
                         if (arrpos >= 0 && arrpos <= 15) {
@@ -837,15 +894,17 @@
                         var v_id = v_chan + 9 * v_surf;
                         var h_waveform = data[h_id.toString()];
                         var v_waveform = data[v_id.toString()];
+                        maskon = get_mask(h_id, l2maskv, l2maskh);
                         if (h_waveform != undefined) {
-                            displayData('Power', phi_h_name, h_waveform);
+                            displayData('Power', phi_h_name, h_waveform, maskon);
                         } else {
-                            displayDataNone(phi_h_name);
+                            displayDataNone(phi_h_name, maskon);
                         };
+                        maskon = get_mask(v_id, l2maskv, l2maskh);
                         if (v_waveform != undefined) {
-                            displayData('Power', phi_v_name, v_waveform);
+                            displayData('Power', phi_v_name, v_waveform, maskon);
                         } else {
-                            displayDataNone(phi_v_name);
+                            displayDataNone(phi_v_name, maskon);
                         };
                     }
                     resizeWindow();
@@ -853,23 +912,18 @@
             });
         });
     }
-    function updatehtml_all (i) {
-        updatehtml_rf(rf_nbufs[i]);
-        j=hd_nbufs.indexOf(rf_nbufs[i]);
-        if (j!=-1) updatehtml_hd(hd_nbufs[j]);
-    }
-
-
     $(document).ready(function() {
         $('#navbar_aview').parent().addClass("active");
+        $('#label_sync_checkbox').attr('style', 'display:none');
+        $('#sync_checkbox').attr('style', 'display:none');
 
         $(window).on('resize', resizeWindow);
-        var max_start_time = 0;
-        var sync_on = false;
+        
 
 
         $.jqplot.config.enablePlugins = true;
         $("td[id]").click(function() {
+            console.log($(this));
             var waveform_name = $(this).attr('id').split('_');
             if(waveform_name[0]=='wv'){
                 surf=parseInt(waveform_name[1]);
@@ -888,6 +942,9 @@
                 }
             }
             var name=datatype+'_'+surf + '_' + chan;
+            if ($("#dialog_" + name)){
+                $("#dialog_" + name).remove();
+            }
             
             var id = chan + 9 * surf;
    
@@ -905,7 +962,11 @@
                     width: 1000,
                     height: 370,
                 });
-                var waveform = currentData[id.toString()];
+                //  get a copy of data
+                console.log(currentData[id.toString()]);
+                // var waveform = {cal: [1,2,3,4,5], evnum: 69451483, id: 45, nbuf: -2143125086, now: 1420394514};
+                // var waveform = currentData[id.toString()];
+                var waveform = jQuery.extend(true, {}, currentData[id.toString()]);
                 if (datatype == 'mV'){
                     var line1=waveform.cal;
                 } else if (datatype == 'FFT') {
@@ -977,6 +1038,7 @@
                         constrainOutsideZoom: false
                     }
                 });
+                
 
                 $newDialog.dialog({
                     resize: function(event, ui) {
@@ -985,6 +1047,12 @@
                             resetAxes: true,
                         });
                     }
+                });
+
+                $('#next').click(function() {
+                    plot1.replot({
+                            resetAxes: true,
+                        });
                 });
             }
 
@@ -1010,10 +1078,10 @@
 
         
         var connected = false;
-        var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
+        var sleep_interval = 100 //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
         $('.wv_range').change(function() {
-            updatehtml(hd_nbufs[i]);
+            updatehtml_hd(hd_nbufs[i]);
         });
 
 
@@ -1031,59 +1099,69 @@
 
         
 
-        function autoload(start_time) {
-            $.getJSON('/api/' + ip_db + '/rf/nbufs/' + start_time, function(data) {
+        function autoload(offset) {
+            $.getJSON('/api/' + ip_db + '/hd/nbufs/' + offset, function(data) {
+                console.log('hd api');
                 console.log(data);
-                new_length = data.rf_nbufs.length
-                rf_nbufs = rf_nbufs.concat(data.rf_nbufs);
-                rf_evnums = rf_evnums.concat(data.rf_evnums);
-                rf_times = rf_times.concat(data.rf_times);
-                start_time = Math.max.apply(null, data.rf_times);
-                max_start_time = Math.max(start_time,max_start_time);
-                start_time = max_start_time;
+                
+                new_length = data.hd_nbufs.length;
+                offset += new_length;
+                hd_nbufs = hd_nbufs.concat(data.hd_nbufs);
+                hd_evnums = hd_evnums.concat(data.hd_evnums);
+                hd_times = hd_times.concat(data.hd_times);
+                hd_nows = hd_nows.concat(data.hd_nows);
+                // offset = Math.max(offset, Math.max.apply(null, data.hd_nows));
+                $('#hd #index').html(i + 1 + " / " + hd_nbufs.length + "  ");
                 $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
                 $('#connect').html('Disconnect');
                 $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
                 connected = true;
                 $('#connect').value = 'Disconnect'
                 connect.ladda('stop');
-                console.log(start_time);
-                console.log(rf_nbufs.length);
+                console.log(offset);
+                
             }).done(function() {
                 setTimeout(function() {
                     if (new_length) {
-                        sleep_interval = 2000;
+                        sleep_interval = 100;
                     } else {
                         sleep_interval = Math.min(sleep_interval * 1.2, 60000);
                     }
                     if (connected == true) {
-                        autoload(start_time);
+                        autoload(offset);
                     }
                 }, sleep_interval);
-
             });
-            $.getJSON('/api/' + ip_db + '/hd/nbufs/' + start_time, function(data) {
-                hd_nbufs = hd_nbufs.concat(data.hd_nbufs);
-                hd_evnums = hd_evnums.concat(data.hd_evnums);
-                hd_times = hd_times.concat(data.hd_times);
+        }
+        function getEventRate() {
+            $.getJSON('/api/' + ip_db + '/eventrate/' + '30', function(data) {
+                    $('#hd #eventrate').html(data.eventrate);
             });
         }
 
 
+ 
+
+
         var connect = $('.ladda-button').ladda();
         $('#connect').click(function() {
+            var eventRateTimer ;
+            offset = 0;
+            hd_nbufs = [];
+            hd_evnums = [];
+            hd_times = [];
+            hd_nows = [];
+            i = 0;
             if ($(this).hasClass('connect')) {
-                hd_nbufs = [];
-                hd_evnums = [];
-                hd_times = [];
-                i = 0;
                 connect.ladda('start');
                 $.ajax({
                     url: '/api/connect/' + ip + '/' + db
                 }).done(function(response) {
                     if (response == 'success') {
                         console.log('succeed');
+                        eventRateTimer = setInterval(function(){ getEventRate() }, 2000);
                         autoload(0);
+                        console.log('after autoload');
                         setTimeout(function(){
                             $('#first').click();
                         },1000);
@@ -1098,11 +1176,8 @@
                     }
                 });
             } else {
-                hd_nbufs = [];
-                hd_evnums = [];
-                hd_times = [];
-                i = 0;
                 //otherwise, stop all the requests.
+                clearInterval(eventRateTimer);
                 $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
                 $('#connect').html('Connect');
                 $('.chosen-select').attr("disabled", false).trigger("chosen:updated");
@@ -1123,65 +1198,33 @@
                     document.getElementById("wv").style.display = "none";
                 }
             }
-            updatehtml(hd_nbufs[i]);
+            updatehtml_hd(hd_nbufs[i]);
         });
 
         $('#next').click(function() {
-            if (sync_on){
-                if (i < rf_nbufs.length - 1) {
-                    i = i + 1;
-                    updatehtml_all(i);
-                };
-            }else{
-                if (i<rf_nbufs.length-1)       {i=i+1; updatehtml_rf(rf_nbufs[i]);}
-                if (j<hd_nbufs.length-1)       {j=j+1; updatehtml_hd(hd_nbufs[j]);}
-            }
-            sleep_interval = 2000;
+            if (i < hd_nbufs.length - 1) {
+                i = i + 1;
+                updatehtml_hd(hd_nbufs[i]);
+            }; 
+            sleep_interval = 100;
         });
         $('#prev').click(function() {
-            if (sync_on){
-                if (i > 0) {
-                    i = i - 1;
-                    updatehtml_all(i);
-                };
-            }else{
-                if (i>0)  {i=i-1; updatehtml_rf(rf_nbufs[i]);}
-                if (j>0)  {j=j-1; updatehtml_hd(hd_nbufs[j]);}
-            }
-            sleep_interval = 2000;
+            if (i > 0) {
+                i = i - 1;
+                updatehtml_hd(hd_nbufs[i]);
+            };
+            sleep_interval = 100;
         });
         $('#first').click(function() {
-            if (sync_on){
-                i = 0;
-                updatehtml_all(i);
-            }else{
-                {i=0; updatehtml_rf(rf_nbufs[i]);}
-                {j=0; updatehtml_hd(hd_nbufs[j]);}
-            }
-            sleep_interval = 2000;
+            i = 0;
+            updatehtml_hd(hd_nbufs[i]);
+            sleep_interval = 100;
         });
         $('#last').click(function() {
-            if (sync_on){
-                i = rf_nbufs.length - 1;
-                updatehtml_all(i);
-            }else{
-                {i=rf_nbufs.length-1; updatehtml_rf(rf_nbufs[i]);}
-                {j=hd_nbufs.length-1; updatehtml_hd(hd_nbufs[j]);}
-            }
-            sleep_interval = 2000;
+            i = hd_nbufs.length - 1;
+            updatehtml_hd(hd_nbufs[i]);
+            sleep_interval = 100;
         });
-
-        var sync_checkbox = $('#sync_checkbox')[0];
-        var switchery_sync = new Switchery(sync_checkbox, { color: '#1AB394' });
-        sync_checkbox.onchange = function() {
-            if (sync_checkbox.checked) {
-                sync_on = true;
-               
-            } else {
-                sync_on = false;
-            };
-        };
-        $('#sync_checkbox').trigger('click');
         var auto_checkbox = $('#auto_checkbox')[0];
         var switchery = new Switchery(auto_checkbox, {
             color: '#1AB394'
@@ -1190,14 +1233,9 @@
         auto_checkbox.onchange = function() {
             if (auto_checkbox.checked) {
                 autoNext = setInterval(function() {
-                    if (sync_on){
-                        if (i < rf_nbufs.length - 1) {
-                            i = i + 1;
-                            updatehtml_all(i);
-                        };
-                    }else{
-                        if (i<rf_nbufs.length-1)       {i=i+1; updatehtml_rf(rf_nbufs[i]);}
-                        if (j<hd_nbufs.length-1)       {j=j+1; updatehtml_hd(hd_nbufs[j]);}
+                    if (i < hd_nbufs.length - 1) {
+                        i = i + 1;
+                        updatehtml_hd(hd_nbufs[i]);
                     };
                 }, 2000);
             } else {
@@ -1209,30 +1247,19 @@
         $('#goto').click(function() {
             var keywords = parseInt($('#keywords').val());
             console.log(keywords);
-            if (sync_on){
-                var index = rf_evnums.indexOf(keywords);
-                if (index != -1 && keywords) {
-                    i = index;
-                    console.log(i);
-                    updatehtml_all(i);
-                    swal({  title: 'Matched wv and hd are found!', type: "success", timer: 3000, showConfirmButton: true});
-                } else {
-                    swal({
-                        title: 'Data not found!',
-                        type: "warning",
-                        timer: 3000,
-                        showConfirmButton: true
-                    });
-                }
-            }else{
-                var message = '';
-                var index=rf_evnums.indexOf(keywords);       if(index!=-1 && keywords) { i=index; updatehtml_rf(rf_nbufs[i]); message += 'wv ';}
-                var index=hd_evnums.indexOf(keywords);       if(index!=-1 && keywords) { i=index; updatehtml_hd(hd_nbufs[i]); message += 'hd ';}
-                if (message == ''){
-                    swal({  title: 'No matched evnum found!', type: "warning", timer: 3000, showConfirmButton: true});
-                }else{
-                    swal({  title: 'Matched '+message + 'evnum are found!', type: "success", timer: 3000, showConfirmButton: true});
-                }
+            var index = hd_evnums.indexOf(keywords);
+            if (index != -1 && keywords) {
+                i = index;
+                console.log(i);
+                updatehtml_hd(i);
+                swal({  title: 'Matched wv and hd are found!', type: "success", timer: 3000, showConfirmButton: true});
+            } else {
+                swal({
+                    title: 'Data not found!',
+                    type: "warning",
+                    timer: 3000,
+                    showConfirmButton: true
+                });
             }
         });
     });

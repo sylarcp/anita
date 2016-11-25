@@ -24,7 +24,7 @@
 
 
 <style>   
-    .ui-dialog { z-index: 1000 !important ;} 
+    .ui-dialog { z-index: 9000 !important ;} 
     button, .select2-container{
         margin: 7px 2px;
     }
@@ -37,6 +37,16 @@
     .modal-content.ui-resizable {
         overflow-y: scroll;
         overflow-x: hidden;
+    }
+    .vertical-text {
+        -webkit-transform: rotate(-90deg); 
+         -moz-transform: rotate(-90deg); 
+          -ms-transform: rotate(-90deg); 
+           -o-transform: rotate(-90deg); 
+              transform: rotate(-90deg);
+                /*height: 100px;*/
+                /*width: 100px;*/
+        /*transform-origin: left top 0;*/
     }
        /* ul{
           list-style: none;
@@ -77,34 +87,12 @@
     <nav class="navbar navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <a class="navbar-minimalize minimalize-styl-2 btn btn-primary " href="#"><i class="fa fa-bars"></i> </a>
-             <select id="ip" class='chosen-select' style="width:140px" data-placeholder="Choose an IP..">
-                {% set new_one = 1 %}
-                {% for ip in ip_list %}
-                    {% if ip|string() == ip_selected|string() %}
-                    <option selected>{{ip}}</option>
-                    {% set new_one = 0 %}
-                    {% else %}
-                    <option>{{ip}}</option>
-                    {% endif %}
-                {% endfor %}
-                {% if new_one == 1 %}
-                <option selected>{{ip_selected}}</option>
-                {% endif %}
-            </select>
-            <select id="db" class='chosen-select' style="width:110px" data-placeholder="Choose a DB..">
-                {% set new_one = 1 %}
-                {% for db in db_list %}
-                    {% if db|string() ==db_selected|string() %}
-                    <option selected>{{db}}</option>
-                    {% set new_one = 0 %}
-                    {% else %}
-                    <option>{{db}}</option>
-                    {% endif %}
-                {% endfor %}
-                {% if new_one == 1 %}
-                <option selected>{{db_selected}}</option>
-                {% endif %}
-            </select>
+                <select id="ip" class='chosen-select' style="width:160px" data-placeholder="Choose an IP..">
+                    
+                </select>
+                <select id="db" class='chosen-select' style="width:160px" data-placeholder="Choose a DB.." >
+                    <option selected> {{db_selected}} </option>
+                </select>
             <button type="button" id="connect" class="ladda-button btn btn-primary connect"  data-style="zoom-in">Connect</button>
             <button type="button" id="gse_monitor" class="btn btn-primary">GSE Monitor</button>
             
@@ -121,7 +109,7 @@
         </div>
        
         <div class="input-group">
-          <input type="text" class="form-control" id = "keywords" placeholder="time or nbuf">
+          <input type="text" class="form-control" id = "keywords" placeholder="evnum or time">
           <span class="input-group-btn">
             <button class="btn btn-primary" id = 'goto' type="button">Go!</button>
           </span>
@@ -142,70 +130,6 @@
 </div>
 
 
-<!-- 
-  <div class="navbar navbar-inverse " role="navigation">
-    <div class="container-fluid">
-        <a class="navbar-brand">ANITA IV</a>
-        <ul class="nav navbar-nav navbar-inverse">
-            <li><a id='navbar_aview' href="{{ url_for('main.index') }}">Anita Viewer</a></li>
-            <li><a id='navbar_hk' href="{{ url_for('main.hk') }}">HK Viewer</a></li>
-            <li><a id='navbar_trig' href="{{ url_for('main.trigmon') }}">Trigger Monitor</a></li>
-            <li><a id='navbar_slow' href="{{ url_for('main.slowmo') }}">Slow Monitor</a></li>
-            <li><a id='navbar_contact'href="{{ url_for('main.contactus') }}">Contact Us</a></li>
-        </ul>
-            <ul class="nav navbar-nav">
-             
-                <li>
-                    <select id="ip" class='chosen-select' style="width:150px" data-placeholder="Choose an IP..">
-                        {% set new_one = 1 %}
-                        {% for ip in ip_list %}
-                            {% if ip|string() == ip_selected|string() %}
-                            <option selected>{{ip}}</option>
-                            {% set new_one = 0 %}
-                            {% else %}
-                            <option>{{ip}}</option>
-                            {% endif %}
-                        {% endfor %}
-                        {% if new_one == 1 %}
-                        <option selected>{{ip_selected}}</option>
-                        {% endif %}
-                    </select>
-                </li>
-                <li>
-                    <select id="db" class='chosen-select' style="width:150px" data-placeholder="Choose a DB..">
-                        {% set new_one = 1 %}
-                        {% for db in db_list %}
-                            {% if db|string() ==db_selected|string() %}
-                            <option selected>{{db}}</option>
-                            {% set new_one = 0 %}
-                            {% else %}
-                            <option>{{db}}</option>
-                            {% endif %}
-                        {% endfor %}
-                        {% if new_one == 1 %}
-                        <option selected>{{db_selected}}</option>
-                        {% endif %}
-                    </select>
-                </li>
-                <li>
-                 <button type="button" id="connect" class="ladda-button btn btn-primary connect"  data-style="zoom-in">Connect</button>
-             </li>
-             <button type="button" id="gse_monitor" class="btn btn-primary">GSE Monitor</button>
-             <ul class="nav navbar-nav pull-right">
-
-                <li><button type="button" id='goto' class="btn btn-primary">GoTo</button> </li>
-                <li class="col-lg-4 col-md-4 col-sm-10">
-                    <input type="text" placeholder="evnum or time" id="keywords" class="form-control" value="{{keywords}}">
-                </li>
-                <li><button type="button" id='next' class="btn btn-primary">Next</button> </li>
-                <li><button type="button" id='prev' class="btn btn-primary">Prev</button> </li>
-                <li><button type="button" id='first' class="btn btn-primary">First</button> </li>
-                <li><button type="button" id='last' class="btn btn-primary">Last</button> </li>
-                <li class="col-lg-1 col-md-1 col-sm-1"> auto <input id='auto_checkbox' type="checkbox" class="js-switch" />  </li>
-                <li class="col-lg-1 col-md-1 col-sm-1"> sync <input id='sync_checkbox' type="checkbox" class="js-switch" />  </li>
-            </ul>
-        </div>
-    </div> -->
     {% endblock %}
 
     {% block content %}
@@ -249,25 +173,76 @@
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <script src="{{ url_for('static', filename='anita/js/magicbox.js') }}"></script>
     <script>
-        var ip;
-        var db;
-        var ip_db;
-        // On changing the ip in the <select>, we want
-        $('.chosen-select').change(function() {
-            ip=$('#ip option:selected').text();
-            db=$('#db option:selected').text();
-            $.getJSON(/set_cookie/+ ip + '/' + db, function(data) {
-                ;
-            });
-            ip = ip.replace(/\./gi, '_');
-            ip_db= "query_"+ ip + "_" + db;
-        });
+        var ip, db, ip_db;
+        
+
+
         $(document).ready(function () {
+            $('#ip').empty();
+            ip_list = ['128.175.112.58', '128.175.112.80', 'beauty.phys.hawaii.edu', 'charm.phys.hawaii.edu' ]
+            addmore = 1
+            for (i = 0; i < ip_list.length; i++){
+                if (ip_list[i] == "{{ip_selected}}"){
+                    newOption = $('<option selected>' + ip_list[i] + '</option>');
+                    addmore = 0
+                }else{
+                    newOption = $('<option>' + ip_list[i] + '</option>');
+                }
+                $('#ip').append(newOption);
+            }
+            if(addmore){
+                newOption = $('<option selected>' + "{{ip_selected}}" + '</option>');
+                $('#ip').append(newOption);
+            }    
             $('.chosen-select').select2({tags: true});
-            $('.chosen-select').trigger('change');
+            ip = $('#ip option:selected').text().replace(/\./gi, '_');
+            db = $('#db option:selected').text().replace(/\s/gi, '');
+            ip_db= "query_"+ ip + "_" + db;
+            console.log(ip);
+            console.log(db);
+
+            // On changing the ip in the <select>, we want
+            $('#ip').on("select2:closing", function(){
+            // $('#ip').change(function() {
+                ip=$('#ip option:selected').text();
+                db=$('#db option:selected').text().replace(/\s/gi, '');
+
+                ip = ip.replace(/\./gi, '_');
+                ip_db= "query_"+ ip + "_" + db;
+                $.getJSON('/set_cookie/'+ ip + '/' + db, function(data) {
+                    ;
+                });
+                $.getJSON('/api/getDBnames/'+ ip, function(data) {
+                    dbnames = data['dbnames']
+                    $('#db').empty(); //remove all child nodes
+                    for (i = 0; i < dbnames.length; i++){
+                        if (i < dbnames.length - 1){
+                            newOption = $('<option>' + dbnames[i] + '</option>');
+                        }else{
+                            newOption = $('<option selected>' + dbnames[i] + '</option>');
+                        }
+                        
+                        $('#db').append(newOption);
+                    }               
+                    // $('#db').trigger("chosen:updated");
+                    $('#db').select2({tags: true});
+
+                });
+            });
+             $('#db').change(function() {
+                ip=$('#ip option:selected').text();
+                db=$('#db option:selected').text().replace(/\s/gi, '');
+                ip = ip.replace(/\./gi, '_');
+                ip_db= "query_"+ ip + "_" + db;
+                $.getJSON(/set_cookie/+ ip + '/' + db, function(data) {
+                    ;
+                });
+            });
+            
+            // $('.chosen-select').trigger('change');
         });
         $('#gse_monitor').click( function(){
-            window.open('http://' + ip + '/anita', '_blank');
+            window.open('http://' + ip.replace(/\_/gi, '.') + '/anita', '_blank');
          });
  </script>
  {% endblock %}

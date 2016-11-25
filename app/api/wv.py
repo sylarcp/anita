@@ -39,7 +39,7 @@ def get_wv(ip_db, evnum, id):
 
 #get 40 waveforms for a evnum
 @api.route('/<ip_db>/wv/<int:evnum>')
-@cache.cached(timeout=3600)
+# @cache.cached(timeout=3600)
 def get_wvs(ip_db, evnum):
     try:
         json_comment={}

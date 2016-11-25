@@ -16,6 +16,10 @@
                     <table data-sort="false" class="footable" data-page-size="20" id='turf' style="width:100%">
                         <tbody>
                             <tr>
+                                <td >Index:</td>
+                                <td id='index'></td>
+                            </tr>
+                            <tr>
                                 <td data-hide="xs">nbuf:</td>
                                 <td id='nbuf'></td>
                             </tr>
@@ -32,12 +36,12 @@
                                 <td id='deadtime'></td>
                             </tr>
                             <tr>
-                                <td>l1TrigMask:</td>
-                                <td id='l1trigmask'></td>
+                                <td>l2TrigMask:</td>
+                                <td id='l2trigmask'></td>
                             </tr>
                             <tr>
-                                <td>l1TrigMaskH:</td>
-                                <td id='l1trigmaskh'></td>
+                                <td>l2TrigMaskH:</td>
+                                <td id='l2trigmaskh'></td>
                             </tr>
                             <tr>
                                 <td>PhiTrigMask:</td>
@@ -56,88 +60,88 @@
                         <tbody>
                             <tr>
                                 <td></td>
-                                <td id='l1_0'></td>
-                                <td id='l1_1'></td>
-                                <td id='l1_2'></td>
-                                <td id='l1_3'></td>
-                                <td id='l1_4'></td>
-                                <td id='l1_5'></td>
-                                <td id='l1_6'></td>
-                                <td id='l1_7'></td>
+                                <td id='l2_0'></td>
+                                <td id='l2_1'></td>
+                                <td id='l2_2'></td>
+                                <td id='l2_3'></td>
+                                <td id='l2_4'></td>
+                                <td id='l2_5'></td>
+                                <td id='l2_6'></td>
+                                <td id='l2_7'></td>
                             </tr>
                             <th>
-                                <td>L1 1</td>
-                                <td>L1 2</td>
-                                <td>L1 3</td>
-                                <td>L1 4</td>
-                                <td>L1 5</td>
-                                <td>L1 6</td>
-                                <td>L1 7</td>
-                                <td>L1 8</td>
+                                <td>L2 1</td>
+                                <td>L2 2</td>
+                                <td>L2 3</td>
+                                <td>L2 4</td>
+                                <td>L2 5</td>
+                                <td>L2 6</td>
+                                <td>L2 7</td>
+                                <td>L2 8</td>
                             </th>
                             <tr>
                                 <td></td>
-                                <td id='l1_8'></td>
-                                <td id='l1_9'></td>
-                                <td id='l1_10'></td>
-                                <td id='l1_11'></td>
-                                <td id='l1_12'></td>
-                                <td id='l1_13'></td>
-                                <td id='l1_14'></td>
-                                <td id='l1_15'></td>
+                                <td id='l2_8'></td>
+                                <td id='l2_9'></td>
+                                <td id='l2_10'></td>
+                                <td id='l2_11'></td>
+                                <td id='l2_12'></td>
+                                <td id='l2_13'></td>
+                                <td id='l2_14'></td>
+                                <td id='l2_15'></td>
                             </tr>
                             <th>
-                                <td>L1 9</td>
-                                <td>L1 10</td>
-                                <td>L1 11</td>
-                                <td>L1 12</td>
-                                <td>L1 13</td>
-                                <td>L1 14</td>
-                                <td>L1 15</td>
-                                <td>L1 16</td>
+                                <td>L2 9</td>
+                                <td>L2 10</td>
+                                <td>L2 11</td>
+                                <td>L2 12</td>
+                                <td>L2 13</td>
+                                <td>L2 14</td>
+                                <td>L2 15</td>
+                                <td>L2 16</td>
                             </th>
-                            <tr>
+                            <!-- <tr>
                                 <td></td>
-                                <td id='l1h_0'></td>
-                                <td id='l1h_1'></td>
-                                <td id='l1h_2'></td>
-                                <td id='l1h_3'></td>
-                                <td id='l1h_4'></td>
-                                <td id='l1h_5'></td>
-                                <td id='l1h_6'></td>
-                                <td id='l1h_7'></td>
+                                <td id='l2h_0'></td>
+                                <td id='l2h_1'></td>
+                                <td id='l2h_2'></td>
+                                <td id='l2h_3'></td>
+                                <td id='l2h_4'></td>
+                                <td id='l2h_5'></td>
+                                <td id='l2h_6'></td>
+                                <td id='l2h_7'></td>
                             </tr>
                             <th>
-                                <td>L1h 1</td>
-                                <td>L1h 2</td>
-                                <td>L1h 3</td>
-                                <td>L1h 4</td>
-                                <td>L1h 5</td>
-                                <td>L1h 6</td>
-                                <td>L1h 7</td>
-                                <td>L1h 8</td>
-                            </th>
-                            <tr>
+                                <td>L2h 1</td>
+                                <td>L2h 2</td>
+                                <td>L2h 3</td>
+                                <td>L2h 4</td>
+                                <td>L2h 5</td>
+                                <td>L2h 6</td>
+                                <td>L2h 7</td>
+                                <td>L2h 8</td>
+                            </th> -->
+                            <!-- <tr>
                                 <td></td>
-                                <td id='l1h_8'></td>
-                                <td id='l1h_9'></td>
-                                <td id='l1h_10'></td>
-                                <td id='l1h_11'></td>
-                                <td id='l1h_12'></td>
-                                <td id='l1h_13'></td>
-                                <td id='l1h_14'></td>
-                                <td id='l1h_15'></td>
+                                <td id='l2h_8'></td>
+                                <td id='l2h_9'></td>
+                                <td id='l2h_10'></td>
+                                <td id='l2h_11'></td>
+                                <td id='l2h_12'></td>
+                                <td id='l2h_13'></td>
+                                <td id='l2h_14'></td>
+                                <td id='l2h_15'></td>
                             </tr>
                             <th>
-                                <td>L1h 9</td>
-                                <td>L1h 10</td>
-                                <td>L1h 11</td>
-                                <td>L1h 12</td>
-                                <td>L1h 13</td>
-                                <td>L1h 14</td>
-                                <td>L1h 15</td>
-                                <td>L1h 16</td>
-                            </th>
+                                <td>L2h 9</td>
+                                <td>L2h 10</td>
+                                <td>L2h 11</td>
+                                <td>L2h 12</td>
+                                <td>L2h 13</td>
+                                <td>L2h 14</td>
+                                <td>L2h 15</td>
+                                <td>L2h 16</td>
+                            </th> -->
                             <tr>
                                 <td></td>
                                 <td id='l3_0'></td>
@@ -182,45 +186,45 @@
                             </th>
                             <tr>
                                 <td></td>
-                                <td id='l3h_0'></td>
-                                <td id='l3h_1'></td>
-                                <td id='l3h_2'></td>
-                                <td id='l3h_3'></td>
-                                <td id='l3h_4'></td>
-                                <td id='l3h_5'></td>
-                                <td id='l3h_6'></td>
-                                <td id='l3h_7'></td>
+                                <td id='l3gated_0'></td>
+                                <td id='l3gated_1'></td>
+                                <td id='l3gated_2'></td>
+                                <td id='l3gated_3'></td>
+                                <td id='l3gated_4'></td>
+                                <td id='l3gated_5'></td>
+                                <td id='l3gated_6'></td>
+                                <td id='l3gated_7'></td>
                             </tr>
                             <th>
-                                <td>L3h 1</td>
-                                <td>L3h 2</td>
-                                <td>L3h 3</td>
-                                <td>L3h 4</td>
-                                <td>L3h 5</td>
-                                <td>L3h 6</td>
-                                <td>L3h 7</td>
-                                <td>L3h 8</td>
+                                <td>L3gated 1</td>
+                                <td>L3gated 2</td>
+                                <td>L3gated 3</td>
+                                <td>L3gated 4</td>
+                                <td>L3gated 5</td>
+                                <td>L3gated 6</td>
+                                <td>L3gated 7</td>
+                                <td>L3gated 8</td>
                             </th>
                             <tr>
                                 <td></td>
-                                <td id='l3h_8'></td>
-                                <td id='l3h_9'></td>
-                                <td id='l3h_10'></td>
-                                <td id='l3h_11'></td>
-                                <td id='l3h_12'></td>
-                                <td id='l3h_13'></td>
-                                <td id='l3h_14'></td>
-                                <td id='l3h_15'></td>
+                                <td id='l3gated_8'></td>
+                                <td id='l3gated_9'></td>
+                                <td id='l3gated_10'></td>
+                                <td id='l3gated_11'></td>
+                                <td id='l3gated_12'></td>
+                                <td id='l3gated_13'></td>
+                                <td id='l3gated_14'></td>
+                                <td id='l3gated_15'></td>
                             </tr>
                             <th>
-                                <td>L3h 9</td>
-                                <td>L3h 10</td>
-                                <td>L3h 11</td>
-                                <td>L3h 12</td>
-                                <td>L3h 13</td>
-                                <td>L3h 14</td>
-                                <td>L3h 15</td>
-                                <td>L3h 16</td>
+                                <td>L3gated 9</td>
+                                <td>L3gated 10</td>
+                                <td>L3gated 11</td>
+                                <td>L3gated 12</td>
+                                <td>L3gated 13</td>
+                                <td>L3gated 14</td>
+                                <td>L3gated 15</td>
+                                <td>L3gated 16</td>
                             </th>
                         </tbody>
                     </table>
@@ -247,6 +251,10 @@
                                 <div class="ibox-content">
                                     <table data-sort="false" class="footable" data-page-size="20" id='rfpower' style="width:100%">
                                         <tbody>
+                                            <tr>
+                                                <td>Index:</td>
+                                                <td id='index'></td>
+                                            </tr>
                                             <tr>
                                                 <td data-hide="xs">nbuf:</td>
                                                 <td id='nbuf'></td>
@@ -1320,20 +1328,39 @@
 <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
 <script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 <script>
+var turf_nbufs = [];
+var turf_nows = [];
+var turf_times = [];
+var hk_surf_nbufs = [];
+var hk_surf_nows = [];
+var hk_surf_times = [];
+var i = 0;
+var j = 0;
+var offset_turf = 0;
+var offset_hk_surf = 0;
+var connected = false;
+var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
+
 var sync_on = false;
 function timeConverter(UNIX_timestamp) {
     var a = new Date(UNIX_timestamp * 1000);
     var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    var year = a.getFullYear();
-    var month = months[a.getMonth()];
-    var date = a.getDate();
-    var hour = a.getHours();
-    var min = a.getMinutes();
-    var sec = a.getSeconds();
+    var year = a.getUTCFullYear();
+    var month = months[a.getUTCMonth()];
+    var date = a.getUTCDate();
+    var hour = a.getUTCHours();
+    var min = a.getUTCMinutes();
+    var sec = a.getUTCSeconds();
+    if (parseInt(min) < 10){
+        min = '0' + min;
+    }
+    if (parseInt(sec) < 10){
+        sec = '0' + sec;
+    }
     var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
     return time;
 }
-var l1_range_map = $.range_map({
+var l2_range_map = $.range_map({
     '2000:5000': 'yellow',
     '5000:30000:': 'green',
     '30000:50000:': 'yellow'
@@ -1359,7 +1386,7 @@ var thresh_range_map = $.range_map({
     '2:2.4:': 'yellow'
 })
 
-function update_l1_data($selector, new_data) {
+function update_l2_data($selector, new_data) {
     var array_string = $selector.attr('values');
     array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
@@ -1367,7 +1394,7 @@ function update_l1_data($selector, new_data) {
         type: 'bar',
         barWidth: 30,
         // zeroAxis: false,
-        colorMap: l1_range_map,
+        colorMap: l2_range_map,
         chartRangeMin: 0,
         chartRangeMax: 65535
     });
@@ -1431,35 +1458,42 @@ function update_thresh_data($selector, new_data) {
 
 function updatehtml_turf(turf) {
     $.getJSON('/api/' + ip_db + '/turf/' + turf, function(data) {
+        $('#turf #index').html(i + 1 + "/" + turf_nbufs.length);
         $('#turf #nbuf').html(data.turf.nbuf);
         $('#turf #now').html(data.turf.now + " (" + timeConverter(data.turf.now) + ")");
         $('#turf #time').html(data.turf.time + " (" + timeConverter(data.turf.time) + ")");
         $('#turf #deadtime').html(data.turf.deadtime);
-        $('#turf #l1trigmask').html(data.turf.l1trigmask);
-        $('#turf #l1trigmaskh').html(data.turf.l1trigmaskh);
+        $('#turf #l2trigmask').html(data.turf.l2trigmask);
+        // $('#turf #l2trigmaskh').html(data.turf.l2trigmaskh);
         $('#turf #phitrigmask').html(data.turf.phitrigmask);
-        $('#turf #phitrigmaskh').html(data.turf.phitrigmaskh);
+        // $('#turf #phitrigmaskh').html(data.turf.phitrigmaskh);
 
-        var l1_name;
-        for (i = 0; i < 16; i++) {
-            l1_name = '#l1_' + i;
-            update_l1_data($(l1_name), parseInt(data.turf.l1[i]));
+        var l2_name;
+        for (ii = 0; ii < 16; ii++) {
+            l2_name = '#l2_' + ii;
+            update_l2_data($(l2_name), parseInt(data.turf.l2[ii]));
         }
-        var l1h_name;
-        for (i = 0; i < 16; i++) {
-            l1h_name = '#l1h_' + i;
-            update_l1_data($(l1h_name), parseInt(data.turf.l1h[i]));
-        }
+        // var l2h_name;
+        // for (ii = 0; ii < 16; ii++) {
+        //     l2h_name = '#l2h_' + ii;
+        //     update_l2_data($(l2h_name), parseInt(data.turf.l2h[ii]));
+        // }
         var l3_name;
-        for (i = 0; i < 16; i++) {
-            l3_name = '#l3_' + i;
-            update_l3_data($(l3_name), parseInt(data.turf.l3[i]));
+        for (ii = 0; ii < 16; ii++) {
+            l3_name = '#l3_' + ii;
+            update_l3_data($(l3_name), parseInt(data.turf.l3[ii]));
         }
-        var l3h_name;
-        for (i = 0; i < 16; i++) {
-            l3h_name = '#l3h_' + i;
-            update_l3_data($(l3h_name), parseInt(data.turf.l3h[i]));
+
+        var l3gated_name;
+        for (ii = 0; ii < 16; ii++) {
+            l3gated_name = '#l3gated_' + ii;
+            update_l3gated_data($(l3gated_name), parseInt(data.turf.l3gated[ii]));
         }
+        // var l3h_name;
+        // for (ii = 0; ii < 16; ii++) {
+        //     l3h_name = '#l3h_' + ii;
+        //     update_l3_data($(l3h_name), parseInt(data.turf.l3h[i]));
+        // }
     });
 
 }
@@ -1467,6 +1501,7 @@ function updatehtml_turf(turf) {
 function updatehtml_hk_surf(hk_surf) {
     if (!hk_surf) return;
     $.getJSON('/api/' + ip_db + '/hk_surf/' + hk_surf, function(data) {
+        $('#rfpower #index').html(j + 1 + "/" + hk_surf_nbufs.length);
         $('#rfpower #nbuf').html(data.hk_surf.nbuf);
         console.log(data.hk_surf.nbuf);
         $('#rfpower #now').html(data.hk_surf.now + " (" + timeConverter(data.hk_surf.now) + ")");
@@ -1488,24 +1523,24 @@ function updatehtml_hk_surf(hk_surf) {
         $('#rfpower #upper_11').html(data.hk_surf.upper[11]);
 
         var rfpow_name;
-        for (i = 0; i < 12; i++) {
-            for (j = 0; j < 8; j++) {
-                rfpow_name = '#rfpow_' + i + '_' + j;
-                update_rfpow_data($(rfpow_name), parseInt(data.hk_surf.rfpow[i][j]));
+        for (ii = 0; ii < 12; ii++) {
+            for (jj = 0; jj < 8; jj++) {
+                rfpow_name = '#rfpow_' + ii + '_' + jj;
+                update_rfpow_data($(rfpow_name), parseInt(data.hk_surf.rfpow[ii][jj]));
             }
         }
         var scaler_name;
-        for (i = 0; i < 12; i++) {
-            for (j = 0; j < 12; j++) {
-                scaler_name = '#scaler_' + i + '_' + j;
-                update_scaler_data($(scaler_name), parseInt(data.hk_surf.scaler[i][j]));
+        for (ii = 0; ii < 12; ii++) {
+            for (jj = 0; jj < 12; jj++) {
+                scaler_name = '#scaler_' + ii + '_' + jj;
+                update_scaler_data($(scaler_name), parseInt(data.hk_surf.scaler[ii][jj]));
             }
         }
         var thresh_name;
-        for (i = 0; i < 12; i++) {
-            for (j = 0; j < 12; j++) {
-                thresh_name = '#thresh_' + i + '_' + j;
-                update_thresh_data($(thresh_name), parseInt(data.hk_surf.thresh[i][j]));
+        for (ii = 0; ii < 12; ii++) {
+            for (jj = 0; jj < 12; jj++) {
+                thresh_name = '#thresh_' + ii + '_' + jj;
+                update_thresh_data($(thresh_name), parseInt(data.hk_surf.thresh[ii][jj]));
             }
         }
     });
@@ -1570,36 +1605,27 @@ $(document).ready(function() {
         });
     });
     $('.footable').footable();
-    var turf_nbufs = [];
-    var turf_nows = [];
-    var turf_times = [];
-    var hk_surf_nbufs = [];
-    var hk_surf_nows = [];
-    var hk_surf_times = [];
-    var i = 0;
-    var j = 0;
-    var connected = false;
-    var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
-
+    
     $.getJSON('/api/' + ip_db + '/hk_surf/nbufs', function(data) {
         turf_nbufs = data.turf_nbufs;
         turf_nows = data.turf_nows;
     });
 
-    function autoload(start_time) {
-        $.getJSON('/api/' + ip_db + '/turf/nbufs/' + start_time, function(data) {
-            new_length = data.turf_nbufs.length
+    function autoload() {
+        $.getJSON('/api/' + ip_db + '/turf/nbufs/' + offset_turf, function(data) {
+            new_length = data.turf_nbufs.length;
+            offset_turf += new_length;
             turf_nbufs = turf_nbufs.concat(data.turf_nbufs);
             turf_nows = turf_nows.concat(data.turf_nows);
             turf_times = turf_times.concat(data.turf_times);
-            start_time = Math.max.apply(null, turf_times);
+            
             $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
             $('#connect').html('Disconnect');
             $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
             // switchery.enable();
             connected = true;
             connect.ladda('stop');
-            console.log(start_time);
+            console.log(offset_turf);
             console.log(turf_times.length);
         }).done(function() {
             setTimeout(function() {
@@ -1609,13 +1635,14 @@ $(document).ready(function() {
                     sleep_interval = Math.min(sleep_interval * 1.2, 60000);
                 }
                 if (connected == true) {
-                    autoload(start_time);
+                    autoload();
                 }
             }, sleep_interval);
 
         });
-        $.getJSON('/api/' + ip_db + '/hk_surf/nbufs/' + start_time, function(data) {
-            new_length = data.hk_surf_nbufs.length
+        $.getJSON('/api/' + ip_db + '/hk_surf/nbufs/' + offset_hk_surf, function(data) {
+            new_length = data.hk_surf_nbufs.length;
+            offset_hk_surf += new_length
             hk_surf_nbufs = hk_surf_nbufs.concat(data.hk_surf_nbufs);
             hk_surf_nows = hk_surf_nows.concat(data.hk_surf_nows);
             hk_surf_times = hk_surf_times.concat(data.hk_surf_times);
@@ -1633,12 +1660,14 @@ $(document).ready(function() {
             hk_surf_times = [];
             i = 0;
             j = 0;
+            offset_turf = 0;
+            offset_hk_surf = 0;
             connect.ladda('start');
             $.ajax({
                 url: '/api/connect/' + ip + '/' + db
             }).done(function(response) {
                 if (response == 'success') {
-                    autoload(0);
+                    autoload();
                     setTimeout(function(){
                         $('#first').click();
                     },1000);
@@ -1661,6 +1690,8 @@ $(document).ready(function() {
             hk_surf_times = [];
             i = 0;
             j = 0;
+            offset_turf = 0;
+            offset_hk_surf = 0;
             //otherwise, stop all the requests.
             $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
             $('#connect').html('Connect');

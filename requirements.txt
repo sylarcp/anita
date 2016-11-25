@@ -20,3 +20,6 @@ psycopg2
 flask-debugtoolbar
 Flask-Cache
 gunicorn
+greenlet
+gevent
+flask-compress
