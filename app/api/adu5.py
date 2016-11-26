@@ -40,12 +40,19 @@ def get_adu5_sat_nbufs(ip_db, offset):
     except BaseException as error:
         print('Invalid request: {}', format(error))
         return jsonify({})
-@api.route('/<ip_db>/adu5_pat/<nbuf>')
+@api.route('/<ip_db>/adu5_pat/<time>')
 # @cache.cached(timeout=3600)
-def get_adu5_pat(ip_db, nbuf):
+def get_adu5_pat_time(ip_db, time):
     try:
-        adu5_pat =getattr(Adu5_pat,ip_db).filter_by(nbuf=nbuf).first()
-        return jsonify({'pat': adu5_pat.to_json()})
+        adu5_pat_a =getattr(Adu5_pat,ip_db).filter_by(time=time).filter_by(gpstype=131072).first()
+        adu5_pat_b =getattr(Adu5_pat,ip_db).filter_by(time=time).filter_by(gpstype=262144).first()
+        print "printing a", adu5_pat_a, "---- ", "printing b", adu5_pat_b, "-!done!-"
+        if adu5_pat_a == None:
+            return jsonify({'pat_b': adu5_pat_b.to_json()})
+        elif adu5_pat_b == None:
+            return jsonify({'pat_a': adu5_pat_a.to_json()})
+        else:
+            return jsonify({'pat_a': adu5_pat_a.to_json(), 'pat_b': adu5_pat_b.to_json()}) 
     except BaseException as error:
         print('Invalid request: {}', format(error))
         return jsonify({})

@@ -38,8 +38,9 @@ def get_sshk_count(ip_db):
 # @cache.cached(timeout=3600)
 def get_sshk(ip_db, nbuf):
     try:
-        print 'hello'
+        #print 'hello'
         sshk =getattr(Sshk,ip_db).filter_by(nbuf=nbuf).first()
+        #print sshk.to_json()
         return jsonify({'sshk': sshk.to_json()})
     except BaseException as error:
         print('Invalid request: {}', format(error))
