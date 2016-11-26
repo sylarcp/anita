@@ -494,21 +494,20 @@
             <div class="ibox-content" >
                 <table data-sort="false" class="footable" data-page-size="26" id='gps' style="width:100%">
                     <tbody>
-                        <tr>
-                            <td>Index</td>
-                            <td id = 'index'></td>
-                            <td></td>
-                            <td id = 'g12_pos_index'></td>
-                        </tr>
-                        <tr>
-                            <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-                        </tr>
-                        <tr>
-                            <td>GPS:</td>
+                        <th>
+                            <!-- <td>GPStype:</td> -->
                             <td>adu5A</td>
                             <td>adu5B</td>
                             <td>g12</td>
+                        </th>
+                        <tr>
+                            <td>Index</td>
+                            <td id = 'adu5_pat_index'></td>
+                            <td></td>
+                            <td id = 'g12_pos_index'></td>
                         </tr>
+                        
+                        
                         <tr>
                             <td>Time</td>
                             <td id='fulltime_5A'></td>
@@ -516,7 +515,7 @@
                             <td id='fulltime_g12'></td>
                         </tr>
                         <tr>
-                            <td>LinuxTime</td>
+                            <td>UnixTime</td>
                             <td id='time_5A'></td>
                             <td id='time_5B'></td>
                             <td id='time_g12'></td>
@@ -528,13 +527,10 @@
                             <td id='fullnow_g12'></td>                                
                         </tr>
                         <tr>
-                            <td>LinuxNow</td>
+                            <td>UnixNow</td>
                             <td id='now_5A'></td>
                             <td id='now_5B'></td> 
                             <td id='now_g12'></td>                                 
-                        </tr>
-                        <tr>
-                            <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
                         </tr>
                         <tr>
                             <td>Latitude</td>
@@ -554,9 +550,7 @@
                             <td id='altitude_5B'></td>
                             <td id='altitude_g12'></td>
                         </tr>
-                        <tr>
-                            <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
-                        </tr>
+                        
                         <tr>
                             <td>Pitch</td>
                             <td id='pitch_5A'></td>
@@ -575,6 +569,12 @@
                         <tr>
                             <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
                         </tr>
+                        <tr>
+                            <td>Index</td>
+                            <td id = 'adu5_vtg_index'></td>
+                            <td></td>
+                            <td></td>
+                        </tr>
                         <tr>                                
                             <td>knots</td>
                             <td id='vkt_5A'></td>
@@ -590,6 +590,12 @@
                         </tr>
                         <tr>
                             <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td>Index</td>
+                            <td id = 'adu5_sat_index'></td>
+                            <td></td>
+                            <td id = 'g12_sat_index'></td>
                         </tr>
                         <tr>
                             <td># of Sats</td>
@@ -1253,7 +1259,7 @@ function updatehtml_cmd(cmd) {
 function updatehtml_adu5_pat(adu5_pat) {
     if (!adu5_pat) return;
     $.getJSON('/api/' + ip_db + '/adu5_pat/' + adu5_pat, function(data) {
-        $('#gps #index').html(k + 1 + "/" + adu5_pat_times.length);
+        $('#gps #adu5_pat_index').html(k + 1 + "/" + adu5_pat_times.length);
         $('#gps #now_5A').html(data.pat_a.now);
         $('#gps #time_5A').html(data.pat_a.time);
         $('#gps #fullnow_5A').html(timeConverter(data.pat_a.now));
@@ -1282,6 +1288,7 @@ function updatehtml_adu5_pat(adu5_pat) {
 function updatehtml_adu5_vtg(adu5_vtg) {
     if (!adu5_vtg) return;
     $.getJSON('/api/' + ip_db + '/adu5_vtg/' + adu5_vtg, function(data) {
+         $('#gps #adu5_vtg_index').html(l + 1 + "/" + adu5_vtg_nbufs.length);
         $('#gps #vtg_gpstype').html(gpstype(data.vtg.gpstype));
         if (gpstype(data.vtg.gpstype) == 'adu5A'){
            $('#gps #vkph_5A').html(data.vtg.vkph);
@@ -1297,6 +1304,7 @@ function updatehtml_adu5_vtg(adu5_vtg) {
 function updatehtml_adu5_sat(adu5_sat) {
     if (!adu5_sat) return;
     $.getJSON('/api/' + ip_db + '/adu5_sat/' + adu5_sat, function(data) {
+         $('#gps #adu5_sat_index').html(p + 1 + "/" + adu5_sat_nbufs.length);
         $('#gps #sat_gpstype').html(gpstype(data.sat.gpstype));
         if (gpstype(data.sat.gpstype) == 'adu5A'){
            $('#gps #numsats_5A').html(data.sat.numsats[0]+', '+data.sat.numsats[1]+', '+data.sat.numsats[2]+', '+data.sat.numsats[3]);
@@ -1322,6 +1330,7 @@ function updatehtml_g12_pos(g12_pos){
 }
 
 function updatehtml_g12_sat(g12_sat){
+    $('#gps #g12_sat_index').html(p + 1 + "/" + g12_sat_nbufs.length);
    if (!g12_sat) return;
    $.getJSON('/api/' + ip_db + '/g12_sat/' + g12_sat, function(data){
        $('#gps #sat_gpstype').html(gpstype(data.sat.gpstype));        
@@ -1479,13 +1488,14 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
             adu5_pat_nows = adu5_pat_nows.concat(data.adu5_pat_nows);
             adu5_pat_times = adu5_pat_times.concat(data.adu5_pat_times);
             
-            $('#gps #index').html(k + 1 + "/" + adu5_pat_nbufs.length);
+            $('#gps #adu5_pat_index').html(k + 1 + "/" + adu5_pat_nbufs.length);
         });
         $.getJSON('/api/' + ip_db + '/adu5_vtg/nbufs/' + offset_adu5_vtg, function(data) {
             offset_adu5_vtg += data.adu5_vtg_nbufs.length;
             adu5_vtg_nbufs = adu5_vtg_nbufs.concat(data.adu5_vtg_nbufs);
             adu5_vtg_nows = adu5_vtg_nows.concat(data.adu5_vtg_nows);
             adu5_vtg_times = adu5_vtg_times.concat(data.adu5_vtg_times);
+            $('#gps #adu5_vtg_index').html(l + 1 + "/" + adu5_vtg_nbufs.length);
             
         });
         $.getJSON('/api/' + ip_db + '/adu5_sat/nbufs/' + offset_adu5_sat, function(data) {
@@ -1493,6 +1503,7 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
             adu5_sat_nbufs = adu5_sat_nbufs.concat(data.adu5_sat_nbufs);
             adu5_sat_nows = adu5_sat_nows.concat(data.adu5_sat_nows);
             adu5_sat_times = adu5_sat_times.concat(data.adu5_sat_times);
+            $('#gps #adu5_sat_index').html(p + 1 + "/" + adu5_sat_nbufs.length);
             
         });
         $.getJSON('/api/' + ip_db + '/g12_pos/nbufs/' + offset_g12_pos, function(data){
@@ -1508,6 +1519,7 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
            g12_sat_nbufs=g12_sat_nbufs.concat(data.g12_sat_nbufs);
            g12_sat_nows=g12_sat_nows.concat(data.g12_sat_nows);
            g12_sat_times=g12_sat_times.concat(data.g12_sat_times);
+           $('#gps #g12_sat_index').html(p + 1 + "/" + g12_sat_nbufs.length);
                   
        });
     }
