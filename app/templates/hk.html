@@ -500,7 +500,7 @@
                         </tr> -->
                         <tr>
                             <td>Index</td>
-                            <td id = 'adu5_pat_index'></td>
+                            <td id = 'index'></td>
                             <td></td>
                             <td id = 'g12_pos_index'></td>
                         </tr>
@@ -1265,7 +1265,7 @@ function updatehtml_cmd(cmd) {
 function updatehtml_adu5_pat(adu5_pat) {
     if (!adu5_pat) return;
     $.getJSON('/api/' + ip_db + '/adu5_pat/' + adu5_pat, function(data) {
-        $('#gps #adu5_pat_index').html(k + 1 + "/" + adu5_pat_nbufs.length);
+        $('#gps #index').html(k + 1 + "/" + adu5_pat_nbufs.length);
         // $('#gps #pat_gpstype').html(gpstype(data.pat.gpstype));
         if (gpstype(data.pat.gpstype) == 'adu5A'){  
            $('#gps #now_5A').html(data.pat.now);
@@ -1503,7 +1503,7 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
             adu5_pat_nows = adu5_pat_nows.concat(data.adu5_pat_nows);
             adu5_pat_times = adu5_pat_times.concat(data.adu5_pat_times);
             
-            $('#gps #adu5_pat_index').html(k + 1 + "/" + adu5_pat_nbufs.length);
+            $('#gps #index').html(k + 1 + "/" + adu5_pat_nbufs.length);
         });
         $.getJSON('/api/' + ip_db + '/adu5_vtg/nbufs/' + offset_adu5_vtg, function(data) {
             offset_adu5_vtg += data.adu5_vtg_nbufs.length;
