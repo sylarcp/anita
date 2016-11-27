@@ -2,23 +2,38 @@ from flask import jsonify, request, g, abort, url_for, current_app, session
 from flask.ext.login import LoginManager, current_user
 from . import api
 from .. import cache
-from app.models import Hd, Wv, Hk, Mon, Adu5_pat, Adu5_vtg, Adu5_sat, Slow, Sshk
+from app.models import Hd, Wv, Hk, Mon, Adu5_pat, Adu5_vtg, Adu5_sat,G12_pos, G12_sat,Turf, Hk_surf, Slow, Sshk
 
 
 @api.route('/<ip_db>/history/<table_name>/<column_name>/<start_time>/<end_time>')
 def get_history(ip_db, table_name, column_name, start_time, end_time):
     try:
         # dict = {'Hd':Hd, 'Wv':Wv, 'Hk':Hk, 'Mon':Mon, 'Adu5_sat':Adu5_sat, 'Adu5_vtg':Adu5_vtg, 'Adu5_pat':Adu5_pat, 'Sshk':Sshk, 'Turf':Turf, 'Hk_surf':Hk_surf}
-        diction = {'hd':Hd, 'wv':Wv, 'hk':Hk, 'mon':Mon, 'adu5_sat':Adu5_sat, 'adu5_vtg':Adu5_vtg, 'adu5_pat':Adu5_pat, 'sshk': Sshk}
-        if column_name in ['vkt', 'vkph'] and table_name == 'adu5_pat':
-                table_name='adu5_vtg'
-        elif column_name == 'pat_gpstype':
-            column_name='gpstype'
-        elif column_name == 'vtg_gpstype':
-            column_name='gpstype'
-            table_name='adu5_vtg'
+        diction = {'hd':Hd, 'wv':Wv, 'hk':Hk, 'mon':Mon, 'adu5_sat':Adu5_sat, 'adu5_vtg':Adu5_vtg, 'adu5_pat':Adu5_pat, 'g12_pos':G12_pos, 'g12_sat':G12_sat, 'sshk': Sshk,'turf':Turf, 'hk_surf':Hk_surf, 'slow': Slow}
+        # print column_name[-10:-7]
+        if table_name == 'gps':
+            if column_name[-10:-7] == 'adu':
+                # adu5 case
+                if column_name[-1] == 'A':
+                    gpstype = 0x20000
+                else:
+                    gpstype = 0x40000
+                table_name = column_name[-10:-2]
+                column_name = column_name[:-11]
+                
+            else:
+                # g12 case
+                table_name = column_name[-7:]
+                column_name = column_name[:-8]
+            if column_name == 'unixtime':
+                column_name = 'time'
+            elif column_name == 'unixnow':
+                column_name = 'now'
+        # print table_name, column_name
         table = diction[table_name]
-        if '-' in column_name:
+        if column_name[:3] == 'adu':
+            results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time, table.gpstype == gpstype).order_by(table.time).all()
+        elif '-' in column_name:
             splited = column_name.split('-')
             column_name=splited[0]
             column_id=int(splited[1])

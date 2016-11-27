@@ -189,8 +189,8 @@
                                 <td>CPU</td>
                                 <td>1</td>
                                 <td>2</td>
-                                <td>5</td>
-                                <td>6</td>
+                               <!--  <td>5</td>
+                                <td>6</td> -->
                                 <td>Core</td>
                                 <td>1</td>
                                 <td>2</td>
@@ -482,7 +482,7 @@
         </div>
 
     <div class="col-lg-6">
-        <div class="ibox float-e-margins" id="adu5_pat">
+        <div class="ibox float-e-margins" id="gps">
             <div class="ibox-title">
                <h5>GPS Panel</h5>
                <div class="ibox-tools">
@@ -492,7 +492,7 @@
                 </div>
             </div>
             <div class="ibox-content" >
-                <table data-sort="false" class="footable" data-page-size="26" id='gps' style="width:100%">
+                <table data-sort="false" class="footable" data-page-size="26" style="width:100%">
                     <tbody>
                         <th>
                             <!-- <td>GPStype:</td> -->
@@ -510,61 +510,64 @@
                         
                         <tr>
                             <td>Time</td>
-                            <td id='fulltime_5A'></td>
-                            <td id='fulltime_5B'></td>
-                            <td id='fulltime_g12'></td>
+                            <td id='time_adu5_pat_A'></td>
+                            <td id='time_adu5_pat_B'></td>
+                            <td id='time_g12_pos'></td>
                         </tr>
                         <tr>
                             <td>UnixTime</td>
-                            <td id='time_5A'></td>
-                            <td id='time_5B'></td>
-                            <td id='time_g12'></td>
+                            <td id='unixtime_adu5_pat_A'></td>
+                            <td id='unixtime_adu5_pat_B'></td>
+                            <td id='unixtime_g12_pos'></td>
                         </tr>
                         <tr>
                             <td>Now</td>
-                            <td id='fullnow_5A'></td>
-                            <td id='fullnow_5B'></td>
-                            <td id='fullnow_g12'></td>                                
+                            <td id='now_adu5_pat_A'></td>
+                            <td id='now_adu5_pat_B'></td>
+                            <td id='now_g12_pos'></td>                                
                         </tr>
                         <tr>
                             <td>UnixNow</td>
-                            <td id='now_5A'></td>
-                            <td id='now_5B'></td> 
-                            <td id='now_g12'></td>                                 
+                            <td id='unixnow_adu5_pat_A'></td>
+                            <td id='unixnow_adu5_pat_B'></td> 
+                            <td id='unixnow_g12_pos'></td>                                 
                         </tr>
                         <tr>
                             <td>Latitude</td>
-                            <td id='latitude_5A'></td>
-                            <td id='latitude_5B'></td>
-                            <td id='latitude_g12'></td>
+                            <td id='latitude_adu5_pat_A'></td>
+                            <td id='latitude_adu5_pat_B'></td>
+                            <td id='latitude_g12_pos'></td>
                         </tr>
                         <tr>
                             <td>Longitude</td>  
-                            <td id='longitude_5A'></td>
-                            <td id='longitude_5B'></td>
-                            <td id='longitude_g12'></td>                              
+                            <td id='longitude_adu5_pat_A'></td>
+                            <td id='longitude_adu5_pat_B'></td>
+                            <td id='longitude_g12_pos'></td>                              
                         </tr>
                         <tr>
                             <td>Altitude</td>
-                            <td id='altitude_5A'></td>
-                            <td id='altitude_5B'></td>
-                            <td id='altitude_g12'></td>
+                            <td id='altitude_adu5_pat_A'></td>
+                            <td id='altitude_adu5_pat_B'></td>
+                            <td id='altitude_g12_pos'></td>
                         </tr>
                         
                         <tr>
                             <td>Pitch</td>
-                            <td id='pitch_5A'></td>
-                            <td id='pitch_5B'></td>
+                            <td id='pitch_adu5_pat_A'></td>
+                            <td id='pitch_adu5_pat_B'></td>
+                            <td></td>
                         </tr>
                         <tr>                                
                             <td>Roll</td> 
-                            <td id='roll_5A'></td>
-                            <td id='roll_5B'></td>
+                            <td id='roll_adu5_pat_A'></td>
+                            <td id='roll_adu5_pat_B'></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td>Heading</td>      
-                            <td id='heading_5A'></td>
-                            <td id='heading_5B'></td>
+                            <td id='heading_adu5_pat_A'></td>
+                            <td id='heading_adu5_pat_B'></td>
+                            <td></td>
                         </tr>
                         <tr>
                             <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
@@ -577,16 +580,16 @@
                         </tr>
                         <tr>                                
                             <td>knots</td>
-                            <td id='vkt_5A'></td>
-                            <td id='vkt_5B'></td>
-                            <td id='vkt_g12'></td> 
+                            <td id='vkt_adu5_vtg_A'></td>
+                            <td id='vkt_adu5_vtg_B'></td>
+                            <td id='vkt_g12_pos'></td> 
                         </tr>
 
                         <tr>
                             <td>kph</td> 
-                            <td id='vkph_5A'></td>
-                            <td id='vkph_5B'></td>
-                            <td id='vkph_g12'></td>                           
+                            <td id='vkph_adu5_vtg_A'></td>
+                            <td id='vkph_adu5_vtg_B'></td>
+                            <td id='vkph_g12_pos'></td>                           
                         </tr>
                         <tr>
                             <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
@@ -599,9 +602,9 @@
                         </tr>
                         <tr>
                             <td># of Sats</td>
-                            <td id='numsats_5A'></td>
-                            <td id='numsats_5B'></td> 
-                            <td id='numsats_g12'></td>                                 
+                            <td id='numsats_adu5_sat_A'></td>
+                            <td id='numsats_adu5_sat_B'></td> 
+                            <td id='numsats_g12_sat'></td>                                 
                         </tr>
                     </tbody>
                 </table>
@@ -634,54 +637,54 @@
 <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
 <script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
 <script>
- var hk_nbufs=[];
- var hk_nows=[];
- var hk_times=[];
- var sshk_nbufs=[];
- var sshk_nows=[];
- var sshk_times=[];
- var mon_nbufs=[];
- var mon_nows=[];
- var mon_times=[];
- var cmd_nbufs=[];
- var cmd_nows=[];
- var cmd_times=[];
- var adu5_pat_nbufs=[];
- var adu5_pat_nows=[];
- var adu5_pat_times=[];
- var adu5_vtg_nbufs=[];
- var adu5_vtg_nows=[];
- var adu5_vtg_times=[];
- var adu5_sat_nbufs=[];
- var adu5_sat_nows=[];
- var adu5_sat_times=[];
- var g12_pos_nbufs=[];
- var g12_pos_nows=[];
- var g12_pos_times=[];
- var g12_sat_nbufs=[];
- var g12_sat_nows=[];
- var g12_sat_times=[];
- var i=0;
- var j=0;
- var k=0;
- var l=0;
- var m=0;
- var n=0;
- var o=0;
- var p=0;
- var q=0;
- var offset_hk = 0;
- var offset_sshk = 0;
- var offset_mon = 0;
- var offset_cmd = 0;
- var offset_adu5_pat = 0;
- var offset_adu5_vtg = 0;
- var offset_adu5_sat = 0;
- var offset_g12_pos = 0;
- var offset_g12_sat = 0;
+var hk_nbufs=[];
+var hk_nows=[];
+var hk_times=[];
+var sshk_nbufs=[];
+var sshk_nows=[];
+var sshk_times=[];
+var mon_nbufs=[];
+var mon_nows=[];
+var mon_times=[];
+var cmd_nbufs=[];
+var cmd_nows=[];
+var cmd_times=[];
+var adu5_pat_nbufs=[];
+var adu5_pat_nows=[];
+var adu5_pat_times=[];
+var adu5_vtg_nbufs=[];
+var adu5_vtg_nows=[];
+var adu5_vtg_times=[];
+var adu5_sat_nbufs=[];
+var adu5_sat_nows=[];
+var adu5_sat_times=[];
+var g12_pos_nbufs=[];
+var g12_pos_nows=[];
+var g12_pos_times=[];
+var g12_sat_nbufs=[];
+var g12_sat_nows=[];
+var g12_sat_times=[];
+var i=0;
+var j=0;
+var k=0;
+var l=0;
+var m=0;
+var n=0;
+var o=0;
+var p=0;
+var q=0;
+var offset_hk = 0;
+var offset_sshk = 0;
+var offset_mon = 0;
+var offset_cmd = 0;
+var offset_adu5_pat = 0;
+var offset_adu5_vtg = 0;
+var offset_adu5_sat = 0;
+var offset_g12_pos = 0;
+var offset_g12_sat = 0;
 
- var connected = false;
- var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
+var connected = false;
+var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
 var sync_on = false;
 function timeConverter(UNIX_timestamp) {
@@ -1260,28 +1263,28 @@ function updatehtml_adu5_pat(adu5_pat) {
     if (!adu5_pat) return;
     $.getJSON('/api/' + ip_db + '/adu5_pat/' + adu5_pat, function(data) {
         $('#gps #adu5_pat_index').html(k + 1 + "/" + adu5_pat_times.length);
-        $('#gps #now_5A').html(data.pat_a.now);
-        $('#gps #time_5A').html(data.pat_a.time);
-        $('#gps #fullnow_5A').html(timeConverter(data.pat_a.now));
-        $('#gps #fulltime_5A').html(timeConverter(data.pat_a.time));
-        $('#gps #heading_5A').html(data.pat_a.heading);
-        $('#gps #latitude_5A').html(data.pat_a.latitude);
-        $('#gps #longitude_5A').html(data.pat_a.longitude);
-        $('#gps #pitch_5A').html(data.pat_a.pitch);
-        $('#gps #roll_5A').html(data.pat_a.roll);
-        $('#gps #altitude_5A').html(data.pat_a.altitude);        
+        $('#gps #unixnow_adu5_pat_A').html(data.pat_a.now);
+        $('#gps #unixtime_adu5_pat_A').html(data.pat_a.time);
+        $('#gps #now_adu5_pat_A').html(timeConverter(data.pat_a.now));
+        $('#gps #time_adu5_pat_A').html(timeConverter(data.pat_a.time));
+        $('#gps #heading_adu5_pat_A').html(data.pat_a.heading);
+        $('#gps #latitude_adu5_pat_A').html(data.pat_a.latitude);
+        $('#gps #longitude_adu5_pat_A').html(data.pat_a.longitude);
+        $('#gps #pitch_adu5_pat_A').html(data.pat_a.pitch);
+        $('#gps #roll_adu5_pat_A').html(data.pat_a.roll);
+        $('#gps #altitude_adu5_pat_A').html(data.pat_a.altitude);        
        
-        $('#gps #now_5B').html(data.pat_b.now);
-        $('#gps #time_5B').html(data.pat_b.time);
-        $('#gps #fullnow_5B').html(timeConverter(data.pat_b.now));
-        $('#gps #fulltime_5B').html(timeConverter(data.pat_b.time));
-        $('#gps #heading_5B').html(data.pat_b.heading);
-        $('#gps #latitude_5B').html(data.pat_b.latitude);
-        $('#gps #longitude_5B').html(data.pat_b.longitude);
-        $('#gps #pitch_5B').html(data.pat_b.pitch);
-        $('#gps #roll_5B').html(data.pat_b.roll);
-        $('#gps #altitude_5B').html(data.pat_b.altitude);
-        $('#gps #numsats_5B').html(data.pat_b.numsats);
+        $('#gps #unixnow_adu5_pat_B').html(data.pat_b.now);
+        $('#gps #unixtime_adu5_pat_B').html(data.pat_b.time);
+        $('#gps #now_adu5_pat_B').html(timeConverter(data.pat_b.now));
+        $('#gps #time_adu5_pat_B').html(timeConverter(data.pat_b.time));
+        $('#gps #heading_adu5_pat_B').html(data.pat_b.heading);
+        $('#gps #latitude_adu5_pat_B').html(data.pat_b.latitude);
+        $('#gps #longitude_adu5_pat_B').html(data.pat_b.longitude);
+        $('#gps #pitch_adu5_pat_B').html(data.pat_b.pitch);
+        $('#gps #roll_adu5_pat_B').html(data.pat_b.roll);
+        $('#gps #altitude_adu5_pat_B').html(data.pat_b.altitude);
+        $('#gps #numsats_adu5_pat_B').html(data.pat_b.numsats);
    });
 }
 
@@ -1291,12 +1294,12 @@ function updatehtml_adu5_vtg(adu5_vtg) {
          $('#gps #adu5_vtg_index').html(l + 1 + "/" + adu5_vtg_nbufs.length);
         $('#gps #vtg_gpstype').html(gpstype(data.vtg.gpstype));
         if (gpstype(data.vtg.gpstype) == 'adu5A'){
-           $('#gps #vkph_5A').html(data.vtg.vkph);
-           $('#gps #vkt_5A').html(data.vtg.vkt);
+           $('#gps #vkph_adu5_vtg_A').html(data.vtg.vkph);
+           $('#gps #vkt_adu5_vtg_A').html(data.vtg.vkt);
        }
        else if (gpstype(data.vtg.gpstype) == 'adu5B'){
-           $('#gps #vkph_5B').html(data.vtg.vkph);
-           $('#gps #vkt_5B').html(data.vtg.vkt);
+           $('#gps #vkph_adu5_vtg_B').html(data.vtg.vkph);
+           $('#gps #vkt_adu5_vtg_B').html(data.vtg.vkt);
        }
    });
 }
@@ -1305,12 +1308,11 @@ function updatehtml_adu5_sat(adu5_sat) {
     if (!adu5_sat) return;
     $.getJSON('/api/' + ip_db + '/adu5_sat/' + adu5_sat, function(data) {
          $('#gps #adu5_sat_index').html(p + 1 + "/" + adu5_sat_nbufs.length);
-        $('#gps #sat_gpstype').html(gpstype(data.sat.gpstype));
         if (gpstype(data.sat.gpstype) == 'adu5A'){
-           $('#gps #numsats_5A').html(data.sat.numsats[0]+', '+data.sat.numsats[1]+', '+data.sat.numsats[2]+', '+data.sat.numsats[3]);
+           $('#gps #numsats_adu5_sat_A').html(data.sat.numsats[0]+', '+data.sat.numsats[1]+', '+data.sat.numsats[2]+', '+data.sat.numsats[3]);
        }
        else if (gpstype(data.sat.gpstype) == 'adu5B'){
-           $('#gps #numsats_5B').html(data.sat.numsats[0]+', '+data.sat.numsats[1]+', '+data.sat.numsats[2]+', '+data.sat.numsats[3]);
+           $('#gps #numsats_adu5_sat_B').html(data.sat.numsats[0]+', '+data.sat.numsats[1]+', '+data.sat.numsats[2]+', '+data.sat.numsats[3]);
        }
    });
 }
@@ -1319,13 +1321,13 @@ function updatehtml_g12_pos(g12_pos){
     $('#gps #g12_pos_index').html(o + 1 + "/" + g12_pos_nbufs.length);
    if (!g12_pos) return;
    $.getJSON('/api/' + ip_db + '/g12_pos/' + g12_pos, function(data){
-       $('#gps #now_g12').html(data.pos.now);
-       $('#gps #time_g12').html(data.pos.time);
-       $('#gps #fullnow_g12').html(timeConverter(data.pos.now));
-       $('#gps #fulltime_g12').html(timeConverter(data.pos.time));
-       $('#gps #latitude_g12').html(data.pos.latitude);
-       $('#gps #longitude_g12').html(data.pos.longitude);
-       $('#gps #altitude_g12').html(data.pos.altitude);        
+       $('#gps #unixnow_g12_pos').html(data.pos.now);
+       $('#gps #unixtime_g12_pos').html(data.pos.time);
+       $('#gps #now_g12_pos').html(timeConverter(data.pos.now));
+       $('#gps #time_g12_pos').html(timeConverter(data.pos.time));
+       $('#gps #latitude_g12_pos').html(data.pos.latitude);
+       $('#gps #longitude_g12_pos').html(data.pos.longitude);
+       $('#gps #altitude_g12_pos').html(data.pos.altitude);        
    });
 }
 
@@ -1333,8 +1335,7 @@ function updatehtml_g12_sat(g12_sat){
     $('#gps #g12_sat_index').html(p + 1 + "/" + g12_sat_nbufs.length);
    if (!g12_sat) return;
    $.getJSON('/api/' + ip_db + '/g12_sat/' + g12_sat, function(data){
-       $('#gps #sat_gpstype').html(gpstype(data.sat.gpstype));        
-       $('#gps #numsats_g12').html(data.sat.numsats); 
+       $('#gps #numsats_g12_sat').html(data.sat.numsats); 
    });
 }
 
@@ -1401,34 +1402,34 @@ $(document).ready(function() {
                 }
             });
 
- $newDialog.dialog({
-    resize: function(event, ui) {
-        $("#plot_" + name).height(Math.max(100, $newDialog.height() - 120));
-        plot1.replot({
-            resetAxes: true,
-        });
-    }
-});
-}
+            $newDialog.dialog({
+                resize: function(event, ui) {
+                    $("#plot_" + name).height(Math.max(100, $newDialog.height() - 120));
+                    plot1.replot({
+                        resetAxes: true,
+                    });
+                }
+            });
+        }
 
-$("#dialog_" + name).find('button[id="request"]').click(function() {
-    console.log('click');
-    var end_time = $newDialog.find('input[id="reference_time"]').val();
-    var length = $newDialog.find('input[id="length"]').val();
-    // console.log(end_time);
-    // console.log(end_time - length);
-    $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
-        // console.log(data.data);
-        plot1.replot({
-            data: [data.data]
+        $("#dialog_" + name).find('button[id="request"]').click(function() {
+            console.log('click');
+            var end_time = $newDialog.find('input[id="reference_time"]').val();
+            var length = $newDialog.find('input[id="length"]').val();
+            // console.log(end_time);
+            // console.log(end_time - length);
+            $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
+                // console.log(data.data);
+                plot1.replot({
+                    data: [data.data]
+                });
+            });
         });
+
+        $("#dialog_" + name).find('button[id="request"]').trigger("click");
     });
-});
 
-$("#dialog_" + name).find('button[id="request"]').trigger("click");
-});
-
- $('.footable').footable();
+    $('.footable').footable();
     function autoload() {
         $.getJSON('/api/' + ip_db + '/hk/nbufs/' + offset_hk, function(data) {
             new_length = data.hk_nbufs.length
@@ -1604,8 +1605,8 @@ $("#dialog_" + name).find('button[id="request"]').trigger("click");
             connected = false;
         }
     });
- //update all html with hk index i;
-function updatehtml_all (i) {
+    //update all html with hk index i;
+    function updatehtml_all (i) {
         updatehtml_hk(hk_nbufs[i]);
         j=mon_nows.indexOf(hk_nows[i]);
         if (j!=-1) updatehtml_mon(mon_nbufs[j]);
@@ -1625,79 +1626,79 @@ function updatehtml_all (i) {
         if (q!=-1) updatehtml_cmd(cmd_nbufs[q]);    
 }
 
- $('#next').click( function(){
-    if (sync_on){
-       if (i<hk_nbufs.length-1) {
-           i=i+1;
-           updatehtml_all(i);
-       };
-    }else{
-        //console.log(hk_nbufs);
-        //console.log(hk_nows);
-        //console.log(hk_times);
-        if (i<hk_nbufs.length-1)        {i=i+1; updatehtml_hk(hk_nbufs[i]);}
-        if (j<mon_nbufs.length-1)       {j=j+1; updatehtml_mon(mon_nbufs[j]);}
-        if (k<adu5_pat_times.length-1)  {k=k+1; updatehtml_adu5_pat(adu5_pat_times[k]);}
-        if (l<adu5_vtg_nbufs.length-1)  {l=l+1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
-        if (m<adu5_sat_nbufs.length-1)  {m=m+1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
-        if (n<sshk_nbufs.length-1)      {n=n+1; updatehtml_sshk(sshk_nbufs[n]);}
-        if (o<g12_pos_nbufs.length-1)   {o=o+1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
-        if (p<g12_sat_nbufs.length-1)   {p=p+1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
-        if (q<cmd_nbufs.length-1)       {q=q+1; updatehtml_cmd(cmd_nbufs[q]);}
-    }
-});
- $('#prev').click( function(){
-    if (sync_on){
-       if (i>0) {
-           i=i-1;
-           updatehtml_all(i);
-       };
-    }else{
-        if (i>0)  {i=i-1; updatehtml_hk(hk_nbufs[i]);}
-        if (j>0)  {j=j-1; updatehtml_mon(mon_nbufs[j]);}
-        if (k>0)  {k=k-1; updatehtml_adu5_pat(adu5_pat_times[k]);}
-        if (l>0)  {l=l-1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
-        if (m>0)  {m=m-1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
-        if (n>0)  {n=n-1; updatehtml_sshk(sshk_nbufs[n]);}
-        if (o>0)  {o=o-1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
-        if (p>0)  {p=p-1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
-        if (q>0)  {q=q-1; updatehtml_cmd(cmd_nbufs[q]);}
-    }
-});
- $('#first').click( function(){
-    if (sync_on){
-        i=0;
-        updatehtml_all(i);
-    }else{
-        {i=0; updatehtml_hk(hk_nbufs[i]);}
-        {j=0; updatehtml_mon(mon_nbufs[j]);}
-        {k=0; updatehtml_adu5_pat(adu5_pat_times[k]);}
-        {l=0; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
-        {m=0; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
-        {n=0; updatehtml_sshk(sshk_nbufs[n]);}
-        {o=0; updatehtml_g12_pos(g12_pos_nbufs[o]);}
-        {p=0; updatehtml_g12_sat(g12_sat_nbufs[p]);}
-        {q=0; updatehtml_cmd(cmd_nbufs[q]);}
-    }
-});
- $('#last').click( function(){
-    if (sync_on){
-        i=hk_nbufs.length-1;
-        updatehtml_all(i);
-    }else{
-        {i=hk_nbufs.length-1; updatehtml_hk(hk_nbufs[i]);}
-        {j=mon_nbufs.length-1; updatehtml_mon(mon_nbufs[j]);}
-        {k=adu5_pat_times.length-1; updatehtml_adu5_pat(adu5_pat_times[k]);}
-        {l=adu5_vtg_nbufs.length-1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
-        {m=adu5_sat_nbufs.length-1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
-        {n=sshk_nbufs.length-1; updatehtml_sshk(sshk_nbufs[n]);}
-        {o=g12_pos_nbufs.length-1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
-        {p=g12_sat_nbufs.length-1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
-        {q=cmd_nbufs.length-1; updatehtml_cmd(cmd_nbufs[q]);}
-    }
-});
- var sync_checkbox = $('#sync_checkbox')[0];
- var switchery_sync = new Switchery(sync_checkbox, { color: '#1AB394' });
+    $('#next').click( function(){
+        if (sync_on){
+           if (i<hk_nbufs.length-1) {
+               i=i+1;
+               updatehtml_all(i);
+           };
+        }else{
+            //console.log(hk_nbufs);
+            //console.log(hk_nows);
+            //console.log(hk_times);
+            if (i<hk_nbufs.length-1)        {i=i+1; updatehtml_hk(hk_nbufs[i]);}
+            if (j<mon_nbufs.length-1)       {j=j+1; updatehtml_mon(mon_nbufs[j]);}
+            if (k<adu5_pat_times.length-1)  {k=k+1; updatehtml_adu5_pat(adu5_pat_times[k]);}
+            if (l<adu5_vtg_nbufs.length-1)  {l=l+1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
+            if (m<adu5_sat_nbufs.length-1)  {m=m+1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+            if (n<sshk_nbufs.length-1)      {n=n+1; updatehtml_sshk(sshk_nbufs[n]);}
+            if (o<g12_pos_nbufs.length-1)   {o=o+1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
+            if (p<g12_sat_nbufs.length-1)   {p=p+1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
+            if (q<cmd_nbufs.length-1)       {q=q+1; updatehtml_cmd(cmd_nbufs[q]);}
+        }
+    });
+    $('#prev').click( function(){
+        if (sync_on){
+           if (i>0) {
+               i=i-1;
+               updatehtml_all(i);
+           };
+        }else{
+            if (i>0)  {i=i-1; updatehtml_hk(hk_nbufs[i]);}
+            if (j>0)  {j=j-1; updatehtml_mon(mon_nbufs[j]);}
+            if (k>0)  {k=k-1; updatehtml_adu5_pat(adu5_pat_times[k]);}
+            if (l>0)  {l=l-1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
+            if (m>0)  {m=m-1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+            if (n>0)  {n=n-1; updatehtml_sshk(sshk_nbufs[n]);}
+            if (o>0)  {o=o-1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
+            if (p>0)  {p=p-1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
+            if (q>0)  {q=q-1; updatehtml_cmd(cmd_nbufs[q]);}
+        }
+    });
+    $('#first').click( function(){
+        if (sync_on){
+            i=0;
+            updatehtml_all(i);
+        }else{
+            {i=0; updatehtml_hk(hk_nbufs[i]);}
+            {j=0; updatehtml_mon(mon_nbufs[j]);}
+            {k=0; updatehtml_adu5_pat(adu5_pat_times[k]);}
+            {l=0; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
+            {m=0; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+            {n=0; updatehtml_sshk(sshk_nbufs[n]);}
+            {o=0; updatehtml_g12_pos(g12_pos_nbufs[o]);}
+            {p=0; updatehtml_g12_sat(g12_sat_nbufs[p]);}
+            {q=0; updatehtml_cmd(cmd_nbufs[q]);}
+        }
+    });
+    $('#last').click( function(){
+        if (sync_on){
+            i=hk_nbufs.length-1;
+            updatehtml_all(i);
+        }else{
+            {i=hk_nbufs.length-1; updatehtml_hk(hk_nbufs[i]);}
+            {j=mon_nbufs.length-1; updatehtml_mon(mon_nbufs[j]);}
+            {k=adu5_pat_times.length-1; updatehtml_adu5_pat(adu5_pat_times[k]);}
+            {l=adu5_vtg_nbufs.length-1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
+            {m=adu5_sat_nbufs.length-1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+            {n=sshk_nbufs.length-1; updatehtml_sshk(sshk_nbufs[n]);}
+            {o=g12_pos_nbufs.length-1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
+            {p=g12_sat_nbufs.length-1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
+            {q=cmd_nbufs.length-1; updatehtml_cmd(cmd_nbufs[q]);}
+        }
+    });
+    var sync_checkbox = $('#sync_checkbox')[0];
+    var switchery_sync = new Switchery(sync_checkbox, { color: '#1AB394' });
     sync_checkbox.onchange = function() {
         if (sync_checkbox.checked) {
             sync_on = true;
@@ -1706,9 +1707,9 @@ function updatehtml_all (i) {
             sync_on = false;
         };
     };
- var auto_checkbox = $('#auto_checkbox')[0];
- var switchery_auto = new Switchery(auto_checkbox, { color: '#1AB394' });
-  console.log(auto_checkbox);
+    var auto_checkbox = $('#auto_checkbox')[0];
+    var switchery_auto = new Switchery(auto_checkbox, { color: '#1AB394' });
+    console.log(auto_checkbox);
 
     // switchery.disable();
     var myInterval;
@@ -1732,41 +1733,41 @@ function updatehtml_all (i) {
                     if (q<cmd_nbufs.length-1)       {q=q+1; updatehtml_cmd(cmd_nbufs[q]);}
                 }
             }, 1000);
-    } else {
-        clearInterval(myInterval);
+        } else {
+            clearInterval(myInterval);
+        };
     };
-};
 
-$('#goto').click( function(){
-   var keywords=parseInt($('#keywords').val());
-   // console.log(keywords);
-   if (sync_on){
-        var index=hk_times.indexOf(keywords);
-        if (index!=-1 && keywords){
-           i=index;
-           updatehtml_all(i);
-        }else{
-            swal({  title: 'HK Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
-        }
-   }else{
-        var message = '';
-        var index=hk_times.indexOf(keywords);       if(index!=-1 && keywords) { i=index; updatehtml_hk(hk_nbufs[i]); message += 'HK ';}
-        var index=mon_times.indexOf(keywords);      if(index!=-1 && keywords) { j=index; updatehtml_mon(mon_nbufs[j]); message += 'MON ';}
-        var index=adu5_pat_times.indexOf(keywords); if(index!=-1 && keywords) { k=index; updatehtml_adu5_pat(adu5_pat_times[k]); message += 'ADU5_PAT ';}
-        var index=adu5_vtg_times.indexOf(keywords); if(index!=-1 && keywords) { l=index; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]); message += 'ADU5_VTG ';}
-        var index=adu5_sat_times.indexOf(keywords); if(index!=-1 && keywords) { m=index; updatehtml_adu5_sat(adu5_sat_nbufs[m]); message += 'ADU5_SAT ';}
-        var index=sshk_times.indexOf(keywords);     if(index!=-1 && keywords) { n=index; updatehtml_sshk(sshk_nbufs[n]); message += 'SSHK ';}
-        var index=g12_pos_times.indexOf(keywords);  if(index!=-1 && keywords) { o=index; updatehtml_g12_pos(g12_pos_nbufs[o]); message += 'G12_POS ';}
-        var index=g12_sat_times.indexOf(keywords);  if(index!=-1 && keywords) { p=index; updatehtml_g12_sat(g12_sat_nbufs[p]); message += 'G12_SAT ';}
-        var index=cmd_times.indexOf(keywords);      if(index!=-1 && keywords) { q=index; updatehtml_cmd(cmd_nbufs[q]); message += 'CMD ';}
-        if (message == ''){
-            swal({  title: 'No matched time found!', type: "warning", timer: 3000, showConfirmButton: true});
-        }else{
-            swal({  title: 'Matched '+message + 'time are found!', type: "success", timer: 3000, showConfirmButton: true});
-        }
+    $('#goto').click( function(){
+       var keywords=parseInt($('#keywords').val());
+       // console.log(keywords);
+       if (sync_on){
+            var index=hk_times.indexOf(keywords);
+            if (index!=-1 && keywords){
+               i=index;
+               updatehtml_all(i);
+            }else{
+                swal({  title: 'HK Data not found!', type: "warning", timer: 3000, showConfirmButton: true});
+            }
+       }else{
+            var message = '';
+            var index=hk_times.indexOf(keywords);       if(index!=-1 && keywords) { i=index; updatehtml_hk(hk_nbufs[i]); message += 'HK ';}
+            var index=mon_times.indexOf(keywords);      if(index!=-1 && keywords) { j=index; updatehtml_mon(mon_nbufs[j]); message += 'MON ';}
+            var index=adu5_pat_times.indexOf(keywords); if(index!=-1 && keywords) { k=index; updatehtml_adu5_pat(adu5_pat_times[k]); message += 'ADU5_PAT ';}
+            var index=adu5_vtg_times.indexOf(keywords); if(index!=-1 && keywords) { l=index; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]); message += 'ADU5_VTG ';}
+            var index=adu5_sat_times.indexOf(keywords); if(index!=-1 && keywords) { m=index; updatehtml_adu5_sat(adu5_sat_nbufs[m]); message += 'ADU5_SAT ';}
+            var index=sshk_times.indexOf(keywords);     if(index!=-1 && keywords) { n=index; updatehtml_sshk(sshk_nbufs[n]); message += 'SSHK ';}
+            var index=g12_pos_times.indexOf(keywords);  if(index!=-1 && keywords) { o=index; updatehtml_g12_pos(g12_pos_nbufs[o]); message += 'G12_POS ';}
+            var index=g12_sat_times.indexOf(keywords);  if(index!=-1 && keywords) { p=index; updatehtml_g12_sat(g12_sat_nbufs[p]); message += 'G12_SAT ';}
+            var index=cmd_times.indexOf(keywords);      if(index!=-1 && keywords) { q=index; updatehtml_cmd(cmd_nbufs[q]); message += 'CMD ';}
+            if (message == ''){
+                swal({  title: 'No matched time found!', type: "warning", timer: 3000, showConfirmButton: true});
+            }else{
+                swal({  title: 'Matched '+message + 'time are found!', type: "success", timer: 3000, showConfirmButton: true});
+            }
 
-   }
-});
+       }
+    });
 });
  </script>
  {% endblock %}

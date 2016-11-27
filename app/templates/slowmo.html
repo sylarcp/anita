@@ -374,11 +374,11 @@
                             <tbody>
                                 <tr>
                                     <td>Ev rate [Hz] 1 min</td>
-                                    <td id='ev_rate_0_0'></td>
+                                    <td id='rate1'></td>
                                 </tr>
                                 <tr>
                                     <td>Ev rate [Hz] 10 min</td>
-                                    <td id='ev_rate_1_0'></td>
+                                    <td id='rate10'></td>
                                 </tr>
                                 <tr>
                                     <td>PV (V)</td>
@@ -418,6 +418,29 @@
                 </div>
             </div>
         </div>
+    </div>
+</div>
+<div id="dialog" class='hide'>
+    <div id='chart1'></div>
+        </br>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Reference UTC</label>
+                <input id="reference_time" placeholder="Enter your end time" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label>Length(s)</label>
+                <input id="length" value="10000" placeholder="Enter the number of seconds" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            </br>
+            <button id="request" type="button" class="btn btn-primary">Request</button>
+        </div>
+    </div>
+</div>
         {% endblock %} {% block scripts %} {{ super() }}
         <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
         <script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
@@ -637,11 +660,11 @@
                 }
 
                 var rate1_name;
-                rate1_name = '#ev_rate_0_0';
+                rate1_name = '#rate1';
                 update_rate1_data($(rate1_name), parseInt(data.slow.rate1));
 
                 var rate10_name;
-                rate10_name = '#ev_rate_1_0';
+                rate10_name = '#rate10';
                 update_rate10_data($(rate10_name), parseInt(data.slow.rate10));
 
 
@@ -670,148 +693,235 @@
             });
         }
 
-        $(document).ready(function() {
-            $('#navbar_slow').parent().addClass("active");
-            
-            $('#label_sync_checkbox').attr('style', 'display:none');
-            $('#sync_checkbox').attr('style', 'display:none');
-            $('.footable').footable();
-            
-                // $.getJSON('/api/' + ip_db + '/slow/times', function(data){
-                // 	slow_nbufs=data.slow_nbufs;
-                // 	slow_nows=data.slow_nows;
-                // 	slow_times=data.slow_times;
-                // });
-            function autoload() {
-                $.getJSON('/api/' + ip_db + '/slow/times/' + offset, function(data) {
-                    new_length = data.slow_times.length;
-                    offset += new_length;
-                    slow_nbufs = slow_nbufs.concat(data.slow_nbufs);
-                    slow_nows = slow_nows.concat(data.slow_nows);
-                    slow_times = slow_times.concat(data.slow_times);
-                    $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
-                    $('#connect').html('Disconnect');
-                    $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
-                    // switchery.enable();
-                    connected = true;
-                    connect.ladda('stop');
-                }).done(function() {
-                    setTimeout(function() {
-                        if (new_length) {
-                            sleep_interval = 2000;
-                        } else {
-                            sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+$(document).ready(function() {
+    $('#navbar_slow').parent().addClass("active");
+    $.jqplot.config.enablePlugins = true;
+    $("td[id]").click(function() {
+        var column_name = $(this).attr('id');
+        var table_name = $(this).closest('.ibox').attr('id');
+        var name = table_name + '_' + column_name;
+        // console.log($(this).attr('id'));
+        // console.log($(this).closest('.ibox').attr('id'));
+        if ($("#dialog_" + name).length) {
+            $("#dialog_" + name).dialog('open');
+            $("#dialog_" + name).find('input[id="reference_time"]').val(slow_times[i]);
+        } else {
+            var $newDialog = $('#dialog').clone();
+            $newDialog.attr('id', 'dialog_' + name);
+            $newDialog.removeClass('hide');
+            $newDialog.attr('title', name);
+            $newDialog.prepend('<div id="' + "plot_" + name + '"></div>');
+            $newDialog.find('input[id="reference_time"]').val(slow_times[i]);
+            $newDialog.dialog({
+                width: 600,
+                height: 500,
+            });
+            var line1 = [
+            ['2008-09-30', 14]
+            ];
+            var plot1 = $.jqplot('plot_' + name, [line1], {
+                title: 'double click to reset the zoom',
+                axes: {
+                    xaxis: {
+                        renderer: $.jqplot.DateAxisRenderer,
+                        rendererOptions: {
+                            tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                        },
+                        tickOptions: {
+                            // formatString: '%M:%S%#N ',
+                            fontSize: '10pt',
+                            fontFamily: 'Tahoma',
                         }
-                        if (connected == true) {
-                            autoload();
+                    },
+                    yaxis: {
+                        rendererOptions: {
+                            tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                        },
+                        tickOptions: {
+                            fontSize: '10pt',
+                            fontFamily: 'Tahoma',
                         }
-                    }, sleep_interval);
-
-                });
-            }
-            var connect = $('.ladda-button').ladda();
-            $('#connect').click(function() {
-                if ($(this).hasClass('connect')) {
-                    slow_nbufs = [];
-                    slow_nows = [];
-                    slow_times = [];
-                    i = 0;
-                    offset = 0;
-                    connect.ladda('start');
-                    $.ajax({
-                        url: '/api/connect/' + ip + '/' + db
-                    }).done(function(response) {
-                        if (response == 'success') {
-                            autoload();
-                            setTimeout(function(){
- 	        			        $('#first').click();
- 	        		        },1000);
-                        } else {
-                            connect.ladda('stop');
-                            swal({
-                                title: 'Database not found!',
-                                type: "warning",
-                                timer: 3000,
-                                showConfirmButton: true
-                            });
-                        }
-                    });
-                } else {
-                    slow_nbufs = [];
-                    slow_nows = [];
-                    slow_times = [];
-                    i = 0;
-                    offset = 0;
-                    //otherwise, stop all the requests.
-                    $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
-                    $('#connect').html('Connect');
-                    $('.chosen-select').attr("disabled", false).trigger("chosen:updated");
-                    // if (switchery.isChecked()){
-                    // 	$('.switchery').click();
-                    // };
-                    // switchery.disable();				
-                    connected = false;
+                    }
+                },
+                series: [{
+                    lineWidth: 2
+                }],
+                cursor: {
+                    zoom: true,
+                    looseZoom: true,
+                    // showTooltip:true, 
+                    followMouse: true,
+                    showTooltipOutsideZoom: true,
+                    constrainOutsideZoom: false
                 }
             });
 
+            $newDialog.dialog({
+                resize: function(event, ui) {
+                    $("#plot_" + name).height(Math.max(100, $newDialog.height() - 120));
+                    plot1.replot({
+                        resetAxes: true,
+                    });
+                }
+            });
+        }
 
-            $('#next').click(function() {
-                if (i < slow_times.length - 1) {
-                    i = i + 1;
-                    updatehtml(slow_times[i]);
-                };
+        $("#dialog_" + name).find('button[id="request"]').click(function() {
+            console.log('click');
+            var end_time = $newDialog.find('input[id="reference_time"]').val();
+            var length = $newDialog.find('input[id="length"]').val();
+            // console.log(end_time);
+            // console.log(end_time - length);
+            $.getJSON('/api/' + ip_db + '/history/' + 'slow' + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
+                // console.log(data.data);
+                plot1.replot({
+                    data: [data.data]
+                });
             });
-            $('#prev').click(function() {
-                if (i > 0) {
-                    i = i - 1;
-                    updatehtml(slow_times[i]);
-                };
-            });
-            $('#first').click(function() {
-                i = 0;
-                updatehtml(slow_times[i]);
-            });
-            $('#last').click(function() {
-                i = slow_times.length - 1;
-                updatehtml(slow_times[i]);
-            });
-            var elem = document.querySelector('.js-switch');
-            var switchery = new Switchery(elem, {
-                color: '#1AB394'
-            });
-            // switchery.disable();
-            var myInterval;
-            elem.onchange = function() {
-                console.log("working!!!!!!");
-                if (elem.checked) {
-                    myInterval = setInterval(function() {
-                        if (i < slow_times.length - 1) {
-                            i = i + 1;
-                            updatehtml(slow_times[i]);
-                        };
-                    }, 1000);
+        });
+
+        $("#dialog_" + name).find('button[id="request"]').trigger("click");
+    });
+            
+    $('#label_sync_checkbox').attr('style', 'display:none');
+    $('#sync_checkbox').attr('style', 'display:none');
+    $('.footable').footable();
+    
+        // $.getJSON('/api/' + ip_db + '/slow/times', function(data){
+        // 	slow_nbufs=data.slow_nbufs;
+        // 	slow_nows=data.slow_nows;
+        // 	slow_times=data.slow_times;
+        // });
+    function autoload() {
+        $.getJSON('/api/' + ip_db + '/slow/times/' + offset, function(data) {
+            new_length = data.slow_times.length;
+            offset += new_length;
+            slow_nbufs = slow_nbufs.concat(data.slow_nbufs);
+            slow_nows = slow_nows.concat(data.slow_nows);
+            slow_times = slow_times.concat(data.slow_times);
+            $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
+            $('#connect').html('Disconnect');
+            $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
+            // switchery.enable();
+            connected = true;
+            connect.ladda('stop');
+        }).done(function() {
+            setTimeout(function() {
+                if (new_length) {
+                    sleep_interval = 2000;
                 } else {
-                    clearInterval(myInterval);
-                };
-            };
-            $('#goto').click(function() {
-                var keywords = parseInt($('#keywords').val());
-                console.log(keywords);
-                var index = slow_times.indexOf(keywords);
-                if (index != -1 && keywords) {
-                    i = index;
-                    console.log(i);
-                    updatehtml(slow_times[i]);
+                    sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+                }
+                if (connected == true) {
+                    autoload();
+                }
+            }, sleep_interval);
+
+        });
+    }
+    var connect = $('.ladda-button').ladda();
+    $('#connect').click(function() {
+        if ($(this).hasClass('connect')) {
+            slow_nbufs = [];
+            slow_nows = [];
+            slow_times = [];
+            i = 0;
+            offset = 0;
+            connect.ladda('start');
+            $.ajax({
+                url: '/api/connect/' + ip + '/' + db
+            }).done(function(response) {
+                if (response == 'success') {
+                    autoload();
+                    setTimeout(function(){
+        			        $('#first').click();
+        		        },1000);
                 } else {
+                    connect.ladda('stop');
                     swal({
-                        title: 'Data not found!',
+                        title: 'Database not found!',
                         type: "warning",
                         timer: 3000,
                         showConfirmButton: true
                     });
                 }
-
             });
-        });
-        </script>
-        {% endblock %}
+        } else {
+            slow_nbufs = [];
+            slow_nows = [];
+            slow_times = [];
+            i = 0;
+            offset = 0;
+            //otherwise, stop all the requests.
+            $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
+            $('#connect').html('Connect');
+            $('.chosen-select').attr("disabled", false).trigger("chosen:updated");
+            // if (switchery.isChecked()){
+            // 	$('.switchery').click();
+            // };
+            // switchery.disable();				
+            connected = false;
+        }
+    });
+
+
+    $('#next').click(function() {
+        if (i < slow_times.length - 1) {
+            i = i + 1;
+            updatehtml(slow_times[i]);
+        };
+    });
+    $('#prev').click(function() {
+        if (i > 0) {
+            i = i - 1;
+            updatehtml(slow_times[i]);
+        };
+    });
+    $('#first').click(function() {
+        i = 0;
+        updatehtml(slow_times[i]);
+    });
+    $('#last').click(function() {
+        i = slow_times.length - 1;
+        updatehtml(slow_times[i]);
+    });
+    var elem = document.querySelector('.js-switch');
+    var switchery = new Switchery(elem, {
+        color: '#1AB394'
+    });
+    // switchery.disable();
+    var myInterval;
+    elem.onchange = function() {
+        console.log("working!!!!!!");
+        if (elem.checked) {
+            myInterval = setInterval(function() {
+                if (i < slow_times.length - 1) {
+                    i = i + 1;
+                    updatehtml(slow_times[i]);
+                };
+            }, 1000);
+        } else {
+            clearInterval(myInterval);
+        };
+    };
+    $('#goto').click(function() {
+        var keywords = parseInt($('#keywords').val());
+        console.log(keywords);
+        var index = slow_times.indexOf(keywords);
+        if (index != -1 && keywords) {
+            i = index;
+            console.log(i);
+            updatehtml(slow_times[i]);
+        } else {
+            swal({
+                title: 'Data not found!',
+                type: "warning",
+                timer: 3000,
+                showConfirmButton: true
+            });
+        }
+
+    });
+});
+</script>
+{% endblock %}
