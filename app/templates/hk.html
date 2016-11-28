@@ -126,6 +126,40 @@
                                 <td id='it-12'></td>
                                 <td id='it-13'></td>
                                 <td id='it-14'></td>
+
+                                <td>CPU</td>
+                                <td id='sbst1'></td>
+                                <td id='sbst2'></td>
+                               
+                                <td id='core1'></td>
+                                
+                                
+                            </tr>
+                            <tr>
+                                <td>It </td>
+                                <td>&nbsp 1</td>
+                                <td>&nbsp 2</td>
+                                <td>&nbsp 3</td>
+                                <td>&nbsp 4</td>
+                                <td>&nbsp 5</td>
+                                <td>&nbsp 6</td>
+                                <td>&nbsp 7</td>
+                                <td>&nbsp 8</td>
+                                <td>&nbsp 9</td>
+                                <td>10</td>
+                                <td>11</td>
+                                <td>12</td>
+                                <td>13</td>
+                                <td>14</td>
+                                <td>15</td>
+                                <td>CPU</td>
+                                <td>1</td>
+                                <td>2</td>
+                              
+                                <td>Core</td>                              
+                                
+                            </tr>
+                            <tr>
                                 <td>Et</td>
                                 <td id='et-0'></td>
                                 <td id='et-1'></td>
@@ -142,58 +176,32 @@
                                 <td id='et-12'></td>
                                 <td id='et-13'></td>
                                 <td id='et-14'></td>
-                                <td>CPU</td>
-                                <td id='sbst1'></td>
-                                <td id='sbst2'></td>
-                               
-                                <td>Core</td>
-                                <td id='core1'></td>
-                                <td id='core2'></td>
-                                <!-- <td>Ramdisk</td>
-                                <td id='sbst5'></td>
-                                <td id='sbst6'></td> -->
+                                <td>NTUdisk</td>
+                                <td id='disk0'></td>
+                                <td id='disk1'></td>
+                                
                             </tr>
                             <tr>
-                                <td>It </td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
-                                <td>10</td>
-                                <td>11</td>
-                                <td>12</td>
-                                <td>13</td>
-                                <td>14</td>
-                                <td>15</td>
                                 <td>Et</td>
-                                <td>1</td>
-                                <td>2</td>
-                                <td>3</td>
-                                <td>4</td>
-                                <td>5</td>
-                                <td>6</td>
-                                <td>7</td>
-                                <td>8</td>
-                                <td>9</td>
+                                <td>&nbsp 1</td>
+                                <td>&nbsp 2</td>
+                                <td>&nbsp 3</td>
+                                <td>&nbsp 4</td>
+                                <td>&nbsp 5</td>
+                                <td>&nbsp 6</td>
+                                <td>&nbsp 7</td>
+                                <td>&nbsp 8</td>
+                                <td>&nbsp 9</td>
                                 <td>10</td>
                                 <td>11</td>
                                 <td>12</td>
                                 <td>13</td>
                                 <td>14</td>
                                 <td>15</td>
-                                <td>CPU</td>
+                                <td>NTUdisk</td>
+                                <td>0</td>
                                 <td>1</td>
-                                <td>2</td>
-                               <!--  <td>5</td>
-                                <td>6</td> -->
-                                <td>Core</td>
-                                <td>1</td>
-                                <td>2</td>
+                                
                             </tr>
                         </tbody>
                     </table>
@@ -813,22 +821,7 @@ function update_sbst1_data($selector, new_data) {
     });
     }
 
-    function update_sbst5_data($selector, new_data) {
-        var array_string = $selector.attr('values');
-        array_string = new_data;
-    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 8,
-            height: '90',
-        // zeroAxis: false,
-        colorMap: sbst_range_map,
-        chartRangeMin: -10,
-        chartRangeMax: 100
-    });
-    }
-
-    function update_sbst6_data($selector, new_data) {
+    function update_disk_data($selector, new_data) {
         var array_string = $selector.attr('values');
         array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
@@ -858,20 +851,20 @@ function update_sbst1_data($selector, new_data) {
     });
     }
 
-    function update_core2_data($selector, new_data) {
-        var array_string = $selector.attr('values');
-        array_string = new_data;
-    // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
-        $selector.attr('values', array_string).sparkline('html', {
-            type: 'bar',
-            barWidth: 8,
-            height: '90',
-        // zeroAxis: false,
-        colorMap: core_range_map,
-        chartRangeMin: -10,
-        chartRangeMax: 100
-    });
-    }
+    // function update_core2_data($selector, new_data) {
+    //     var array_string = $selector.attr('values');
+    //     array_string = new_data;
+    // // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
+    //     $selector.attr('values', array_string).sparkline('html', {
+    //         type: 'bar',
+    //         barWidth: 8,
+    //         height: '90',
+    //     // zeroAxis: false,
+    //     colorMap: core_range_map,
+    //     chartRangeMin: -10,
+    //     chartRangeMax: 100
+    // });
+    // }
 
     function update_it_data($selector, new_data) {
         var array_string = $selector.attr('values');
@@ -911,6 +904,7 @@ function update_sbst1_data($selector, new_data) {
         $selector.attr('values', array_string).sparkline('html', {
             type: 'bar',
             barWidth: 8,
+            height: '90',
         // zeroAxis: false,
         colorMap: disk0_range_map,
         chartRangeMin: 0,
@@ -926,6 +920,7 @@ function update_sbst1_data($selector, new_data) {
         $selector.attr('values', array_string).sparkline('html', {
             type: 'bar',
             barWidth: 8,
+            height: '90',
         // zeroAxis: false,
         colorMap: disk1_range_map,
         chartRangeMin: 0,
@@ -941,6 +936,7 @@ function update_sbst1_data($selector, new_data) {
         $selector.attr('values', array_string).sparkline('html', {
             type: 'bar',
             barWidth: 8,
+            height: '90',
         // zeroAxis: false,
         colorMap: disk2_range_map,
         chartRangeMin: 0,
@@ -956,6 +952,7 @@ function update_sbst1_data($selector, new_data) {
         $selector.attr('values', array_string).sparkline('html', {
             type: 'bar',
             barWidth: 8,
+            height: '90',
         // zeroAxis: false,
         colorMap: disk3_range_map,
         chartRangeMin: 0,
@@ -971,6 +968,7 @@ function update_sbst1_data($selector, new_data) {
         $selector.attr('values', array_string).sparkline('html', {
             type: 'bar',
             barWidth: 8,
+            height: '90',
         // zeroAxis: false,
         colorMap: disk45_range_map,
         chartRangeMin: 0,
@@ -986,6 +984,7 @@ function update_sbst1_data($selector, new_data) {
         $selector.attr('values', array_string).sparkline('html', {
             type: 'bar',
             barWidth: 8,
+            height: '90',
         // zeroAxis: false,
         colorMap: disk5_range_map,
         chartRangeMin: 0,
@@ -1001,6 +1000,7 @@ function update_sbst1_data($selector, new_data) {
         $selector.attr('values', array_string).sparkline('html', {
             type: 'bar',
             barWidth: 8,
+            height: '90',
         // zeroAxis: false,
         colorMap: disk6_range_map,
         chartRangeMin: 0,
@@ -1016,6 +1016,7 @@ function update_sbst1_data($selector, new_data) {
         $selector.attr('values', array_string).sparkline('html', {
             type: 'bar',
             barWidth: 8,
+            height: '90',
         // zeroAxis: false,
         colorMap: disk7_range_map,
         chartRangeMin: 0,
@@ -1031,6 +1032,7 @@ function update_sbst1_data($selector, new_data) {
         $selector.attr('values', array_string).sparkline('html', {
             type: 'bar',
             barWidth: 8,
+            height: '90',
         // zeroAxis: false,
         colorMap: link_range_map,
         chartRangeMin: 0,
@@ -1114,18 +1116,20 @@ function update_sbst1_data($selector, new_data) {
             sbst2_name = '#sbst2';
             update_sbst2_data($(sbst2_name), parseInt(data.hk.sbst2 * 0.1));
 
-            // var sbst5_name;
-            // sbst5_name = '#sbst5';
-            // update_sbst5_data($(sbst5_name), parseInt(data.hk.sbst5));
-            // var sbst6_name;
-            // sbst6_name = '#sbst6';
-            // update_sbst6_data($(sbst6_name), parseInt(data.hk.sbst6));
+            for (var ii = 0; ii < 2; ii++) {
+                disk_name = '#disk' + ii;
+                if (ii == 0){
+                    update_disk_data($(disk_name), parseInt(data.hk.sbst5));
+                }else if(ii == 1){
+                    update_disk_data($(disk_name), parseInt(data.hk.sbst6));
+                }
+            }
             var core1_name;
             core1_name = '#core1';
             update_core1_data($(core1_name), parseInt(data.hk.core1 * 0.1));
-            var core2_name;
-            core2_name = '#core2';
-            update_core2_data($(core2_name), parseInt(data.hk.core2 * 0.1));
+            // var core2_name;
+            // core2_name = '#core2';
+            // update_core2_data($(core2_name), parseInt(data.hk.core2 * 0.1));
             var it_name;
             for (var ii = 0; ii < 15; ii++) {
                 it_name = '#it-' + ii;
