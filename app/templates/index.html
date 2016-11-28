@@ -968,7 +968,11 @@
                 // var waveform = currentData[id.toString()];
                 var waveform = jQuery.extend(true, {}, currentData[id.toString()]);
                 if (datatype == 'mV'){
-                    var line1=waveform.cal;
+                    var line1 = [];
+                    for (var i = 0; i < waveform.cal.length; i++) {
+                        line1.push([i/2.6, waveform.cal[i]]);
+                    }
+                    // var line1=waveform.cal;
                 } else if (datatype == 'FFT') {
                     var fftdata = new complex_array.ComplexArray(260);
                     fftdata.map(function(value, i, n) {
@@ -976,12 +980,16 @@
                     });
                     // Array.from(), translate Float32Array into Array.  To make it compatiable with firefox.
                     var fft = Array.from(fftdata.FFT().magnitude().slice(1, 130));
-                    var line1=fft;
-                } else if (datatype == 'Power') {
-                    for (var i = 0; i < waveform.cal.length; i++) {
-                        waveform.cal[i] = Math.pow(waveform.cal[i], 2);
+                    // var line1=fft;
+                    var line1 = [];
+                    for (var i = 0; i < fft.length; i++) {
+                        line1.push([i*10, fft[i]]);
                     }
-                    var line1=waveform.cal;
+                } else if (datatype == 'Power') {
+                    var line1 = [];
+                    for (var i = 0; i < waveform.cal.length; i++) {
+                        line1.push([i/2.6, Math.pow(waveform.cal[i], 2)]);
+                    }
                 }
                 console.log(line1);
                 
@@ -995,7 +1003,7 @@
                             // min:0,
                             // max:262,
                             // renderer: $.jqplot.DateAxisRenderer,
-                            label:'time(ns)',
+                            label: datatype == 'FFT'? 'frequency(MHz)' : 'time(ns)',
                             rendererOptions: {
                                 tickRenderer: $.jqplot.CanvasAxisTickRenderer
                             },
@@ -1006,7 +1014,7 @@
                             }
                         },
                         yaxis: {
-                            label:'Voltage(mV)',
+                            label: datatype == 'Power'? 'Power(mV*mV)':'Voltage(mV)',
                             rendererOptions: {
                                 tickRenderer: $.jqplot.CanvasAxisTickRenderer
                             },
