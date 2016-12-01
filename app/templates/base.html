@@ -21,9 +21,11 @@
 <link href="{{ url_for('static', filename='inspinia/css/plugins/jQueryUI/jquery-ui.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='anita/css/jquery.jqplot.min.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='anita/css/magicbox.css') }}" rel="stylesheet">
-
+{{ moment.include_jquery() }}
+{{ moment.include_moment() }}
 
 <style>   
+    #currentUTC {display:inline-block;margin-right:10px;}
     .ui-dialog { z-index: 9000 !important ;} 
     button, .select2-container{
         margin: 7px 2px;
@@ -128,6 +130,8 @@
         </ul> -->
     </nav>
 </div>
+Current UTC time: <div id = 'currentUTC'> </div>  
+
 
 
     {% endblock %}
@@ -174,10 +178,17 @@
     <script src="{{ url_for('static', filename='anita/js/magicbox.js') }}"></script>
     <script>
         var ip, db, ip_db;
-        
+        function update() {
+          $('#currentUTC').html(new Date().toUTCString());
+
+        }
+        setInterval(update, 1000);
 
 
         $(document).ready(function () {
+            
+            
+
             $('#ip').empty();
             ip_list = ['128.175.112.58', '128.175.112.80', 'beauty.phys.hawaii.edu', 'charm.phys.hawaii.edu', '128.146.39.110' ]
             addmore = 1
@@ -205,13 +216,7 @@
             $('#ip').on("select2:closing", function(){
             // $('#ip').change(function() {
                 ip=$('#ip option:selected').text();
-                db=$('#db option:selected').text().replace(/\s/gi, '');
-
-                ip = ip.replace(/\./gi, '_');
-                ip_db= "query_"+ ip + "_" + db;
-                $.getJSON('/set_cookie/'+ ip + '/' + db, function(data) {
-                    ;
-                });
+                
                 $.getJSON('/api/getDBnames/'+ ip, function(data) {
                     dbnames = data['dbnames']
                     $('#db').empty(); //remove all child nodes
@@ -226,6 +231,12 @@
                     }               
                     // $('#db').trigger("chosen:updated");
                     $('#db').select2({tags: true});
+                    db=$('#db option:selected').text().replace(/\s/gi, '');
+                    ip = ip.replace(/\./gi, '_');
+                    ip_db= "query_"+ ip + "_" + db;
+                    $.getJSON('/set_cookie/'+ ip + '/' + db, function(data) {
+                        ;
+                    });
 
                 });
             });

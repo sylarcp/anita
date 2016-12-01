@@ -298,6 +298,12 @@
                                 <td>Now</td>
                                 <td id='now'></td>
                             </tr>
+                            <tr>
+                                <td>UnixTime</td>
+                                <td id='unixtime'></td>
+                                <td>UnixNow</td>
+                                <td id='unixnow'></td>
+                            </tr>
                         </tbody>
                         <tbody>
                             <tr>
@@ -1148,8 +1154,10 @@ function updatehtml_sshk(sshk) {
     if (!sshk) return;
     $.getJSON('/api/' + ip_db + '/sshk/' + sshk, function(data) {
         $('#sshk #index').html(n + 1 + "/" + sshk_nbufs.length);
-        $('#sshk #now').html(data.sshk.now + " (" + timeConverter(data.sshk.now) + ")");
-        $('#sshk #time').html(data.sshk.time + " (" + timeConverter(data.sshk.time) + ")");
+        $('#sshk #now').html(timeConverter(data.sshk.now));
+        $('#sshk #time').html(timeConverter(data.sshk.time));
+        $('#sshk #unixnow').html(data.sshk.now);
+        $('#sshk #unixtime').html(data.sshk.time);
         $('#sshk #ssflag-4').html(data.sshk.ssflag[0]);
         $('#sshk #ssflag-5').html(data.sshk.ssflag[1]);
         $('#sshk #ssflag-6').html(data.sshk.ssflag[2]);
