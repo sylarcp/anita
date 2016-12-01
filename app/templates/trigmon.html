@@ -1440,7 +1440,7 @@ function updatehtml_hk_surf(hk_surf) {
         for (ii = 0; ii < 12; ii++) {
             for (jj = 0; jj < 8; jj++) {
                 rfpow_name = '#rfpow_' + ii + '_' + jj;
-                update_rfpow_data($(rfpow_name), parseInt(data.hk_surf.rfpow[ii][jj]));
+                update_rfpow_data($(rfpow_name), parseInt(data.hk_surf.rfpow[ii][jj])& 0x7fff);
             }
         }
         var scaler_name;
