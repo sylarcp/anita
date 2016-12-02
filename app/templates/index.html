@@ -94,10 +94,10 @@
                                 <td>l2maskh</td>
                                 <td id='l2maskh'></td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>event rate</td>
                                 <td id='eventrate'></td>
-                            </tr>
+                            </tr> -->
                         </tbody>
                     </table>
                 </div>
@@ -1143,7 +1143,7 @@
         }
         function getEventRate() {
             $.getJSON('/api/' + ip_db + '/eventrate/' + '30', function(data) {
-                    $('#hd #eventrate').html(data.eventrate);
+                    $('#eventrate').html(' Current Event Rate: ' + data.eventrate + 'Hz');
             });
         }
 
@@ -1167,7 +1167,8 @@
                 }).done(function(response) {
                     if (response == 'success') {
                         console.log('succeed');
-                        eventRateTimer = setInterval(function(){ getEventRate() }, 2000);
+                        getEventRate();
+                        eventRateTimer = setInterval(function(){ getEventRate() }, 10000);
                         autoload(0);
                         console.log('after autoload');
                         setTimeout(function(){

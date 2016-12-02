@@ -106,7 +106,7 @@
                     </table>
                 </div>
                 <div class="ibox-content">
-                    <table data-sort="false" class="footable" data-page-size="56" id='temp' style="width:100%">
+                    <table data-sort="false" class="footable" data-page-size="56" id='tmp' style="width:100%">
                         <h5>Temperature [C]</h5>
                         <tbody>
                             <tr>
@@ -425,7 +425,7 @@
                             </tr>
                             <tr>
                                 <td></td>
-                                <td>/temp</td>
+                                <td>/tmp</td>
                                 <td>var</td>
                                 <td>home</td>
                                 <td>/DS</td>
@@ -453,7 +453,7 @@
                                 <td id='disk-7'></td>
                             </tr>
                             <th>
-                                <td>/temp</td>
+                                <td>/tmp</td>
                                 <td>var</td>
                                 <td>home</td>
                                 <td>/DS</td>
@@ -741,7 +741,7 @@ var core_range_map = $.range_map({
     '30:60:': 'green',
     '60:80:': 'yellow'
 })
-var stemp_range_map = $.range_map({
+var stmp_range_map = $.range_map({
     '0:4000': 'blue',
     '30:60:': 'green',
     '60:80:': 'yellow'
@@ -903,7 +903,7 @@ function update_sbst1_data($selector, new_data) {
     }
 
     function update_disk0_data($selector, new_data) {
-    //slash temp
+    //slash tmp
     var array_string = $selector.attr('values');
     array_string = new_data;
     // $selector.attr('values', [1,1.5,4.5,6]).sparkline('html', {
