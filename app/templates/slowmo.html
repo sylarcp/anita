@@ -701,7 +701,7 @@ $(document).ready(function() {
             $newDialog.attr('id', 'dialog_' + name);
             $newDialog.removeClass('hide');
             $newDialog.attr('title', name);
-            $newDialog.prepend('<div id="' + "plot_" + name + '"></div>');
+            $newDialog.prepend('<div id="' + "plot_" + name + '" class="dialog_plot" ></div>');
             $newDialog.find('input[id="reference_time"]').val(slow_times[i]);
             $newDialog.dialog({
                 width: 600,

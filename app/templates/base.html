@@ -21,10 +21,10 @@
 <link href="{{ url_for('static', filename='inspinia/css/plugins/jQueryUI/jquery-ui.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='anita/css/jquery.jqplot.min.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='anita/css/magicbox.css') }}" rel="stylesheet">
-{{ moment.include_jquery() }}
-{{ moment.include_moment() }}
+
 
 <style>   
+    .dialog_plot {margin-right: 20px; margin-left: 25px; margin-bottom: 5px;}
     #currentUTC,#eventrate {display:inline-block;margin-right:10px;}
     .ui-dialog { z-index: 9000 !important ;} 
     button, .select2-container{
