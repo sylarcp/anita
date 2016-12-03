@@ -1270,6 +1270,13 @@ function timeConverter(UNIX_timestamp) {
     var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
     return time;
 }
+
+function byteString(n) {
+  if (n < 0 || n > 65535 || n % 1 !== 0) {
+      throw new Error(n + " does not fit in a byte");
+  } 
+  return ("000000000000000000" + n.toString(2)).substr(-16);
+}
 var l2_range_map = $.range_map({
     '2000:5000': 'yellow',
     '5000:30000:': 'green',
@@ -1374,10 +1381,10 @@ function updatehtml_turf(turf) {
         $('#turf #nbuf').html(data.turf.nbuf);
         $('#turf #now').html(data.turf.now + " (" + timeConverter(data.turf.now) + ")");
         $('#turf #time').html(data.turf.time + " (" + timeConverter(data.turf.time) + ")");
-        $('#turf #deadtime').html(data.turf.deadtime);
-        $('#turf #l2trigmask').html(data.turf.l2trigmask);
+        $('#turf #deadtime').html(Number(data.turf.deadtime * 16.384 / 1000000).toFixed(2));
+        $('#turf #l2trigmask').html(byteString(data.turf.l2trigmask));
         // $('#turf #l2trigmaskh').html(data.turf.l2trigmaskh);
-        $('#turf #phitrigmask').html(data.turf.phitrigmask);
+        $('#turf #phitrigmask').html(byteString(data.turf.phitrigmask));
         // $('#turf #phitrigmaskh').html(data.turf.phitrigmaskh);
 
         var l2_name;
