@@ -1144,7 +1144,7 @@ function update_sbst1_data($selector, new_data) {
             var et_name;
             for (var ii = 0; ii < 15; ii++) {
                 et_name = '#et-' + ii;
-                update_et_data($(et_name), parseInt(data.hk.et[i]));
+                update_et_data($(et_name), parseInt(data.hk.et[ii]));
             }
         });
 
@@ -1408,8 +1408,12 @@ $(document).ready(function() {
                     }
                 },
                 series: [{
-                    lineWidth: 2
-                }],
+                        lineWidth: .5,
+                        markerOptions: {
+                            size: 2,
+                            color: 'blue' 
+                        }
+                    }],
                 cursor: {
                     zoom: true,
                     looseZoom: true,
