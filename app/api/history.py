@@ -36,13 +36,19 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
         elif '-' in column_name:
             splited = column_name.split('-')
             column_name=splited[0]
+            # slowmo rfpower, avgscaler
+            if column_name in ['avgscaler', 'avgrfpow'] and len(splited) == 3:
+                column_id1 = int(splited[1])
+                column_id2 = int(splited[2])
+                results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).order_by(table.time).all()
+                return jsonify({'data':[[1000*result.time ,getattr(result, column_name)[column_id2][column_id1]] for result in results]})
             column_id=int(splited[1])
+            # sshk info
             if column_id in [4,5,6,7] and column_name in ['ssaz', 'ssel', 'ssflag']:
                 column_id = column_id - 4
                 table = diction['sshk']
-            print column_name, column_id, table
             results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).order_by(table.time).all()
-            print [[result.time, getattr(result, column_name)[column_id]] for result in results]
+            # print [[result.time, getattr(result, column_name)[column_id]] for result in results]
             return jsonify({'data':[[1000*result.time ,getattr(result, column_name)[column_id]] for result in results]})
         else:
             results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).order_by(table.time).all()

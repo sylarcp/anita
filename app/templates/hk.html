@@ -707,24 +707,6 @@ var connected = false;
 var sleep_interval = 2000 //by default, re-access the database every 2seconds to see if there are any new data comes in.
 
 var sync_on = false;
-function timeConverter(UNIX_timestamp) {
-    var a = new Date(UNIX_timestamp * 1000);
-    var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-    var year = a.getUTCFullYear();
-    var month = months[a.getUTCMonth()];
-    var date = a.getUTCDate();
-    var hour = a.getUTCHours();
-    var min = a.getUTCMinutes();
-    var sec = a.getUTCSeconds();
-    if (parseInt(min) < 10){
-        min = '0' + min;
-    }
-    if (parseInt(sec) < 10){
-        sec = '0' + sec;
-        }
-    var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
-    return time;
-}
 
 var it_et_range_map = $.range_map({
     '0:20': 'blue',

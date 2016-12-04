@@ -177,6 +177,35 @@ Current UTC time: <div id = 'currentUTC'> </div>   <div id = 'eventrate'></div>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <script src="{{ url_for('static', filename='anita/js/magicbox.js') }}"></script>
     <script>
+        // global converting functions
+        function byteString(n) {
+          if (n < 0 || n > 65535 || n % 1 !== 0) {
+              throw new Error(n + " does not fit in a byte");
+          } 
+          binaryString = ("000000000000000000" + n.toString(2)).substr(-16);
+
+          return binaryString.substring(0,4) + ' ' + binaryString.substring(4,8) + ' ' + binaryString.substring(8,12) + ' ' + binaryString.substring(12,16);
+        }
+
+        function timeConverter(UNIX_timestamp) {
+            var a = new Date(UNIX_timestamp * 1000);
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            var year = a.getUTCFullYear();
+            var month = months[a.getUTCMonth()];
+            var date = a.getUTCDate();
+            var hour = a.getUTCHours();
+            var min = a.getUTCMinutes();
+            var sec = a.getUTCSeconds();
+            if (parseInt(min) < 10){
+                min = '0' + min;
+            }
+            if (parseInt(sec) < 10){
+                sec = '0' + sec;
+            }
+            var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+            return time;
+        }
+        
         var ip, db, ip_db;
         function update() {
           $('#currentUTC').html(new Date().toUTCString());

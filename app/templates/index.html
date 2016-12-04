@@ -607,7 +607,9 @@
       if (n < 0 || n > 65535 || n % 1 !== 0) {
           throw new Error(n + " does not fit in a byte");
       } 
-      return ("000000000000000000" + n.toString(2)).substr(-16);
+      binaryString = ("000000000000000000" + n.toString(2)).substr(-16);
+
+      return binaryString.substring(0,4) + ' ' + binaryString.substring(4,8) + ' ' + binaryString.substring(8,12) + ' ' + binaryString.substring(12,16);
     }
 
     function timeConverter(UNIX_timestamp) {
