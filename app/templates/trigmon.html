@@ -1353,6 +1353,9 @@ function update_thresh_data($selector, new_data) {
 
 function updatehtml_turf(turf) {
     $.getJSON('/api/' + ip_db + '/turf/' + turf, function(data) {
+        if(data.length == 0){
+            return
+        }
         $('#turf #index').html(i + 1 + "/" + turf_nbufs.length);
         $('#turf #nbuf').html(data.turf.nbuf);
         $('#turf #now').html(data.turf.now + " (" + timeConverter(data.turf.now) + ")");
@@ -1397,51 +1400,55 @@ function updatehtml_turf(turf) {
 
 function updatehtml_hk_surf(hk_surf) {
     if (!hk_surf) return;
-    $.getJSON('/api/' + ip_db + '/hk_surf/' + hk_surf, function(data) {
-        $('#rfpower #index').html(j + 1 + "/" + hk_surf_nbufs.length);
-        $('#rfpower #nbuf').html(data.hk_surf.nbuf);
-        console.log(data.hk_surf.nbuf);
-        $('#rfpower #now').html(data.hk_surf.now + " (" + timeConverter(data.hk_surf.now) + ")");
-        $('#rfpower #time').html(data.hk_surf.time + " (" + timeConverter(data.hk_surf.time) + ")");
-        $('#rfpower #us').html(data.hk_surf.us);
-        $('#rfpower #global').html(data.hk_surf.global);
-        $('#rfpower #error').html(data.hk_surf.error);
-        $('#rfpower #upper_0').html(data.hk_surf.upper[0]);
-        $('#rfpower #upper_1').html(data.hk_surf.upper[1]);
-        $('#rfpower #upper_2').html(data.hk_surf.upper[2]);
-        $('#rfpower #upper_3').html(data.hk_surf.upper[3]);
-        $('#rfpower #upper_4').html(data.hk_surf.upper[4]);
-        $('#rfpower #upper_5').html(data.hk_surf.upper[5]);
-        $('#rfpower #upper_6').html(data.hk_surf.upper[6]);
-        $('#rfpower #upper_7').html(data.hk_surf.upper[7]);
-        $('#rfpower #upper_8').html(data.hk_surf.upper[8]);
-        $('#rfpower #upper_9').html(data.hk_surf.upper[9]);
-        $('#rfpower #upper_10').html(data.hk_surf.upper[10]);
-        $('#rfpower #upper_11').html(data.hk_surf.upper[11]);
+    try{
+        $.getJSON('/api/' + ip_db + '/hk_surf/' + hk_surf, function(data) {
+            console.log(data);
+            $('#rfpower #index').html(j + 1 + "/" + hk_surf_nbufs.length);
+            $('#rfpower #nbuf').html(data.hk_surf.nbuf);
+            $('#rfpower #now').html(data.hk_surf.now + " (" + timeConverter(data.hk_surf.now) + ")");
+            $('#rfpower #time').html(data.hk_surf.time + " (" + timeConverter(data.hk_surf.time) + ")");
+            $('#rfpower #us').html(data.hk_surf.us);
+            $('#rfpower #global').html(data.hk_surf.global);
+            $('#rfpower #error').html(data.hk_surf.error);
+            $('#rfpower #upper_0').html(data.hk_surf.upper[0]);
+            $('#rfpower #upper_1').html(data.hk_surf.upper[1]);
+            $('#rfpower #upper_2').html(data.hk_surf.upper[2]);
+            $('#rfpower #upper_3').html(data.hk_surf.upper[3]);
+            $('#rfpower #upper_4').html(data.hk_surf.upper[4]);
+            $('#rfpower #upper_5').html(data.hk_surf.upper[5]);
+            $('#rfpower #upper_6').html(data.hk_surf.upper[6]);
+            $('#rfpower #upper_7').html(data.hk_surf.upper[7]);
+            $('#rfpower #upper_8').html(data.hk_surf.upper[8]);
+            $('#rfpower #upper_9').html(data.hk_surf.upper[9]);
+            $('#rfpower #upper_10').html(data.hk_surf.upper[10]);
+            $('#rfpower #upper_11').html(data.hk_surf.upper[11]);
 
-        var rfpow_name;
-        for (ii = 0; ii < 12; ii++) {
-            for (jj = 0; jj < 8; jj++) {
-                rfpow_name = '#rfpow_' + ii + '_' + jj;
-                update_rfpow_data($(rfpow_name), parseInt(data.hk_surf.rfpow[ii][jj])& 0x7fff);
+            var rfpow_name;
+            for (ii = 0; ii < 12; ii++) {
+                for (jj = 0; jj < 8; jj++) {
+                    rfpow_name = '#rfpow_' + ii + '_' + jj;
+                    update_rfpow_data($(rfpow_name), parseInt(data.hk_surf.rfpow[ii][jj])& 0x7fff);
+                }
             }
-        }
-        var scaler_name;
-        for (ii = 0; ii < 12; ii++) {
-            for (jj = 0; jj < 12; jj++) {
-                scaler_name = '#scaler_' + ii + '_' + jj;
-                update_scaler_data($(scaler_name), parseInt(data.hk_surf.scaler[ii][jj]));
+            var scaler_name;
+            for (ii = 0; ii < 12; ii++) {
+                for (jj = 0; jj < 12; jj++) {
+                    scaler_name = '#scaler_' + ii + '_' + jj;
+                    update_scaler_data($(scaler_name), parseInt(data.hk_surf.scaler[ii][jj]));
+                }
             }
-        }
-        var thresh_name;
-        for (ii = 0; ii < 12; ii++) {
-            for (jj = 0; jj < 12; jj++) {
-                thresh_name = '#thresh_' + ii + '_' + jj;
-                update_thresh_data($(thresh_name), parseInt(data.hk_surf.thresh[ii][jj]));
+            var thresh_name;
+            for (ii = 0; ii < 12; ii++) {
+                for (jj = 0; jj < 12; jj++) {
+                    thresh_name = '#thresh_' + ii + '_' + jj;
+                    update_thresh_data($(thresh_name), parseInt(data.hk_surf.thresh[ii][jj]));
+                }
             }
-        }
-    });
-
+        });
+    }
+    catch(err){
+        console.log(err);
+    }
 }
 
 
@@ -1449,16 +1456,13 @@ function updatehtml_hk_surf(hk_surf) {
 $(document).ready(function() {
     $('#navbar_trig').parent().addClass("active");
     $('.footable').footable();
-    
-    $.getJSON('/api/' + ip_db + '/hk_surf/nbufs', function(data) {
-        turf_nbufs = data.turf_nbufs;
-        turf_nows = data.turf_nows;
-    });
-
     function autoload() {
         $.getJSON('/api/' + ip_db + '/turf/nbufs/' + offset_turf, function(data) {
             new_length = data.turf_nbufs.length;
-            offset_turf += new_length;
+            if(new_length != undefined){
+                offset_turf += new_length;
+            }
+            
             turf_nbufs = turf_nbufs.concat(data.turf_nbufs);
             turf_nows = turf_nows.concat(data.turf_nows);
             turf_times = turf_times.concat(data.turf_times);
@@ -1466,6 +1470,7 @@ $(document).ready(function() {
             $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
             $('#connect').html('Disconnect');
             $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
+            $('#turf #index').html(i + 1 + "/" + turf_nbufs.length);
             // switchery.enable();
             connected = true;
             connect.ladda('stop');
@@ -1485,11 +1490,14 @@ $(document).ready(function() {
 
         });
         $.getJSON('/api/' + ip_db + '/hk_surf/nbufs/' + offset_hk_surf, function(data) {
+            console.log(data);
             new_length = data.hk_surf_nbufs.length;
             offset_hk_surf += new_length
             hk_surf_nbufs = hk_surf_nbufs.concat(data.hk_surf_nbufs);
             hk_surf_nows = hk_surf_nows.concat(data.hk_surf_nows);
             hk_surf_times = hk_surf_times.concat(data.hk_surf_times);
+
+            $('#hk_surf #index').html(i + 1 + "/" + hk_surf_nbufs.length);
         });
     }
 
@@ -1558,7 +1566,7 @@ function updatehtml_all (i) {
          if (sync_on){
            if (i < turf_nbufs.length - 1) {
                i=i+1;
-               updatehtml_all(i);
+               updateatehtml_all(i);
            };
         }else{
             if (i<turf_nbufs.length-1)        {i=i+1; updatehtml_turf(turf_nbufs[i]);}
@@ -1646,7 +1654,7 @@ function updatehtml_all (i) {
         }else{
             var message = '';
             var index=turf_times.indexOf(keywords);       if(index!=-1 && keywords) { i=index; updatehtml_turf(turf_nbufs[i]); message += 'Turf ';}
-            var index=hk_surf_times.indexOf(keywords);      if(index!=-1 && keywords) { j=index; updatehtml_hk_surf(hk_surf_times[j]); message += 'HK_surf ';}
+            var index=hk_surf_times.indexOf(keywords);      if(index!=-1 && keywords) { j=index; updatehtml_hk_surf(hk_surf_nbufs[j]); message += 'HK_surf ';}
             if (message == ''){
                 swal({  title: 'No matched time found!', type: "warning", timer: 3000, showConfirmButton: true});
             }else{

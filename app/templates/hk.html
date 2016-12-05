@@ -1423,7 +1423,7 @@ $(document).ready(function() {
             // console.log(end_time);
             // console.log(end_time - length);
             $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
-                // console.log(data.data);
+                console.log(data.data);
                 plot1.replot({
                     data: [data.data]
                 });
