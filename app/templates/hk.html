@@ -1263,57 +1263,99 @@ function updatehtml_adu5_pat(adu5_pat) {
     if (!adu5_pat) return;
     $.getJSON('/api/' + ip_db + '/adu5_pat/' + adu5_pat, function(data) {
         $('#gps #adu5_pat_index').html(k + 1 + "/" + adu5_pat_times.length);
-        $('#gps #unixnow_adu5_pat_A').html(data.pat_a.now);
-        $('#gps #unixtime_adu5_pat_A').html(data.pat_a.time);
-        $('#gps #now_adu5_pat_A').html(timeConverter(data.pat_a.now));
-        $('#gps #time_adu5_pat_A').html(timeConverter(data.pat_a.time));
-        $('#gps #heading_adu5_pat_A').html(data.pat_a.heading);
-        $('#gps #latitude_adu5_pat_A').html(data.pat_a.latitude);
-        $('#gps #longitude_adu5_pat_A').html(data.pat_a.longitude);
-        $('#gps #pitch_adu5_pat_A').html(data.pat_a.pitch);
-        $('#gps #roll_adu5_pat_A').html(data.pat_a.roll);
-        $('#gps #altitude_adu5_pat_A').html(data.pat_a.altitude);        
-       
-        $('#gps #unixnow_adu5_pat_B').html(data.pat_b.now);
-        $('#gps #unixtime_adu5_pat_B').html(data.pat_b.time);
-        $('#gps #now_adu5_pat_B').html(timeConverter(data.pat_b.now));
-        $('#gps #time_adu5_pat_B').html(timeConverter(data.pat_b.time));
-        $('#gps #heading_adu5_pat_B').html(data.pat_b.heading);
-        $('#gps #latitude_adu5_pat_B').html(data.pat_b.latitude);
-        $('#gps #longitude_adu5_pat_B').html(data.pat_b.longitude);
-        $('#gps #pitch_adu5_pat_B').html(data.pat_b.pitch);
-        $('#gps #roll_adu5_pat_B').html(data.pat_b.roll);
-        $('#gps #altitude_adu5_pat_B').html(data.pat_b.altitude);
-        $('#gps #numsats_adu5_pat_B').html(data.pat_b.numsats);
+        if (data.pat_a == undefined){
+            $('#gps #adu5_pat_index').css('color', 'LightGrey');
+            $('#gps #unixnow_adu5_pat_A').css('color', 'LightGrey');
+            $('#gps #unixtime_adu5_pat_A').css('color', 'LightGrey');
+            $('#gps #now_adu5_pat_A').css('color', 'LightGrey');
+            $('#gps #time_adu5_pat_A').css('color', 'LightGrey');
+            $('#gps #heading_adu5_pat_A').css('color', 'LightGrey');
+            $('#gps #latitude_adu5_pat_A').css('color', 'LightGrey');
+            $('#gps #longitude_adu5_pat_A').css('color', 'LightGrey');
+            $('#gps #pitch_adu5_pat_A').css('color', 'LightGrey');
+            $('#gps #roll_adu5_pat_A').css('color', 'LightGrey');
+            $('#gps #altitude_adu5_pat_A').css('color', 'LightGrey');    
+        }else{
+            
+            $('#gps #unixnow_adu5_pat_A').html(data.pat_a.now).css('color', 'inherit');
+            $('#gps #unixtime_adu5_pat_A').html(data.pat_a.time).css('color', 'inherit');
+            $('#gps #now_adu5_pat_A').html(timeConverter(data.pat_a.now)).css('color', 'inherit');
+            $('#gps #time_adu5_pat_A').html(timeConverter(data.pat_a.time)).css('color', 'inherit');
+            $('#gps #heading_adu5_pat_A').html(data.pat_a.heading).css('color', 'inherit');
+            $('#gps #latitude_adu5_pat_A').html(data.pat_a.latitude).css('color', 'inherit');
+            $('#gps #longitude_adu5_pat_A').html(data.pat_a.longitude).css('color', 'inherit');
+            $('#gps #pitch_adu5_pat_A').html(data.pat_a.pitch).css('color', 'inherit');
+            $('#gps #roll_adu5_pat_A').html(data.pat_a.roll).css('color', 'inherit');
+            $('#gps #altitude_adu5_pat_A').html(data.pat_a.altitude).css('color', 'inherit');     
+        }
+           
+        if (data.pat_b == undefined){
+            $('#gps #unixnow_adu5_pat_B').css('color', 'LightGrey');
+            $('#gps #unixtime_adu5_pat_B').css('color', 'LightGrey');
+            $('#gps #now_adu5_pat_B').css('color', 'LightGrey');
+            $('#gps #time_adu5_pat_B').css('color', 'LightGrey');
+            $('#gps #heading_adu5_pat_B').css('color', 'LightGrey');
+            $('#gps #latitude_adu5_pat_B').css('color', 'LightGrey');
+            $('#gps #longitude_adu5_pat_B').css('color', 'LightGrey');
+            $('#gps #pitch_adu5_pat_B').css('color', 'LightGrey');
+            $('#gps #roll_adu5_pat_B').css('color', 'LightGrey');
+            $('#gps #altitude_adu5_pat_B').css('color', 'LightGrey');    
+        }else{
+            $('#gps #unixnow_adu5_pat_B').html(data.pat_b.now).css('color', 'inherit');
+            $('#gps #unixtime_adu5_pat_B').html(data.pat_b.time).css('color', 'inherit');
+            $('#gps #now_adu5_pat_B').html(timeConverter(data.pat_b.now)).css('color', 'inherit');
+            $('#gps #time_adu5_pat_B').html(timeConverter(data.pat_b.time)).css('color', 'inherit');
+            $('#gps #heading_adu5_pat_B').html(data.pat_b.heading).css('color', 'inherit');
+            $('#gps #latitude_adu5_pat_B').html(data.pat_b.latitude).css('color', 'inherit');
+            $('#gps #longitude_adu5_pat_B').html(data.pat_b.longitude).css('color', 'inherit');
+            $('#gps #pitch_adu5_pat_B').html(data.pat_b.pitch).css('color', 'inherit');
+            $('#gps #roll_adu5_pat_B').html(data.pat_b.roll).css('color', 'inherit');
+            $('#gps #altitude_adu5_pat_B').html(data.pat_b.altitude).css('color', 'inherit');     
+        }
    });
 }
 
 function updatehtml_adu5_vtg(adu5_vtg) {
     if (!adu5_vtg) return;
     $.getJSON('/api/' + ip_db + '/adu5_vtg/' + adu5_vtg, function(data) {
-         $('#gps #adu5_vtg_index').html(l + 1 + "/" + adu5_vtg_nbufs.length);
-        $('#gps #vtg_gpstype').html(gpstype(data.vtg.gpstype));
-        if (gpstype(data.vtg.gpstype) == 'adu5A'){
-           $('#gps #vkph_adu5_vtg_A').html(data.vtg.vkph);
-           $('#gps #vkt_adu5_vtg_A').html(data.vtg.vkt);
-       }
-       else if (gpstype(data.vtg.gpstype) == 'adu5B'){
-           $('#gps #vkph_adu5_vtg_B').html(data.vtg.vkph);
-           $('#gps #vkt_adu5_vtg_B').html(data.vtg.vkt);
-       }
+        $('#gps #adu5_vtg_index').html(l + 1 + "/" + adu5_vtg_times.length);
+        if (data.vtg_a == undefined){
+            $('#gps #vkph_adu5_vtg_A').css('color', 'LightGrey');
+            $('#gps #vkt_adu5_vtg_A').css('color', 'LightGrey');
+        }else{
+            $('#gps #vkph_adu5_vtg_A').html(data.vtg_a.vkph).css('color', 'inherit');
+            $('#gps #vkt_adu5_vtg_A').html(data.vtg_a.vkt).css('color', 'inherit');
+        }
+        
+        if (data.vtg_b == undefined){
+            $('#gps #vkph_adu5_vtg_B').css('color', 'LightGrey');
+            $('#gps #vkt_adu5_vtg_B').css('color', 'LightGrey');
+        }else{
+            $('#gps #vkph_adu5_vtg_B').html(data.vtg_b.vkph).css('color', 'inherit');
+            $('#gps #vkt_adu5_vtg_B').html(data.vtg_b.vkt).css('color', 'inherit');
+        }
+            
+
    });
 }
 
 function updatehtml_adu5_sat(adu5_sat) {
     if (!adu5_sat) return;
     $.getJSON('/api/' + ip_db + '/adu5_sat/' + adu5_sat, function(data) {
-         $('#gps #adu5_sat_index').html(p + 1 + "/" + adu5_sat_nbufs.length);
-        if (gpstype(data.sat.gpstype) == 'adu5A'){
-           $('#gps #numsats_adu5_sat_A').html(data.sat.numsats[0]+', '+data.sat.numsats[1]+', '+data.sat.numsats[2]+', '+data.sat.numsats[3]);
-       }
-       else if (gpstype(data.sat.gpstype) == 'adu5B'){
-           $('#gps #numsats_adu5_sat_B').html(data.sat.numsats[0]+', '+data.sat.numsats[1]+', '+data.sat.numsats[2]+', '+data.sat.numsats[3]);
-       }
+        $('#gps #adu5_sat_index').html(p + 1 + "/" + adu5_sat_times.length);
+        if (data.sat_a == undefined){
+            $('#gps #numsats_adu5_sat_A').css('color', 'LightGrey');
+        }else{
+            $('#gps #numsats_adu5_sat_A').html(data.sat_a.numsats[0]+', '+data.sat_a.numsats[1]+', '+data.sat_a.numsats[2]+', '+data.sat_a.numsats[3]).css('color', 'inherit');
+        }
+
+        if (data.sat_b == undefined){
+            $('#gps #numsats_adu5_sat_B').css('color', 'LightGrey');
+        }else{
+            $('#gps #numsats_adu5_sat_B').html(data.sat_b.numsats[0]+', '+data.sat_b.numsats[1]+', '+data.sat_b.numsats[2]+', '+data.sat_b.numsats[3]).css('color', 'inherit');
+        }
+            
+            
    });
 }
 
@@ -1500,7 +1542,7 @@ $(document).ready(function() {
             adu5_vtg_nbufs = adu5_vtg_nbufs.concat(data.adu5_vtg_nbufs);
             adu5_vtg_nows = adu5_vtg_nows.concat(data.adu5_vtg_nows);
             adu5_vtg_times = adu5_vtg_times.concat(data.adu5_vtg_times);
-            $('#gps #adu5_vtg_index').html(l + 1 + "/" + adu5_vtg_nbufs.length);
+            $('#gps #adu5_vtg_index').html(l + 1 + "/" + adu5_vtg_times.length);
             
         });
         $.getJSON('/api/' + ip_db + '/adu5_sat/nbufs/' + offset_adu5_sat, function(data) {
@@ -1508,7 +1550,7 @@ $(document).ready(function() {
             adu5_sat_nbufs = adu5_sat_nbufs.concat(data.adu5_sat_nbufs);
             adu5_sat_nows = adu5_sat_nows.concat(data.adu5_sat_nows);
             adu5_sat_times = adu5_sat_times.concat(data.adu5_sat_times);
-            $('#gps #adu5_sat_index').html(p + 1 + "/" + adu5_sat_nbufs.length);
+            $('#gps #adu5_sat_index').html(p + 1 + "/" + adu5_sat_times.length);
             
         });
         $.getJSON('/api/' + ip_db + '/g12_pos/nbufs/' + offset_g12_pos, function(data){
@@ -1617,9 +1659,9 @@ $(document).ready(function() {
         k=adu5_pat_nows.indexOf(hk_nows[i]);
         if (k!=-1) updatehtml_adu5_pat(adu5_pat_times[k]);
         l=adu5_vtg_nows.indexOf(hk_nows[i]);
-        if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);
+        if (l!=-1) updatehtml_adu5_vtg(adu5_vtg_times[l]);
         m=adu5_sat_nows.indexOf(hk_nows[i]);
-        if (m!=-1) updatehtml_adu5_sat(adu5_sat_nbufs[m]);
+        if (m!=-1) updatehtml_adu5_sat(adu5_sat_times[m]);
         n=sshk_nows.indexOf(hk_nows[i]);
         if (n!=-1) updatehtml_sshk(sshk_nbufs[n]);
         o=g12_pos_nows.indexOf(hk_nows[i]);
@@ -1643,8 +1685,8 @@ $(document).ready(function() {
             if (i<hk_nbufs.length-1)        {i=i+1; updatehtml_hk(hk_nbufs[i]);}
             if (j<mon_nbufs.length-1)       {j=j+1; updatehtml_mon(mon_nbufs[j]);}
             if (k<adu5_pat_times.length-1)  {k=k+1; updatehtml_adu5_pat(adu5_pat_times[k]);}
-            if (l<adu5_vtg_nbufs.length-1)  {l=l+1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
-            if (m<adu5_sat_nbufs.length-1)  {m=m+1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+            if (l<adu5_vtg_times.length-1)  {l=l+1; updatehtml_adu5_vtg(adu5_vtg_times[l]);}
+            if (m<adu5_sat_times.length-1)  {m=m+1; updatehtml_adu5_sat(adu5_sat_times[m]);}
             if (n<sshk_nbufs.length-1)      {n=n+1; updatehtml_sshk(sshk_nbufs[n]);}
             if (o<g12_pos_nbufs.length-1)   {o=o+1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
             if (p<g12_sat_nbufs.length-1)   {p=p+1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
@@ -1661,8 +1703,8 @@ $(document).ready(function() {
             if (i>0)  {i=i-1; updatehtml_hk(hk_nbufs[i]);}
             if (j>0)  {j=j-1; updatehtml_mon(mon_nbufs[j]);}
             if (k>0)  {k=k-1; updatehtml_adu5_pat(adu5_pat_times[k]);}
-            if (l>0)  {l=l-1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
-            if (m>0)  {m=m-1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+            if (l>0)  {l=l-1; updatehtml_adu5_vtg(adu5_vtg_times[l]);}
+            if (m>0)  {m=m-1; updatehtml_adu5_sat(adu5_sat_times[m]);}
             if (n>0)  {n=n-1; updatehtml_sshk(sshk_nbufs[n]);}
             if (o>0)  {o=o-1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
             if (p>0)  {p=p-1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
@@ -1677,8 +1719,8 @@ $(document).ready(function() {
             {i=0; updatehtml_hk(hk_nbufs[i]);}
             {j=0; updatehtml_mon(mon_nbufs[j]);}
             {k=0; updatehtml_adu5_pat(adu5_pat_times[k]);}
-            {l=0; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
-            {m=0; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+            {l=0; updatehtml_adu5_vtg(adu5_vtg_times[l]);}
+            {m=0; updatehtml_adu5_sat(adu5_sat_times[m]);}
             {n=0; updatehtml_sshk(sshk_nbufs[n]);}
             {o=0; updatehtml_g12_pos(g12_pos_nbufs[o]);}
             {p=0; updatehtml_g12_sat(g12_sat_nbufs[p]);}
@@ -1693,8 +1735,8 @@ $(document).ready(function() {
             {i=hk_nbufs.length-1; updatehtml_hk(hk_nbufs[i]);}
             {j=mon_nbufs.length-1; updatehtml_mon(mon_nbufs[j]);}
             {k=adu5_pat_times.length-1; updatehtml_adu5_pat(adu5_pat_times[k]);}
-            {l=adu5_vtg_nbufs.length-1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
-            {m=adu5_sat_nbufs.length-1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+            {l=adu5_vtg_times.length-1; updatehtml_adu5_vtg(adu5_vtg_times[l]);}
+            {m=adu5_sat_times.length-1; updatehtml_adu5_sat(adu5_sat_times[m]);}
             {n=sshk_nbufs.length-1; updatehtml_sshk(sshk_nbufs[n]);}
             {o=g12_pos_nbufs.length-1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
             {p=g12_sat_nbufs.length-1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
@@ -1729,8 +1771,8 @@ $(document).ready(function() {
                     if (i<hk_nbufs.length-1)        {i=i+1; updatehtml_hk(hk_nbufs[i]);}
                     if (j<mon_nbufs.length-1)       {j=j+1; updatehtml_mon(mon_nbufs[j]);}
                     if (k<adu5_pat_times.length-1)  {k=k+1; updatehtml_adu5_pat(adu5_pat_times[k]);}
-                    if (l<adu5_vtg_nbufs.length-1)  {l=l+1; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]);}
-                    if (m<adu5_sat_nbufs.length-1)  {m=m+1; updatehtml_adu5_sat(adu5_sat_nbufs[m]);}
+                    if (l<adu5_vtg_times.length-1)  {l=l+1; updatehtml_adu5_vtg(adu5_vtg_times[l]);}
+                    if (m<adu5_sat_times.length-1)  {m=m+1; updatehtml_adu5_sat(adu5_sat_times[m]);}
                     if (n<sshk_nbufs.length-1)      {n=n+1; updatehtml_sshk(sshk_nbufs[n]);}
                     if (o<g12_pos_nbufs.length-1)   {o=o+1; updatehtml_g12_pos(g12_pos_nbufs[o]);}
                     if (p<g12_sat_nbufs.length-1)   {p=p+1; updatehtml_g12_sat(g12_sat_nbufs[p]);}
@@ -1758,8 +1800,8 @@ $(document).ready(function() {
             var index=hk_times.indexOf(keywords);       if(index!=-1 && keywords) { i=index; updatehtml_hk(hk_nbufs[i]); message += 'HK ';}
             var index=mon_times.indexOf(keywords);      if(index!=-1 && keywords) { j=index; updatehtml_mon(mon_nbufs[j]); message += 'MON ';}
             var index=adu5_pat_times.indexOf(keywords); if(index!=-1 && keywords) { k=index; updatehtml_adu5_pat(adu5_pat_times[k]); message += 'ADU5_PAT ';}
-            var index=adu5_vtg_times.indexOf(keywords); if(index!=-1 && keywords) { l=index; updatehtml_adu5_vtg(adu5_vtg_nbufs[l]); message += 'ADU5_VTG ';}
-            var index=adu5_sat_times.indexOf(keywords); if(index!=-1 && keywords) { m=index; updatehtml_adu5_sat(adu5_sat_nbufs[m]); message += 'ADU5_SAT ';}
+            var index=adu5_vtg_times.indexOf(keywords); if(index!=-1 && keywords) { l=index; updatehtml_adu5_vtg(adu5_vtg_times[l]); message += 'ADU5_VTG ';}
+            var index=adu5_sat_times.indexOf(keywords); if(index!=-1 && keywords) { m=index; updatehtml_adu5_sat(adu5_sat_times[m]); message += 'ADU5_SAT ';}
             var index=sshk_times.indexOf(keywords);     if(index!=-1 && keywords) { n=index; updatehtml_sshk(sshk_nbufs[n]); message += 'SSHK ';}
             var index=g12_pos_times.indexOf(keywords);  if(index!=-1 && keywords) { o=index; updatehtml_g12_pos(g12_pos_nbufs[o]); message += 'G12_POS ';}
             var index=g12_sat_times.indexOf(keywords);  if(index!=-1 && keywords) { p=index; updatehtml_g12_sat(g12_sat_nbufs[p]); message += 'G12_SAT ';}
