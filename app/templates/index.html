@@ -15,7 +15,7 @@
                     </div>
                 </div>
                 <div class="ibox-content">
-                    <table data-sort="false" class="footable" data-page-size="20" id='hd' style="width:100%">
+                    <table data-sort="false" class="footable" data-page-size="30" id='hd' style="width:100%">
                         <tbody>
                             <tr>
                                 <td>index</td>
@@ -93,6 +93,14 @@
                             <tr>
                                 <td>l2maskh</td>
                                 <td id='l2maskh'></td>
+                            </tr>
+                            <tr>
+                                <td>l3trigpat</td>
+                                <td id='l3trigpat'></td>
+                            </tr>
+                            <tr>
+                                <td>l3trigpath</td>
+                                <td id='l3trigpath'></td>
                             </tr>
                             <!-- <tr>
                                 <td>event rate</td>
@@ -603,33 +611,6 @@
             $(this).attr('style', 'width: 100%');
         });
     }
-    function byteString(n) {
-      if (n < 0 || n > 65535 || n % 1 !== 0) {
-          throw new Error(n + " does not fit in a byte");
-      } 
-      binaryString = ("000000000000000000" + n.toString(2)).substr(-16);
-
-      return binaryString.substring(0,4) + ' ' + binaryString.substring(4,8) + ' ' + binaryString.substring(8,12) + ' ' + binaryString.substring(12,16);
-    }
-
-    function timeConverter(UNIX_timestamp) {
-        var a = new Date(UNIX_timestamp * 1000);
-        var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-        var year = a.getUTCFullYear();
-        var month = months[a.getUTCMonth()];
-        var date = a.getUTCDate();
-        var hour = a.getUTCHours();
-        var min = a.getUTCMinutes();
-        var sec = a.getUTCSeconds();
-        if (parseInt(min) < 10){
-            min = '0' + min;
-        }
-        if (parseInt(sec) < 10){
-            sec = '0' + sec;
-        }
-        var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
-        return time;
-    }
 
     function displayData(datatype, name, waveform, maskon) {
         waveform['cal'] = waveform['cal'].map(function(x) {
@@ -754,6 +735,8 @@
             $('#hd #calib').html(data.hd.calib);
             $('#hd #l2mask').html(byteString(data.hd.l2mask));
             $('#hd #l2maskh').html(byteString(data.hd.l2maskh));
+            $('#hd #l3trigpat').html(byteString(data.hd.l3trigpat));
+            $('#hd #l3trigpath').html(byteString(data.hd.l3trigpath));
 
             l2maskv = data.hd.l2mask;
             l2maskh = data.hd.l2maskh;

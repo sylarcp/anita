@@ -454,7 +454,7 @@
         <div class="col-sm-3">
             <div class="form-group">
                 <label>Length(s)</label>
-                <input id="length" value="10000" placeholder="Enter the number of seconds" class="form-control">
+                <input id="length" value="21600" placeholder="Enter the number of seconds" class="form-control">
             </div>
         </div>
         <div class="col-sm-3">
@@ -654,8 +654,8 @@
                 $('#slow #latitude').html(data.slow.latitude);
                 $('#slow #longitude').html(data.slow.longitude);
                 $('#slow #altitude').html(data.slow.altitude);
-                $('#slow #rate1').html(data.slow.rate1);
-                $('#slow #rate10').html(data.slow.rate10);
+                $('#slow #rate1').html(0.5 * data.slow.rate1);
+                $('#slow #rate10').html(0.5 * data.slow.rate10);
                 $('#slow #ppvv').html(data.slow.ppvv);
                 $('#slow #p24v').html(data.slow.p24v);
                 $('#slow #bati').html(data.slow.bati);
@@ -683,10 +683,10 @@
                 }
 
                 rate1_name = '#extra_info #rate1';
-                update_rate1_data($(rate1_name), parseInt(data.slow.rate1));
+                update_rate1_data($(rate1_name), parseInt(0.5*data.slow.rate1));
 
                 rate10_name = '#extra_info #rate10';
-                update_rate10_data($(rate10_name), parseInt(data.slow.rate10));
+                update_rate10_data($(rate10_name), parseInt(0.5*data.slow.rate10));
 
                 ppvv_name = '#extra_info #ppvv';
                 update_ppvv_data($(ppvv_name), parseInt(data.slow.ppvv));
