@@ -32,7 +32,8 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
         # print table_name, column_name
         table = diction[table_name]
         if column_name[:3] == 'adu':
-            results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time, table.gpstype == gpstype).order_by(table.time).all()
+            results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time, table.gpstype).filter(table.time>=start_time, table.time<=end_time).filter_by(gpstype=gpstype).order_by(table.time).all()
+            return jsonify({'data':[[1000*result.time ,getattr(result, column_name)] for result in results]})
         elif '-' in column_name:
             splited = column_name.split('-')
             column_name=splited[0]

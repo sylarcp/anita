@@ -17,7 +17,11 @@ G12_pos, G12_sat, Cmd, Wakeup, File
 @api.route('/connect/<ip>/<db>')
 def connect(ip,db):
     try:
-        engine = create_engine('postgresql://gui:AniTa08@' + ip.replace('_','.') +'/' + db, convert_unicode=True)
+        port = ''
+        # UD's postgres changed port to 54320
+        if ip in ['128.175.112.58', '128.175.112.80', '128_175_112_58', '128_175_112_80']:
+            port = ':54320'
+        engine = create_engine('postgresql://gui:AniTa08@' + ip.replace('_','.') + port + '/' + db, convert_unicode=True)
         conn=engine.connect()
         print 'connnected'
         # db_session = scoped_session(sessionmaker(autocommit=False,autoflush=False,bind=engine))
@@ -49,7 +53,11 @@ def connect(ip,db):
         return 'fail'
 @api.route('/getDBnames/<ip>')
 def getDBnames(ip):
-    engine = create_engine('postgresql://gui:AniTa08@' + ip.replace('_','.') + '/template1', convert_unicode=True)
+    port = ''
+    # UD's postgres changed port to 54320
+    if ip in ['128.175.112.58', '128.175.112.80', '128_175_112_58', '128_175_112_80']:
+        port = ':54320'
+    engine = create_engine('postgresql://gui:AniTa08@' + ip.replace('_','.') + port + '/template1', convert_unicode=True)
     conn = engine.connect()
     # rows = conn.execute("SELECT pg_database.datname, pg_database_size(pg_database.datname), pg_size_pretty(pg_database_size(pg_database.datname)) FROM pg_database ORDER BY pg_database_size DESC;")
     rows = conn.execute("SELECT pg_database.datname FROM pg_database order by datname;")
