@@ -53,10 +53,12 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
         else:
             results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).order_by(table.time).all()
         # print results
-            # print [[result.time, getattr(result, column_name)] for result in results]
             # slow: rate1, rate10 calibrition factor.
             if table_name == 'slow' and column_name in ['rate1', 'rate10']:
                 return jsonify({'data':[[1000*result.time ,0.5 * getattr(result, column_name)] for result in results]})
+            # hk: sbs  calibration factor
+            if table_name == 'hk' and column_name in ['sbst1', 'sbst2', 'core1', 'core2']:
+                return jsonify({'data':[[1000*result.time ,0.1 *getattr(result, column_name)] for result in results]})
             return jsonify({'data':[[1000*result.time ,getattr(result, column_name)] for result in results]})
     except BaseException as error:
         print('Invalid request: {}', format(error))

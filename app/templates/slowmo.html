@@ -646,6 +646,7 @@
         }
 
         function updatehtml(slow_times) {
+            if (!slow_times) return;
             $.getJSON('/api/' + ip_db + '/slow/' + slow_times, function(data) {
                 $('#slow #index').html(i + 1 + "/" + slow_nbufs.length);
                 $('#slow #now').html(data.slow.now + " (" + timeConverter(data.slow.now) + ")");

@@ -1029,6 +1029,7 @@ function update_sbst1_data($selector, new_data) {
     }
 
     function updatehtml_hk(hk) {
+        if (!hk) return;
         $.getJSON('/api/' + ip_db + '/hk/' + hk, function(data) {
             $('#hk_time #index').html(i + 1 + "/" + hk_nbufs.length);
             $('#hk_time #now').html(data.hk.now + " (" + timeConverter(data.hk.now) + ")");

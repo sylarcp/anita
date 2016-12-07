@@ -1352,6 +1352,7 @@ function update_thresh_data($selector, new_data) {
 }
 
 function updatehtml_turf(turf) {
+    if (!turf)  return;
     $.getJSON('/api/' + ip_db + '/turf/' + turf, function(data) {
         if(data.length == 0){
             return

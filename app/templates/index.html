@@ -4,7 +4,7 @@
     <div class="row">
         <!-- <button id='next' class="btn btn-primary"  type="button">Next event</button>
         <button id='prev' class="btn btn-primary"  type="button">Prev event</button> -->
-        <div class="col-lg-3">
+        <div class="col-md-4 col-lg-3">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>hd</h5>
@@ -111,7 +111,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-lg-9 ">
+        <div class="col-md-8 col-lg-8 ">
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>waveform</h5>
@@ -146,12 +146,12 @@
                                     <div class="col-xs-6">
                                         <div class="view_radio">
                                             <label>
-                                                <input type="radio" name="view" value="Surf" /> Surf View
+                                                <input type="radio" name="view" value="Phi" /> Phi View
                                             </label>
                                         </div>
                                         <div class="view_radio">
                                             <label>
-                                                <input type="radio" name="view" value="Phi" /> Phi View
+                                                <input type="radio" name="view" value="Surf" /> Surf View
                                             </label>
                                         </div>
                                     </div>
@@ -546,7 +546,7 @@
     var i = 0;
     var currentData=null;
     var datatype = 'mV';
-    var dataview = 'Surf';
+    var dataview = 'Phi';
     var offset = 0;
     var id2phi = {106:0, 102:0,50:1, 46:1,97:2, 93:2,37:3, 41:3,104:4, 100:4,43:5, 39:5,95:6, 91:6,52:7, 48:7,105:8, 101:8,49:9, 45:9,96:10, 92:10,40:11, 36:11,103:12, 99:12,42:13, 38:13,94:14, 90:14,51:15, 47:15,86:0, 82:0,34:1, 30:1,77:2, 73:2,25:3, 21:3,79:4, 75:4,32:5, 28:5,88:6, 84:6,23:7, 19:7,85:8, 81:8,33:9, 29:9,76:10, 72:10,24:11, 20:11,78:12, 74:12,31:13, 27:13,87:14, 83:14,22:15, 18:15,61:0, 57:0,5:1, 1:1,70:2, 66:2,14:3, 10:3,59:4, 55:4,16:5, 12:5,68:6, 64:6,7:7, 3:7,60:8, 56:8,4:9, 0:9,69:10, 65:10,13:11, 9:11,58:12, 54:12,15:13, 11:13,67:14, 63:14,6:15, 2:15};
     var id2pol = {106:'h', 102:'v', 50:'h', 46:'v', 97:'h', 93:'v', 37:'h', 41:'v', 104:'h', 100:'v', 43:'h', 39:'v', 95:'h', 91:'v', 52:'h', 48:'v', 105:'h', 101:'v', 49:'h', 45:'v', 96:'h', 92:'v', 40:'h', 36:'v', 103:'h', 99:'v', 42:'h', 38:'v', 94:'h', 90:'v', 51:'h', 47:'v', 86:'h', 82:'v', 34:'h', 30:'v', 77:'h', 73:'v', 25:'h', 21:'v', 79:'h', 75:'v', 32:'h', 28:'v', 88:'h', 84:'v', 23:'h', 19:'v', 85:'h', 81:'v', 33:'h', 29:'v', 76:'h', 72:'v', 24:'h', 20:'v', 78:'h', 74:'v', 31:'h', 27:'v', 87:'h', 83:'v', 22:'h', 18:'v', 61:'h', 57:'v', 5:'h', 1:'v', 70:'h', 66:'v', 14:'h', 10:'v', 59:'h', 55:'v', 16:'h', 12:'v', 68:'h', 64:'v', 7:'h', 3:'v', 60:'h', 56:'v', 4:'h', 0:'v', 69:'h', 65:'v', 13:'h', 9:'v', 58:'h', 54:'v', 15:'h', 11:'v', 67:'h', 63:'v', 6:'h', 2:'v',};
@@ -612,10 +612,7 @@
         });
     }
 
-    function displayData(datatype, name, waveform, maskon) {
-        waveform['cal'] = waveform['cal'].map(function(x) {
-            return x / 100;
-        });        
+    function displayData(datatype, name, waveform, maskon) {     
         if (datatype == 'mV') {
             min = Math.min.apply(null, waveform['cal']);
             max = Math.max.apply(null, waveform['cal']);
@@ -623,8 +620,8 @@
             range_max = $('#wv_max_range').val()
             $(name).attr('values', waveform['cal']).sparkline('html', {
                 type: 'line',
-                width: '100',
-                height: '40 ',
+                width: '90',
+                height: '36 ',
                 lineWidth: 0.5,
                 spotColor: false,
                 chartRangeMin: range_min,
@@ -649,8 +646,8 @@
             $(name).attr('values', fft).sparkline('html', {
                 // $(name).attr('values', fftdata.FFT().magnitude().slice(1, 130)).sparkline('html', {
                 type: 'line',
-                width: '100',
-                height: '40 ',
+                width: '90',
+                height: '36 ',
                 lineWidth: 0.5,
                 spotColor: false,
                 chartRangeMin: range_min,
@@ -659,20 +656,21 @@
                 normalRangeMax: maskon?Math.max(max, range_max):undefined,
             });
         } else if (datatype == 'Power') {
+            var power_wv = [];
             for (var i = 0; i < waveform.cal.length; i++) {
-                waveform.cal[i] = Math.pow(waveform.cal[i], 2);
+                power_wv.push(Math.pow(waveform.cal[i], 2));
             }
 
-            min = Math.min.apply(null, waveform['cal']);
-            max = Math.max.apply(null, waveform['cal']);
+            min = 0;
+            max = Math.max.apply(null, power_wv);
             range_min = Math.pow($('#wv_min_range').val(), 2);
             range_max = Math.pow($('#wv_max_range').val(), 2);
             console.log(min, max, range_min, range_max);
 
-            $(name).attr('values', waveform['cal']).sparkline('html', {
+            $(name).attr('values', power_wv).sparkline('html', {
                 type: 'line',
-                width: '100',
-                height: '40 ',
+                width: '90',
+                height: '36 ',
                 lineWidth: 0.5,
                 spotColor: false,
                 chartRangeMin: range_min,
@@ -687,8 +685,8 @@
     function displayDataNone(name, maskon) {
         $(name).attr('values', 0).sparkline('html', {
             type: 'line',
-            width: '100',
-            height: '40 ',
+            width: '90',
+            height: '36 ',
             lineWidth: 0.5,
             spotColor: false,
             normalRangeMin: maskon?-10000:undefined,
@@ -715,6 +713,7 @@
     }
 
     function updatehtml_hd(nbuf) {
+        if(!nbuf) return;
         $.getJSON('/api/' + ip_db + '/hd/' + nbuf, function(data) {
             $('#hd #index').html(i + 1 + " / " + hd_nbufs.length + "  ");
             $('#hd #nbuf').html(data.hd.nbuf);
@@ -922,6 +921,8 @@
         $('#navbar_aview').parent().addClass("active");
         $('#label_sync_checkbox').attr('style', 'display:none');
         $('#sync_checkbox').attr('style', 'display:none');
+        // change the default to phi view, so hide the surfview.
+        $("#surfview").attr('style', 'display:none')
 
         $(window).on('resize', resizeWindow);
         
@@ -988,7 +989,7 @@
                 } else if (datatype == 'FFT') {
                     var fftdata = new complex_array.ComplexArray(260);
                     fftdata.map(function(value, i, n) {
-                        value.real = waveform.cal[i]
+                        value.real = waveform.cal[i];
                     });
                     // Array.from(), translate Float32Array into Array.  To make it compatiable with firefox.
                     var fft = Array.from(fftdata.FFT().magnitude().slice(1, 130));
@@ -1007,9 +1008,9 @@
                 
                 var plot1 = $.jqplot('plot_' + name, [line1], {
                     title: 'double click to reset the zoom',
-                    axesDefaults: {
-                        labelRenderer: $.jqplot.CanvasAxisLabelRenderer
-                    },
+                    // axesDefaults: {
+                    //     labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+                    // },
                     axes: {
                         xaxis: {
                             // min:0,
@@ -1026,7 +1027,8 @@
                             }
                         },
                         yaxis: {
-                            label: datatype == 'Power'? 'Power(mV*mV)':'Voltage(mV)',
+                            label: datatype == 'Power'? 'Power(mV*mV)': datatype == 'FFT'?'mV*100ns':'Voltage(mV)',
+                            renderer: datatype == 'FFT'? $.jqplot.LogAxisRenderer:$.jqplot.CanvasAxisRenderer,
                             rendererOptions: {
                                 tickRenderer: $.jqplot.CanvasAxisTickRenderer
                             },
@@ -1093,9 +1095,6 @@
             
         });
         $('.footable').footable();
-
-        document.getElementById("phiview").style.display = "none";
-
         
         var connected = false;
         var sleep_interval = 100 //by default, re-access the database every 2seconds to see if there are any new data comes in.
@@ -1115,7 +1114,7 @@
             checkboxClass: 'icheckbox_square-green',
             radioClass: 'iradio_square-green',
         });
-        $('input[value=Surf]').iCheck('check');
+        $('input[value=Phi]').iCheck('check');
 
         
 
