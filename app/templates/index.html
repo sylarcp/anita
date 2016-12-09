@@ -169,6 +169,19 @@
                                         <input class='wv_range' id='fft_min_range' value="0"> </div>
                                 </div>
                             </div>
+                            <div class="col-sm-12">
+                                <div>
+                                    <div> # of events
+                                        <input id='limit_number' value="10"> 
+                                    </div>
+                                    <div> length[s]
+                                        <input id='time_length' value="1000">
+                                    </div>
+                                    <div>
+                                        <button type="button" id='average_waveform' class="btn btn-primary">Average!</button> 
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
@@ -712,7 +725,7 @@
 
     }
 
-    function updatehtml_hd(nbuf) {
+    function updatehtml_hd(nbuf, avgOn = false) {
         if(!nbuf) return;
         $.getJSON('/api/' + ip_db + '/hd/' + nbuf, function(data) {
             $('#hd #index').html(i + 1 + " / " + hd_nbufs.length + "  ");
@@ -723,7 +736,7 @@
             $('#hd #ns').html(data.hd.ns);
             $('#hd #evnum').html(data.hd.evnum);
             $('#hd #runnum').html((data.hd.evid&0xfff00000)>>20);
-            $('#hd #priority').html(data.hd.priority);
+            $('#hd #priority').html(hexString(data.hd.priority));
             $('#hd #trigtype').html(data.hd.trigtype);
             $('#hd #trignum').html(data.hd.trignum);
             $('#hd #trigtime').html(data.hd.trigtime);
@@ -739,10 +752,26 @@
 
             l2maskv = data.hd.l2mask;
             l2maskh = data.hd.l2maskh;
-
-            $.getJSON('/api/' + ip_db + '/wv/' + data.hd.evnum, function(data) {
+            if(avgOn){
+                var time_length = $('#time_length').val();
+                var limit_number = $('#limit_number').val();
+                var endtime = hd_times[i];
+                var starttime = endtime -time_length;
+                url = '/api/' + ip_db + '/avgwv/' + starttime + '/' + endtime + '/' + limit_number;
+            }else{
+                url = '/api/' + ip_db + '/wv/' + data.hd.evnum ;
+            }
+            $.getJSON( url, function(data) {
+            // var endtime = data.hd.time
+            // var starttime = endtime - 100
+            // $.getJSON('/api/' + ip_db + '/avgwv/' + starttime + '/' + endtime + '/10' , function(data) {
                 //console.log(data);
-                $('#wv #evnum').html('evnum  ' + data.evnum);
+                if ('count' in data){
+                    $('#wv #evnum').html('Start evnum  ' + data.first_evnum + ', End evnum ' + data.evnum + ', count ' + data.count);
+                }else{
+                    $('#wv #evnum').html('evnum  ' + data.evnum);
+                }
+                
                 // $('#wv #time').html(data.time + " (" + timeConverter(data.time) + ")");
                 // $('#wv #now').html(data.now + " (" + timeConverter(data.now) + ")");
                 var wv_name;
@@ -1219,6 +1248,10 @@
                 }
             }
             updatehtml_hd(hd_nbufs[i]);
+        });
+
+        $('#average_waveform').click(function() {
+            updatehtml_hd(hd_nbufs[i], true)
         });
 
         $('#next').click(function() {

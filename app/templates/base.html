@@ -189,6 +189,15 @@ Current UTC time: <div id = 'currentUTC'> </div>   <div id = 'eventrate'></div>
           return binaryString.substring(0,4) + ' ' + binaryString.substring(4,8) + ' ' + binaryString.substring(8,12) + ' ' + binaryString.substring(12,16);
         }
 
+        function hexString(n) {
+          if (n < 0 || n > 65535 || n % 1 !== 0) {
+              throw new Error(n + " does not fit in a byte");
+          } 
+          result = ("0000" + n.toString(16)).substr(-4);
+
+          return '0x' + result.substring(2,4);
+        }
+
         function timeConverter(UNIX_timestamp) {
             var a = new Date(UNIX_timestamp * 1000);
             var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
