@@ -177,9 +177,7 @@
                                     <div> length[s]
                                         <input id='time_length' value="1000">
                                     </div>
-                                    <div>
-                                        <button type="button" id='average_waveform' class="btn btn-primary">Average!</button> 
-                                    </div>
+                                    
                                 </div>
                             </div>
                         </div>
@@ -191,18 +189,13 @@
                         <table data-sort="false" class="footable" id='wv' style="width:100% height:100%" data-page-size="13">
                             <tbody>
                                 <th>
-                                    <!-- <td>evnum</td> -->
                                     <td id = 'evnum'></td>
-                                    <!-- <td>time</td>
-                                    <td id = 'time'></td>
-                                    <td>now</td>
-                                    <td id = 'now'></td> -->
                                 </th>
                             </tbody>
                         </table>
                     </div>
                     <div class="ibox-content">
-                        <table data-sort="false" class="footable" id='surfview' style="width:100% height:100%" data-page-size="13">
+                        <table data-sort="false" class="footable" id='surfview' style="width:100% height:100%" data-page-size="20">
                             <tbody>
                                 <th>
                                     <td>chan 1</td>
@@ -361,7 +354,7 @@
                                 </tr>
                             </tbody>
                         </table>
-                        <table data-sort="false" class="footable" id='phiview' style="width:100% height:100%" data-page-size="17">
+                        <table data-sort="false" class="footable" id='phiview' style="width:100% height:100%" data-page-size="20">
                             <tbody>
                                 <th>
                                     <td>phi 1</td>
@@ -538,6 +531,11 @@
                                 </tr>
                             </tbody>
                         </table>
+                        
+                    </div>
+                    <div class="ibox-content">
+                        <button type="button" id='average_events' class="btn btn-primary">Events average</button> 
+                        <button type="button" id='average_waveforms' class="btn btn-primary">Waveforms average</button>
                     </div>
                 </div>
             </div>
@@ -558,6 +556,9 @@
     var hd_nows = [];
     var i = 0;
     var currentData=null;
+    var currentDatamV= null;
+    var currentDataFFT= null;
+    var currentDataPower= null;
     var datatype = 'mV';
     var dataview = 'Phi';
     var offset = 0;
@@ -625,12 +626,13 @@
         });
     }
 
-    function displayData(datatype, name, waveform, maskon) {     
+    function displayData(datatype, name, waveform, maskon, id) {     
         if (datatype == 'mV') {
             min = Math.min.apply(null, waveform['cal']);
             max = Math.max.apply(null, waveform['cal']);
             range_min = $('#wv_min_range').val()
             range_max = $('#wv_max_range').val()
+            currentDatamV[id] = waveform['cal'];
             $(name).attr('values', waveform['cal']).sparkline('html', {
                 type: 'line',
                 width: '90',
@@ -650,6 +652,7 @@
             });
             // Array.from(), translate Float32Array into Array.  To make it compatiable with firefox.
             var fft = Array.from(fftdata.FFT().magnitude().slice(1, 130));
+            currentDataFFT[id] = fft;
             // console.log(fft);
             // console.log(waveform['cal']);
             min = Math.min.apply(null, fft);
@@ -679,6 +682,7 @@
             range_min = Math.pow($('#wv_min_range').val(), 2);
             range_max = Math.pow($('#wv_max_range').val(), 2);
             console.log(min, max, range_min, range_max);
+            currentDataPower[id] = power_wv;
 
             $(name).attr('values', power_wv).sparkline('html', {
                 type: 'line',
@@ -775,7 +779,10 @@
                 // $('#wv #time').html(data.time + " (" + timeConverter(data.time) + ")");
                 // $('#wv #now').html(data.now + " (" + timeConverter(data.now) + ")");
                 var wv_name;
-                currentData=data
+                currentData=data;
+                currentDatamV = {};
+                currentDataFFT = {};
+                currentDataPower = {};
                 if (datatype == 'mV' && dataview == 'Surf') {
                     //console.log(datatype);        
                     for (var surf = 0; surf < 12; surf++) {
@@ -786,7 +793,7 @@
                             // console.log(id + ' '+get_mask(id, l2maskv, l2maskh));
                             maskon = get_mask(id, l2maskv, l2maskh);
                             if (waveform != undefined) {
-                                displayData('mV', wv_name, waveform, maskon);
+                                displayData('mV', wv_name, waveform, maskon, id);
                             } else {
                                 displayDataNone(wv_name, maskon);
                             };
@@ -802,7 +809,7 @@
                             //console.log(waveform);
                             maskon = get_mask(id, l2maskv, l2maskh);
                             if (waveform != undefined) {
-                                displayData('FFT', wv_name, waveform, maskon);
+                                displayData('FFT', wv_name, waveform, maskon, id);
                             } else {
                                 displayDataNone(wv_name, maskon);
                             };
@@ -818,7 +825,7 @@
                             var waveform = data[id.toString()];
                             maskon = get_mask(id, l2maskv, l2maskh);
                             if (waveform != undefined) {
-                                displayData('Power', wv_name, waveform, maskon);
+                                displayData('Power', wv_name, waveform, maskon, id);
                             } else {
                                 displayDataNone(wv_name, maskon);
                             };
@@ -855,13 +862,13 @@
                         // console.log(v_id + ':' + 'v' + ', ');
                         maskon = get_mask(h_id, l2maskv, l2maskh);
                         if (h_waveform != undefined) {
-                            displayData('mV', phi_h_name, h_waveform, maskon);
+                            displayData('mV', phi_h_name, h_waveform, maskon, h_id);
                         } else {
                             displayDataNone(phi_h_name,maskon);
                         };
                         maskon = get_mask(v_id, l2maskv, l2maskh);
                         if (v_waveform != undefined) {
-                            displayData('mV', phi_v_name, v_waveform, maskon);
+                            displayData('mV', phi_v_name, v_waveform, maskon, v_id);
                         } else {
                             displayDataNone(phi_v_name, maskon);
                         };
@@ -892,13 +899,13 @@
                         var v_waveform = data[v_id.toString()];
                         maskon = get_mask(h_id, l2maskv, l2maskh);
                         if (h_waveform != undefined) {
-                            displayData('FFT', phi_h_name, h_waveform, maskon);
+                            displayData('FFT', phi_h_name, h_waveform, maskon, h_id);
                         } else {
                             displayDataNone(phi_h_name, maskon);
                         };
                         maskon = get_mask(v_id, l2maskv, l2maskh);
                         if (v_waveform != undefined) {
-                            displayData('FFT', phi_v_name, v_waveform,maskon);
+                            displayData('FFT', phi_v_name, v_waveform,maskon, v_id);
                         } else {
                             displayDataNone(phi_v_name, maskon);
                         };
@@ -929,13 +936,13 @@
                         var v_waveform = data[v_id.toString()];
                         maskon = get_mask(h_id, l2maskv, l2maskh);
                         if (h_waveform != undefined) {
-                            displayData('Power', phi_h_name, h_waveform, maskon);
+                            displayData('Power', phi_h_name, h_waveform, maskon, h_id);
                         } else {
                             displayDataNone(phi_h_name, maskon);
                         };
                         maskon = get_mask(v_id, l2maskv, l2maskh);
                         if (v_waveform != undefined) {
-                            displayData('Power', phi_v_name, v_waveform, maskon);
+                            displayData('Power', phi_v_name, v_waveform, maskon, v_id);
                         } else {
                             displayDataNone(phi_v_name, maskon);
                         };
@@ -1035,6 +1042,150 @@
                 }
                 console.log(line1);
                 
+                var plot1 = $.jqplot('plot_' + name, [line1], {
+                    title: 'double click to reset the zoom',
+                    // axesDefaults: {
+                    //     labelRenderer: $.jqplot.CanvasAxisLabelRenderer
+                    // },
+                    axes: {
+                        xaxis: {
+                            // min:0,
+                            // max:262,
+                            // renderer: $.jqplot.DateAxisRenderer,
+                            label: datatype == 'FFT'? 'frequency(MHz)' : 'time(ns)',
+                            rendererOptions: {
+                                tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                            },
+                            tickOptions: {
+                                formatString: '%d',
+                                fontSize: '10pt',
+                                fontFamily: 'Tahoma',
+                            }
+                        },
+                        yaxis: {
+                            label: datatype == 'Power'? 'Power(mV*mV)': datatype == 'FFT'?'mV*100ns':'Voltage(mV)',
+                            renderer: datatype == 'FFT'? $.jqplot.LogAxisRenderer:$.jqplot.CanvasAxisRenderer,
+                            rendererOptions: {
+                                tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                            },
+                            tickOptions: {
+                                fontSize: '10pt',
+                                fontFamily: 'Tahoma',
+                            }
+                        }
+                    },
+                    series: [{
+                        lineWidth: .5,
+                        markerOptions: {
+                            size: 3,
+                            color: 'blue' 
+                        }
+                    }],
+                    seriesDefaults: {
+                        rendererOptions: {
+                            smooth: true
+                        }
+                    },
+
+                    cursor: {
+                        zoom: true,
+                        looseZoom: true,
+                        // showTooltip:true, 
+                        followMouse: true,
+                        showTooltipOutsideZoom: true,
+                        constrainOutsideZoom: false
+                    }
+                });
+                
+
+                $newDialog.dialog({
+                    resize: function(event, ui) {
+                        $("#plot_" + name).height(Math.max(100, $newDialog.height()*0.95));
+                        plot1.replot({
+                            resetAxes: true,
+                        });
+                    }
+                });
+
+                $('#next').click(function() {
+                    plot1.replot({
+                            resetAxes: true,
+                        });
+                });
+            }
+
+            // $("#dialog_" + name).find('button[id="request"]').click(function() {
+            //     console.log('click');
+            //     var end_time = $newDialog.find('input[id="reference_time"]').val();
+            //     var length = $newDialog.find('input[id="length"]').val();
+            //     console.log(end_time);
+            //     console.log(end_time - length);
+            //     $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
+            //         console.log(data.data);
+            //         plot1.replot({
+            //             data: [data.data]
+            //         });
+            //     });
+            // });
+
+            
+        });
+
+        // analysis current waveform, such as average!
+        $("#average_waveforms").click(function() {
+            var name= 'average_waveforms';
+            if ($("#dialog_" + name)){
+                $("#dialog_" + name).remove();
+            }   
+            if ($("#dialog_" + name).length) {
+                $("#dialog_" + name).dialog('open');
+            } else {
+                var $newDialog = $('#dialog').clone();
+                $newDialog.attr('id', 'dialog_' + name);
+                $newDialog.removeClass('hide');
+                $newDialog.attr('title', 'Avergaed Waveform');
+                $newDialog.prepend('<div id="' + "plot_" + name + '"></div>'); 
+                $newDialog.dialog({
+                    width: 1000,
+                    height: 370,
+                });
+               // get the data according to datatype
+                var currentDataAny = null;
+                if (datatype == 'mV'){
+                    currentDataAny = currentDatamV;
+                }else if (datatype == 'FFT'){
+                    currentDataAny = currentDataFFT;
+                }else if (datatype == 'Power'){
+                    currentDataAny = currentDataPower;
+                }
+                console.log(currentDataAny);
+                var sum_all = [];
+                // initialize zeros
+                for (var sample =0; sample <Object.keys(currentDataAny).length; sample++){
+                    sum_all.push(0);
+                }
+                var number_of_waveforms = 0
+                // get the sumation
+                
+                for (var id = 0; id < 108; id++){
+                    // only need the antennas, not clock
+                    if (id%9 != 8){
+                        if (id in currentDataAny){
+                            for (var sample = 0; sample < Object.keys(currentDataAny).length; sample++){
+                                sum_all[sample] += currentDataAny[id][sample];
+                            }
+                            number_of_waveforms += 1;
+                        }
+                    }
+                }
+                // take average now.
+                if (number_of_waveforms > 0){
+                    var line1 = [];
+                    for (var i = 0; i < sum_all.length; i++) {
+                        line1.push([i, sum_all[i]/number_of_waveforms]);
+                    }
+                }
+                console.log(line1);
                 var plot1 = $.jqplot('plot_' + name, [line1], {
                     title: 'double click to reset the zoom',
                     // axesDefaults: {
@@ -1250,7 +1401,7 @@
             updatehtml_hd(hd_nbufs[i]);
         });
 
-        $('#average_waveform').click(function() {
+        $('#average_events').click(function() {
             updatehtml_hd(hd_nbufs[i], true)
         });
 
