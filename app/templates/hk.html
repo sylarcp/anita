@@ -948,7 +948,7 @@ function update_sbst1_data($selector, new_data) {
     });
     }
 
-    function update_disk45_data($selector, new_data) {
+    function update_disk4_data($selector, new_data) {
     //He1 
     var array_string = $selector.attr('values');
     array_string = new_data;
@@ -958,7 +958,7 @@ function update_sbst1_data($selector, new_data) {
             barWidth: 8,
             height: '90',
         // zeroAxis: false,
-        colorMap: disk45_range_map,
+        colorMap: disk4_range_map,
         chartRangeMin: 0,
         chartRangeMax: 6000000
     });
@@ -1200,25 +1200,25 @@ function updatehtml_mon(mon) {
         update_disk0_data($(disk_name), parseInt(data.mon.disk[0]));
         var disk_name;
         disk_name = '#disk-1';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk[1]));
+        update_disk1_data($(disk_name), parseInt(data.mon.disk[1]));
         var disk_name;
         disk_name = '#disk-2';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk[2]));
+        update_disk2_data($(disk_name), parseInt(data.mon.disk[2]));
         var disk_name;
         disk_name = '#disk-3';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk[3]));
+        update_disk3_data($(disk_name), parseInt(data.mon.disk[3]));
         var disk_name;
         disk_name = '#disk-4';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk[4]));
+        update_disk4_data($(disk_name), parseInt(data.mon.disk[4]) * 128);
         var disk_name;
         disk_name = '#disk-5';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk[5]));
+        update_disk5_data($(disk_name), parseInt(data.mon.disk[5]) * 128);
         var disk_name;
         disk_name = '#disk-6';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk[6]));
+        update_disk6_data($(disk_name), parseInt(data.mon.disk[6]) *4);
         var disk_name;
         disk_name = '#disk-7';
-        update_disk0_data($(disk_name), parseInt(data.mon.disk[7]));
+        update_disk7_data($(disk_name), parseInt(data.mon.disk[7]) *4);
     });
 }
 
