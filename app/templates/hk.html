@@ -1322,8 +1322,8 @@ function updatehtml_adu5_pat(adu5_pat) {
             $('#gps #pitch_adu5_pat_A').html(data.pat_a.pitch).css('color', 'inherit');
             $('#gps #roll_adu5_pat_A').html(data.pat_a.roll).css('color', 'inherit');
             $('#gps #altitude_adu5_pat_A').html(data.pat_a.altitude).css('color', 'inherit');
-            $('#gps #flag_adu5_pat_A').html(data.pat_a.roll).css('color', 'inherit');
-            $('#gps #brms_adu5_pat_A').html(data.pat_a.altitude).css('color', 'inherit');  
+            $('#gps #flag_adu5_pat_A').html(data.pat_a.flag).css('color', 'inherit');
+            $('#gps #brms_adu5_pat_A').html(data.pat_a.brms).css('color', 'inherit');  
             $('#gps #d2mcm_adu5_pat_A').html(Distance2McM(data.pat_a.longitude,data.pat_a.latitude)).css('color', 'inherit');     
         }
            
@@ -1352,8 +1352,8 @@ function updatehtml_adu5_pat(adu5_pat) {
             $('#gps #pitch_adu5_pat_B').html(data.pat_b.pitch).css('color', 'inherit');
             $('#gps #roll_adu5_pat_B').html(data.pat_b.roll).css('color', 'inherit');
             $('#gps #altitude_adu5_pat_B').html(data.pat_b.altitude).css('color', 'inherit'); 
-            $('#gps #flag_adu5_pat_B').html(data.pat_a.roll).css('color', 'inherit');
-            $('#gps #brms_adu5_pat_B').html(data.pat_a.altitude).css('color', 'inherit');
+            $('#gps #flag_adu5_pat_B').html(data.pat_a.flag).css('color', 'inherit');
+            $('#gps #brms_adu5_pat_B').html(data.pat_a.brms).css('color', 'inherit');
             $('#gps #d2mcm_adu5_pat_B').html(Distance2McM(data.pat_a.longitude,data.pat_a.latitude)).css('color', 'inherit');         
         }
    });
