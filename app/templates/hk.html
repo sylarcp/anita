@@ -589,6 +589,26 @@
                                 <td id='heading_adu5_pat_B'></td>
                                 <td></td>
                             </tr>
+
+                            <tr>
+                                <td>Flag</td>
+                                <td id='flag_adu5_pat_A'></td>
+                                <td id='flag_adu5_pat_B'></td>
+                                <td></td>
+                            </tr>
+                            <tr>                                
+                                <td>BRMS</td> 
+                                <td id='brms_adu5_pat_A'></td>
+                                <td id='brms_adu5_pat_B'></td>
+                                <td></td>
+                            </tr>
+
+                            <tr>                                
+                                <td>D2McM[km]</td> 
+                                <td id='d2mcm_adu5_pat_A'></td>
+                                <td id='d2mcm_adu5_pat_B'></td>
+                                <td id='d2mcm_g12_pos_B'></td>
+                            </tr>
                             <tr>
                                 <td bgcolor="#FFFFFF" style="line-height:20px;" colspan=3>&nbsp;</td>
                             </tr>
@@ -764,6 +784,17 @@ var link_range_map = $.range_map({
     '0:15': 'green',
     '15:50:': 'yellow',
 })
+
+
+function Distance2McM (longitude, latitude) {
+    dlon = (longitude - 167.19)/180*3.1415;
+    dlat = (latitude + 77.85)/180*3.1415;
+    a = Math.pow((Math.sin(dlat/2)),2) + Math.cos(latitude/180*3.1415) * Math.cos(77.85/180*3.1415) * Math.pow((Math.sin(dlon/2)),2);
+    c = 2 * Math.atan2( Math.sqrt(a), Math.sqrt(1-a) );
+    return (6371 * c).toFixed(2); //(where R is the radius of the Earth)
+}
+
+
 
 function gpstype(gpstype) {
     if (gpstype == 0x10000) {
@@ -1275,7 +1306,10 @@ function updatehtml_adu5_pat(adu5_pat) {
             $('#gps #longitude_adu5_pat_A').css('color', 'LightGrey');
             $('#gps #pitch_adu5_pat_A').css('color', 'LightGrey');
             $('#gps #roll_adu5_pat_A').css('color', 'LightGrey');
-            $('#gps #altitude_adu5_pat_A').css('color', 'LightGrey');    
+            $('#gps #altitude_adu5_pat_A').css('color', 'LightGrey');
+            $('#gps #flag_adu5_pat_A').css('color', 'LightGrey');
+            $('#gps #brms_adu5_pat_A').css('color', 'LightGrey');
+            $('#gps #d2mcm_adu5_pat_A').css('color', 'LightGrey');     
         }else{
             
             $('#gps #unixnow_adu5_pat_A').html(data.pat_a.now).css('color', 'inherit');
@@ -1287,7 +1321,10 @@ function updatehtml_adu5_pat(adu5_pat) {
             $('#gps #longitude_adu5_pat_A').html(data.pat_a.longitude).css('color', 'inherit');
             $('#gps #pitch_adu5_pat_A').html(data.pat_a.pitch).css('color', 'inherit');
             $('#gps #roll_adu5_pat_A').html(data.pat_a.roll).css('color', 'inherit');
-            $('#gps #altitude_adu5_pat_A').html(data.pat_a.altitude).css('color', 'inherit');     
+            $('#gps #altitude_adu5_pat_A').html(data.pat_a.altitude).css('color', 'inherit');
+            $('#gps #flag_adu5_pat_A').html(data.pat_a.roll).css('color', 'inherit');
+            $('#gps #brms_adu5_pat_A').html(data.pat_a.altitude).css('color', 'inherit');  
+            $('#gps #d2mcm_adu5_pat_A').html(Distance2McM(data.pat_a.longitude,data.pat_a.latitude)).css('color', 'inherit');     
         }
            
         if (data.pat_b == undefined){
@@ -1300,7 +1337,10 @@ function updatehtml_adu5_pat(adu5_pat) {
             $('#gps #longitude_adu5_pat_B').css('color', 'LightGrey');
             $('#gps #pitch_adu5_pat_B').css('color', 'LightGrey');
             $('#gps #roll_adu5_pat_B').css('color', 'LightGrey');
-            $('#gps #altitude_adu5_pat_B').css('color', 'LightGrey');    
+            $('#gps #altitude_adu5_pat_B').css('color', 'LightGrey'); 
+            $('#gps #flag_adu5_pat_B').css('color', 'LightGrey');
+            $('#gps #brms_adu5_pat_B').css('color', 'LightGrey');
+            $('#gps #d2mcm_adu5_pat_B').css('color', 'LightGrey');   
         }else{
             $('#gps #unixnow_adu5_pat_B').html(data.pat_b.now).css('color', 'inherit');
             $('#gps #unixtime_adu5_pat_B').html(data.pat_b.time).css('color', 'inherit');
@@ -1311,7 +1351,10 @@ function updatehtml_adu5_pat(adu5_pat) {
             $('#gps #longitude_adu5_pat_B').html(data.pat_b.longitude).css('color', 'inherit');
             $('#gps #pitch_adu5_pat_B').html(data.pat_b.pitch).css('color', 'inherit');
             $('#gps #roll_adu5_pat_B').html(data.pat_b.roll).css('color', 'inherit');
-            $('#gps #altitude_adu5_pat_B').html(data.pat_b.altitude).css('color', 'inherit');     
+            $('#gps #altitude_adu5_pat_B').html(data.pat_b.altitude).css('color', 'inherit'); 
+            $('#gps #flag_adu5_pat_B').html(data.pat_a.roll).css('color', 'inherit');
+            $('#gps #brms_adu5_pat_B').html(data.pat_a.altitude).css('color', 'inherit');
+            $('#gps #d2mcm_adu5_pat_B').html(Distance2McM(data.pat_a.longitude,data.pat_a.latitude)).css('color', 'inherit');         
         }
    });
 }
@@ -1370,7 +1413,9 @@ function updatehtml_g12_pos(g12_pos){
        $('#gps #time_g12_pos').html(timeConverter(data.pos.time));
        $('#gps #latitude_g12_pos').html(data.pos.latitude);
        $('#gps #longitude_g12_pos').html(data.pos.longitude);
-       $('#gps #altitude_g12_pos').html(data.pos.altitude);        
+       $('#gps #altitude_g12_pos').html(data.pos.altitude);    
+       $('#gps #d2mcm_g12_pos_B').html(Distance2McM(data.pos.longitude,data.pos.latitude));         
+    
    });
 }
 
@@ -1389,6 +1434,12 @@ $(document).ready(function() {
         var column_name = $(this).attr('id');
         var table_name = $(this).closest('.ibox').attr('id');
         var name = table_name + '_' + column_name;
+        columns = column_name.split('_');
+        if (columns[1] == 'adu5' && (columns[0]!= 'numsats' || columns[0]!= 'd2mcm') ){
+            multi_plot = true;
+        }else{
+            multi_plot = false;
+        }
         // console.log($(this).attr('id'));
         // console.log($(this).closest('.ibox').attr('id'));
         if ($("#dialog_" + name).length) {
@@ -1432,13 +1483,28 @@ $(document).ready(function() {
                         }
                     }
                 },
-                series: [{
+                series: [
+                    {
                         lineWidth: .5,
                         markerOptions: {
                             size: 2,
                             color: 'blue' 
                         }
-                    }],
+                    },
+                    {
+                        lineWidth: .5,
+                        markerOptions: {
+                            size: 2,
+                            color: 'red' 
+                        }
+                    }
+                ],
+                legend: {
+                    show: multi_plot,
+                    labels: ['adu5_A', 'adu5_B'],
+                    location: 'ne',
+                    rowSpacing: '0px'
+                },
                 cursor: {
                     zoom: true,
                     looseZoom: true,
@@ -1466,9 +1532,15 @@ $(document).ready(function() {
             // console.log(end_time);
             // console.log(end_time - length);
             $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
-                console.log(data.data);
+                console.log(data);
+                if (Object.keys(data).length == 2){
+                    datalist = [data.data_a, data.data_b];
+                }else{
+                    datalist = [data.data];
+                }
+                console.log(datalist);
                 plot1.replot({
-                    data: [data.data]
+                    data: datalist
                 });
             });
         });

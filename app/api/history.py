@@ -31,9 +31,12 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
                 column_name = 'now'
         # print table_name, column_name
         table = diction[table_name]
-        if column_name[:3] == 'adu':
-            results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time, table.gpstype).filter(table.time>=start_time, table.time<=end_time).filter_by(gpstype=gpstype).order_by(table.time).all()
-            return jsonify({'data':[[1000*result.time ,getattr(result, column_name)] for result in results]})
+        if table_name[:3] == 'adu':
+
+            results_a =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time, table.gpstype).filter(table.time>=start_time, table.time<=end_time).filter_by(gpstype=0x20000).order_by(table.time).all()
+            results_b =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time, table.gpstype).filter(table.time>=start_time, table.time<=end_time).filter_by(gpstype=0x40000).order_by(table.time).all()
+            # print len(results)
+            return jsonify({'data_a':[[1000*result.time ,getattr(result, column_name)] for result in results_a], 'data_b':[[1000*result.time ,getattr(result, column_name)] for result in results_b]})
         elif '-' in column_name:
             splited = column_name.split('-')
             column_name=splited[0]
