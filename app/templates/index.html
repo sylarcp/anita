@@ -1153,15 +1153,21 @@
                 var currentDataAny = null;
                 if (datatype == 'mV'){
                     currentDataAny = currentDatamV;
+                    data_length = 260;
+                    x_factor = 2.6;
                 }else if (datatype == 'FFT'){
                     currentDataAny = currentDataFFT;
+                    data_length = 130;
+                    x_factor = 0.1;
                 }else if (datatype == 'Power'){
                     currentDataAny = currentDataPower;
+                    data_length = 260;
+                    x_factor = 2.6;
                 }
                 console.log(currentDataAny);
                 var sum_all = [];
                 // initialize zeros
-                for (var sample =0; sample <Object.keys(currentDataAny).length; sample++){
+                for (var sample =0; sample <data_length; sample++){
                     sum_all.push(0);
                 }
                 var number_of_waveforms = 0
@@ -1171,7 +1177,7 @@
                     // only need the antennas, not clock
                     if (id%9 != 8){
                         if (id in currentDataAny){
-                            for (var sample = 0; sample < Object.keys(currentDataAny).length; sample++){
+                            for (var sample = 0; sample < data_length; sample++){
                                 sum_all[sample] += currentDataAny[id][sample];
                             }
                             number_of_waveforms += 1;
@@ -1182,7 +1188,7 @@
                 if (number_of_waveforms > 0){
                     var line1 = [];
                     for (var i = 0; i < sum_all.length; i++) {
-                        line1.push([i, sum_all[i]/number_of_waveforms]);
+                        line1.push([i/x_factor, sum_all[i]/number_of_waveforms]);
                     }
                 }
                 console.log(line1);
