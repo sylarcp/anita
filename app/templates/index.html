@@ -204,7 +204,7 @@
                         </a>
                     </div>
                     <div class="ibox-content">
-                        <table data-sort="false" class="footable" id='wv' style="width:100% height:100%" data-page-size="13">
+                        <table data-sort="false" class="footable" id='wv_head' style="width:100% height:100%" data-page-size="13">
                             <tbody>
                                 <th>
                                     <td id = 'evnum'></td>
@@ -212,7 +212,7 @@
                             </tbody>
                         </table>
                     </div>
-                    <div class="ibox-content">
+                    <div class="ibox-content" id='wv'>
                         <table data-sort="false" class="footable" id='surfview' style="width:100% height:100%" data-page-size="20">
                             <tbody>
                                 <th>
@@ -559,7 +559,27 @@
             </div>
         </div>
     </div>
-    <div id="dialog" class='dialog_wv hide'>
+    <div id="dialog_wv" class='dialog_wv hide'>
+    </div>
+    <div id="dialog" class='hide'>
+        <div id='chart1'></div>
+        </br>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Reference UTC</label>
+                <input id="reference_time" placeholder="Enter your end time" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label>Length(s)</label>
+                <input id="length" value="21600" placeholder="Enter the number of seconds" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            </br>
+            <button id="request" type="button" class="btn btn-primary">Request</button>
+        </div>
     </div>
 </div>
     {% endblock %} {% block scripts %} {{ super() }}
@@ -789,9 +809,9 @@
             // $.getJSON('/api/' + ip_db + '/avgwv/' + starttime + '/' + endtime + '/10' , function(data) {
                 //console.log(data);
                 if ('count' in data){
-                    $('#wv #evnum').html('Start evnum  ' + data.first_evnum + ', End evnum ' + data.evnum + ', count ' + data.count);
+                    $('#wv_head #evnum').html('Start evnum  ' + data.first_evnum + ', End evnum ' + data.evnum + ', count ' + data.count);
                 }else{
-                    $('#wv #evnum').html('evnum  ' + data.evnum);
+                    $('#wv_head #evnum').html('evnum  ' + data.evnum);
                 }
                 
                 // $('#wv #time').html(data.time + " (" + timeConverter(data.time) + ")");
@@ -993,7 +1013,7 @@
         });
 
         $.jqplot.config.enablePlugins = true;
-        $("td[id]").click(function() {
+        $("#wv td[id]").click(function() {
             console.log($(this));
             var waveform_name = $(this).attr('id').split('_');
             if(waveform_name[0]=='wv'){
@@ -1022,7 +1042,7 @@
             if ($("#dialog_" + name).length) {
                 $("#dialog_" + name).dialog('open');
             } else {
-                var $newDialog = $('#dialog').clone();
+                var $newDialog = $('#dialog_wv').clone();
                 $newDialog.attr('id', 'dialog_' + name);
                 $newDialog.removeClass('hide');
                 chanPlusOne=chan+1;
@@ -1154,10 +1174,113 @@
             //             data: [data.data]
             //         });
             //     });
-            // });
-
-            
+            // });   
         });
+        $("#hd td[id]").click(function() {
+        var column_name = $(this).attr('id');
+        var table_name = 'hd';
+        var name = table_name + '_' + column_name;
+        // console.log($(this).attr('id'));
+        // console.log($(this).closest('.ibox').attr('id'));
+        if ($("#dialog_" + name).length) {
+            $("#dialog_" + name).dialog('open');
+            $("#dialog_" + name).find('input[id="reference_time"]').val(hd_times[i]);
+        } else {
+            var $newDialog = $('#dialog').clone();
+            $newDialog.attr('id', 'dialog_' + name);
+            $newDialog.removeClass('hide');
+            $newDialog.attr('title', name);
+            $newDialog.prepend('<div id="' + "plot_" + name + '"  class="dialog_plot" ></div>');
+            $newDialog.find('input[id="reference_time"]').val(hd_times[i]);
+            $newDialog.dialog({
+                width: 600,
+                height: 500,
+            });
+            var line1 = [
+            ['2008-09-30', 14]
+            ];
+            var plot1 = $.jqplot('plot_' + name, [line1], {
+                title: 'double click to reset the zoom',
+                axes: {
+                    xaxis: {
+                        renderer: $.jqplot.DateAxisRenderer,
+                        rendererOptions: {
+                            tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                        },
+                        tickOptions: {
+                            // formatString: '%M:%S%#N ',
+                            fontSize: '10pt',
+                            fontFamily: 'Tahoma',
+                        }
+                    },
+                    yaxis: {
+                        rendererOptions: {
+                            tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                        },
+                        tickOptions: {
+                            fontSize: '10pt',
+                            fontFamily: 'Tahoma',
+                        }
+                    }
+                },
+                series: [
+                    {
+                        lineWidth: .5,
+                        markerOptions: {
+                            size: 2,
+                            color: 'blue' 
+                        }
+                    },
+                    {
+                        lineWidth: .5,
+                        markerOptions: {
+                            size: 2,
+                            color: 'red' 
+                        }
+                    }
+                ],
+                cursor: {
+                    zoom: true,
+                    looseZoom: true,
+                    // showTooltip:true, 
+                    followMouse: true,
+                    showTooltipOutsideZoom: true,
+                    constrainOutsideZoom: false
+                }
+            });
+
+            $newDialog.dialog({
+                resize: function(event, ui) {
+                    $("#plot_" + name).height(Math.max(100, $newDialog.height() - 120));
+                    plot1.replot({
+                        resetAxes: true,
+                    });
+                }
+            });
+        }
+
+        $("#dialog_" + name).find('button[id="request"]').click(function() {
+            console.log('click');
+            var end_time = $newDialog.find('input[id="reference_time"]').val();
+            var length = $newDialog.find('input[id="length"]').val();
+            // console.log(end_time);
+            // console.log(end_time - length);
+            $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
+                console.log(data);
+                if (Object.keys(data).length == 2){
+                    datalist = [data.data_a, data.data_b];
+                }else{
+                    datalist = [data.data];
+                }
+                console.log(datalist);
+                plot1.replot({
+                    data: datalist
+                });
+            });
+        });
+
+        $("#dialog_" + name).find('button[id="request"]').trigger("click");
+    });
 
         // analysis current waveform, such as average!
         $("#average_waveforms").click(function() {
