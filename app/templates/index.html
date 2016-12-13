@@ -8,18 +8,36 @@
             <div class="ibox float-e-margins">
                 <div class="ibox-title">
                     <h5>hd</h5>
+                    
                     <div class="ibox-tools">
                         <a class="collapse-link">
                             <i class="fa fa-chevron-up"></i>
                         </a>
                     </div>
                 </div>
+
+
                 <div class="ibox-content">
                     <table data-sort="false" class="footable" data-page-size="30" id='hd' style="width:100%">
                         <tbody>
+                            <!-- <tr>
+                                <td>index</td>
+                                <td>
+                                    <div>
+                                        <input class="touchspin2" type="text" value="55" name="demo2">
+                                    </div>
+                                </td>   
+                            </tr> -->
+                            
                             <tr>
                                 <td>index</td>
-                                <td id='index'></td>
+                                <td id = 'index'></td>
+                                <!-- <td >
+                                    <div class="input-group">
+                                      <input type="text" class="form-control" placeholder="Recipient's username">
+                                      <span class="input-group-addon" id="basic-addon2">@example.com</span>
+                                    </div>
+                                </td> -->
                             </tr>
                             <tr>
                                 <td>evnum</td>
@@ -732,7 +750,7 @@
     function updatehtml_hd(nbuf, avgOn = false) {
         if(!nbuf) return;
         $.getJSON('/api/' + ip_db + '/hd/' + nbuf, function(data) {
-            $('#hd #index').html(i + 1 + " / " + hd_nbufs.length + "  ");
+            $('#hd #index').val(i + 1 + " / " + hd_nbufs.length + "  ");
             $('#hd #nbuf').html(data.hd.nbuf);
             $('#hd #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
             $('#hd #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
@@ -962,7 +980,17 @@
 
         $(window).on('resize', resizeWindow);
         
-
+        $(".touchspin2").TouchSpin({
+            min: 0,
+            max: 10000,
+            boostat: 3,
+            maxboostedstep: 200,
+            prefix: 'Index',
+            postfix: '116750',
+            // verticalbuttons: true,
+            // buttondown_class: 'btn btn-white',
+            // buttonup_class: 'btn btn-white'
+        });
 
         $.jqplot.config.enablePlugins = true;
         $("td[id]").click(function() {
@@ -1315,7 +1343,6 @@
                 hd_evnums = hd_evnums.concat(data.hd_evnums);
                 hd_times = hd_times.concat(data.hd_times);
                 hd_nows = hd_nows.concat(data.hd_nows);
-                // offset = Math.max(offset, Math.max.apply(null, data.hd_nows));
                 $('#hd #index').html(i + 1 + " / " + hd_nbufs.length + "  ");
                 $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
                 $('#connect').html('Disconnect');

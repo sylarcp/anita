@@ -21,16 +21,17 @@
 <link href="{{ url_for('static', filename='inspinia/css/plugins/jQueryUI/jquery-ui.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='anita/css/jquery.jqplot.min.css') }}" rel="stylesheet">
 <link href="{{ url_for('static', filename='anita/css/magicbox.css') }}" rel="stylesheet">
+<link href="{{ url_for('static', filename='anita/css/jquery.bootstrap-touchspin.css') }}" rel="stylesheet">
 
 
 <style>   
     .dialog_plot {margin-right: 20px; margin-left: 25px; margin-bottom: 5px;}
     #currentUTC,#eventrate {display:inline-block;margin-right:10px;}
     .ui-dialog { z-index: 9000 !important ;} 
-    button, .select2-container{
+    .btn-primary, .select2-container{
         margin: 7px 2px;
     }
-    input, .switchery{
+    .js-switch, .switchery{
         margin: 7px 2px;
     }
     /* the modal should be in the same z-index not overlay each other*/
@@ -178,6 +179,7 @@ Current UTC time: <div id = 'currentUTC'> </div>   <div id = 'eventrate'></div>
     <script src="{{ url_for('static', filename='anita/js/jqplot/plugins/jqplot.cursor.min.js') }}"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <script src="{{ url_for('static', filename='anita/js/magicbox.js') }}"></script>
+    <script src="{{ url_for('static', filename='anita/js/jquery.bootstrap-touchspin.js') }}"></script>
     <script>
         // global converting functions
         function byteString(n) {
