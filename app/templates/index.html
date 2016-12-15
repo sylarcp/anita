@@ -769,7 +769,7 @@
 
     function updatehtml_hd(nbuf, avgOn = false) {
         if(!nbuf) return;
-        $.getJSON('/api/' + ip_db + '/hd/' + nbuf, function(data) {
+        $.getJSON('/api/' + ip_db + '/rf/' + nbuf, function(data) {
             $('#hd #index').val(i + 1 + " / " + hd_nbufs.length + "  ");
             $('#hd #nbuf').html(data.hd.nbuf);
             $('#hd #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
@@ -1178,7 +1178,7 @@
         });
         $("#hd td[id]").click(function() {
         var column_name = $(this).attr('id');
-        var table_name = 'hd';
+        var table_name = 'rf';
         var name = table_name + '_' + column_name;
         // console.log($(this).attr('id'));
         // console.log($(this).closest('.ibox').attr('id'));
@@ -1456,7 +1456,7 @@
         
 
         function autoload(offset) {
-            $.getJSON('/api/' + ip_db + '/hd/nbufs/' + offset, function(data) {
+            $.getJSON('/api/' + ip_db + '/rf/nbufs/' + offset, function(data) {
                 console.log('hd api');
                 console.log(data);
                 

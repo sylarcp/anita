@@ -3,7 +3,7 @@ import os
 # from app import create_app, db
 # from app import app, db
 from app import create_app
-from app.models import Hd, Wv, Slow, Hk, Sshk, Hk_surf, Turf, Mon, Adu5_pat, Adu5_vtg, Adu5_sat,\
+from app.models import Hd, Rf, Wv, Slow, Hk, Sshk, Hk_surf, Turf, Mon, Adu5_pat, Adu5_vtg, Adu5_sat,\
 G12_pos, G12_sat, Cmd, Wakeup, File
 from flask.ext.script import Manager, Shell, Server
 from flask.ext.migrate import Migrate, MigrateCommand

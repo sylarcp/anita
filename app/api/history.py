@@ -2,16 +2,16 @@ from flask import jsonify, request, g, abort, url_for, current_app, session
 from flask.ext.login import LoginManager, current_user
 from . import api
 from .. import cache
-from app.models import Hd, Wv, Hk, Mon, Adu5_pat, Adu5_vtg, Adu5_sat,G12_pos, G12_sat,Turf, Hk_surf, Slow, Sshk
+from app.models import Hd,Rf, Wv, Hk, Mon, Adu5_pat, Adu5_vtg, Adu5_sat,G12_pos, G12_sat,Turf, Hk_surf, Slow, Sshk
 
 
 @api.route('/<ip_db>/history/<table_name>/<column_name>/<start_time>/<end_time>')
 def get_history(ip_db, table_name, column_name, start_time, end_time):
     try:
         # dict = {'Hd':Hd, 'Wv':Wv, 'Hk':Hk, 'Mon':Mon, 'Adu5_sat':Adu5_sat, 'Adu5_vtg':Adu5_vtg, 'Adu5_pat':Adu5_pat, 'Sshk':Sshk, 'Turf':Turf, 'Hk_surf':Hk_surf}
-        diction = {'hd':Hd, 'wv':Wv, 'hk':Hk, 'mon':Mon, 'adu5_sat':Adu5_sat, 'adu5_vtg':Adu5_vtg, 'adu5_pat':Adu5_pat, 'g12_pos':G12_pos, 'g12_sat':G12_sat, 'sshk': Sshk,'turf':Turf, 'hk_surf':Hk_surf, 'slow': Slow}
+        diction = {'hd':Hd, 'rf': Rf, 'wv':Wv, 'hk':Hk, 'mon':Mon, 'adu5_sat':Adu5_sat, 'adu5_vtg':Adu5_vtg, 'adu5_pat':Adu5_pat, 'g12_pos':G12_pos, 'g12_sat':G12_sat, 'sshk': Sshk,'turf':Turf, 'hk_surf':Hk_surf, 'slow': Slow}
         # print column_name[-10:-7]
-        if table_name == 'hd':
+        if table_name in ['hd', 'rf']:
             if column_name == 'runnum':
                 column_name = 'evid'
         if table_name == 'gps':
@@ -79,7 +79,7 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
             # hk: sbs  calibration factor
             if table_name == 'hk' and column_name in ['sbst1', 'sbst2', 'core1', 'core2']:
                 return jsonify({'data':[[1000*result.time ,0.1 *getattr(result, column_name)] for result in results]})
-            if table_name == 'hd' and column_name == 'evid':
+            if table_name in ['hd', 'rf'] and column_name == 'evid':
                 print '------ hd evid'
                 return jsonify({'data':[[1000*result.time ,(getattr(result, column_name)&0xfff00000)/1048576] for result in results]})
 

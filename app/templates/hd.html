@@ -1,49 +1,960 @@
-{% extends "base.html" %}
-{% import "bootstrap/wtf.html" as wtf %}
+{% extends "base.html" %} {% block head %} {{ super() }}
+<link href="{{ url_for('static', filename='inspinia/css/plugins/footable/footable.core.css') }}" rel="stylesheet"> {% endblock %} {% block page_content %}
+<div class="wrapper wrapper-content">
+    <div class="row">
+        <!-- <button id='next' class="btn btn-primary"  type="button">Next event</button>
+        <button id='prev' class="btn btn-primary"  type="button">Prev event</button> -->
+        <div class="col-md-8 col-lg-8">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>hd</h5>
+                    
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
 
-{% block title %}hd nbuf{% endblock %}
 
-{% block page_content %}
-<div class="page-header">
-	<button id='next' type="button" onclick="alert('Hello world!')">Next event</button>
-	<table style="width:30%">
-	  <tr>
-	    <td>nbuf</td>
-	    <td id='nbuf'>{{hds[1].nbuf}}</td> 
-	  </tr>
-	  <tr>
-	    <td>time</td>
-	    <td id='time'>{{hds[1].time}}</td> 
-	  </tr>
-	  <tr>
-	    <td>us</td>
-	    <td id='us'>{{hds[1].us}}</td> 
-	  </tr>
-	  <tr>
-	    <td>ns</td>
-	    <td id='ns'>{{hds[1].ns}}</td> 
-	  </tr>
-	  <tr>
-	    <td>evnum</td>
-	    <td id='evnum'>{{hds[1].evnum}}</td> 
-	  </tr>
-	  <tr>
-	    <td>priority</td>
-	    <td id='priority'>{{hds[1].priority}}</td> 
-	  </tr>
-	  <tr>
-	    <td>deadtime</td>
-	    <td id='deadtime'>{{hds[1].deadtime}}</td> 
-	  </tr>
-	</table>
-    
+                <div class="ibox-content">
+                    <table data-sort="false" class="footable" data-page-size="30" id='hd' style="width:100%">
+                        <tbody>
+                            <!-- <tr>
+                                <td>index</td>
+                                <td>
+                                    <div>
+                                        <input class="touchspin2" type="text" value="55" name="demo2">
+                                    </div>
+                                </td>   
+                            </tr> -->
+                            
+                            <tr>
+                                <td>index</td>
+                                <td id = 'index'></td>
+                                <!-- <td >
+                                    <div class="input-group">
+                                      <input type="text" class="form-control" placeholder="Recipient's username">
+                                      <span class="input-group-addon" id="basic-addon2">@example.com</span>
+                                    </div>
+                                </td> -->
+                            </tr>
+                            <tr>
+                                <td>evnum</td>
+                                <td id='evnum'></td>
+                            </tr>
+                            <tr>
+                                <td data-hide="xs">nbuf</td>
+                                <td id='nbuf'></td>
+                            </tr>
+                            <tr>
+                                <td>now</td>
+                                <td id='now'></td>
+                            </tr>
+                            <tr>
+                                <td>time</td>
+                                <td id='time'></td>
+                            </tr>
+                            <tr>
+                                <td>us</td>
+                                <td id='us'></td>
+                            </tr>
+                            <tr>
+                                <td>ns</td>
+                                <td id='ns'></td>
+                            </tr>
+                            <tr>
+                                <td>Run#</td>
+                                <td id='runnum'></td>
+                            </tr>
+                            
+                            <tr>
+                                <td>priority</td>
+                                <td id='priority'></td>
+                            </tr>
+                            <tr>
+                                <td>trigtype</td>
+                                <td id='trigtype'></td>
+                            </tr>
+                            <tr>
+                                <td>trignum</td>
+                                <td id='trignum'></td>
+                            </tr>
+                            <tr>
+                                <td>trigtime</td>
+                                <td id='trigtime'></td>
+                            </tr>
+                            <tr>
+                                <td>l3cnt</td>
+                                <td id='l3cnt'></td>
+                            </tr>
+                            <tr>
+                                <td>pps</td>
+                                <td id='pps'></td>
+                            </tr>
+                            <tr>
+                                <td>deadtime</td>
+                                <td id='deadtime'></td>
+                            </tr>
+                            <tr>
+                                <td>turfword</td>
+                                <td id='turfword'></td>
+                            </tr>
+                            <tr>
+                                <td>calib</td>
+                                <td id='calib'></td>
+                            </tr>
+                            <tr>
+                                <td>l2mask</td>
+                                <td id='l2mask'></td>
+                            </tr>
+                            <tr>
+                                <td>l2maskh</td>
+                                <td id='l2maskh'></td>
+                            </tr>
+                            <tr>
+                                <td>l3trigpat</td>
+                                <td id='l3trigpat'></td>
+                            </tr>
+                            <tr>
+                                <td>l3trigpath</td>
+                                <td id='l3trigpath'></td>
+                            </tr>
+                            <!-- <tr>
+                                <td>event rate</td>
+                                <td id='eventrate'></td>
+                            </tr> -->
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+<!--         <div class="col-md-8 col-lg-8 ">
+            <div class="ibox float-e-margins">
+                <div class="ibox-title">
+                    <h5>waveform</h5>
+                    <div class="ibox-tools">
+                        <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                            <i class="fa fa-cog"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-user " style='width:250px'>
+                            <div id="icheckForm" method="post" class="form-vertical">
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <div class="wv_radio">
+                                            <label>
+                                                <input type="radio" name="wv" value="mV" /> mV
+                                            </label>
+                                        </div>
+                                        <div class="wv_radio">
+                                            <label>
+                                                <input type="radio" name="wv" value="FFT" /> FFT
+                                            </label>
+                                        </div>
+                                        <div class="wv_radio">
+                                            <label>
+                                                <input type="radio" name="wv" value="Power" /> Power
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="icheckForm2" method="post" class="form-vertical">
+                                <div class="form-group">
+                                    <div class="col-xs-6">
+                                        <div class="view_radio">
+                                            <label>
+                                                <input type="radio" name="view" value="Phi" /> Phi View
+                                            </label>
+                                        </div>
+                                        <div class="view_radio">
+                                            <label>
+                                                <input type="radio" name="view" value="Surf" /> Surf View
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div>
+                                    <div> wv Max
+                                        <input class='wv_range' id='wv_max_range' value="50">mV </div>
+                                    <div> wv Min
+                                        <input class='wv_range' id='wv_min_range' value="-50">mV </div>
+                                    <div> FFT Max
+                                        <input class='wv_range' id='fft_max_range' value="100"> </div>
+                                    <div> FFT Min
+                                        <input class='wv_range' id='fft_min_range' value="0"> </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-12">
+                                <div>
+                                    <div> # of events
+                                        <input id='limit_number' value="10"> 
+                                    </div>
+                                    <div> length[s]
+                                        <input id='time_length' value="1000">
+                                    </div>
+                                    
+                                </div>
+                            </div>
+                        </div>
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                    <div class="ibox-content">
+                        <table data-sort="false" class="footable" id='wv_head' style="width:100% height:100%" data-page-size="13">
+                            <tbody>
+                                <th>
+                                    <td id = 'evnum'></td>
+                                </th>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class="ibox-content" id='wv'>
+                        <table data-sort="false" class="footable" id='surfview' style="width:100% height:100%" data-page-size="20">
+                            <tbody>
+                                <th>
+                                    <td>chan 1</td>
+                                    <td>chan 2</td>
+                                    <td>chan 3</td>
+                                    <td>chan 4</td>
+                                    <td>chan 5</td>
+                                    <td>chan 6</td>
+                                    <td>chan 7</td>
+                                    <td>chan 8</td>
+                                    <td>clock</td>
+                                </th>
+                                <tr>
+                                    <td>surf 1</td>
+                                    <td id='wv_0_0'></td>
+                                    <td id='wv_0_1'></td>
+                                    <td id='wv_0_2'></td>
+                                    <td id='wv_0_3'></td>
+                                    <td id='wv_0_4'></td>
+                                    <td id='wv_0_5'></td>
+                                    <td id='wv_0_6'></td>
+                                    <td id='wv_0_7'></td>
+                                    <td id='wv_0_8'></td>
+                                </tr>
+                                <tr>
+                                    <td>surf 2</td>
+                                    <td id='wv_1_0'></td>
+                                    <td id='wv_1_1'></td>
+                                    <td id='wv_1_2'></td>
+                                    <td id='wv_1_3'></td>
+                                    <td id='wv_1_4'></td>
+                                    <td id='wv_1_5'></td>
+                                    <td id='wv_1_6'></td>
+                                    <td id='wv_1_7'></td>
+                                    <td id='wv_1_8'></td>
+                                </tr>
+                                <tr>
+                                    <td>surf 3</td>
+                                    <td id='wv_2_0'></td>
+                                    <td id='wv_2_1'></td>
+                                    <td id='wv_2_2'></td>
+                                    <td id='wv_2_3'></td>
+                                    <td id='wv_2_4'></td>
+                                    <td id='wv_2_5'></td>
+                                    <td id='wv_2_6'></td>
+                                    <td id='wv_2_7'></td>
+                                    <td id='wv_2_8'></td>
+                                </tr>
+                                <tr>
+                                    <td>surf 4</td>
+                                    <td id='wv_3_0'></td>
+                                    <td id='wv_3_1'></td>
+                                    <td id='wv_3_2'></td>
+                                    <td id='wv_3_3'></td>
+                                    <td id='wv_3_4'></td>
+                                    <td id='wv_3_5'></td>
+                                    <td id='wv_3_6'></td>
+                                    <td id='wv_3_7'></td>
+                                    <td id='wv_3_8'></td>
+                                </tr>
+                                <tr>
+                                    <td>surf 5</td>
+                                    <td id='wv_4_0'></td>
+                                    <td id='wv_4_1'></td>
+                                    <td id='wv_4_2'></td>
+                                    <td id='wv_4_3'></td>
+                                    <td id='wv_4_4'></td>
+                                    <td id='wv_4_5'></td>
+                                    <td id='wv_4_6'></td>
+                                    <td id='wv_4_7'></td>
+                                    <td id='wv_4_8'></td>
+                                </tr>
+                                <tr>
+                                    <td>surf 6</td>
+                                    <td id='wv_5_0'></td>
+                                    <td id='wv_5_1'></td>
+                                    <td id='wv_5_2'></td>
+                                    <td id='wv_5_3'></td>
+                                    <td id='wv_5_4'></td>
+                                    <td id='wv_5_5'></td>
+                                    <td id='wv_5_6'></td>
+                                    <td id='wv_5_7'></td>
+                                    <td id='wv_5_8'></td>
+                                </tr>
+                                <tr>
+                                    <td>surf 7</td>
+                                    <td id='wv_6_0'></td>
+                                    <td id='wv_6_1'></td>
+                                    <td id='wv_6_2'></td>
+                                    <td id='wv_6_3'></td>
+                                    <td id='wv_6_4'></td>
+                                    <td id='wv_6_5'></td>
+                                    <td id='wv_6_6'></td>
+                                    <td id='wv_6_7'></td>
+                                    <td id='wv_6_8'></td>
+                                </tr>
+                                <tr>
+                                    <td>surf 8</td>
+                                    <td id='wv_7_0'></td>
+                                    <td id='wv_7_1'></td>
+                                    <td id='wv_7_2'></td>
+                                    <td id='wv_7_3'></td>
+                                    <td id='wv_7_4'></td>
+                                    <td id='wv_7_5'></td>
+                                    <td id='wv_7_6'></td>
+                                    <td id='wv_7_7'></td>
+                                    <td id='wv_7_8'></td>
+                                </tr>
+                                <tr>
+                                    <td>surf 9</td>
+                                    <td id='wv_8_0'></td>
+                                    <td id='wv_8_1'></td>
+                                    <td id='wv_8_2'></td>
+                                    <td id='wv_8_3'></td>
+                                    <td id='wv_8_4'></td>
+                                    <td id='wv_8_5'></td>
+                                    <td id='wv_8_6'></td>
+                                    <td id='wv_8_7'></td>
+                                    <td id='wv_8_8'></td>
+                                </tr>
+                                <tr>
+                                    <td>surf 10</td>
+                                    <td id='wv_9_0'></td>
+                                    <td id='wv_9_1'></td>
+                                    <td id='wv_9_2'></td>
+                                    <td id='wv_9_3'></td>
+                                    <td id='wv_9_4'></td>
+                                    <td id='wv_9_5'></td>
+                                    <td id='wv_9_6'></td>
+                                    <td id='wv_9_7'></td>
+                                    <td id='wv_9_8'></td>
+                                </tr>
+                                <tr>
+                                    <td>surf 11</td>
+                                    <td id='wv_10_0'></td>
+                                    <td id='wv_10_1'></td>
+                                    <td id='wv_10_2'></td>
+                                    <td id='wv_10_3'></td>
+                                    <td id='wv_10_4'></td>
+                                    <td id='wv_10_5'></td>
+                                    <td id='wv_10_6'></td>
+                                    <td id='wv_10_7'></td>
+                                    <td id='wv_10_8'></td>
+                                </tr>
+                                <tr>
+                                    <td>surf 12</td>
+                                    <td id='wv_11_0'></td>
+                                    <td id='wv_11_1'></td>
+                                    <td id='wv_11_2'></td>
+                                    <td id='wv_11_3'></td>
+                                    <td id='wv_11_4'></td>
+                                    <td id='wv_11_5'></td>
+                                    <td id='wv_11_6'></td>
+                                    <td id='wv_11_7'></td>
+                                    <td id='wv_11_8'></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <table data-sort="false" class="footable" id='phiview' style="width:100% height:100%" data-page-size="20">
+                            <tbody>
+                                <th>
+                                    <td>phi 1</td>
+                                    <td>phi 2</td>
+                                    <td>phi 3</td>
+                                    <td>phi 4</td>
+                                    <td>phi 5</td>
+                                    <td>phi 6</td>
+                                    <td>phi 7</td>
+                                    <td>phi 8</td>
+                                </th>
+                                <tr>
+                                    <td>top_h</td>
+                                    <td id='phi_0_0'></td>
+                                    <td id='phi_0_1'></td>
+                                    <td id='phi_0_2'></td>
+                                    <td id='phi_0_3'></td>
+                                    <td id='phi_0_4'></td>
+                                    <td id='phi_0_5'></td>
+                                    <td id='phi_0_6'></td>
+                                    <td id='phi_0_7'></td>
+                                    <td id='phi_0_c'></td>
+                                </tr>
+                                <tr>
+                                    <td>top_v</td>
+                                    <td id='phi_1_0'></td>
+                                    <td id='phi_1_1'></td>
+                                    <td id='phi_1_2'></td>
+                                    <td id='phi_1_3'></td>
+                                    <td id='phi_1_4'></td>
+                                    <td id='phi_1_5'></td>
+                                    <td id='phi_1_6'></td>
+                                    <td id='phi_1_7'></td>
+                                    <td id='phi_1_c'></td>
+                                </tr>
+                                <tr>
+                                    <td>middle_h</td>
+                                    <td id='phi_2_0'></td>
+                                    <td id='phi_2_1'></td>
+                                    <td id='phi_2_2'></td>
+                                    <td id='phi_2_3'></td>
+                                    <td id='phi_2_4'></td>
+                                    <td id='phi_2_5'></td>
+                                    <td id='phi_2_6'></td>
+                                    <td id='phi_2_7'></td>
+                                    <td id='phi_2_c'></td>
+                                </tr>
+                                <tr>
+                                    <td>middle_v</td>
+                                    <td id='phi_3_0'></td>
+                                    <td id='phi_3_1'></td>
+                                    <td id='phi_3_2'></td>
+                                    <td id='phi_3_3'></td>
+                                    <td id='phi_3_4'></td>
+                                    <td id='phi_3_5'></td>
+                                    <td id='phi_3_6'></td>
+                                    <td id='phi_3_7'></td>
+                                    <td id='phi_3_c'></td>
+                                </tr>
+                                <tr>
+                                    <td>bottom_h</td>
+                                    <td id='phi_4_0'></td>
+                                    <td id='phi_4_1'></td>
+                                    <td id='phi_4_2'></td>
+                                    <td id='phi_4_3'></td>
+                                    <td id='phi_4_4'></td>
+                                    <td id='phi_4_5'></td>
+                                    <td id='phi_4_6'></td>
+                                    <td id='phi_4_7'></td>
+                                    <td id='phi_4_c'></td>
+                                </tr>
+                                <tr>
+                                    <td>bottom_v</td>
+                                    <td id='phi_5_0'></td>
+                                    <td id='phi_5_1'></td>
+                                    <td id='phi_5_2'></td>
+                                    <td id='phi_5_3'></td>
+                                    <td id='phi_5_4'></td>
+                                    <td id='phi_5_5'></td>
+                                    <td id='phi_5_6'></td>
+                                    <td id='phi_5_7'></td>
+                                    <td id='phi_5_c'></td>
+                                </tr>
+                                <tr>
+                                    <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                                </tr>
+                                <tr>
+                                    <td bgcolor="#FFFFFF" style="line-height:10px;" colspan=3>&nbsp;</td>
+                                </tr>
+                                <th>
+                                    <td>phi 9</td>
+                                    <td>phi 10</td>
+                                    <td>phi 11</td>
+                                    <td>phi 12</td>
+                                    <td>phi 13</td>
+                                    <td>phi 14</td>
+                                    <td>phi 15</td>
+                                    <td>phi 16</td>
+                                </th>
+                                <tr>
+                                    <td>top_h</td>
+                                    <td id='phi_0_8'></td>
+                                    <td id='phi_0_9'></td>
+                                    <td id='phi_0_10'></td>
+                                    <td id='phi_0_11'></td>
+                                    <td id='phi_0_12'></td>
+                                    <td id='phi_0_13'></td>
+                                    <td id='phi_0_14'></td>
+                                    <td id='phi_0_15'></td>
+                                    <td id='phi_0_16'></td>
+                                </tr>
+                                <tr>
+                                    <td>top_v</td>
+                                    <td id='phi_1_8'></td>
+                                    <td id='phi_1_9'></td>
+                                    <td id='phi_1_10'></td>
+                                    <td id='phi_1_11'></td>
+                                    <td id='phi_1_12'></td>
+                                    <td id='phi_1_13'></td>
+                                    <td id='phi_1_14'></td>
+                                    <td id='phi_1_15'></td>
+                                    <td id='phi_1_16'></td>
+                                </tr>
+                                <tr>
+                                    <td>middle_h</td>
+                                    <td id='phi_2_8'></td>
+                                    <td id='phi_2_9'></td>
+                                    <td id='phi_2_10'></td>
+                                    <td id='phi_2_11'></td>
+                                    <td id='phi_2_12'></td>
+                                    <td id='phi_2_13'></td>
+                                    <td id='phi_2_14'></td>
+                                    <td id='phi_2_15'></td>
+                                    <td id='phi_2_16'></td>
+                                </tr>
+                                <tr>
+                                    <td>middle_v</td>
+                                    <td id='phi_3_8'></td>
+                                    <td id='phi_3_9'></td>
+                                    <td id='phi_3_10'></td>
+                                    <td id='phi_3_11'></td>
+                                    <td id='phi_3_12'></td>
+                                    <td id='phi_3_13'></td>
+                                    <td id='phi_3_14'></td>
+                                    <td id='phi_3_15'></td>
+                                    <td id='phi_3_16'></td>
+                                </tr>
+                                <tr>
+                                    <td>bottom_h</td>
+                                    <td id='phi_4_8'></td>
+                                    <td id='phi_4_9'></td>
+                                    <td id='phi_4_10'></td>
+                                    <td id='phi_4_11'></td>
+                                    <td id='phi_4_12'></td>
+                                    <td id='phi_4_13'></td>
+                                    <td id='phi_4_14'></td>
+                                    <td id='phi_4_15'></td>
+                                    <td id='phi_4_16'></td>
+                                </tr>
+                                <tr>
+                                    <td>bottom_v</td>
+                                    <td id='phi_5_8'></td>
+                                    <td id='phi_5_9'></td>
+                                    <td id='phi_5_10'></td>
+                                    <td id='phi_5_11'></td>
+                                    <td id='phi_5_12'></td>
+                                    <td id='phi_5_13'></td>
+                                    <td id='phi_5_14'></td>
+                                    <td id='phi_5_15'></td>
+                                    <td id='phi_5_16'></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        
+                    </div>
+                    <div class="ibox-content">
+                        <button type="button" id='average_events' class="btn btn-primary">Events average</button> 
+                        <button type="button" id='average_waveforms' class="btn btn-primary">Waveforms average</button>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+    </div>
+   <!--  <div id="dialog_wv" class='dialog_wv hide'>
+    </div> -->
+    <div id="dialog" class='hide'>
+        <div id='chart1'></div>
+        </br>
+        <div class="col-sm-6">
+            <div class="form-group">
+                <label>Reference UTC</label>
+                <input id="reference_time" placeholder="Enter your end time" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <div class="form-group">
+                <label>Length(s)</label>
+                <input id="length" value="21600" placeholder="Enter the number of seconds" class="form-control">
+            </div>
+        </div>
+        <div class="col-sm-3">
+            </br>
+            <button id="request" type="button" class="btn btn-primary">Request</button>
+        </div>
+    </div>
 </div>
-{% endblock %}
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script type="text/javascript">
-var i=1
-$('#next').click(){
-	i=i+1
-	$('#nbuf').html({{hds[1].nbuf}});
-}
-</script>
+    {% endblock %} {% block scripts %} {{ super() }}
+    <script src="{{ url_for('static', filename='inspinia/js/plugins/footable/footable.all.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='inspinia/js/plugins/sparkline/jquery.sparkline.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='anita/js/complex_array.js') }}"></script>
+    <script src="{{ url_for('static', filename='anita/js/fft.js') }}"></script>
+    <script>
+    var hd_nbufs = [];
+    var hd_evnums = [];
+    var hd_times = [];
+    var hd_nows = [];
+    var i = 0;
+    var currentData=null;
+    var currentDatamV= null;
+    var currentDataFFT= null;
+    var currentDataPower= null;
+    var datatype = 'mV';
+    var dataview = 'Phi';
+    var offset = 0;
+  
+   
+    function resizeWindow() {
+        $("canvas").each(function() {
+            $(this).attr('style', 'width: 100%');
+        });
+    }
+
+    
+
+    function updatehtml_hd(nbuf, avgOn = false) {
+        if(!nbuf) return;
+        $.getJSON('/api/' + ip_db + '/hd/' + nbuf, function(data) {
+            $('#hd #index').val(i + 1 + " / " + hd_nbufs.length + "  ");
+            $('#hd #nbuf').html(data.hd.nbuf);
+            $('#hd #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
+            $('#hd #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
+            $('#hd #us').html(data.hd.us);
+            $('#hd #ns').html(data.hd.ns);
+            $('#hd #evnum').html(data.hd.evnum);
+            $('#hd #runnum').html((data.hd.evid&0xfff00000)>>20);
+            $('#hd #priority').html(hexString(data.hd.priority));
+            $('#hd #trigtype').html(data.hd.trigtype);
+            $('#hd #trignum').html(data.hd.trignum);
+            $('#hd #trigtime').html(data.hd.trigtime);
+            $('#hd #l3cnt').html(data.hd.l3cnt);
+            $('#hd #pps').html(data.hd.pps);
+            $('#hd #deadtime').html(data.hd.deadtime);
+            $('#hd #turfword').html(data.hd.turfword);
+            $('#hd #calib').html(data.hd.calib);
+            $('#hd #l2mask').html(byteString(data.hd.l2mask));
+            $('#hd #l2maskh').html(byteString(data.hd.l2maskh));
+            $('#hd #l3trigpat').html(byteString(data.hd.l3trigpat));
+            $('#hd #l3trigpath').html(byteString(data.hd.l3trigpath));
+
+            l2maskv = data.hd.l2mask;
+            l2maskh = data.hd.l2maskh;
+        });
+    }
+    $(document).ready(function() {
+        $('#navbar_aview').parent().addClass("active");
+        $('#label_sync_checkbox').attr('style', 'display:none');
+        $('#sync_checkbox').attr('style', 'display:none');
+        // change the default to phi view, so hide the surfview.
+
+        
+        $(".touchspin2").TouchSpin({
+            min: 0,
+            max: 10000,
+            boostat: 3,
+            maxboostedstep: 200,
+            prefix: 'Index',
+            postfix: '116750',
+            // verticalbuttons: true,
+            // buttondown_class: 'btn btn-white',
+            // buttonup_class: 'btn btn-white'
+        });
+
+        $.jqplot.config.enablePlugins = true;
+        $("#hd td[id]").click(function() {
+        var column_name = $(this).attr('id');
+        var table_name = 'hd';
+        var name = table_name + '_' + column_name;
+        // console.log($(this).attr('id'));
+        // console.log($(this).closest('.ibox').attr('id'));
+        if ($("#dialog_" + name).length) {
+            $("#dialog_" + name).dialog('open');
+            $("#dialog_" + name).find('input[id="reference_time"]').val(hd_times[i]);
+        } else {
+            var $newDialog = $('#dialog').clone();
+            $newDialog.attr('id', 'dialog_' + name);
+            $newDialog.removeClass('hide');
+            $newDialog.attr('title', name);
+            $newDialog.prepend('<div id="' + "plot_" + name + '"  class="dialog_plot" ></div>');
+            $newDialog.find('input[id="reference_time"]').val(hd_times[i]);
+            $newDialog.dialog({
+                width: 600,
+                height: 500,
+            });
+            var line1 = [
+            ['2008-09-30', 14]
+            ];
+            var plot1 = $.jqplot('plot_' + name, [line1], {
+                title: 'double click to reset the zoom',
+                axes: {
+                    xaxis: {
+                        renderer: $.jqplot.DateAxisRenderer,
+                        rendererOptions: {
+                            tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                        },
+                        tickOptions: {
+                            // formatString: '%M:%S%#N ',
+                            fontSize: '10pt',
+                            fontFamily: 'Tahoma',
+                        }
+                    },
+                    yaxis: {
+                        rendererOptions: {
+                            tickRenderer: $.jqplot.CanvasAxisTickRenderer
+                        },
+                        tickOptions: {
+                            fontSize: '10pt',
+                            fontFamily: 'Tahoma',
+                        }
+                    }
+                },
+                series: [
+                    {
+                        lineWidth: .5,
+                        markerOptions: {
+                            size: 2,
+                            color: 'blue' 
+                        }
+                    },
+                    {
+                        lineWidth: .5,
+                        markerOptions: {
+                            size: 2,
+                            color: 'red' 
+                        }
+                    }
+                ],
+                cursor: {
+                    zoom: true,
+                    looseZoom: true,
+                    // showTooltip:true, 
+                    followMouse: true,
+                    showTooltipOutsideZoom: true,
+                    constrainOutsideZoom: false
+                }
+            });
+
+            $newDialog.dialog({
+                resize: function(event, ui) {
+                    $("#plot_" + name).height(Math.max(100, $newDialog.height() - 120));
+                    plot1.replot({
+                        resetAxes: true,
+                    });
+                }
+            });
+        }
+
+        $("#dialog_" + name).find('button[id="request"]').click(function() {
+            console.log('click');
+            var end_time = $newDialog.find('input[id="reference_time"]').val();
+            var length = $newDialog.find('input[id="length"]').val();
+            // console.log(end_time);
+            // console.log(end_time - length);
+            $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
+                console.log(data);
+                if (Object.keys(data).length == 2){
+                    datalist = [data.data_a, data.data_b];
+                }else{
+                    datalist = [data.data];
+                }
+                console.log(datalist);
+                plot1.replot({
+                    data: datalist
+                });
+            });
+        });
+
+        $("#dialog_" + name).find('button[id="request"]').trigger("click");
+    });
+        $('.footable').footable();
+        
+        var connected = false;
+        var sleep_interval = 100 //by default, re-access the database every 2seconds to see if there are any new data comes in.
+
+        $('.wv_range').change(function() {
+            updatehtml_hd(hd_nbufs[i]);
+        });
+
+
+        $('#icheckForm').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+        $('input[value=mV]').iCheck('check');
+
+        $('#icheckForm2').iCheck({
+            checkboxClass: 'icheckbox_square-green',
+            radioClass: 'iradio_square-green',
+        });
+        $('input[value=Phi]').iCheck('check');
+
+        
+
+        function autoload(offset) {
+            $.getJSON('/api/' + ip_db + '/hd/nbufs/' + offset, function(data) {
+                console.log('hd api');
+                console.log(data);
+                
+                new_length = data.hd_nbufs.length;
+                offset += new_length;
+                hd_nbufs = hd_nbufs.concat(data.hd_nbufs);
+                hd_evnums = hd_evnums.concat(data.hd_evnums);
+                hd_times = hd_times.concat(data.hd_times);
+                hd_nows = hd_nows.concat(data.hd_nows);
+                $('#hd #index').html(i + 1 + " / " + hd_nbufs.length + "  ");
+                $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
+                $('#connect').html('Disconnect');
+                $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
+                connected = true;
+                $('#connect').value = 'Disconnect'
+                connect.ladda('stop');
+                console.log(offset);
+                
+            }).done(function() {
+                setTimeout(function() {
+                    if (new_length) {
+                        sleep_interval = 100;
+                    } else {
+                        sleep_interval = Math.min(sleep_interval * 1.2, 60000);
+                    }
+                    if (connected == true) {
+                        autoload(offset);
+                    }
+                }, sleep_interval);
+            });
+        }
+        function getEventRate() {
+            $.getJSON('/api/' + ip_db + '/eventrate/' + '30', function(data) {
+                    $('#eventrate').html(' Current Event Rate: ' + data.eventrate + 'Hz');
+            });
+        }
+
+
+ 
+
+
+        var connect = $('.ladda-button').ladda();
+        $('#connect').click(function() {
+            var eventRateTimer ;
+            offset = 0;
+            hd_nbufs = [];
+            hd_evnums = [];
+            hd_times = [];
+            hd_nows = [];
+            i = 0;
+            if ($(this).hasClass('connect')) {
+                connect.ladda('start');
+                $.ajax({
+                    url: '/api/connect/' + ip + '/' + db
+                }).done(function(response) {
+                    if (response == 'success') {
+                        console.log('succeed');
+                        getEventRate();
+                        eventRateTimer = setInterval(function(){ getEventRate() }, 10000);
+                        autoload(0);
+                        console.log('after autoload');
+                        setTimeout(function(){
+                            $('#first').click();
+                        },1000);
+                    } else {
+                        connect.ladda('stop');
+                        swal({
+                            title: 'Database not found!',
+                            type: "warning",
+                            timer: 3000,
+                            showConfirmButton: true
+                        });
+                    }
+                });
+            } else {
+                //otherwise, stop all the requests.
+                clearInterval(eventRateTimer);
+                $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
+                $('#connect').html('Connect');
+                $('.chosen-select').attr("disabled", false).trigger("chosen:updated");
+                connected = false;
+            }
+
+        });
+        $('input').on('ifChecked', function(event) {
+            if ($(this).attr('value') == 'mV' || $(this).attr('value') == 'FFT' || $(this).attr('value') == 'Power') {
+                datatype = $(this).attr('value');
+            } else if ($(this).attr('value') == 'Surf' || $(this).attr('value') == 'Phi') {
+                dataview = $(this).attr('value');
+                if (dataview == 'Surf') {
+                    document.getElementById("surfview").style.display = "table";
+                    document.getElementById("phiview").style.display = "none";
+                } else if (dataview == 'Phi') {
+                    document.getElementById("surfview").style.display = "none";
+                    document.getElementById("phiview").style.display = "table";
+                }
+            }
+            updatehtml_hd(hd_nbufs[i]);
+        });
+
+        $('#average_events').click(function() {
+            updatehtml_hd(hd_nbufs[i], true)
+        });
+
+        $('#next').click(function() {
+            if (i < hd_nbufs.length - 1) {
+                i = i + 1;
+                updatehtml_hd(hd_nbufs[i]);
+            }; 
+            sleep_interval = 100;
+        });
+        $('#prev').click(function() {
+            if (i > 0) {
+                i = i - 1;
+                updatehtml_hd(hd_nbufs[i]);
+            };
+            sleep_interval = 100;
+        });
+        $('#first').click(function() {
+            i = 0;
+            updatehtml_hd(hd_nbufs[i]);
+            sleep_interval = 100;
+        });
+        $('#last').click(function() {
+            i = hd_nbufs.length - 1;
+            updatehtml_hd(hd_nbufs[i]);
+            sleep_interval = 100;
+        });
+        var auto_checkbox = $('#auto_checkbox')[0];
+        var switchery = new Switchery(auto_checkbox, {
+            color: '#1AB394'
+        });
+        var autoNext;
+        auto_checkbox.onchange = function() {
+            if (auto_checkbox.checked) {
+                autoNext = setInterval(function() {
+                    if (i < hd_nbufs.length - 1) {
+                        i = i + 1;
+                        updatehtml_hd(hd_nbufs[i]);
+                    };
+                }, 2000);
+            } else {
+                clearInterval(autoNext);
+            };
+        };
+
+
+        $('#goto').click(function() {
+            var keywords = parseInt($('#keywords').val());
+            console.log(keywords);
+            var index = hd_evnums.indexOf(keywords);
+            if (index != -1 && keywords) {
+                i = index;
+                console.log(i);
+                updatehtml_hd(hd_nbufs[i]);
+                swal({  title: 'Matched hd are found!', type: "success", timer: 3000, showConfirmButton: true});
+            } else {
+                swal({
+                    title: 'Data not found!',
+                    type: "warning",
+                    timer: 3000,
+                    showConfirmButton: true
+                });
+            }
+        });
+    });
+    </script>
+    {% endblock %}
