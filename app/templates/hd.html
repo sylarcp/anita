@@ -32,12 +32,17 @@
                             <tr>
                                 <td>index</td>
                                 <td id = 'index'></td>
+                                
                                 <!-- <td >
                                     <div class="input-group">
                                       <input type="text" class="form-control" placeholder="Recipient's username">
                                       <span class="input-group-addon" id="basic-addon2">@example.com</span>
                                     </div>
                                 </td> -->
+                            </tr>
+                            <tr>
+                            	<td>Crc</td>
+                                <td id = 'crc'></td>
                             </tr>
                             <tr>
                                 <td>evnum</td>
@@ -614,6 +619,7 @@
         if(!nbuf) return;
         $.getJSON('/api/' + ip_db + '/hd/' + nbuf, function(data) {
             $('#hd #index').val(i + 1 + " / " + hd_nbufs.length + "  ");
+            $('#hd #crc').html(data.hd.crc);
             $('#hd #nbuf').html(data.hd.nbuf);
             $('#hd #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
             $('#hd #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
@@ -640,7 +646,7 @@
         });
     }
     $(document).ready(function() {
-        $('#navbar_aview').parent().addClass("active");
+        $('#navbar_hd').parent().addClass("active");
         $('#label_sync_checkbox').attr('style', 'display:none');
         $('#sync_checkbox').attr('style', 'display:none');
         // change the default to phi view, so hide the surfview.

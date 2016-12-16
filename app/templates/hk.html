@@ -18,6 +18,8 @@
                             <tr>
                                 <td>Index</td>
                                 <td id = 'index'></td>
+                                <td>Crc</td>
+                                <td id = 'crc'></td>
                             </tr>
                             <tr>
                                 <td>Time</td>
@@ -291,6 +293,8 @@
                             <tr>
                                 <td>Index</td>
                                 <td id = 'index'></td>
+                                <td>Crc</td>
+                                <td id = 'crc'></td>
                             </tr>
                             <tr>
                                 <td>Time</td>
@@ -349,14 +353,18 @@
                 <div class="ibox-content">
                     <table data-sort="false" class="footable" data-page-size="56" id='montimes' style="width:100%">
                         <tbody>
-                            <th>
+                            <tr>
                                 <td>Index</td>
                                 <td id = 'index'></td>
+                                <td>Crc</td>
+                                <td id = 'crc'></td>
+                            </tr>
+                            <tr>
                                 <td>Time:</td>
                                 <td id='time'></td>
                                 <td> Now:</td>
                                 <td id='now'></td>
-                            </th>
+                            </tr>
                         </tbody>
                     </table>
                 </div>
@@ -484,6 +492,10 @@
                             <tr>
                                 <td>Index</td>
                                 <td id = 'index'></td>
+                                <td>Crc</td>
+                                <td id = 'crc'></td>
+                            </tr>
+                            <tr>
                                 <td>Time:</td>
                                 <td id='time'></td>
                                 <td> Now:</td>
@@ -1063,6 +1075,7 @@ function update_sbst1_data($selector, new_data) {
         if (!hk) return;
         $.getJSON('/api/' + ip_db + '/hk/' + hk, function(data) {
             $('#hk_time #index').html(i + 1 + "/" + hk_nbufs.length);
+            $('#hk #crc').html(data.hk.crc);
             $('#hk_time #now').html(data.hk.now + " (" + timeConverter(data.hk.now) + ")");
             $('#hk_time #time').html(data.hk.time + " (" + timeConverter(data.hk.time) + ")");
             $('#hk #p1_5v').html(data.hk.p1_5v);
@@ -1168,6 +1181,7 @@ function updatehtml_sshk(sshk) {
     if (!sshk) return;
     $.getJSON('/api/' + ip_db + '/sshk/' + sshk, function(data) {
         $('#sshk #index').html(n + 1 + "/" + sshk_nbufs.length);
+        $('#sshk #crc').html(data.sshk.crc);
         $('#sshk #now').html(timeConverter(data.sshk.now));
         $('#sshk #time').html(timeConverter(data.sshk.time));
         $('#sshk #unixnow').html(data.sshk.now);
@@ -1191,6 +1205,7 @@ function updatehtml_mon(mon) {
     if (!mon) return;
     $.getJSON('/api/' + ip_db + '/mon/' + mon, function(data) {
         $('#montimes #index').html(j + 1 + "/" + mon_nbufs.length);
+        $('#montimes #crc').html(data.mon.crc);
         $('#montimes #now').html(data.mon.now + " (" + timeConverter(data.mon.now) + ")");
         $('#montimes #time').html(data.mon.time + " (" + timeConverter(data.mon.time) + ")");
 
@@ -1260,6 +1275,7 @@ function updatehtml_cmd(cmd) {
         console.log(data.cmd);
         console.log(data.cmd.bytes);
         $('#cmd #index').html(q + 1 + "/" + cmd_nbufs.length);
+        $('#cmd #crc').html(data.cmd.crc);
         $('#cmd #now').html(data.cmd.now + " (" + timeConverter(data.cmd.now) + ")");
         $('#cmd #time').html(data.cmd.time + " (" + timeConverter(data.cmd.time) + ")");
         var length = data.cmd.bytes;

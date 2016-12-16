@@ -20,6 +20,10 @@
                                 <td id='index'></td>
                             </tr>
                             <tr>
+                                <td >Crc:</td>
+                                <td id='crc'></td>
+                            </tr>
+                            <tr>
                                 <td data-hide="xs">nbuf:</td>
                                 <td id='nbuf'></td>
                             </tr>
@@ -190,6 +194,8 @@
                                             <tr>
                                                 <td>Index:</td>
                                                 <td id='index'></td>
+                                                <td>Crc:</td>
+                                                <td id='crc'></td>
                                             </tr>
                                             <tr>
                                                 <td data-hide="xs">nbuf:</td>
@@ -1367,6 +1373,7 @@ function updatehtml_turf(turf) {
             return
         }
         $('#turf #index').html(i + 1 + "/" + turf_nbufs.length);
+        $('#turf #crc').html(data.turf.crc);
         $('#turf #nbuf').html(data.turf.nbuf);
         $('#turf #now').html(data.turf.now + " (" + timeConverter(data.turf.now) + ")");
         $('#turf #time').html(data.turf.time + " (" + timeConverter(data.turf.time) + ")");
@@ -1414,6 +1421,7 @@ function updatehtml_hk_surf(hk_surf) {
         $.getJSON('/api/' + ip_db + '/hk_surf/' + hk_surf, function(data) {
             console.log(data);
             $('#rfpower #index').html(j + 1 + "/" + hk_surf_nbufs.length);
+            $('#rfpower #crc').html(data.hk_surf.crc);
             $('#rfpower #nbuf').html(data.hk_surf.nbuf);
             $('#rfpower #now').html(data.hk_surf.now + " (" + timeConverter(data.hk_surf.now) + ")");
             $('#rfpower #time').html(data.hk_surf.time + " (" + timeConverter(data.hk_surf.time) + ")");

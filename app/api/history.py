@@ -1,7 +1,7 @@
 from flask import jsonify, request, g, abort, url_for, current_app, session
 from flask.ext.login import LoginManager, current_user
 from . import api
-from .. import cache
+from . import cache
 from app.models import Hd,Rf, Wv, Hk, Mon, Adu5_pat, Adu5_vtg, Adu5_sat,G12_pos, G12_sat,Turf, Hk_surf, Slow, Sshk
 
 
@@ -36,8 +36,8 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
         table = diction[table_name]
         if table_name[:3] == 'adu':
 
-            results_a =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time, table.gpstype).filter(table.time>=start_time, table.time<=end_time).filter_by(gpstype=0x20000).order_by(table.time).all()
-            results_b =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time, table.gpstype).filter(table.time>=start_time, table.time<=end_time).filter_by(gpstype=0x40000).order_by(table.time).all()
+            results_a =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time, table.gpstype).filter(table.time>=start_time, table.time<=end_time).filter_by(gpstype=0x20000).filter_by(crc=257).order_by(table.time).all()
+            results_b =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time, table.gpstype).filter(table.time>=start_time, table.time<=end_time).filter_by(gpstype=0x40000).filter_by(crc=257).order_by(table.time).all()
             # print len(results)
             return jsonify({'data_a':[[1000*result.time ,getattr(result, column_name)] for result in results_a], 'data_b':[[1000*result.time ,getattr(result, column_name)] for result in results_b]})
         elif '-' in column_name:
@@ -47,12 +47,12 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
             if column_name in ['avgscaler', 'avgrfpow'] and len(splited) == 3:
                 column_id1 = int(splited[1])
                 column_id2 = int(splited[2])
-                results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).order_by(table.time).all()
+                results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).filter_by(crc=257).order_by(table.time).all()
                 return jsonify({'data':[[1000*result.time ,getattr(result, column_name)[column_id2][column_id1]] for result in results]})
             column_id=int(splited[1])
             # mon disk calib factor
             if table_name == 'mon' and column_name == 'disk':
-                results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).order_by(table.time).all()
+                results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).filter_by(crc=257).order_by(table.time).all()
                 if column_id in [4, 5]:
                     calib = 128
                 elif column_id in [6, 7]:
@@ -64,14 +64,20 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
             if column_id in [4, 5, 6, 7] and column_name in ['ssaz', 'ssel', 'ssflag']:
                 column_id = column_id - 4
                 table = diction['sshk']
-            results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).order_by(table.time).all()
+            
+            results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).filter_by(crc=257).order_by(table.time).all()
             # print [[result.time, getattr(result, column_name)[column_id]] for result in results]
             return jsonify({'data':[[1000*result.time ,getattr(result, column_name)[column_id]] for result in results]})
 
 
 
         else:
-            results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).order_by(table.time).all()
+            if column_name == 'crc' or table_name == 'slow':
+                # slow table does not use crc check, it is all 255 in crc. 
+                # in other cases, when we want to look at crc, we should show all crc records.
+                results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).order_by(table.time).all()
+            else:
+                results =getattr(table,ip_db).with_entities(getattr(table,column_name), table.time).filter(table.time>=start_time, table.time<=end_time).filter_by(crc=257).order_by(table.time).all()
         # print results
             # slow: rate1, rate10 calibrition factor.
             if table_name == 'slow' and column_name in ['rate1', 'rate10']:
@@ -80,8 +86,9 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
             if table_name == 'hk' and column_name in ['sbst1', 'sbst2', 'core1', 'core2']:
                 return jsonify({'data':[[1000*result.time ,0.1 *getattr(result, column_name)] for result in results]})
             if table_name in ['hd', 'rf'] and column_name == 'evid':
-                print '------ hd evid'
                 return jsonify({'data':[[1000*result.time ,(getattr(result, column_name)&0xfff00000)/1048576] for result in results]})
+            if table_name in ['hd', 'rf'] and column_name == 'priority':
+                return jsonify({'data':[[1000*result.time ,getattr(result, column_name)&0x0f] for result in results]})
 
             return jsonify({'data':[[1000*result.time ,getattr(result, column_name)] for result in results]})
     except BaseException as error:

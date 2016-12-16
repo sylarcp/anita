@@ -327,6 +327,10 @@
                                     <td id='index'></td>
                                 </tr>
                                 <tr>
+                                    <td>Crc</td>
+                                    <td id='crc'></td>
+                                </tr>
+                                <tr>
                                     <td>time</td>
                                     <td id='time'></td>
                                 </tr>
@@ -649,6 +653,7 @@
             if (!slow_times) return;
             $.getJSON('/api/' + ip_db + '/slow/' + slow_times, function(data) {
                 $('#slow #index').html(i + 1 + "/" + slow_nbufs.length);
+                $('#slow #crc').html(data.slow.crc);
                 $('#slow #now').html(data.slow.now + " (" + timeConverter(data.slow.now) + ")");
                 $('#slow #time').html(data.slow.time + " (" + timeConverter(data.slow.time) + ")");
                 $('#slow #evnum').html(data.slow.evnum);

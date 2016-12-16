@@ -181,6 +181,7 @@ Current UTC time: <div id = 'currentUTC'> </div>   <div id = 'eventrate'></div>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
     <script src="{{ url_for('static', filename='anita/js/magicbox.js') }}"></script>
     <script src="{{ url_for('static', filename='anita/js/jquery.bootstrap-touchspin.js') }}"></script>
+    <script src="{{ url_for('static', filename='anita/js/jquery.hotkeys.js') }}"></script>
     <script>
         // global converting functions
         function byteString(n) {
@@ -229,6 +230,23 @@ Current UTC time: <div id = 'currentUTC'> </div>   <div id = 'eventrate'></div>
 
 
         $(document).ready(function () {
+            $(document).bind('keydown','c', function(){
+                $('#connect').trigger("click");
+            });
+            $(document).bind('keydown','n', function(){
+                $('#next').trigger("click");
+            });
+            $(document).bind('keydown','p', function(){
+                $('#prev').trigger("click");
+            });
+            $(document).bind('keydown','f', function(){
+                $('#first').trigger("click");
+            });
+            $(document).bind('keydown','l', function(){
+                $('#last').trigger("click");
+            });
+            
+
             
             
 

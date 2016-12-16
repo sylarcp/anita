@@ -40,6 +40,10 @@
                                 </td> -->
                             </tr>
                             <tr>
+                                <td>Crc</td>
+                                <td id='crc'></td>
+                            </tr>
+                            <tr>
                                 <td>evnum</td>
                                 <td id='evnum'></td>
                             </tr>
@@ -771,6 +775,7 @@
         if(!nbuf) return;
         $.getJSON('/api/' + ip_db + '/rf/' + nbuf, function(data) {
             $('#hd #index').val(i + 1 + " / " + hd_nbufs.length + "  ");
+            $('#hd #crc').html(data.hd.crc);
             $('#hd #nbuf').html(data.hd.nbuf);
             $('#hd #now').html(data.hd.now + " (" + timeConverter(data.hd.now) + ")");
             $('#hd #time').html(data.hd.time + " (" + timeConverter(data.hd.time) + ")");
