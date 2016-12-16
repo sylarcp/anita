@@ -110,11 +110,11 @@
                             </tr>
                             <tr>
                                 <td>l2mask</td>
-                                <td id='l2mask'></td>
+                                <td id='l1mask'></td>
                             </tr>
                             <tr>
                                 <td>l2maskh</td>
-                                <td id='l2maskh'></td>
+                                <td id='l1maskh'></td>
                             </tr>
                             <tr>
                                 <td>l3trigpat</td>
@@ -792,13 +792,13 @@
             $('#hd #deadtime').html(data.hd.deadtime);
             $('#hd #turfword').html(data.hd.turfword);
             $('#hd #calib').html(data.hd.calib);
-            $('#hd #l2mask').html(byteString(data.hd.l2mask));
-            $('#hd #l2maskh').html(byteString(data.hd.l2maskh));
+            $('#hd #l1mask').html(byteString(data.hd.l1mask));
+            $('#hd #l1maskh').html(byteString(data.hd.l1maskh));
             $('#hd #l3trigpat').html(byteString(data.hd.l3trigpat));
             $('#hd #l3trigpath').html(byteString(data.hd.l3trigpath));
 
-            l2maskv = data.hd.l2mask;
-            l2maskh = data.hd.l2maskh;
+            l2maskv = data.hd.l1mask;
+            l2maskh = data.hd.l1maskh;
             if(avgOn){
                 var time_length = $('#time_length').val();
                 var limit_number = $('#limit_number').val();
@@ -1185,6 +1185,10 @@
         var column_name = $(this).attr('id');
         var table_name = 'rf';
         var name = table_name + '_' + column_name;
+        var showline = true;
+        if (['trigtype', 'l1mask', 'l1maskh', 'l3trigpat', 'l3trigpath'].indexOf(column_name) > -1){
+            showline = false;
+        }
         // console.log($(this).attr('id'));
         // console.log($(this).closest('.ibox').attr('id'));
         if ($("#dialog_" + name).length) {
@@ -1230,17 +1234,19 @@
                 },
                 series: [
                     {
+                        showLine: showline, 
                         lineWidth: .5,
                         markerOptions: {
-                            size: 2,
+                            size: 4,
                             color: 'blue' 
                         }
                     },
                     {
+                        showLine: showline,
                         lineWidth: .5,
                         markerOptions: {
                             size: 2,
-                            color: 'red' 
+                            color: 'grey' 
                         }
                     }
                 ],
@@ -1272,8 +1278,21 @@
             // console.log(end_time - length);
             $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
                 console.log(data);
-                if (Object.keys(data).length == 2){
-                    datalist = [data.data_a, data.data_b];
+                
+                if (showline == false){
+                    new_data1 = [];
+                    new_data2 = [];
+                    for (var i in data.data){
+                        element = data.data[i]
+                        for (var bit = 0; bit < 16; bit += 1){
+                            if((element[1]>>bit) & 1){
+                                new_data1.push([element[0], bit]);
+                            }else{
+                                new_data2.push([element[0], bit]);
+                            }
+                        }
+                    }
+                    datalist = [new_data1, new_data2];
                 }else{
                     datalist = [data.data];
                 }
