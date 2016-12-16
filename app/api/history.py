@@ -1,7 +1,7 @@
 from flask import jsonify, request, g, abort, url_for, current_app, session
 from flask.ext.login import LoginManager, current_user
 from . import api
-from . import cache
+# from . import cache
 from app.models import Hd,Rf, Wv, Hk, Mon, Adu5_pat, Adu5_vtg, Adu5_sat,G12_pos, G12_sat,Turf, Hk_surf, Slow, Sshk
 
 
