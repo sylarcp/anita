@@ -183,6 +183,12 @@ Current UTC time: <div id = 'currentUTC'> </div>   <div id = 'eventrate'></div>
     <script src="{{ url_for('static', filename='anita/js/jquery.bootstrap-touchspin.js') }}"></script>
     <script src="{{ url_for('static', filename='anita/js/jquery.hotkeys.js') }}"></script>
     <script>
+        //global time zone shift in micro seconds
+        var timeZoneShift = new Date().getTimezoneOffset() * 60000;
+        // var timeZoneShift = 0 ;
+
+
+
         // global converting functions
         function byteString(n) {
           if (n < 0 || n > 65535 || n % 1 !== 0) {

@@ -1550,9 +1550,26 @@ $(document).ready(function() {
             $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
                 console.log(data);
                 if (Object.keys(data).length == 2){
-                    datalist = [data.data_a, data.data_b];
+                    // datalist = [data.data_a, data.data_b];
+                    new_data_a = [];
+                    for (var i =0; i< data.data_a.length; i += 1){
+                        element = data.data_a[i];
+                        new_data_a.push([element[0] + timeZoneShift, element[1]]);
+                    }
+                    new_data_b = [];
+                    for (var i =0; i< data.data_b.length; i += 1){
+                        element = data.data_b[i];
+                        new_data_b.push([element[0] + timeZoneShift, element[1]]);
+                    }
+                    datalist = [new_data_a, new_data_b];
                 }else{
-                    datalist = [data.data];
+                    new_data = [];
+                    for (var i =0; i< data.data.length; i += 1){
+                        element = data.data[i];
+                        new_data.push([element[0] + timeZoneShift, element[1]]);
+                    }
+                    console.log(data.data.length);
+                    datalist = [new_data];
                 }
                 console.log(datalist);
                 plot1.replot({

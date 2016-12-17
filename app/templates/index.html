@@ -1294,15 +1294,22 @@
                         element = data.data[i]
                         for (var bit = 0; bit < 16; bit += 1){
                             if((element[1]>>bit) & 1){
-                                new_data1.push([element[0], bit]);
+                                new_data1.push([element[0] + timeZoneShift, bit]);
                             }else{
-                                new_data2.push([element[0], bit]);
+                                new_data2.push([element[0] + timeZoneShift, bit]);
                             }
                         }
                     }
                     datalist = [new_data1, new_data2];
                 }else{
-                    datalist = [data.data];
+                    // datalist = [data.data];
+                    new_data = [];
+                    for (var i =0; i< data.data.length; i += 1){
+                        element = data.data[i];
+                        new_data.push([element[0] + timeZoneShift, element[1]]);
+                    }
+                    console.log(data.data.length);
+                    datalist = [new_data];
                 }
                 console.log(datalist);
                 plot1.replot({

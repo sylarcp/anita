@@ -91,7 +91,7 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
                 return jsonify({'data':[[1000*result.time + result.us/1000,(getattr(result, column_name)&0xfff00000)/1048576] for result in results]})
             if table_name in ['hd', 'rf'] and column_name == 'priority':
                 return jsonify({'data':[[1000*result.time + result.us/1000,getattr(result, column_name)&0x0f] for result in results]})
-            if table_name in ['rf', 'hd', 'hk']:
+            if table_name in ['rf', 'hd', 'hk'] and column_name != 'crc':
                 return jsonify({'data':[[1000*result.time + result.us/1000 ,getattr(result, column_name)] for result in results]})
             else:
                 return jsonify({'data':[[1000*result.time,getattr(result, column_name)] for result in results]})
