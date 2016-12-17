@@ -1185,6 +1185,12 @@
         var column_name = $(this).attr('id');
         var table_name = 'rf';
         var name = table_name + '_' + column_name;
+        if (column_name == 'l1mask'){
+            name = 'rf_l2mask';
+        }
+        if (column_name == 'l1maskh'){
+            name = 'rf_l2maskh';
+        }
         var showline = true;
         if (['trigtype', 'l1mask', 'l1maskh', 'l3trigpat', 'l3trigpath'].indexOf(column_name) > -1){
             showline = false;
@@ -1237,7 +1243,8 @@
                         showLine: showline, 
                         lineWidth: .5,
                         markerOptions: {
-                            size: 4,
+                            size: showline?2:4,
+                            shadow:false,
                             color: 'blue' 
                         }
                     },
@@ -1246,6 +1253,7 @@
                         lineWidth: .5,
                         markerOptions: {
                             size: 2,
+                            shadow:false,
                             color: 'grey' 
                         }
                     }
