@@ -35,7 +35,9 @@ class Hd(Base):
                         'c3po': self.c3po,
                         'deadtime': self.deadtime,
                         'l3trigpat': self.l3trigpat,
-                        'l3trigpath': self.l3trigpath
+                        'l3trigpath': self.l3trigpath,
+                        'phimask': self.phimask,
+                        'phimaskh': self.phimaskh
                         }
         return json_comment
 class Rf(Base):
@@ -68,7 +70,9 @@ class Rf(Base):
                         'c3po': self.c3po,
                         'deadtime': self.deadtime,
                         'l3trigpat': self.l3trigpat,
-                        'l3trigpath': self.l3trigpath
+                        'l3trigpath': self.l3trigpath,
+                        'phimask': self.phimask,
+                        'phimaskh': self.phimaskh
                         }
         return json_comment    
 class Hk(Base):

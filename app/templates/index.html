@@ -109,6 +109,14 @@
                                 <td id='calib'></td>
                             </tr>
                             <tr>
+                                <td>phimask</td>
+                                <td id='phimask'></td>
+                            </tr>
+                            <tr>
+                                <td>phimaskh</td>
+                                <td id='phimaskh'></td>
+                            </tr>
+                            <tr>
                                 <td>l2mask</td>
                                 <td id='l1mask'></td>
                             </tr>
@@ -812,6 +820,8 @@
             $('#hd #deadtime').html(data.hd.deadtime);
             $('#hd #turfword').html(data.hd.turfword);
             $('#hd #calib').html(data.hd.calib);
+            $('#hd #phimask').html(byteString(data.hd.phimask));
+            $('#hd #phimaskh').html(byteString(data.hd.phimaskh));
             $('#hd #l1mask').html(byteString(data.hd.l1mask));
             $('#hd #l1maskh').html(byteString(data.hd.l1maskh));
             $('#hd #l3trigpat').html(byteString(data.hd.l3trigpat));
@@ -1217,7 +1227,7 @@
             name = 'rf_l2maskh';
         }
         var showline = true;
-        if (['trigtype', 'l1mask', 'l1maskh', 'l3trigpat', 'l3trigpath'].indexOf(column_name) > -1){
+        if (['trigtype', 'l1mask', 'l1maskh', 'l3trigpat', 'l3trigpath', 'phimask', 'phimaskh'].indexOf(column_name) > -1){
             showline = false;
         }
         // console.log($(this).attr('id'));
