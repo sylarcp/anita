@@ -406,6 +406,15 @@
             });
         }
 
+        $("#dialog_" + name).on('jqplotZoom', function(ev, gridpos, datapos, plot, cursor){
+            console.log('zoomminnnnnng');
+            end_time = parseInt((plot.axes.xaxis.max - timeZoneShift)/1000);
+            length = end_time - parseInt((plot.axes.xaxis.min - timeZoneShift)/1000);
+            console.log(end_time, length);
+            $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+            $("#dialog_" + name).find('input[id="length"]').val(length);
+        });
+
 
         $("#dialog_" + name).find('button[id="request"]').click(function() {
             console.log('click');
@@ -414,7 +423,7 @@
             // console.log(end_time);
             // console.log(end_time - length);
             $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
-                console.log(data);
+                // console.log(data);
                 if (showline == false){
                     new_data1 = [];
                     new_data2 = [];
@@ -465,10 +474,10 @@
                         }
                     }
                     
-                    console.log(data.data.length);
+                    // console.log(data.data.length);
                     datalist = [new_data];
                 }
-                console.log(datalist);
+                // console.log(datalist);
                 plot1.replot({
                     data: datalist
                 });
@@ -503,8 +512,8 @@
 
         function autoload(offset) {
             $.getJSON('/api/' + ip_db + '/hd/nbufs/' + offset, function(data) {
-                console.log('hd api');
-                console.log(data);
+                // console.log('hd api');
+                // console.log(data);
                 
                 new_length = data.hd_nbufs.length;
                 offset += new_length;
@@ -519,7 +528,7 @@
                 connected = true;
                 $('#connect').value = 'Disconnect'
                 connect.ladda('stop');
-                console.log(offset);
+                // console.log(offset);
                 
             }).done(function() {
                 setTimeout(function() {
@@ -652,11 +661,11 @@
 
         $('#goto').click(function() {
             var keywords = parseInt($('#keywords').val());
-            console.log(keywords);
+            // console.log(keywords);
             var index = hd_evnums.indexOf(keywords);
             if (index != -1 && keywords) {
                 i = index;
-                console.log(i);
+                // console.log(i);
                 updatehtml_hd(hd_nbufs[i]);
                 swal({  title: 'Matched hd are found!', type: "success", timer: 3000, showConfirmButton: true});
             } else {
