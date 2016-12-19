@@ -18,7 +18,7 @@
 
 
                 <div class="ibox-content">
-                    <table data-sort="false" class="footable" data-page-size="30" id='hd' style="width:100%">
+                    <table data-sort="false" class="footable" data-page-size="50" id='hd' style="width:100%">
                         <tbody>
                             <!-- <tr>
                                 <td>index</td>
@@ -151,6 +151,18 @@
                             <tr>
                                 <td>c3po</td>
                                 <td id='c3po'></td>
+                            </tr>
+                            <tr>
+                                <td>peaktheta</td>
+                                <td id='peaktheta'></td>
+                            </tr>
+                            <tr>
+                                <td>peakphi</td>
+                                <td id='peakphi'></td>
+                            </tr>
+                            <tr>
+                                <td>peakpol</td>
+                                <td id='peakpol'></td>
                             </tr>
                             <!-- <tr>
                                 <td>event rate</td>
@@ -695,6 +707,26 @@
             $(this).attr('style', 'width: 100%');
         });
     }
+    function getPeakTheta (peakThetaBin) {
+        return 150*(peakThetaBin/256 - 0.5);
+    }
+
+    function getPeakPhi (prioritizerstuff) {
+        var phiInd2=(prioritizerstuff&0x7ff)>>1;
+        var phiInd=(phiInd2&0x3f);
+        var phiSector=(phiInd2>>6);
+        var phiArrayDeg=[-45,-22.5,0,22.5,45,67.5,90,112.5,135,157.5,180,202.5,225,247.5,270,292.5,315,337.5,0,22.5,45,67.5,90,112.5,135,157.5,180,
+                      202.5,225,247.5,270,292.5,315,337.5,
+                      0,22.5,45,67.5,90,112.5,135,157.5,180,
+                      202.5,225,247.5,270,292.5];
+
+        return phiArrayDeg[phiSector] + 22.5*(phiInd/64 - 0.5);
+    }
+
+    function getPeakPol (prioritizerstuff) {
+        // vertical : 1. horizontal : 0.
+        return prioritizerstuff&0x1;
+    }
 
     function displayData(datatype, name, waveform, maskon, id) {     
         if (datatype == 'mV') {
@@ -831,6 +863,9 @@
             $('#hd #coherentsumpeak').html(data.hd.coherentsumpeak);
             $('#hd #prioritizerstuff').html(data.hd.prioritizerstuff);
             $('#hd #c3po').html(data.hd.c3po);
+            $('#hd #peaktheta').html(getPeakTheta(data.hd.peakthetabin));
+            $('#hd #peakphi').html(getPeakPhi(data.hd.prioritizerstuff));
+            $('#hd #peakpol').html(getPeakPol(data.hd.prioritizerstuff));
 
             l2maskv = data.hd.l1mask;
             l2maskh = data.hd.l1maskh;
@@ -1039,6 +1074,8 @@
         $("#surfview").attr('style', 'display:none')
 
         $(window).on('resize', resizeWindow);
+
+        
         
         $(".touchspin2").TouchSpin({
             min: 0,
@@ -1339,9 +1376,26 @@
                 }else{
                     // datalist = [data.data];
                     new_data = [];
-                    for (var i =0; i< data.data.length; i += 1){
-                        element = data.data[i];
-                        new_data.push([element[0] + timeZoneShift, element[1]]);
+                    if(column_name == 'peaktheta'){
+                        for (var i =0; i< data.data.length; i += 1){
+                            element = data.data[i];
+                            new_data.push([element[0] + timeZoneShift, getPeakTheta(element[1])]);
+                        }
+                    }else if(column_name == 'peakphi'){
+                        for (var i =0; i< data.data.length; i += 1){
+                            element = data.data[i];
+                            new_data.push([element[0] + timeZoneShift, getPeakPhi(element[1])]);
+                        }
+                    }else if(column_name == 'peakpol'){
+                        for (var i =0; i< data.data.length; i += 1){
+                            element = data.data[i];
+                            new_data.push([element[0] + timeZoneShift, getPeakPol(element[1])]);
+                        }
+                    }else{
+                        for (var i =0; i< data.data.length; i += 1){
+                            element = data.data[i];
+                            new_data.push([element[0] + timeZoneShift, element[1]]);
+                        }
                     }
                     console.log(data.data.length);
                     datalist = [new_data];

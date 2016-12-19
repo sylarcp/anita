@@ -14,6 +14,10 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
         if table_name in ['hd', 'rf']:
             if column_name == 'runnum':
                 column_name = 'evid'
+            elif column_name == 'peaktheta':
+                column_name = 'peakthetabin'
+            elif column_name in ['peakphi', 'peakpol']:
+                column_name = 'prioritizerstuff'
         if table_name == 'gps':
             if column_name[-10:-7] == 'adu':
                 # adu5 case
