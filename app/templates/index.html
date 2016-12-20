@@ -112,26 +112,26 @@
                                 <td>phimask</td>
                                 <td id='phimask'></td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>phimaskh</td>
                                 <td id='phimaskh'></td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <td>l2mask</td>
                                 <td id='l1mask'></td>
                             </tr>
-                            <tr>
+                           <!--  <tr>
                                 <td>l2maskh</td>
                                 <td id='l1maskh'></td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <td>l3trigpat</td>
                                 <td id='l3trigpat'></td>
                             </tr>
-                            <tr>
+                            <!-- <tr>
                                 <td>l3trigpath</td>
                                 <td id='l3trigpath'></td>
-                            </tr>
+                            </tr> -->
                             <tr>
                                 <td>peakthetabin</td>
                                 <td id='peakthetabin'></td>
@@ -728,7 +728,7 @@
         return prioritizerstuff&0x1;
     }
 
-    function displayData(datatype, name, waveform, maskon, id) {     
+    function displayData(datatype, name, waveform, maskon, l3trigOn, id) {     
         if (datatype == 'mV') {
             min = Math.min.apply(null, waveform['cal']);
             max = Math.max.apply(null, waveform['cal']);
@@ -740,6 +740,8 @@
                 width: '90',
                 height: '36 ',
                 lineWidth: 0.5,
+                lineColor: l3trigOn?'#ff0000':undefined,
+                fillColor: l3trigOn?'#f0d0c0':undefined,
                 spotColor: false,
                 chartRangeMin: range_min,
                 chartRangeMax: range_max,
@@ -767,6 +769,8 @@
                 width: '90',
                 height: '36 ',
                 lineWidth: 0.5,
+                lineColor: l3trigOn?'#ff0000':undefined,
+                fillColor: l3trigOn?'#f0d0c0':undefined,
                 spotColor: false,
                 chartRangeMin: range_min,
                 chartRangeMax: range_max,
@@ -791,6 +795,8 @@
                 width: '90',
                 height: '36 ',
                 lineWidth: 0.5,
+                lineColor: l3trigOn?'#ff0000':undefined,
+                fillColor: l3trigOn?'#f0d0c0':undefined,
                 spotColor: false,
                 chartRangeMin: range_min,
                 chartRangeMax: range_max,
@@ -801,12 +807,14 @@
         }
     }
 
-    function displayDataNone(name, maskon) {
+    function displayDataNone(name, maskon, l3trigOn) {
         $(name).attr('values', 0).sparkline('html', {
             type: 'line',
             width: '90',
             height: '36 ',
             lineWidth: 0.5,
+            lineColor: l3trigOn?'#ff0000':undefined,
+            fillColor: l3trigOn?'#f0d0c0':undefined,
             spotColor: false,
             normalRangeMin: maskon?-10000:undefined,
             normalRangeMax: maskon?10000:undefined,
@@ -831,6 +839,25 @@
 
     }
 
+    function get_l3trig(id, l3trigv, l3trigh){
+        l3trigOn = false;
+        if ((id + 1) % 9 == 0){
+            return false;
+        }
+        if (id2pol[id] == 'v'){
+             if ((1 << id2phi[id]) & l3trigv){
+                l3trigOn = true;
+             }
+        }else{
+            if ((1 << id2phi[id]) & l3trigh){
+                l3trigOn = true;
+             }
+        }
+        if (l3trigOn){console.log(l3trigOn);}
+        
+        return l3trigOn
+    }
+
     function updatehtml_hd(nbuf, avgOn = false) {
         if(!nbuf) return;
         $.getJSON('/api/' + ip_db + '/rf/' + nbuf, function(data) {
@@ -853,11 +880,11 @@
             $('#hd #turfword').html(data.hd.turfword);
             $('#hd #calib').html(data.hd.calib);
             $('#hd #phimask').html(byteString(data.hd.phimask));
-            $('#hd #phimaskh').html(byteString(data.hd.phimaskh));
+            // $('#hd #phimaskh').html(byteString(data.hd.phimaskh));
             $('#hd #l1mask').html(byteString(data.hd.l1mask));
-            $('#hd #l1maskh').html(byteString(data.hd.l1maskh));
+            // $('#hd #l1maskh').html(byteString(data.hd.l1maskh));
             $('#hd #l3trigpat').html(byteString(data.hd.l3trigpat));
-            $('#hd #l3trigpath').html(byteString(data.hd.l3trigpath));
+            // $('#hd #l3trigpath').html(byteString(data.hd.l3trigpath));
             $('#hd #peakthetabin').html(data.hd.peakthetabin);
             $('#hd #imagepeak').html(data.hd.imagepeak);
             $('#hd #coherentsumpeak').html(data.hd.coherentsumpeak);
@@ -868,7 +895,9 @@
             $('#hd #peakpol').html(getPeakPol(data.hd.prioritizerstuff));
 
             l2maskv = data.hd.l1mask;
-            l2maskh = data.hd.l1maskh;
+            l2maskh = data.hd.l1mask;
+            l3trigv = data.hd.l3trigpat;
+            l3trigh = data.hd.l3trigpat;
             if(avgOn){
                 var time_length = $('#time_length').val();
                 var limit_number = $('#limit_number').val();
@@ -905,10 +934,11 @@
                             var waveform = data[id.toString()];
                             // console.log(id + ' '+get_mask(id, l2maskv, l2maskh));
                             maskon = get_mask(id, l2maskv, l2maskh);
+                            l3trigOn = get_l3trig(id, l3trigv, l3trigh);
                             if (waveform != undefined) {
-                                displayData('mV', wv_name, waveform, maskon, id);
+                                displayData('mV', wv_name, waveform, maskon, l3trigOn, id);
                             } else {
-                                displayDataNone(wv_name, maskon);
+                                displayDataNone(wv_name, maskon, l3trigOn);
                             };
                         }
                     }
@@ -921,10 +951,11 @@
                             var waveform = data[id.toString()];
                             //console.log(waveform);
                             maskon = get_mask(id, l2maskv, l2maskh);
+                            l3trigOn = get_l3trig(id, l3trigv, l3trigh);
                             if (waveform != undefined) {
-                                displayData('FFT', wv_name, waveform, maskon, id);
+                                displayData('FFT', wv_name, waveform, maskon, l3trigOn, id);
                             } else {
-                                displayDataNone(wv_name, maskon);
+                                displayDataNone(wv_name, maskon, l3trigOn);
                             };
                         }
 
@@ -937,10 +968,11 @@
                             var id = chan + 9 * surf;
                             var waveform = data[id.toString()];
                             maskon = get_mask(id, l2maskv, l2maskh);
+                            l3trigOn = get_l3trig(id, l3trigv, l3trigh);
                             if (waveform != undefined) {
-                                displayData('Power', wv_name, waveform, maskon, id);
+                                displayData('Power', wv_name, waveform, maskon, l3trigOn, id);
                             } else {
-                                displayDataNone(wv_name, maskon);
+                                displayDataNone(wv_name, maskon, l3trigOn);
                             };
                         }
 
@@ -974,16 +1006,18 @@
                         // console.log(h_id + ':' + "h" + ', ');
                         // console.log(v_id + ':' + 'v' + ', ');
                         maskon = get_mask(h_id, l2maskv, l2maskh);
+                        l3trigOn = get_l3trig(h_id, l3trigv, l3trigh);
                         if (h_waveform != undefined) {
-                            displayData('mV', phi_h_name, h_waveform, maskon, h_id);
+                            displayData('mV', phi_h_name, h_waveform, maskon, l3trigOn, h_id);
                         } else {
-                            displayDataNone(phi_h_name,maskon);
+                            displayDataNone(phi_h_name,maskon, l3trigOn);
                         };
                         maskon = get_mask(v_id, l2maskv, l2maskh);
+                        l3trigOn = get_l3trig(v_id, l3trigv, l3trigh);
                         if (v_waveform != undefined) {
-                            displayData('mV', phi_v_name, v_waveform, maskon, v_id);
+                            displayData('mV', phi_v_name, v_waveform, maskon, l3trigOn, v_id);
                         } else {
-                            displayDataNone(phi_v_name, maskon);
+                            displayDataNone(phi_v_name, maskon, l3trigOn);
                         };
 
                     }
@@ -1011,16 +1045,18 @@
                         var h_waveform = data[h_id.toString()];
                         var v_waveform = data[v_id.toString()];
                         maskon = get_mask(h_id, l2maskv, l2maskh);
+                        l3trigOn = get_l3trig(h_id, l3trigv, l3trigh);
                         if (h_waveform != undefined) {
-                            displayData('FFT', phi_h_name, h_waveform, maskon, h_id);
+                            displayData('FFT', phi_h_name, h_waveform, maskon, l3trigOn, h_id);
                         } else {
-                            displayDataNone(phi_h_name, maskon);
+                            displayDataNone(phi_h_name, maskon, l3trigOn);
                         };
                         maskon = get_mask(v_id, l2maskv, l2maskh);
+                        l3trigOn = get_l3trig(v_id, l3trigv, l3trigh);
                         if (v_waveform != undefined) {
-                            displayData('FFT', phi_v_name, v_waveform,maskon, v_id);
+                            displayData('FFT', phi_v_name, v_waveform,maskon, l3trigOn, v_id);
                         } else {
-                            displayDataNone(phi_v_name, maskon);
+                            displayDataNone(phi_v_name, maskon, l3trigOn);
                         };
                     }
                 }else if (datatype == 'Power' && dataview == 'Phi') {
@@ -1048,16 +1084,18 @@
                         var h_waveform = data[h_id.toString()];
                         var v_waveform = data[v_id.toString()];
                         maskon = get_mask(h_id, l2maskv, l2maskh);
+                        l3trigOn = get_l3trig(h_id, l3trigv, l3trigh);
                         if (h_waveform != undefined) {
-                            displayData('Power', phi_h_name, h_waveform, maskon, h_id);
+                            displayData('Power', phi_h_name, h_waveform, maskon, l3trigOn, h_id);
                         } else {
-                            displayDataNone(phi_h_name, maskon);
+                            displayDataNone(phi_h_name, maskon, l3trigOn);
                         };
                         maskon = get_mask(v_id, l2maskv, l2maskh);
+                        l3trigOn = get_l3trig(v_id, l3trigv, l3trigh);
                         if (v_waveform != undefined) {
-                            displayData('Power', phi_v_name, v_waveform, maskon, v_id);
+                            displayData('Power', phi_v_name, v_waveform, maskon, l3trigOn, v_id);
                         } else {
-                            displayDataNone(phi_v_name, maskon);
+                            displayDataNone(phi_v_name, maskon, l3trigOn);
                         };
                     }
                     
