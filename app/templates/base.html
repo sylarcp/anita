@@ -6,6 +6,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+
 <link rel="shortcut icon" href="{{ url_for('static', filename = 'img/favicons/favicon.ico') }}" type="image/x-icon">
 <link rel="icon" href="{{ url_for('static', filename = 'img/favicons/favicon.ico') }}"type="image/x-icon">
 <link href="{{ url_for('static', filename='anita/css/select2.min.css') }}" rel="stylesheet">
@@ -25,6 +26,9 @@
 
 
 <style>   
+    #cesiumContainer {
+        width: 100%; height: 100%; margin: 0; padding: 0; overflow: hidden;
+    }
     .dialog_plot {margin-right: 20px; margin-left: 45px; margin-bottom: 5px;}
     #currentUTC,#eventrate {display:inline-block;margin-right:10px;}
     .ui-dialog { z-index: 9000 !important ;} 
@@ -81,6 +85,7 @@
             <li><a id='navbar_trig' href="{{ url_for('main.trigmon') }}"><i class="fa fa-bolt"></i>  <span class="nav-label">Trigger Monitor</span></a></li>
             <li><a id='navbar_slow' href="{{ url_for('main.slowmo') }}"><i class="fa fa-ambulance"></i>  <span class="nav-label">Slow Monitor</span></a></li>
             <li><a id='navbar_hd' href="{{ url_for('main.hd') }}"><i class="fa fa-header"></i>  <span class="nav-label">All Headers</span></a></li>
+            <li><a id='navbar_gps' href="{{ url_for('main.gps') }}"><i class="fa fa-circle-o-notch"></i>  <span class="nav-label">GPS</span></a></li>
             <li><a id='navbar_contact'href="{{ url_for('main.contactus') }}"><i class="fa fa-question"></i>  <span class="nav-label">Contact Us</span></a></li>
         </ul>
 
@@ -105,14 +110,14 @@
                 <li><button type="button" id='prev' class="btn btn-primary">Prev</button> </li>
                 <li><button type="button" id='first' class="btn btn-primary">First</button> </li>
                 <li><button type="button" id='last' class="btn btn-primary">Last</button> </li>
-                <li> Auto </li>
+                <li id="label_auto_checkbox"> Auto </li>
                 <li><input id='auto_checkbox' type="checkbox" class="js-switch" /></li>
                 <li id="label_sync_checkbox"> Sync </li>
                 <li> <input id='sync_checkbox' type="checkbox" class="js-switch" /> </li>
             </ul>
         </div>
        
-        <div class="input-group">
+        <div class="input-group"  id = 'search-input'>
           <input type="text" class="form-control" id = "keywords" placeholder="evnum or time">
           <span class="input-group-btn">
             <button class="btn btn-primary" id = 'goto' type="button">Go!</button>
@@ -224,6 +229,34 @@ Current UTC time: <div id = 'currentUTC'> </div>   <div id = 'eventrate'></div>
                 sec = '0' + sec;
             }
             var time = month + ' ' + date + ' ' + year + ' ' + hour + ':' + min + ':' + sec;
+            return time;
+        }
+
+        function unixtime2cesium(UNIX_timestamp) {
+            var a = new Date(UNIX_timestamp * 1000);
+            var months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            var year = a.getUTCFullYear();
+            var month = a.getUTCMonth() + 1;
+            var date = a.getUTCDate();
+            var hour = a.getUTCHours();
+            var min = a.getUTCMinutes();
+            var sec = a.getUTCSeconds();
+            if (parseInt(date) < 10){
+                date = '0' + date;
+            }
+            if (parseInt(month) < 10){
+                month = '0' + month;
+            }
+            if (parseInt(hour) < 10){
+                hour = '0' + hour;
+            }
+            if (parseInt(min) < 10){
+                min = '0' + min;
+            }
+            if (parseInt(sec) < 10){
+                sec = '0' + sec;
+            }
+            var time = year + '-' + month + '-' + date + 'T' + hour + ':' + min + ':' + sec + 'Z';
             return time;
         }
         

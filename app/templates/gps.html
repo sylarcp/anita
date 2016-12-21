@@ -1,0 +1,185 @@
+{% extends "base.html" %} {% block head %} {{ super() }}
+<link href="{{ url_for('static', filename='Cesium/Build/Cesium/Widgets/widgets.css') }}" rel="stylesheet"> 
+
+
+{% endblock %} {% block page_content %}
+<div class="wrapper wrapper-content">
+    <div id="cesiumContainer"  class="fullSize"></div>
+</div>
+{% endblock %} {% block scripts %} {{ super() }}
+    <script src="{{ url_for('static', filename='Cesium/Build/Cesium/Cesium.js') }}/"></script>
+    <script>
+
+function set_czml (starttime, endtime, data) {
+    var start = unixtime2cesium(starttime);
+    var end = unixtime2cesium(endtime);
+    var czml = [{
+        "id" : "document",
+        "name" : "CZML Path",
+        "version" : "1.0",
+        "clock": {
+            "interval": start + '/' + end,
+            "currentTime": start,
+            "multiplier": 20
+        }
+    }, {
+        "id" : "path",
+        "name" : "path with ANITA GPS flight data",
+        "description" : "<p>GPS path of ANITA payload.</p>",
+        "availability" : start + '/' + end,
+        "path" : {
+            "material" : {
+                "polylineOutline" : {
+                    "color" : {
+                        "rgba" : [255, 0, 255, 255]
+                    },
+                    "outlineColor" : {
+                        "rgba" : [0, 255, 255, 255]
+                    },
+                    "outlineWidth" : 5
+                }
+            },
+            "width" : 8,
+            "leadTime" : 10,
+            "trailTime" : 21600,
+            "resolution" : 5
+        },
+        "position" : {
+            "epoch" : start,
+            "cartographicDegrees" : data
+        }
+    }];
+    return czml
+
+}
+//     var czml = [{
+//     "id" : "document",
+//     "name" : "CZML Path",
+//     "version" : "1.0",
+//     "clock": {
+//         "interval": unixtime2cesium(1482278106) + '/' + unixtime2cesium(1482296106),
+//         "currentTime": unixtime2cesium(1482278106),
+//         "multiplier": 10
+//     }
+// }, {
+//     "id" : "path",
+//     "name" : "path with GPS flight data",
+//     "description" : "<p>Hang gliding flight log data from Daniel H. Friedman.<br>Icon created by Larisa Skosyrska from the Noun Project</p>",
+//     "availability" : unixtime2cesium(1482278106) + '/' + unixtime2cesium(1482296106),
+//     "path" : {
+//         "material" : {
+//             "polylineOutline" : {
+//                 "color" : {
+//                     "rgba" : [255, 0, 255, 255]
+//                 },
+//                 "outlineColor" : {
+//                     "rgba" : [0, 255, 255, 255]
+//                 },
+//                 "outlineWidth" : 5
+//             }
+//         },
+//         "width" : 8,
+//         "leadTime" : 10,
+//         "trailTime" : 1000,
+//         "resolution" : 5
+//     },
+//     "position" : {
+//         "epoch" : unixtime2cesium(1482278106),
+//         "cartographicDegrees" : [
+//             0,-122.93797,39.50935,1776,
+//             10,-122.93822,39.50918,1773,
+//             20,-122.9385,39.50883,1772,
+//             30,-122.93855,39.50842,1770,
+//             40,-122.93868,39.50792,1770,
+//             50,-122.93877,39.50743,1767,
+//             60,-122.93862,39.50697,1771,
+//             70,-122.93828,39.50648,1765,
+//             80,-122.93818,39.50608,1770,
+//             90,-122.93783,39.5057,1754,
+//             100,-122.93777,39.50513,1732,
+//             110,-122.93793,39.50458,1727,
+//             120,-122.93815,39.50415,1717,
+//             130,-122.9382,39.50362,1713,
+//             140,-122.93818,39.5031,1703,
+//         ]
+//     }
+// }];
+    
+    // var czmlStream;
+    // var czmlStreamUrl = 'http://127.0.0.1:5000/api/query_128_175_112_58_anita_1204a/czml';
+
+    // viewer.dataSources.add(czmlStream);
+
+    // var czmlEventSource = new EventSource(czmlStreamUrl);
+    // czmlEventSource.addEventListener('czml', function(czmlUpdate) {
+    //   czmlStream.load(JSON.parse(czmlUpdate.data));
+    // }, false);
+
+    $(document).ready(function() {
+        $('#navbar_gps').parent().addClass("active");
+        $('#label_sync_checkbox').attr('style', 'display:none');
+        $('#sync_checkbox').attr('style', 'display:none');
+        $('#next').attr('style', 'display:none');
+        $('#prev').attr('style', 'display:none');
+        $('#first').attr('style', 'display:none');
+        $('#last').attr('style', 'display:none');
+        $('#label_auto_checkbox').attr('style', 'display:none');
+        $('#auto_checkbox').attr('style', 'display:none');
+        $('#search-input').attr('style', 'display:none');
+        
+        Cesium.BingMapsApi.defaultKey = 'AhYud-JABUtcXoTLU2f5KoiN2B00NtJ25W6xXyXRlSgGmROu-Yg7LSq_1G2Bey0A';
+        var viewer = new Cesium.Viewer('cesiumContainer');
+
+        var connect = $('.ladda-button').ladda();
+        $('#connect').click(function() {
+            var eventRateTimer ;
+            if ($(this).hasClass('connect')) {
+                connect.ladda('start');
+                $.ajax({
+                    url: '/api/connect/' + ip + '/' + db
+                }).done(function(response) {
+                    if (response == 'success') {
+                        console.log('succeed');
+                        $.getJSON('/api/' + ip_db + '/czml', function(data) {
+                            var czml = set_czml(data.starttime, data.endtime, data.data);
+                            viewer.dataSources.add(Cesium.CzmlDataSource.load(czml)).then(function(ds) {
+                                viewer.trackedEntity = ds.entities.getById('path');
+                            });
+
+                        });
+                        $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
+                        $('#connect').html('Disconnect');
+                        $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
+                        connected = true;
+                        $('#connect').value = 'Disconnect'
+                       connect.ladda('stop');
+                    } else {
+                        connect.ladda('stop');
+                        swal({
+                            title: 'Database not found!',
+                            type: "warning",
+                            timer: 3000,
+                            showConfirmButton: true
+                        });
+                    }
+                });
+            } else {
+                //otherwise, stop all the requests.
+                clearInterval(eventRateTimer);
+                $('#connect').addClass('connect').addClass('btn-primary').removeClass('btn-warning');
+                $('#connect').html('Connect');
+                $('.chosen-select').attr("disabled", false).trigger("chosen:updated");
+                connected = false;
+            }
+
+        });
+      
+
+        
+
+        //  viewer.dataSources.add(Cesium.CzmlDataSource.processUrl(czmlStreamUrl)).then(function(ds) {
+        //     viewer.trackedEntity = ds.entities.getById('myObject');
+        // });
+    });
+    </script>
+    {% endblock %}

@@ -321,6 +321,24 @@ class Adu5_pat(Base):
                         'altitude': self.altitude
             }
         return json_comment
+    def to_czml(self):
+        czml_comment = {
+          'id': 'myObject',
+          'availability': '2014-01-15T00:00Z/2014-01-01T24:00Z',
+          'point': {
+            'color': {
+              'rgba': [255, 255, 0, 255]
+            },
+            'outlineWidth': 2.0,
+            'pixelSize': 3.0,
+            'show': True
+          },
+          "position" : {
+            "epoch" : "2012-08-04T10:00:00Z",
+            "cartographicDegrees" : [0,self.latitude,self.longitude,self.altitude]
+          }
+        }
+        return czml_comment
 class Adu5_vtg(Base):
     __tablename__ = 'adu5_vtg'
     __table_args__ = {'autoload':True}

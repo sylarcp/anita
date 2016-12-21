@@ -102,3 +102,26 @@ def get_adu5_vtg_time(ip_db, time):
 #     except BaseException as error:
 #         print('Invalid request: {}', format(error))
 #         return jsonify({})
+import datetime
+def unix2cesium(timestamp):
+    return datetime.datetime.utcfromtimestamp(timestamp).strftime('%Y-%m-%dT%H:%M:%SZ')
+@api.route('/<ip_db>/czml')
+def get_czml(ip_db):
+    try:
+        engine_ip_db = ip_db.replace('query','session')
+        engine = getattr(Adu5_pat,engine_ip_db)
+        results = getattr(Adu5_pat,ip_db).with_entities(Adu5_pat.time, Adu5_pat.longitude, Adu5_pat.latitude, Adu5_pat.altitude).filter_by(gpstype=0x20000).filter_by(flag=0).order_by(Adu5_pat.time).all()
+        # adu5_pat_b =getattr(Adu5_pat,ip_db).filter_by(time=time).filter_by(gpstype=262144).first()
+        starttime = results[0][0]
+        endtime = results[-1][0]
+        data = []
+        for result in results:
+            data.append(result[0] - starttime)
+            data.append(result[1])
+            data.append(result[2])
+            data.append(result[3])
+
+        return jsonify({'data': data, 'starttime': starttime, 'endtime': endtime})
+    except BaseException as error:
+        print('Invalid request: {}', format(error))
+        return jsonify({})

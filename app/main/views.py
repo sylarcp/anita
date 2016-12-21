@@ -82,6 +82,15 @@ def hd():
     # if len(db_list) == 1 and db_list[0] == '':
     #     db_selected = 'No results'
     return render_template('hd.html', ip_selected=ip_selected,db_selected=db_selected)
+
+@main.route('/gps', methods=['GET'])
+def gps():
+    ip_selected = request.cookies.get('ip_selected') or '128.175.112.58'
+    db_selected = request.cookies.get('db_selected') or 'anita_0102a'
+    # db_list = getDBlist(ip_selected) or ['']
+    # if len(db_list) == 1 and db_list[0] == '':
+    #     db_selected = 'No results'
+    return render_template('gps.html', ip_selected=ip_selected,db_selected=db_selected)
     
 @main.route('/contactus', methods=['GET'])
 def contactus():
