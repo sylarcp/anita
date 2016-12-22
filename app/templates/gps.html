@@ -142,9 +142,10 @@ function set_czml (starttime, endtime, data) {
                         console.log('succeed');
                         $.getJSON('/api/' + ip_db + '/czml', function(data) {
                             var czml = set_czml(data.starttime, data.endtime, data.data);
-                            viewer.dataSources.add(Cesium.CzmlDataSource.load(czml)).then(function(ds) {
-                                viewer.trackedEntity = ds.entities.getById('path');
-                            });
+                            // viewer.dataSources.add(Cesium.CzmlDataSource.load(czml)).then(function(ds) {
+                            //     viewer.trackedEntity = ds.entities.getById('path');
+                            // });
+                             viewer.dataSources.add(Cesium.CzmlDataSource.load(czml));
 
                         });
                         $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
