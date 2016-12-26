@@ -178,8 +178,17 @@
    <!--  <div id="dialog_wv" class='dialog_wv hide'>
     </div> -->
     <div id="dialog" class='hide'>
+        <ul class="nav navbar-top-links">
+            <li><button type="button" id='reset' class="btn btn-success btn-xs">Reset</button> </li>
+            <li><button type="button" id='undo' class="btn btn-success btn-xs">Undo</button> </li>
+            <li><button type="button" id='redo' class="btn btn-success btn-xs">Redo</button> </li>
+            <li><button type="button" id='1hour' class="btn btn-success btn-xs">1Hour</button> </li>
+            <li><button type="button" id='6hours' class="btn btn-success btn-xs">6Hours</button> </li>
+            <li><button type="button" id='24hours' class="btn btn-success btn-xs">24Hours</button> </li>
+        </ul>
         <div id='chart1'></div>
         </br>
+        <div class = 'row'>
         <div class="col-sm-6">
             <div class="form-group">
                 <label>Reference UTC</label>
@@ -196,6 +205,7 @@
             </br>
             <button id="request" type="button" class="btn btn-primary">Request</button>
         </div>
+    </div>
     </div>
 </div>
     {% endblock %} {% block scripts %} {{ super() }}
@@ -321,22 +331,25 @@
         if (['trigtype', 'l1mask', 'l1maskh', 'l3trigpat', 'l3trigpath', 'phimask', 'phimaskh'].indexOf(column_name) > -1){
             showline = false;
         }
+        
         // console.log($(this).attr('id'));
         // console.log($(this).closest('.ibox').attr('id'));
         if ($("#dialog_" + name).length) {
             $("#dialog_" + name).dialog('open');
-            $("#dialog_" + name).find('input[id="reference_time"]').val(hd_times[i]);
+            $("#dialog_" + name).find('input[id="reference_time"]').val(hd_nows[i]);
         } else {
             var $newDialog = $('#dialog').clone();
             $newDialog.attr('id', 'dialog_' + name);
             $newDialog.removeClass('hide');
             $newDialog.attr('title', name);
             $newDialog.prepend('<div id="' + "plot_" + name + '"  class="dialog_plot" ></div>');
-            $newDialog.find('input[id="reference_time"]').val(hd_times[i]);
+            $newDialog.find('input[id="reference_time"]').val(hd_nows[i]);
             $newDialog.dialog({
                 width: 600,
                 height: 500,
             });
+            $newDialog.data('zoomStack', [[hd_nows[i], 21600]]);
+            $newDialog.data('zoomStackIndex', 0);
             var line1 = [
             ['2008-09-30', 14]
             ];
@@ -395,6 +408,7 @@
                     constrainOutsideZoom: false
                 }
             });
+            $("#dialog_" + name).data('plot1', plot1);
 
             $newDialog.dialog({
                 resize: function(event, ui) {
@@ -406,22 +420,8 @@
             });
         }
 
-        $("#dialog_" + name).on('jqplotZoom', function(ev, gridpos, datapos, plot, cursor){
-            console.log('zoomminnnnnng');
-            end_time = parseInt((plot.axes.xaxis.max - timeZoneShift)/1000);
-            length = end_time - parseInt((plot.axes.xaxis.min - timeZoneShift)/1000);
-            console.log(end_time, length);
-            $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
-            $("#dialog_" + name).find('input[id="length"]').val(length);
-        });
-
-
-        $("#dialog_" + name).find('button[id="request"]').click(function() {
-            console.log('click');
-            var end_time = $newDialog.find('input[id="reference_time"]').val();
-            var length = $newDialog.find('input[id="length"]').val();
-            // console.log(end_time);
-            // console.log(end_time - length);
+        function replotTimeline (table_name, column_name, end_time, length) {
+            console.log(end_time, length, 'hi');
             $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
                 // console.log(data);
                 if (showline == false){
@@ -429,8 +429,8 @@
                     new_data2 = [];
                     var step = 1;
                     if (data.data.length > 1000){
-                    	// step = data.data.length/5000;
-                    	step = Math.floor(data.data.length/1000);
+                        // step = data.data.length/5000;
+                        step = Math.floor(data.data.length/1000);
                     }
 
                     for (var i = 0; i < data.data.length; i += step){
@@ -478,10 +478,133 @@
                     datalist = [new_data];
                 }
                 // console.log(datalist);
+                var plot1 = $("#dialog_" + name).data('plot1');
                 plot1.replot({
                     data: datalist
                 });
             });
+        }
+
+        $("#dialog_" + name).on('jqplotZoom', function(ev, gridpos, datapos, plot, cursor){
+            console.log('zoomminnnnnng');
+            end_time = parseInt((plot.axes.xaxis.max - timeZoneShift)/1000);
+            length = end_time - parseInt((plot.axes.xaxis.min - timeZoneShift)/1000);
+            console.log(end_time, length);
+            $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+            $("#dialog_" + name).find('input[id="length"]').val(length);
+            var new_index = $(this).data('zoomStackIndex') + 1;
+            $(this).data('zoomStackIndex', new_index);
+            var new_zoomStack = $(this).data('zoomStack').slice(0, new_index);
+            new_zoomStack.push([end_time, length]);
+            $(this).data('zoomStack', new_zoomStack);
+            console.log($(this).data('zoomStack'), $(this).data('zoomStackIndex'));
+        });
+
+        $("#dialog_" + name + " #reset").click(function() {
+            $("#dialog_" + name).data('zoomStackIndex', 0);
+            $("#dialog_" + name).data('zoomStack', [[hd_nows[i], 21600]]);
+            $("#dialog_" + name).find('input[id="reference_time"]').val(hd_nows[i]);
+            $("#dialog_" + name).find('input[id="length"]').val(21600);
+            $("#dialog_" + name).find('button[id="request"]').trigger("click");
+        });
+
+        $("#dialog_" + name + " #undo").click(function() {
+            if ($("#dialog_" + name).data('zoomStack').length > 1){
+                var index = $("#dialog_" + name).data('zoomStackIndex') - 1;
+                if (index >= 0){
+                    $("#dialog_" + name).data('zoomStackIndex', index);
+                    var zoom = $("#dialog_" + name).data('zoomStack')[index];
+                    var end_time = zoom[0];
+                    var length = zoom[1]
+                    $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+                    $("#dialog_" + name).find('input[id="length"]').val(length);
+                    replotTimeline(table_name, column_name, end_time, length);
+                }
+            }
+        });
+
+        $("#dialog_" + name + " #redo").click(function() {
+            var stack_length = $("#dialog_" + name).data('zoomStack').length;
+            if ( stack_length > 0){
+                var index = $("#dialog_" + name).data('zoomStackIndex') + 1;
+                if (index < stack_length){
+                    $("#dialog_" + name).data('zoomStackIndex', index);
+                    var zoom = $("#dialog_" + name).data('zoomStack')[index];
+                    var end_time = zoom[0];
+                    var length = zoom[1]
+                    $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+                    $("#dialog_" + name).find('input[id="length"]').val(length);
+                    replotTimeline(table_name, column_name, end_time, length);
+                }
+            }
+        });
+
+        $("#dialog_" + name + " #1hour").click(function() {
+            console.log('1hour');
+            var stack_length = $("#dialog_" + name).data('zoomStack').length;
+            if ( stack_length > 0){
+                var index = $("#dialog_" + name).data('zoomStackIndex');
+
+                var new_index = index + 1;
+                $("#dialog_" + name).data('zoomStackIndex', new_index);
+                var new_zoomStack = $("#dialog_" + name).data('zoomStack').slice(0, new_index);
+                var end_time = new_zoomStack[index][0];
+                var length = 3600;
+                new_zoomStack.push([end_time, length])
+                $("#dialog_" + name).data('zoomStack', new_zoomStack);
+                $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+                $("#dialog_" + name).find('input[id="length"]').val(length);
+                replotTimeline(table_name, column_name, end_time, length);
+            }
+        });
+
+        $("#dialog_" + name + " #6hours").click(function() {
+            console.log('1hour');
+            var stack_length = $("#dialog_" + name).data('zoomStack').length;
+            if ( stack_length > 0){
+                var index = $("#dialog_" + name).data('zoomStackIndex');
+
+                var new_index = index + 1;
+                $("#dialog_" + name).data('zoomStackIndex', new_index);
+                var new_zoomStack = $("#dialog_" + name).data('zoomStack').slice(0, new_index);
+                var end_time = new_zoomStack[index][0];
+                var length = 21600;
+                new_zoomStack.push([end_time, length])
+                $("#dialog_" + name).data('zoomStack', new_zoomStack);
+                $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+                $("#dialog_" + name).find('input[id="length"]').val(length);
+                replotTimeline(table_name, column_name, end_time, length);
+            }
+        });
+
+        $("#dialog_" + name + " #12hours").click(function() {
+            console.log('1hour');
+            var stack_length = $("#dialog_" + name).data('zoomStack').length;
+            if ( stack_length > 0){
+                var index = $("#dialog_" + name).data('zoomStackIndex');
+
+                var new_index = index + 1;
+                $("#dialog_" + name).data('zoomStackIndex', new_index);
+                var new_zoomStack = $("#dialog_" + name).data('zoomStack').slice(0, new_index);
+                var end_time = new_zoomStack[index][0];
+                var length = 86400;
+                new_zoomStack.push([end_time, length])
+                $("#dialog_" + name).data('zoomStack', new_zoomStack);
+                $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+                $("#dialog_" + name).find('input[id="length"]').val(length);
+                replotTimeline(table_name, column_name, end_time, length);
+            }
+        });
+
+
+
+        $("#dialog_" + name).find('button[id="request"]').click(function() {
+            console.log('click');
+            var end_time = $("#dialog_" + name).find('input[id="reference_time"]').val();
+            var length = $("#dialog_" + name).find('input[id="length"]').val();
+            // console.log(end_time);
+            // console.log(end_time - length);
+            replotTimeline(table_name, column_name, end_time, length);
         });
 
         $("#dialog_" + name).find('button[id="request"]').trigger("click");
