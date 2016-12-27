@@ -180,8 +180,8 @@
     <div id="dialog" class='hide'>
         <ul class="nav navbar-top-links">
             <li><button type="button" id='reset' class="btn btn-success btn-xs">Reset</button> </li>
-            <li><button type="button" id='undo' class="btn btn-success btn-xs">Undo</button> </li>
-            <li><button type="button" id='redo' class="btn btn-success btn-xs">Redo</button> </li>
+            <!-- <li><button type="button" id='undo' class="btn btn-success btn-xs">Undo</button> </li>
+            <li><button type="button" id='redo' class="btn btn-success btn-xs">Redo</button> </li> -->
             <li><button type="button" id='1hour' class="btn btn-success btn-xs">1Hour</button> </li>
             <li><button type="button" id='6hours' class="btn btn-success btn-xs">6Hours</button> </li>
             <li><button type="button" id='24hours' class="btn btn-success btn-xs">24Hours</button> </li>
@@ -492,109 +492,121 @@
             console.log(end_time, length);
             $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
             $("#dialog_" + name).find('input[id="length"]').val(length);
-            var new_index = $(this).data('zoomStackIndex') + 1;
-            $(this).data('zoomStackIndex', new_index);
-            var new_zoomStack = $(this).data('zoomStack').slice(0, new_index);
-            new_zoomStack.push([end_time, length]);
-            $(this).data('zoomStack', new_zoomStack);
-            console.log($(this).data('zoomStack'), $(this).data('zoomStackIndex'));
+            // var new_index = $(this).data('zoomStackIndex') + 1;
+            // $(this).data('zoomStackIndex', new_index);
+            // var new_zoomStack = $(this).data('zoomStack').slice(0, new_index);
+            // new_zoomStack.push([end_time, length]);
+            // $(this).data('zoomStack', new_zoomStack);
+            // console.log($(this).data('zoomStack'), $(this).data('zoomStackIndex'));
         });
 
         $("#dialog_" + name + " #reset").click(function() {
-            $("#dialog_" + name).data('zoomStackIndex', 0);
-            $("#dialog_" + name).data('zoomStack', [[hd_nows[i], 21600]]);
+            // $("#dialog_" + name).data('zoomStackIndex', 0);
+            // $("#dialog_" + name).data('zoomStack', [[hd_nows[i], 21600]]);
             $("#dialog_" + name).find('input[id="reference_time"]').val(hd_nows[i]);
             $("#dialog_" + name).find('input[id="length"]').val(21600);
             $("#dialog_" + name).find('button[id="request"]').trigger("click");
         });
-
-        $("#dialog_" + name + " #undo").click(function() {
-            if ($("#dialog_" + name).data('zoomStack').length > 1){
-                var index = $("#dialog_" + name).data('zoomStackIndex') - 1;
-                if (index >= 0){
-                    $("#dialog_" + name).data('zoomStackIndex', index);
-                    var zoom = $("#dialog_" + name).data('zoomStack')[index];
-                    var end_time = zoom[0];
-                    var length = zoom[1]
-                    $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
-                    $("#dialog_" + name).find('input[id="length"]').val(length);
-                    replotTimeline(table_name, column_name, end_time, length);
-                }
-            }
-        });
-
-        $("#dialog_" + name + " #redo").click(function() {
-            var stack_length = $("#dialog_" + name).data('zoomStack').length;
-            if ( stack_length > 0){
-                var index = $("#dialog_" + name).data('zoomStackIndex') + 1;
-                if (index < stack_length){
-                    $("#dialog_" + name).data('zoomStackIndex', index);
-                    var zoom = $("#dialog_" + name).data('zoomStack')[index];
-                    var end_time = zoom[0];
-                    var length = zoom[1]
-                    $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
-                    $("#dialog_" + name).find('input[id="length"]').val(length);
-                    replotTimeline(table_name, column_name, end_time, length);
-                }
-            }
-        });
-
         $("#dialog_" + name + " #1hour").click(function() {
-            console.log('1hour');
-            var stack_length = $("#dialog_" + name).data('zoomStack').length;
-            if ( stack_length > 0){
-                var index = $("#dialog_" + name).data('zoomStackIndex');
-
-                var new_index = index + 1;
-                $("#dialog_" + name).data('zoomStackIndex', new_index);
-                var new_zoomStack = $("#dialog_" + name).data('zoomStack').slice(0, new_index);
-                var end_time = new_zoomStack[index][0];
-                var length = 3600;
-                new_zoomStack.push([end_time, length])
-                $("#dialog_" + name).data('zoomStack', new_zoomStack);
-                $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
-                $("#dialog_" + name).find('input[id="length"]').val(length);
-                replotTimeline(table_name, column_name, end_time, length);
-            }
+            $("#dialog_" + name).find('input[id="length"]').val(3600);
+            $("#dialog_" + name).find('button[id="request"]').trigger("click");
         });
-
         $("#dialog_" + name + " #6hours").click(function() {
-            console.log('1hour');
-            var stack_length = $("#dialog_" + name).data('zoomStack').length;
-            if ( stack_length > 0){
-                var index = $("#dialog_" + name).data('zoomStackIndex');
-
-                var new_index = index + 1;
-                $("#dialog_" + name).data('zoomStackIndex', new_index);
-                var new_zoomStack = $("#dialog_" + name).data('zoomStack').slice(0, new_index);
-                var end_time = new_zoomStack[index][0];
-                var length = 21600;
-                new_zoomStack.push([end_time, length])
-                $("#dialog_" + name).data('zoomStack', new_zoomStack);
-                $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
-                $("#dialog_" + name).find('input[id="length"]').val(length);
-                replotTimeline(table_name, column_name, end_time, length);
-            }
+            $("#dialog_" + name).find('input[id="length"]').val(21600);
+            $("#dialog_" + name).find('button[id="request"]').trigger("click");
         });
-
         $("#dialog_" + name + " #24hours").click(function() {
-            console.log('1hour');
-            var stack_length = $("#dialog_" + name).data('zoomStack').length;
-            if ( stack_length > 0){
-                var index = $("#dialog_" + name).data('zoomStackIndex');
-
-                var new_index = index + 1;
-                $("#dialog_" + name).data('zoomStackIndex', new_index);
-                var new_zoomStack = $("#dialog_" + name).data('zoomStack').slice(0, new_index);
-                var end_time = new_zoomStack[index][0];
-                var length = 86400;
-                new_zoomStack.push([end_time, length])
-                $("#dialog_" + name).data('zoomStack', new_zoomStack);
-                $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
-                $("#dialog_" + name).find('input[id="length"]').val(length);
-                replotTimeline(table_name, column_name, end_time, length);
-            }
+            $("#dialog_" + name).find('input[id="length"]').val(86400);
+            $("#dialog_" + name).find('button[id="request"]').trigger("click");
         });
+
+        // $("#dialog_" + name + " #undo").click(function() {
+        //     if ($("#dialog_" + name).data('zoomStack').length > 1){
+        //         var index = $("#dialog_" + name).data('zoomStackIndex') - 1;
+        //         if (index >= 0){
+        //             $("#dialog_" + name).data('zoomStackIndex', index);
+        //             var zoom = $("#dialog_" + name).data('zoomStack')[index];
+        //             var end_time = zoom[0];
+        //             var length = zoom[1]
+        //             $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+        //             $("#dialog_" + name).find('input[id="length"]').val(length);
+        //             replotTimeline(table_name, column_name, end_time, length);
+        //         }
+        //     }
+        // });
+
+        // $("#dialog_" + name + " #redo").click(function() {
+        //     var stack_length = $("#dialog_" + name).data('zoomStack').length;
+        //     if ( stack_length > 0){
+        //         var index = $("#dialog_" + name).data('zoomStackIndex') + 1;
+        //         if (index < stack_length){
+        //             $("#dialog_" + name).data('zoomStackIndex', index);
+        //             var zoom = $("#dialog_" + name).data('zoomStack')[index];
+        //             var end_time = zoom[0];
+        //             var length = zoom[1]
+        //             $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+        //             $("#dialog_" + name).find('input[id="length"]').val(length);
+        //             replotTimeline(table_name, column_name, end_time, length);
+        //         }
+        //     }
+        // });
+
+        // $("#dialog_" + name + " #1hour").click(function() {
+        //     console.log('1hour');
+        //     var stack_length = $("#dialog_" + name).data('zoomStack').length;
+        //     if ( stack_length > 0){
+        //         var index = $("#dialog_" + name).data('zoomStackIndex');
+
+        //         var new_index = index + 1;
+        //         $("#dialog_" + name).data('zoomStackIndex', new_index);
+        //         var new_zoomStack = $("#dialog_" + name).data('zoomStack').slice(0, new_index);
+        //         var end_time = new_zoomStack[index][0];
+        //         var length = 3600;
+        //         new_zoomStack.push([end_time, length])
+        //         $("#dialog_" + name).data('zoomStack', new_zoomStack);
+        //         $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+        //         $("#dialog_" + name).find('input[id="length"]').val(length);
+        //         replotTimeline(table_name, column_name, end_time, length);
+        //     }
+        // });
+
+        // $("#dialog_" + name + " #6hours").click(function() {
+        //     console.log('1hour');
+        //     var stack_length = $("#dialog_" + name).data('zoomStack').length;
+        //     if ( stack_length > 0){
+        //         var index = $("#dialog_" + name).data('zoomStackIndex');
+
+        //         var new_index = index + 1;
+        //         $("#dialog_" + name).data('zoomStackIndex', new_index);
+        //         var new_zoomStack = $("#dialog_" + name).data('zoomStack').slice(0, new_index);
+        //         var end_time = new_zoomStack[index][0];
+        //         var length = 21600;
+        //         new_zoomStack.push([end_time, length])
+        //         $("#dialog_" + name).data('zoomStack', new_zoomStack);
+        //         $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+        //         $("#dialog_" + name).find('input[id="length"]').val(length);
+        //         replotTimeline(table_name, column_name, end_time, length);
+        //     }
+        // });
+
+        // $("#dialog_" + name + " #24hours").click(function() {
+        //     console.log('1hour');
+        //     var stack_length = $("#dialog_" + name).data('zoomStack').length;
+        //     if ( stack_length > 0){
+        //         var index = $("#dialog_" + name).data('zoomStackIndex');
+
+        //         var new_index = index + 1;
+        //         $("#dialog_" + name).data('zoomStackIndex', new_index);
+        //         var new_zoomStack = $("#dialog_" + name).data('zoomStack').slice(0, new_index);
+        //         var end_time = new_zoomStack[index][0];
+        //         var length = 86400;
+        //         new_zoomStack.push([end_time, length])
+        //         $("#dialog_" + name).data('zoomStack', new_zoomStack);
+        //         $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+        //         $("#dialog_" + name).find('input[id="length"]').val(length);
+        //         replotTimeline(table_name, column_name, end_time, length);
+        //     }
+        // });
 
 
 
