@@ -1318,14 +1318,14 @@
         // console.log($(this).closest('.ibox').attr('id'));
         if ($("#dialog_" + name).length) {
             $("#dialog_" + name).dialog('open');
-            $("#dialog_" + name).find('input[id="reference_time"]').val(hd_times[i]);
+            $("#dialog_" + name).find('input[id="reference_time"]').val(hd_nows[i]);
         } else {
             var $newDialog = $('#dialog').clone();
             $newDialog.attr('id', 'dialog_' + name);
             $newDialog.removeClass('hide');
             $newDialog.attr('title', name);
             $newDialog.prepend('<div id="' + "plot_" + name + '"  class="dialog_plot" ></div>');
-            $newDialog.find('input[id="reference_time"]').val(hd_times[i]);
+            $newDialog.find('input[id="reference_time"]').val(hd_nows[i]);
             $newDialog.dialog({
                 width: 600,
                 height: 500,
