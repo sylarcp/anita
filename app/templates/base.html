@@ -192,7 +192,20 @@ Current UTC time: <div id = 'currentUTC'> </div>   <div id = 'eventrate'></div>
         var timeZoneShift = new Date().getTimezoneOffset() * 60000;
         // var timeZoneShift = 0 ;
 
-
+        function getCookie(cname) {
+            var name = cname + "=";
+            var ca = document.cookie.split(';');
+            for(var i = 0; i <ca.length; i++) {
+                var c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
 
         // global converting functions
         function byteString(n) {
@@ -284,6 +297,7 @@ Current UTC time: <div id = 'currentUTC'> </div>   <div id = 'eventrate'></div>
             $(document).bind('keydown','l', function(){
                 $('#last').trigger("click");
             });
+            
             
 
             

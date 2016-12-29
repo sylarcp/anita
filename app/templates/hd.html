@@ -346,14 +346,16 @@
             $newDialog.prepend('<div id="' + "plot_" + name + '"  class="dialog_plot" ></div>');
             $newDialog.find('input[id="reference_time"]').val(hd_nows[i]);
             $newDialog.dialog({
-                width: 600,
-                height: 500,
+                width: getCookie(name + "_width")?getCookie(name + "_width"):600,
+                height: getCookie(name + "_height")?getCookie(name + "_height"):500,
+                position: [getCookie(name + "_left")?parseInt(getCookie(name + "_left")):undefined, getCookie(name + "_top")?parseInt(getCookie(name + "_top")):undefined]
             });
             $newDialog.data('zoomStack', [[hd_nows[i], 21600]]);
             $newDialog.data('zoomStackIndex', 0);
             var line1 = [
             ['2008-09-30', 14]
             ];
+            $("#plot_" + name).height(Math.max(100, $newDialog.height() - 120));
             var plot1 = $.jqplot('plot_' + name, [line1], {
                 axes: {
                     xaxis: {
@@ -384,7 +386,7 @@
                         rendererOptions: { smooth: false },
                         markerOptions: {
                             size: showline? 2 : 4,
-                            shadow:false,
+                            shadow:false,   
                             color: 'blue' 
                         }
                     },
@@ -412,10 +414,21 @@
 
             $newDialog.dialog({
                 resize: function(event, ui) {
+                    // $("#dialog_" + name).data('style', []);
                     $("#plot_" + name).height(Math.max(100, $newDialog.height() - 120));
                     plot1.replot({
                         resetAxes: true,
                     });
+                    
+                },
+                resizeStop: function(event, ui) {
+                    document.cookie = name + "_width=" + ui.size.width;
+                    document.cookie = name + "_height=" + ui.size.height;
+                },
+                dragStop: function(event, ui) {
+                    document.cookie = name + "_left=" + ui.position.left;
+                    document.cookie = name + "_top=" + ui.position.top;
+                    alert(document.cookie);
                 }
             });
         }
