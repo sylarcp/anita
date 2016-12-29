@@ -72,6 +72,11 @@
                                 <td>Run#</td>
                                 <td id='runnum'></td>
                             </tr>
+
+                            <tr>
+                                <td>evid</td>
+                                <td id='evid'></td>
+                            </tr>
                             
                             <tr>
                                 <td>priority</td>
@@ -270,6 +275,7 @@
             $('#hd #ns').html(data.hd.ns);
             $('#hd #evnum').html(data.hd.evnum);
             $('#hd #runnum').html((data.hd.evid&0xfff00000)>>20);
+            $('#hd #evid').html((data.hd.evid&0x000fffff));
             $('#hd #priority').html(hexString(data.hd.priority));
             $('#hd #trigtype').html(data.hd.trigtype);
             $('#hd #trignum').html(data.hd.trignum);
@@ -428,7 +434,6 @@
                 dragStop: function(event, ui) {
                     document.cookie = name + "_left=" + ui.position.left;
                     document.cookie = name + "_top=" + ui.position.top;
-                    alert(document.cookie);
                 }
             });
         }

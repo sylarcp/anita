@@ -11,9 +11,11 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
         # dict = {'Hd':Hd, 'Wv':Wv, 'Hk':Hk, 'Mon':Mon, 'Adu5_sat':Adu5_sat, 'Adu5_vtg':Adu5_vtg, 'Adu5_pat':Adu5_pat, 'Sshk':Sshk, 'Turf':Turf, 'Hk_surf':Hk_surf}
         diction = {'hd':Hd, 'rf': Rf, 'wv':Wv, 'hk':Hk, 'mon':Mon, 'adu5_sat':Adu5_sat, 'adu5_vtg':Adu5_vtg, 'adu5_pat':Adu5_pat, 'g12_pos':G12_pos, 'g12_sat':G12_sat, 'cmd':Cmd, 'sshk': Sshk,'turf':Turf, 'hk_surf':Hk_surf, 'slow': Slow}
         # print column_name[-10:-7]
+        true_colomn_name = ''
         if table_name in ['hd', 'rf']:
             if column_name == 'runnum':
                 column_name = 'evid'
+                true_colomn_name = 'runnum'
             elif column_name == 'peaktheta':
                 column_name = 'peakthetabin'
             elif column_name in ['peakphi', 'peakpol']:
@@ -91,8 +93,10 @@ def get_history(ip_db, table_name, column_name, start_time, end_time):
             # hk: sbs  calibration factor
             if table_name == 'hk' and column_name in ['sbst1', 'sbst2', 'core1', 'core2']:
                 return jsonify({'data':[[1000*result.time + result.us/1000,0.1 *getattr(result, column_name)] for result in results]})
-            if table_name in ['hd', 'rf'] and column_name == 'evid':
+            if table_name in ['hd', 'rf'] and column_name == 'evid' and true_colomn_name == 'runnum':
                 return jsonify({'data':[[1000*result.time + result.us/1000,(getattr(result, column_name)&0xfff00000)/1048576] for result in results]})
+            if table_name in ['hd', 'rf'] and column_name == 'evid' and true_colomn_name != 'runnum':
+                return jsonify({'data':[[1000*result.time + result.us/1000,(getattr(result, column_name)&0x000fffff)] for result in results]})
             if table_name in ['hd', 'rf'] and column_name == 'priority':
                 return jsonify({'data':[[1000*result.time + result.us/1000,getattr(result, column_name)&0x0f] for result in results]})
             if table_name in ['rf', 'hd', 'hk'] and column_name != 'crc':
