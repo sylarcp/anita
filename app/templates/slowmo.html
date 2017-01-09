@@ -447,6 +447,15 @@
     </div>
 </div>
 <div id="dialog" class='hide'>
+    <ul class="nav navbar-top-links">
+        <span>Zoom Depth:</span>  <span id = 'zoomIndex'>1/1</span>
+        <li><button type="button" id='reset' class="btn btn-success btn-xs">Reset</button> </li>
+        <li><button type="button" id='undo' class="btn btn-success btn-xs">Undo</button> </li>
+        <li><button type="button" id='redo' class="btn btn-success btn-xs">Redo</button> </li>
+        <li><button type="button" id='1hour' class="btn btn-success btn-xs">1Hour</button> </li>
+        <li><button type="button" id='6hours' class="btn btn-success btn-xs">6Hours</button> </li>
+        <li><button type="button" id='24hours' class="btn btn-success btn-xs">24Hours</button> </li>
+    </ul>
     <div id='chart1'></div>
         </br>
         <div class="col-sm-6">
@@ -736,6 +745,8 @@ $(document).ready(function() {
                 width: 600,
                 height: 500,
             });
+            $newDialog.data('zoomStack', [[slow_nows[i], 21600]]);
+            $newDialog.data('zoomStackIndex', 0);
             var line1 = [
             ['2008-09-30', 14]
             ];
@@ -790,6 +801,125 @@ $(document).ready(function() {
             });
         }
 
+        $("#dialog_" + name).on('jqplotZoom', function(ev, gridpos, datapos, plot, cursor){
+            end_time = parseInt((plot.axes.xaxis.max - timeZoneShift)/1000);
+            length = end_time - parseInt((plot.axes.xaxis.min - timeZoneShift)/1000);
+            $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+            $("#dialog_" + name).find('input[id="length"]').val(length);
+            var new_index = $(this).data('zoomStackIndex') + 1;
+            $(this).data('zoomStackIndex', new_index);
+            var new_zoomStack = $(this).data('zoomStack').slice(0, new_index);
+            new_zoomStack.push([end_time, length]);
+            $(this).data('zoomStack', new_zoomStack);
+            console.log(new_index + 1 + '/' + new_zoomStack.length);
+            $("#dialog_" + name + " #zoomIndex").text(new_index + 1 + '/' + new_zoomStack.length);
+        });
+
+        $("#dialog_" + name + " #reset").click(function() {
+            $("#dialog_" + name).data('zoomStackIndex', 0);
+            $("#dialog_" + name).data('zoomStack', [[slow_nows[i], 21600]]);
+            $("#dialog_" + name).find('input[id="reference_time"]').val(slow_nows[i]);
+            $("#dialog_" + name).find('input[id="length"]').val(21600);
+            $("#dialog_" + name).find('button[id="request"]').trigger("click");
+            $("#dialog_" + name + " #zoomIndex").text('1/1');
+        });
+        
+
+        $("#dialog_" + name + " #undo").click(function() {
+            if ($("#dialog_" + name).data('zoomStack').length > 1){
+                var index = $("#dialog_" + name).data('zoomStackIndex') - 1;
+                if (index >= 0){
+                    $("#dialog_" + name).data('zoomStackIndex', index);
+                    var zoomStack = $("#dialog_" + name).data('zoomStack');
+                    var zoom = zoomStack[index];
+                    var end_time = zoom[0];
+                    var length = zoom[1]
+                    $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+                    $("#dialog_" + name).find('input[id="length"]').val(length);
+                    $("#dialog_" + name).find('button[id="request"]').trigger("click");
+                    $("#dialog_" + name + " #zoomIndex").text(index + 1 + '/' + zoomStack.length);
+                }
+            }
+        });
+
+        $("#dialog_" + name + " #redo").click(function() {
+            var stack_length = $("#dialog_" + name).data('zoomStack').length;
+            if ( stack_length > 0){
+                var index = $("#dialog_" + name).data('zoomStackIndex') + 1;
+                if (index < stack_length){
+                    $("#dialog_" + name).data('zoomStackIndex', index);
+                    var zoomStack = $("#dialog_" + name).data('zoomStack');
+                    var zoom = zoomStack[index];
+                    var end_time = zoom[0];
+                    var length = zoom[1]
+                    $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+                    $("#dialog_" + name).find('input[id="length"]').val(length);
+                    $("#dialog_" + name).find('button[id="request"]').trigger("click");
+                    $("#dialog_" + name + " #zoomIndex").text(index + 1 + '/' + zoomStack.length);
+                }
+            }
+        });
+
+        $("#dialog_" + name + " #1hour").click(function() {
+            console.log('1hour');
+            var stack_length = $("#dialog_" + name).data('zoomStack').length;
+            if ( stack_length > 0){
+                var index = $("#dialog_" + name).data('zoomStackIndex');
+
+                var new_index = index + 1;
+                $("#dialog_" + name).data('zoomStackIndex', new_index);
+                var new_zoomStack = $("#dialog_" + name).data('zoomStack').slice(0, new_index);
+                var end_time = new_zoomStack[index][0];
+                var length = 3600;
+                new_zoomStack.push([end_time, length])
+                $("#dialog_" + name).data('zoomStack', new_zoomStack);
+                $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+                $("#dialog_" + name).find('input[id="length"]').val(length);
+                $("#dialog_" + name).find('button[id="request"]').trigger("click");
+                $("#dialog_" + name + " #zoomIndex").text(new_index + 1 + '/' + new_zoomStack.length);
+            }
+        });
+
+        $("#dialog_" + name + " #6hours").click(function() {
+            console.log('1hour');
+            var stack_length = $("#dialog_" + name).data('zoomStack').length;
+            if ( stack_length > 0){
+                var index = $("#dialog_" + name).data('zoomStackIndex');
+
+                var new_index = index + 1;
+                $("#dialog_" + name).data('zoomStackIndex', new_index);
+                var new_zoomStack = $("#dialog_" + name).data('zoomStack').slice(0, new_index);
+                var end_time = new_zoomStack[index][0];
+                var length = 21600;
+                new_zoomStack.push([end_time, length])
+                $("#dialog_" + name).data('zoomStack', new_zoomStack);
+                $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+                $("#dialog_" + name).find('input[id="length"]').val(length);
+                $("#dialog_" + name).find('button[id="request"]').trigger("click");
+                $("#dialog_" + name + " #zoomIndex").text(new_index + 1 + '/' + new_zoomStack.length);
+            }
+        });
+
+        $("#dialog_" + name + " #24hours").click(function() {
+            console.log('1hour');
+            var stack_length = $("#dialog_" + name).data('zoomStack').length;
+            if ( stack_length > 0){
+                var index = $("#dialog_" + name).data('zoomStackIndex');
+
+                var new_index = index + 1;
+                $("#dialog_" + name).data('zoomStackIndex', new_index);
+                var new_zoomStack = $("#dialog_" + name).data('zoomStack').slice(0, new_index);
+                var end_time = new_zoomStack[index][0];
+                var length = 86400;
+                new_zoomStack.push([end_time, length])
+                $("#dialog_" + name).data('zoomStack', new_zoomStack);
+                $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+                $("#dialog_" + name).find('input[id="length"]').val(length);
+                $("#dialog_" + name).find('button[id="request"]').trigger("click");
+                $("#dialog_" + name + " #zoomIndex").text(new_index + 1 + '/' + new_zoomStack.length);
+            }
+        });
+
         $("#dialog_" + name).find('button[id="request"]').click(function() {
             console.log('click');
             var end_time = $newDialog.find('input[id="reference_time"]').val();
@@ -828,6 +958,7 @@ $(document).ready(function() {
             slow_nbufs = slow_nbufs.concat(data.slow_nbufs);
             slow_nows = slow_nows.concat(data.slow_nows);
             slow_times = slow_times.concat(data.slow_times);
+            $('#slow #index').html(i + 1 + " / " + slow_nbufs.length + "  ");
             $('#connect').removeClass('connect').removeClass('btn-primary').addClass('btn-warning');
             $('#connect').html('Disconnect');
             $('.chosen-select').attr("disabled", true).trigger("chosen:updated");
@@ -837,7 +968,7 @@ $(document).ready(function() {
         }).done(function() {
             setTimeout(function() {
                 if (new_length) {
-                    sleep_interval = 2000;
+                    sleep_interval = 100;
                 } else {
                     sleep_interval = Math.min(sleep_interval * 1.2, 60000);
                 }

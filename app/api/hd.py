@@ -11,7 +11,7 @@ def get_hd_nbufs(ip_db, offset):
     try:
         engine_ip_db = ip_db.replace('query','session')
         engine = getattr(Hd,engine_ip_db)
-        hds = engine.execute('select nbuf, evnum, time, now from hd offset ' + offset + ' limit 2000;').fetchall()
+        hds = engine.execute('select nbuf, evnum, time, now from hd offset ' + offset + ' limit 20000;').fetchall()
         return jsonify({'hd_nbufs': [item[0] for item in hds], 'hd_evnums': [item[1] for item in hds], 'hd_times': [item[2] for item in hds], 'hd_nows': [item[3] for item in hds]})
     except BaseException as error:
         print('Invalid request: get_hd_nbufs()', format(error))

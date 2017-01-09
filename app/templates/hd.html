@@ -439,7 +439,6 @@
         }
 
         function replotTimeline (table_name, column_name, end_time, length) {
-            console.log(end_time, length, 'hi');
             $.getJSON('/api/' + ip_db + '/history/' + table_name + '/' + column_name + '/' + (end_time - length) + '/' + end_time, function(data) {
                 // console.log(data);
                 if (showline == false){
