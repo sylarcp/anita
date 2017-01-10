@@ -455,6 +455,7 @@
         <li><button type="button" id='1hour' class="btn btn-success btn-xs">1Hour</button> </li>
         <li><button type="button" id='6hours' class="btn btn-success btn-xs">6Hours</button> </li>
         <li><button type="button" id='24hours' class="btn btn-success btn-xs">24Hours</button> </li>
+        <li><button type="button" id='1month' class="btn btn-success btn-xs">1Month</button> </li>
     </ul>
     <div id='chart1'></div>
         </br>
@@ -742,7 +743,7 @@ $(document).ready(function() {
             $newDialog.prepend('<div id="' + "plot_" + name + '" class="dialog_plot" ></div>');
             $newDialog.find('input[id="reference_time"]').val(slow_nows[i]);
             $newDialog.dialog({
-                width: 600,
+                width: 700,
                 height: 500,
             });
             $newDialog.data('zoomStack', [[slow_nows[i], 21600]]);
@@ -861,7 +862,6 @@ $(document).ready(function() {
         });
 
         $("#dialog_" + name + " #1hour").click(function() {
-            console.log('1hour');
             var stack_length = $("#dialog_" + name).data('zoomStack').length;
             if ( stack_length > 0){
                 var index = $("#dialog_" + name).data('zoomStackIndex');
@@ -881,7 +881,6 @@ $(document).ready(function() {
         });
 
         $("#dialog_" + name + " #6hours").click(function() {
-            console.log('1hour');
             var stack_length = $("#dialog_" + name).data('zoomStack').length;
             if ( stack_length > 0){
                 var index = $("#dialog_" + name).data('zoomStackIndex');
@@ -901,7 +900,6 @@ $(document).ready(function() {
         });
 
         $("#dialog_" + name + " #24hours").click(function() {
-            console.log('1hour');
             var stack_length = $("#dialog_" + name).data('zoomStack').length;
             if ( stack_length > 0){
                 var index = $("#dialog_" + name).data('zoomStackIndex');
@@ -911,6 +909,25 @@ $(document).ready(function() {
                 var new_zoomStack = $("#dialog_" + name).data('zoomStack').slice(0, new_index);
                 var end_time = new_zoomStack[index][0];
                 var length = 86400;
+                new_zoomStack.push([end_time, length])
+                $("#dialog_" + name).data('zoomStack', new_zoomStack);
+                $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
+                $("#dialog_" + name).find('input[id="length"]').val(length);
+                $("#dialog_" + name).find('button[id="request"]').trigger("click");
+                $("#dialog_" + name + " #zoomIndex").text(new_index + 1 + '/' + new_zoomStack.length);
+            }
+        });
+
+        $("#dialog_" + name + " #1month").click(function() {
+            var stack_length = $("#dialog_" + name).data('zoomStack').length;
+            if ( stack_length > 0){
+                var index = $("#dialog_" + name).data('zoomStackIndex');
+
+                var new_index = index + 1;
+                $("#dialog_" + name).data('zoomStackIndex', new_index);
+                var new_zoomStack = $("#dialog_" + name).data('zoomStack').slice(0, new_index);
+                var end_time = new_zoomStack[index][0];
+                var length = 2592000;
                 new_zoomStack.push([end_time, length])
                 $("#dialog_" + name).data('zoomStack', new_zoomStack);
                 $("#dialog_" + name).find('input[id="reference_time"]').val(end_time);
