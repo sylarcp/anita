@@ -68,7 +68,7 @@ def getDBnames(ip):
             dbnames_prev.append(row["datname"])
         elif row["datname"][:8] == 'anita_01':
             dbnames.append(row["datname"])
-        elif row["datname"] == 'anita16':
+        elif row["datname"] in ['anita16', 'anita2016']:
             dbnames_prev.append(row["datname"])
     dbnames = dbnames_prev + dbnames
     return jsonify({'dbnames':dbnames})
